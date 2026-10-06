@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "343141943174",
+    "project_id": "zappit-23ad8",
+    "storage_bucket": "zappit-23ad8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343141943174:android:e0ca2ce7ef527492c00e07",
+        "android_client_info": {
+          "package_name": "tv.zappit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343141943174-os2jlcod8jsvv2ud8gfbmbd8r7giikld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tv.zappit",
+            "certificate_hash": "d2eef45b6275f43e26f22795a386ee46cd70e006"
+          }
+        },
+        {
+          "client_id": "343141943174-t3quj2kurd4pckok77h2drsmhdgi04sf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqzl2ohqLT4FhiXsavrJdvo3ta4ki-j_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343141943174-t3quj2kurd4pckok77h2drsmhdgi04sf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "343141943174-6fjounjr1598jjtp1c5dugoki3psjao0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "tv.zappit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

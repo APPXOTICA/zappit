@@ -1,0 +1,54 @@
+{
+  "success": "Success",
+  "@success": {
+    "description": "Means some job has been completed as expected"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Button title"
+  },
+  "error": "Error",
+  "@error": {
+    "description": "Alert title. Displayed when an error occurs."
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings page title"
+  },
+  "logout": "Logout",
+  "@logout": {
+    "description": "Button title."
+  },
+  "logoutMessage": "Giving up the remote? You'll miss the convenience!",
+  "@logoutMessage": {
+    "description": "A lighthearted confirmation message for logging out, reminding the user of the remote control's convenience."
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Button title for confirming delete actions"
+  },
+  "deleteAccount": "Delete Account",
+  "@deleteAccount": {
+    "description": "Button title. This button allows users to delete the user's account."
+  },
+  "deleteAccountMessage": "Are you sure you want to delete your account? This action cannot be undone.",
+  "@deleteAccountMessage": {
+    "description": "Standard warning message for account deletion, emphasizing that the action is permanent and data cannot be recovered."
+  },
+  "deletingAccount": "Deleting your account...",
+  "@deletingAccount": {
+    "description": "A status or loading message shown to the user while the account deletion process is in progress."
+  },
+  "banned": "Sorry, this account has been banned.",
+  "@banned": {
+    "description": "Shown when banned account tries to log in."
+  },
+  "somethingWrong": "Sorry, something went wrong.",
+  "@somethingWrong": {
+    "description": "Displayed when something goes wrong."
+  },
+  "somethingWrongTryAgain": "Sorry, something went wrong. Please try again.",
+  "@somethingWrongTryAgain": {
+    "description": "Shown when error occurred."
+  }
+}
