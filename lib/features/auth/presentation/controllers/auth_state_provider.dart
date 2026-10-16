@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/constants/config.dart' as config;
 import 'package:zappit/core/storage/preferences.dart';
+import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/features/auth/data/models/auth_provider.dart' as local;
 import 'package:zappit/features/auth/data/models/auth_state.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 part 'auth_state_provider.g.dart';
 
@@ -18,6 +20,7 @@ class AuthState extends _$AuthState {
   bool _isGoogleSignInInitialized = false;
 
   String? get userId => FirebaseAuth.instance.currentUser?.uid;
+  String? get email => FirebaseAuth.instance.currentUser?.email;
 
   @override
   AuthenticationState build() {
@@ -103,6 +106,22 @@ class AuthState extends _$AuthState {
     }
   }
 
+  Future<void> _revokeAppleTokenIfNeeded() async {
+    final user = FirebaseAuth.instance.currentUser;
+    final isApple = user?.providerData.any((p) => p.providerId == 'apple.com') ?? false;
+    if (!isApple || !Platform.isIOS) return;
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(scopes: const []);
+      await FirebaseAuth.instance.revokeTokenWithAuthorizationCode(credential.authorizationCode);
+    } on SignInWithAppleAuthorizationException catch (e) {
+      // Cancelled: stop here so the user can decide again.
+      if (e.code == AuthorizationErrorCode.canceled) rethrow;
+      debugPrint('Apple revoke skipped: $e');
+    } catch (e) {
+      debugPrint('Apple revoke failed: $e');
+    }
+  }
+
   Future<void> signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
@@ -112,14 +131,21 @@ class AuthState extends _$AuthState {
         await GoogleSignIn.instance.signOut();
       }
     } on FirebaseAuthException catch (e) {
-      state = AuthStateError(e.message ?? 'Sign out failed');
+      AppNotice.snack(e.message ?? 'Sign out failed', error: true);
     } catch (e) {
-      state = AuthStateError(e.toString());
+      AppNotice.snack(e.toString(), error: true);
     }
   }
 
+  /// Deletes the account (App Store 5.1.1(v)).
+  ///
+  /// Sign in with Apple users on iOS first revoke the Apple token: a fresh
+  /// authorization code is requested and passed to Firebase, so no Apple
+  /// private key is needed on the server. Android has no native Apple
+  /// sign-in to get a code from; the server deletion still runs.
   Future<void> deleteAccount() async {
     try {
+      await _revokeAppleTokenIfNeeded();
       final callable = FirebaseFunctions.instanceFor(region: config.region)
           .httpsCallable('delete_account');
 
@@ -128,12 +154,14 @@ class AuthState extends _$AuthState {
       if (result.data['success'] == true) {
         await signOut();
       } else {
-        state = AuthStateError(result.data['message'] ?? '계정 삭제에 실패했습니다.');
+        AppNotice.snack(result.data['message'] ?? 'Account deletion failed.', error: true);
       }
     } on FirebaseFunctionsException catch (e) {
-      state = AuthStateError(e.message ?? '서버 통신 오류로 계정 삭제에 실패했습니다.');
+      AppNotice.snack(e.message ?? 'Account deletion failed. Please try again.', error: true);
+    } on SignInWithAppleAuthorizationException {
+      // User cancelled the Apple confirmation; nothing was deleted.
     } catch (e) {
-      state = AuthStateError(e.toString());
+      AppNotice.snack(e.toString(), error: true);
     }
   }
 }

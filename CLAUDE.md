@@ -13,10 +13,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Zappit은 폰(Flutter 앱)으로 컴퓨터 브라우저의 영상 재생을 제어하는 리모컨이다. 형제 디렉터리 네 개가 함께 동작한다.
 
 - `zappit/` (이 저장소): Flutter 앱. 리모컨 역할.
-- `../zappit_extension/`: 브라우저 확장(WXT + Svelte 5 + TypeScript). 영상 페이지를 실제로 제어한다. `src/entrypoints/`에 `background.ts`, `content.ts`, `popup/`, `offscreen.html`이 있고 공용 코드는 `src/lib/`에 있다.
+- `../zappit_extension/`: 브라우저 확장(WXT + Svelte 5 + TypeScript). 영상 페이지를 실제로 제어한다. 구조는 아래 "확장 구조" 참고.
 - `../zappit_firebase/`: Firestore 규칙(`firestore.rules`), RTDB 규칙(`database.rules.json`), Cloud Functions(`functions/index.js`, Node 22). `onUserCreated`, `onUserDeleted`, callable `delete_account`(앱에서 계정 삭제 시 호출).
 - `../zappit_web/`: zappit.tv 정적 사이트(Render). 아직 비어 있다.
-- `../zappit_assets/`: 디자인 시안·DS(`docs/design/`), 이미지, 사운드, Firebase 설정 파일 원본.
+- `../zappit_assets/`: 디자인 시안·DS(`docs/design/`), 앱↔확장 메시지 규격(`protocol/README.md`, `protocol/fixtures/`), 이미지, 사운드, Firebase 설정 파일 원본.
 
 
 ## 명령어
@@ -26,54 +26,74 @@ Flutter 앱 (`zappit/`):
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs   # *.g.dart, *.freezed.dart 재생성 (개발 중엔 watch)
 flutter analyze
-flutter test                                               # 전체
-flutter test test/widget_test.dart --plain-name "<이름>"    # 단일 테스트
+flutter test                                                  # 전체
+flutter test test/playback_math_test.dart --plain-name "<이름>" # 단일 테스트
 flutter run
+flutter run -t lib/dev/preview_main.dart --dart-define=SCENARIO=main   # 가짜 데이터로 화면 미리보기
 ```
 - 코드 생성 대상: `@riverpod`/`@Riverpod` provider, freezed 모델, json_serializable. 생성 파일은 커밋한다.
-- 다국어: `flutter_intl`(pubspec의 `flutter_intl: enabled: true`). `lib/l10n/intl_en.arb`를 고치면 Flutter Intl IDE 플러그인이 `lib/generated/`를 다시 만든다. `lib/generated/`는 손으로 고치지 않는다.
-- `test/widget_test.dart`는 템플릿 그대로라 존재하지 않는 `MyApp`을 참조한다. 테스트를 쓰기 전에 교체해야 한다.
+- 다국어: `flutter_intl`. `lib/l10n/intl_en.arb`를 고친 뒤 `dart run intl_utils:generate`(또는 Flutter Intl IDE 플러그인)로 `lib/generated/`를 다시 만든다. `lib/generated/`는 손으로 고치지 않는다.
+- 테스트: `test/protocol_fixtures_test.dart`가 `../zappit_assets/protocol/fixtures`를 읽는다(앱과 확장이 같은 파일로 메시지 규격을 검증).
+- 화면 미리보기: `lib/dev/preview_main.dart`는 실제 앱에 포함되지 않는 개발용 진입점이다. 시나리오(main, ad, live, ab, upnext, pick, home, netflix, shorts, web, disconnected, nobrowser, nothing, more, settings, pro, login, tabs, sleep, episodes)별로 provider를 가짜 데이터로 덮어써서 디자인 PNG와 비교한다. 시뮬레이터에 한 번 빌드해 두면 앱 컨테이너의 `tmp/scenario.txt`에 시나리오 이름을 쓰고 다시 실행해 바꿀 수 있다.
 
 확장 (`../zappit_extension/`, `.env` 필요: `VITE_FIREBASE_*`(`VITE_FIREBASE_DATABASE_URL` 포함), `VITE_ABLY_API_KEY`, `VITE_GOOGLE_OAUTH_CLIENT_ID`, `VITE_APPLE_SERVICES_ID`, 선택 `VITE_ABLY_CHANNEL_NAME`. 항목은 `.env.example` 참고):
 ```bash
 npm run dev       # Chrome 개발 모드 (dev:firefox)
 npm run build     # build:firefox, zip
 npm run check     # svelte-check 타입 검사
+npm test          # vitest (프로토콜 fixtures, lrud 이동 판정, 사이트 판별, 셀렉터, 챕터 파싱)
+npx vitest run src/lib/lrud.test.ts -t "<이름>"   # 단일 테스트
 ```
 
 Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이터), `npm run deploy`, `npm run logs`.
-규칙 배포 (`../zappit_firebase/`): `firebase deploy --only database`, `firebase deploy --only firestore:rules`.
+규칙·호스팅 배포 (`../zappit_firebase/`): `firebase deploy --only database`, `--only firestore:rules`, `--only hosting`(확장의 원격 셀렉터 JSON `hosting/selectors/v1.json`, 사용법은 같은 폴더 README).
 
 
 ## Flutter 앱 구조
 
 구조는 Riverpod 기반 Feature-Driven 아키텍처 + 단방향 데이터 흐름으로 확정했다. UseCase·Mapper 같은 Clean Architecture 계층은 만들지 않는다. 상세는 Notion Dev Strategies > App Architecture.
 
-- 흐름: UI → 상태 Provider → Repository/Service → (Ably 채널 `zappit:{uid}` | RTDB `playback/{uid}`, `session/{uid}` | Firestore `users/{uid}.settings`).
-- 추가할 폴더: `core/realtime/`(CommandBus 포함), `core/firebase/`, `core/analytics/`, `lib/protocol/`(앱↔확장 메시지 모델), `features/{shell,connection,remote,tabs,settings,purchase,onboarding,share_intent,voice}`, `shared/widgets/ds/`(DS 컴포넌트 위젯).
-- 명령은 모두 `RemoteController` → `RemoteCommand`(sealed) → CommandBus로 보낸다. CommandBus가 `requestId`·`targetInstanceId`·`schema_version`·`timestamp`를 붙이고 'ack'를 기다린다.
-- 리모컨 화면의 블록은 사이트 이름이 아니라 'target' 이벤트의 지원 기능 목록(capability)으로 보여줄지 정한다.
-- 앱↔확장 메시지 예시 JSON은 `../zappit_assets/protocol/`에 두고, 앱과 확장 테스트가 같은 파일을 파싱한다.
+- 흐름: UI → 상태 Provider → Repository/Service → (Ably 채널 `zappit:{uid}` | RTDB `playback/{uid}`, `session/{uid}` | Firestore `users/{uid}.settings`, `users/{uid}/browserTabs/{instanceId}`).
+- 폴더:
+  - `lib/protocol/`: 앱↔확장 메시지 모델(`RemoteCommand`, `TargetInfo`, `SiteState`, `Ack`, `PlaybackSnapshot`, `BrowserInstance`, `BrowserTab`). 규격은 `../zappit_assets/protocol/README.md`.
+  - `lib/core/realtime/`: `RealtimeService`(Ably 연결), `zappit_channel.dart`(채널, 이벤트 버스, `BrowserPresence`: 포그라운드에서 presence enter / 백그라운드에서 leave), `command_bus.dart`.
+  - `lib/core/firebase/`: RTDB `session`·`playback` 스트림과 선택(`session_repository.dart`), Firestore 설정(`user_settings_repository.dart`), 탭 목록(`browser_tabs_repository.dart`).
+  - `lib/core/theme/app_tokens.dart`: 디자인 토큰(`context.tokens`)과 글자 스타일(`AppText`). 다크 테마만 있다.
+  - `lib/shared/widgets/ds/`: DS 컴포넌트 위젯(`Zp*`). `ds.dart` 하나로 import.
+  - `lib/features/`: `auth`, `shell`(하단 탭 Remote·Tabs·More), `connection`(연결 상태, 브라우저 선택), `remote`(리모컨 화면·블록·시트·컨트롤러), `tabs`, `settings`(More, 리모컨 설정 모달), `purchase`(Pro 화면과 `isPro`), `onboarding`(연결 방법), `share_intent`, `voice`(인터페이스만).
+- 명령은 모두 `RemoteController`(`features/remote/controllers/remote_controller.dart`)의 메서드 → `RemoteCommand` → `CommandBus`로 보낸다. CommandBus가 `requestId`·`targetInstanceId`·`schema_version`·`timestamp`를 붙이고 'ack'를 기다린다. 4초 안에 응답이 없으면 상단 스낵바("Browser not responding"), 실패 ack는 스낵바.
+- 화면 상태는 `remoteModeProvider` 하나가 계산한다(disconnected · chooseBrowser · waiting · nothing · home · playing). YouTube 종료 화면은 `endScreenModeProvider`. glass 뷰 4개는 `glass_overlays.dart`.
+- 블록은 사이트 이름이 아니라 'target' 이벤트의 capability로 보여줄지 정한다(`remote_page.dart`의 `_PlayingBlocks`).
+- 재생 위치는 `PlaybackController`가 RTDB 값을 받은 로컬 시각 기준으로 보간한다(서버 `updatedAt`을 쓰지 않아 폰 시계 오차와 무관). seek·속도·볼륨은 앱이 먼저 바꾸고 맞는 값이 오거나 2초가 지날 때까지 들어오는 값을 무시한다. 규칙은 `playback_math.dart`(단위 테스트 있음).
+- Pro 여부는 `proControllerProvider`. RevenueCat 연결 전이라 false이고, 디버그 빌드에서만 Pro 화면의 스위치로 켤 수 있다.
 - 다크 테마만 지원한다. 다국어는 나중에(지금은 영어만).
-- 앱이 백그라운드로 가면 Ably `presence.leave()`, 돌아오면 `presence.enter()`.
-
-- 상태 관리는 Riverpod 3 + `riverpod_generator`. 전역 접근이 필요한 것(`S` 로컬라이제이션, `Logger`)만 GetIt(`core/services/service_locator.dart`의 `getIt`)에 등록한다. 컨텍스트 없이 문자열이 필요하면 `getIt<S>()`.
-- import는 barrel 파일을 쓴다: `core/barrel_files/riverpod_core.dart`(riverpod + annotation), `ui_core.dart`, `localization.dart`, `logging.dart`.
-- 폴더: `lib/core/`(설정·라우팅·테마·실시간·저장소 등 공용 인프라), `lib/features/<기능>/{data,presentation/{controllers,pages}}`, `lib/shared/`(여러 기능이 쓰는 provider·모델·위젯·리포지토리).
-- 시작 흐름: `main.dart`에서 Firebase 초기화 → `registerSingletons()` → `SharedPreferences`를 `sharedPreferencesProvider`에 override 해서 `ProviderScope` 생성. `MaterialApp.router`의 builder가 `initializerProvider`(Remote Config + Ably 초기화)를 기다리는 동안 `LoadingPage`를 보여주고, 전역 `ActivityIndicatorOverlay`를 위에 겹친다.
-- 라우팅: `core/routes/router_provider.dart`의 GoRouter. `RouteNotifier`가 `authStateProvider`를 listen 해서 redirect 한다(`/loading` → 인증 여부에 따라 `/home` 또는 `/login`). 새 화면은 여기 `_routes`에 추가한다.
-- 인증: `features/auth/presentation/controllers/auth_state_provider.dart`(keepAlive). FirebaseAuth로 Apple/Google 로그인, 상태는 sealed `AuthenticationState`(`AuthStateAuthenticated`/`Unauthenticated`/`Error`). 마지막 로그인 방식은 `preferencesProvider`에 저장.
-- 테마: 지금은 `core/theme/`의 `lightTheme`/`darkTheme`와 `AppCustomColors`가 있다. 디자인 토큰을 `AppTokens` ThemeExtension 하나로 옮겨 이를 대체하고, 위젯은 토큰만 참조한다.
-- 상수: `core/constants/config.dart`(OAuth 클라이언트 ID, Functions region, Ably 키·clientId, 약관 URL), `strings.dart`, `dimensions.dart`.
+- 상태 관리는 Riverpod 3 + `riverpod_generator`. 전역 접근이 필요한 것(`S` 로컬라이제이션, `Logger`)만 GetIt(`core/services/service_locator.dart`의 `getIt`)에 등록한다. 컨텍스트 없이 문자열이 필요하면 `getIt<S>()`. Riverpod 3에는 StreamProvider의 `.stream`이 없으므로, 모든 이벤트가 필요하면 `ChannelEventBus`처럼 스트림을 객체로 감싸 제공한다.
+- import는 barrel 파일을 쓴다: `core/barrel_files/riverpod_core.dart`, `ui_core.dart`, `localization.dart`, `logging.dart`.
+- 시작 흐름: `main.dart`에서 Firebase 초기화 → `registerSingletons()` → `SharedPreferences` override → `initializerProvider`(Remote Config + Ably 초기화) 동안 `LoadingPage` → `_AppServices`(공유 링크 수신, PostHog identify, Voice Control 시작/중지).
+- 라우팅: `core/routes/router_provider.dart`. 경로 이름은 `app_routes.dart`. 인증 상태에 따라 `/login` ↔ `/remote`로 redirect. 하단 탭은 `StatefulShellRoute.indexedStack`, Pro·리모컨 설정·연결 방법·웹뷰는 root navigator 위의 화면.
+- 인증: `auth_state_provider.dart`. 계정 삭제 시 iOS Apple 로그인 사용자는 Apple 토큰을 먼저 해지한다(`revokeTokenWithAuthorizationCode`). 로그아웃·삭제 실패는 인증 상태를 바꾸지 않고 스낵바로 알린다.
+- 상수: `core/constants/config.dart`(OAuth 클라이언트 ID, Functions region, Ably 키, 웹 URL, 공유 URL, App Store ID, PostHog).
+- Firebase 네이티브 설정(`ios/Runner/GoogleService-Info.plist`의 `DATABASE_URL`, `android/app/google-services.json`의 `firebase_url`)은 `lib/firebase_options.dart`와 값이 같아야 한다. 다르면 시작할 때 `[core/duplicate-app]`으로 실패한다.
 
 
 ## 앱 ↔ 확장 실시간 통신 (Ably)
 
 - 앱과 확장은 Firebase에 같은 계정으로 로그인하고, 같은 Ably 채널 `zappit:<Firebase UID>`를 쓴다(소문자. Ably 키 권한이 `zappit:*`로 제한돼 있어 대소문자가 다르면 연결되지 않는다). 이름 규칙은 앱 `core/realtime/channel_provider.dart`의 `RealtimeChannelNames`와 확장 `src/lib/ably-channel.ts`의 `getAblyChannelName`에 각각 있다. 바꾸려면 두 곳을 같이 바꾼다.
-- `RealtimeService`(`core/realtime/realtime_service.dart`)는 `ably.Realtime` 싱글턴 래퍼다. 앱 clientId는 `zappit-flutter`.
-- 연결 상태는 presence로 판단한다. `PresenceStateProvider`가 앱을 `{type: 'remote'}`로 presence에 넣고, data가 `'extension'`이거나 clientId가 `extension-`으로 시작하는 멤버 수를 `ExtensionPresence`로 내보낸다. 채널이 다시 attach되거나 앱이 resume되면 재진입한다. 현재 코드는 백그라운드 전환 시 leave하지 않지만, leave 하도록 바꾼다(위 결정).
-- 확장 background ↔ popup 간 상태는 `chrome.storage` 키 `zappitAblyStatus`로 동기화한다.
+- 앱 clientId는 `zappit-flutter`, presence data `{device: 'flutter', type: 'remote'}`. 확장 clientId는 `extension-{instanceId}`, presence data에 `instanceId`·브라우저·OS·기기 이름·대상 탭 제목.
+- 선택된 브라우저(`session/{uid}/selectedInstanceId`)만 'target'·'state'·'ack'를 보내고 RTDB에 쓴다. 온라인 브라우저가 하나뿐이고 선택이 비었으면 앱과 확장이 같은 RTDB transaction 규칙으로 그 브라우저를 선택한다.
+- 확장 background ↔ popup 간 상태는 `chrome.storage` 키 `zappitAblyStatus`(`PopupStatus`)로 동기화한다.
 - 영상 상태(재생 위치, 볼륨 등)는 Ably가 아니라 Firebase RTDB(us-central1, `https://zappit-23ad8-default-rtdb.firebaseio.com`)로 확장 → 앱 단방향 전달한다. 경로는 `playback/{uid}`, `session/{uid}/selectedInstanceId`이고 본인 uid만 읽고 쓸 수 있다.
+
+
+## 확장 구조 (`../zappit_extension/src/`)
+
+- `entrypoints/background.ts`: 인증 상태에 따라 `lib/background/controller.ts`(`Controller`)를 시작/중지하고 알람·메시지를 연결한다.
+- `lib/background/`: `ably-link.ts`(Ably, presence, command 구독), `session.ts`(선택된 브라우저, 자동 선택), `target-tracker.ts`(마지막 포커스된 일반 창의 활성 탭, 프레임별 미디어 보고), `playback-writer.ts`(RTDB `playback/{uid}`, 1초 throttle), `tabs-sync.ts`(Firestore Lite로 탭 목록), `sleep-timer.ts`, `activity.ts`(60일 미사용 로그아웃), `sounds.ts`(offscreen 사운드, 없는 브라우저는 생략).
+- `entrypoints/content/index.ts`: 모든 페이지·모든 프레임. 사이트 어댑터(`lib/content/adapters/`: generic, youtube, netflix, shortform)와 `MediaController`(가장 큰 video, Loop·A-B·속도 맛보기·슬립 페이드)를 연결한다. 사이트 UI 상태는 최상위 프레임만 보낸다.
+- `entrypoints/main-world.ts`: YouTube·Netflix 페이지 컨텍스트에서 플레이어 API를 부른다(자막, 볼륨, Netflix seek·메타데이터). `lib/content/bridge.ts`가 분리된 `<script>` 요소의 CustomEvent로 요청한다.
+- `lib/lrud.ts`: BBC lrud-spatial의 이동 판정 이식(Apache-2.0). 다른 점은 파일 머리 주석 참고. `lib/content/focus-navigator.ts`가 가상 포커스로 홈 화면·종료 화면 카드를 이동한다.
+- `lib/selectors.ts`: 사이트별 기본 셀렉터와 원격 JSON(`https://zappit-23ad8.web.app/selectors/v1.json`) 병합. 사이트 UI가 바뀌면 원격 JSON만 고쳐 배포한다.
+- `lib/protocol.ts`: 앱과 같은 메시지 규격(TypeScript). `lib/sites.ts`: URL로 사이트·페이지 판별과 capability 목록.
 
 
 ## 지원 브라우저 (확장)
@@ -115,6 +135,13 @@ https://app.notion.com/p/Dev-Strategies-3eb30e346279803992f7fe674ffc93d3?source=
 
 - 앱에서 쓰는 아이콘 목록은 `icon_list.md`를 참고한다. 지정된 아이콘은 그대로 쓰고, 목록에 없는 아이콘은 디자인 시안과 같은 모양으로 쓴다.
 - 이미지 아이콘은 `assets/images/...` 경로로 불러온다.
+
+
+## Sound
+
+- Flutter <-> Extension 상호 연결 및 콘트롤 가능한 상태가 됐을 때 : connected.mp3
+- Flutter 앱 종료/백그라운드 진입 등 콘트롤 불가능 상태가 됐을 때 : disconnected.mp3
+- Spatial Navigation으로 카드 이동시 : move.mp3
 
 
 ## IAP 

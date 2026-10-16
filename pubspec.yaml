@@ -58,6 +58,17 @@ dependencies:
   in_app_review: ^2.0.12
   share_plus: ^13.3.1
   sherpa_onnx: ^1.13.8
+  firebase_database: ^12.6.0
+  cloud_firestore: ^6.10.0
+  url_launcher: ^6.3.3
+  package_info_plus: ^10.2.2
+  webview_flutter: ^4.14.1
+  posthog_flutter: ^5.55.0
+  top_snackbar_flutter: ^3.4.0
+  marquee: ^2.3.0
+  receive_sharing_intent: ^1.9.0
+  uuid: ^4.6.0
+  freezed_annotation: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +80,7 @@ dev_dependencies:
   riverpod_generator: ^4.0.9
   riverpod_lint: ^3.1.9
   retrofit_generator: ^10.2.11
+  intl_utils: ^2.8.17
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

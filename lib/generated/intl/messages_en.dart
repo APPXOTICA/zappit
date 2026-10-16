@@ -35,11 +35,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Deleting your account...",
     ),
     "error": MessageLookupByLibrary.simpleMessage("Error"),
-    "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+    "logout": MessageLookupByLibrary.simpleMessage("Log out"),
     "logoutMessage": MessageLookupByLibrary.simpleMessage(
       "Giving up the remote? You\'ll miss the convenience!",
     ),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "shareContent": MessageLookupByLibrary.simpleMessage(
+      "Control your computer\'s video without leaving your bed.",
+    ),
     "somethingWrong": MessageLookupByLibrary.simpleMessage(
       "Sorry, something went wrong.",
     ),

@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -94,10 +95,10 @@ class S {
     );
   }
 
-  /// `Logout`
+  /// `Log out`
   String get logout {
     return Intl.message(
-      'Logout',
+      'Log out',
       name: 'logout',
       desc: 'Button title.',
       args: [],
@@ -109,8 +110,7 @@ class S {
     return Intl.message(
       'Giving up the remote? You\'ll miss the convenience!',
       name: 'logoutMessage',
-      desc:
-          'A lighthearted confirmation message for logging out, reminding the user of the remote control\'s convenience.',
+      desc: 'A lighthearted confirmation message for logging out, reminding the user of the remote control\'s convenience.',
       args: [],
     );
   }
@@ -130,8 +130,7 @@ class S {
     return Intl.message(
       'Delete Account',
       name: 'deleteAccount',
-      desc:
-          'Button title. This button allows users to delete the user\'s account.',
+      desc: 'Button title. This button allows users to delete the user\'s account.',
       args: [],
     );
   }
@@ -141,8 +140,7 @@ class S {
     return Intl.message(
       'Are you sure you want to delete your account? This action cannot be undone.',
       name: 'deleteAccountMessage',
-      desc:
-          'Standard warning message for account deletion, emphasizing that the action is permanent and data cannot be recovered.',
+      desc: 'Standard warning message for account deletion, emphasizing that the action is permanent and data cannot be recovered.',
       args: [],
     );
   }
@@ -152,8 +150,7 @@ class S {
     return Intl.message(
       'Deleting your account...',
       name: 'deletingAccount',
-      desc:
-          'A status or loading message shown to the user while the account deletion process is in progress.',
+      desc: 'A status or loading message shown to the user while the account deletion process is in progress.',
       args: [],
     );
   }
@@ -184,6 +181,16 @@ class S {
       'Sorry, something went wrong. Please try again.',
       name: 'somethingWrongTryAgain',
       desc: 'Shown when error occurred.',
+      args: [],
+    );
+  }
+
+  /// `Control your computer's video without leaving your bed.`
+  String get shareContent {
+    return Intl.message(
+      'Control your computer\'s video without leaving your bed.',
+      name: 'shareContent',
+      desc: 'Text shared by Tell a friend, between the app name and the store link.',
       args: [],
     );
   }

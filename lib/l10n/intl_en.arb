@@ -15,7 +15,7 @@
   "@settings": {
     "description": "Settings page title"
   },
-  "logout": "Logout",
+  "logout": "Log out",
   "@logout": {
     "description": "Button title."
   },
@@ -50,5 +50,9 @@
   "somethingWrongTryAgain": "Sorry, something went wrong. Please try again.",
   "@somethingWrongTryAgain": {
     "description": "Shown when error occurred."
+  },
+  "shareContent": "Control your computer's video without leaving your bed.",
+  "@shareContent": {
+    "description": "Text shared by Tell a friend, between the app name and the store link."
   }
 }

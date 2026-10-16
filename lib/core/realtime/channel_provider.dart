@@ -14,7 +14,7 @@ abstract final class RealtimeChannelNames {
 /// 현재 로그인 유저의 user-channel 이름을 제공합니다.
 ///
 /// 로그인 안 된 경우 null.
-@riverpod
+@Riverpod(keepAlive: true)
 String? channelName(Ref ref) {
   final state = ref.watch(authStateProvider);
 

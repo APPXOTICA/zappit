@@ -1,6 +1,19 @@
-// Terms and Privacy
-const termsOfServiceUrl = 'https://zappit.tv/terms-of-service.html';
-const privacyPolicyUrl = 'https://zappit.tv/privacy-policy.html';
+// Web (zappit.tv). Pages other than terms/privacy are placeholders until
+// zappit_web is built; keep the paths when implementing them (CLAUDE.md URLs).
+const termsOfServiceUrl = 'https://zappit.tv/terms';
+const privacyPolicyUrl = 'https://zappit.tv/privacy';
+const getExtensionUrl = 'https://zappit.tv/get';
+const tutorialUrl = 'https://zappit.tv/tutorial';
+const supportedSitesUrl = 'https://zappit.tv/supported-sites';
+const voiceControlHelpUrl = 'https://zappit.tv/voice-control';
+
+// Sharing and store
+const shareAppUrl = 'https://onelink.to/ngsjzu';
+const appStoreId = '6823437118';
+
+// Analytics
+const postHogApiKey = 'phc_usorcyR7jf7RQGrgFmHFKmPbSs65kyBs2aEpsKziXdiQ';
+const postHogHost = 'https://us.i.posthog.com';
 
 const webClientId = '343141943174-t3quj2kurd4pckok77h2drsmhdgi04sf.apps.googleusercontent.com';
 const iosClientId = '343141943174-6fjounjr1598jjtp1c5dugoki3psjao0.apps.googleusercontent.com';
@@ -10,4 +23,3 @@ const region = 'us-central1';
 
 // Ably
 const ablyKey = '1uS9Cw.kxJcyQ:iaa63KLRQSMsv6bA7LT8s65z0o2bCta1kYODDQ2a_LY';
-const clientId = 'zappit-flutter';

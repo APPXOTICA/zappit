@@ -31,7 +31,7 @@ final class ChannelNameProvider
         argument: null,
         retry: null,
         name: r'channelNameProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -58,4 +58,4 @@ final class ChannelNameProvider
   }
 }
 
-String _$channelNameHash() => r'b761f31078625bb4db2b3cc7a75e7f9851b86b8b';
+String _$channelNameHash() => r'1f102430af9de5c8e0184c141725d7ebdf531ee2';
