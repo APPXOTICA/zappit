@@ -6,9 +6,9 @@ part 'channel_provider.g.dart';
 
 /// Realtime 채널 이름 규칙을 한 곳에서 관리합니다.
 ///
-/// 예: zappit:user_<userId>
+/// 예: `zappit:<userId>`
 abstract final class RealtimeChannelNames {
-  static String user(String userId) => 'zappit:user_$userId';
+  static String user(String userId) => 'zappit:$userId';
 }
 
 /// 현재 로그인 유저의 user-channel 이름을 제공합니다.

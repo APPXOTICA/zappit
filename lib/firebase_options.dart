@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:343141943174:android:e0ca2ce7ef527492c00e07',
     messagingSenderId: '343141943174',
     projectId: 'zappit-23ad8',
+    databaseURL: 'https://zappit-23ad8-default-rtdb.firebaseio.com',
     storageBucket: 'zappit-23ad8.firebasestorage.app',
   );
 
@@ -62,6 +63,7 @@ class DefaultFirebaseOptions {
     appId: '1:343141943174:ios:4ae89afe41b3bfabc00e07',
     messagingSenderId: '343141943174',
     projectId: 'zappit-23ad8',
+    databaseURL: 'https://zappit-23ad8-default-rtdb.firebaseio.com',
     storageBucket: 'zappit-23ad8.firebasestorage.app',
     iosBundleId: 'tv.zappit',
   );
