@@ -49,3 +49,7 @@ app.*.map.json
 
 # Local-only Claude notes (secrets)
 CLAUDE.local.md
+
+# Release signing (upload key). Back these up outside git.
+keystore.properties
+*.p12

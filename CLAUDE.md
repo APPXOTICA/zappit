@@ -65,7 +65,8 @@ Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이�
 - 화면 상태는 `remoteModeProvider` 하나가 계산한다(disconnected · chooseBrowser · waiting · nothing · home · playing). YouTube 종료 화면은 `endScreenModeProvider`. glass 뷰 4개는 `glass_overlays.dart`.
 - 블록은 사이트 이름이 아니라 'target' 이벤트의 capability로 보여줄지 정한다(`remote_page.dart`의 `_PlayingBlocks`).
 - 재생 위치는 `PlaybackController`가 RTDB 값을 받은 로컬 시각 기준으로 보간한다(서버 `updatedAt`을 쓰지 않아 폰 시계 오차와 무관). seek·속도·볼륨은 앱이 먼저 바꾸고 맞는 값이 오거나 2초가 지날 때까지 들어오는 값을 무시한다. 규칙은 `playback_math.dart`(단위 테스트 있음).
-- Pro 여부는 `proControllerProvider`. RevenueCat 연결 전이라 false이고, 디버그 빌드에서만 Pro 화면의 스위치로 켤 수 있다.
+- Pro 여부는 `proControllerProvider`: RevenueCat entitlement `zappit_pro`. customer info 리스너로 구매·복원·만료·계정 전환이 바로 반영된다. 디버그 빌드에서는 Pro 화면의 스위치로 강제로 켤 수 있다.
+- 결제는 `features/purchase/purchase_service.dart`. RevenueCat App User ID는 Firebase UID다(시작 시 configure, 로그인·로그아웃 시 `syncUser`). Pro 화면은 디자인 시안대로 직접 만든 화면이고 현재 offering의 연간 패키지(`yearly`)를 판다. Pro 사용자의 구독 관리는 RevenueCat Customer Center.
 - 다크 테마만 지원한다. 다국어는 나중에(지금은 영어만).
 - 상태 관리는 Riverpod 3 + `riverpod_generator`. 전역 접근이 필요한 것(`S` 로컬라이제이션, `Logger`)만 GetIt(`core/services/service_locator.dart`의 `getIt`)에 등록한다. 컨텍스트 없이 문자열이 필요하면 `getIt<S>()`. Riverpod 3에는 StreamProvider의 `.stream`이 없으므로, 모든 이벤트가 필요하면 `ChannelEventBus`처럼 스트림을 객체로 감싸 제공한다.
 - import는 barrel 파일을 쓴다: `core/barrel_files/riverpod_core.dart`, `ui_core.dart`, `localization.dart`, `logging.dart`.
@@ -92,7 +93,7 @@ Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이�
 - `entrypoints/content/index.ts`: 모든 페이지·모든 프레임. 사이트 어댑터(`lib/content/adapters/`: generic, youtube, netflix, shortform)와 `MediaController`(가장 큰 video, Loop·A-B·속도 맛보기·슬립 페이드)를 연결한다. 사이트 UI 상태는 최상위 프레임만 보낸다.
 - `entrypoints/main-world.ts`: YouTube·Netflix 페이지 컨텍스트에서 플레이어 API를 부른다(자막, 볼륨, Netflix seek·메타데이터). `lib/content/bridge.ts`가 분리된 `<script>` 요소의 CustomEvent로 요청한다.
 - `lib/lrud.ts`: BBC lrud-spatial의 이동 판정 이식(Apache-2.0). 다른 점은 파일 머리 주석 참고. `lib/content/focus-navigator.ts`가 가상 포커스로 홈 화면·종료 화면 카드를 이동한다.
-- `lib/selectors.ts`: 사이트별 기본 셀렉터와 원격 JSON(`https://zappit-23ad8.web.app/selectors/v1.json`) 병합. 사이트 UI가 바뀌면 원격 JSON만 고쳐 배포한다.
+- `lib/selectors.ts`: 사이트별 기본 셀렉터와 원격 JSON(`https://zappit-23ad8.web.app/selectors/v1.json`) 병합. 사이트 UI가 바뀌면 원격 JSON만 고쳐 배포한다(1시간마다 갱신). 명령이 필요한 요소를 못 찾으면 어댑터가 `missing('<셀렉터 이름>')`을 돌려주고, background가 PostHog `extension_selector_missing`(site·셀렉터 이름·명령만, 브라우저별 조합당 하루 1회)으로 보고한다(`lib/background/selector-telemetry.ts`).
 - `lib/protocol.ts`: 앱과 같은 메시지 규격(TypeScript). `lib/sites.ts`: URL로 사이트·페이지 판별과 capability 목록.
 
 
@@ -146,7 +147,11 @@ https://app.notion.com/p/Dev-Strategies-3eb30e346279803992f7fe674ffc93d3?source=
 
 ## IAP 
 
-- IAP 기능은 화면만 만든다. IAP 구현은 기능 테스트 완료 후 진행 예정
+- RevenueCat(`purchases_flutter`, `purchases_ui_flutter`). entitlement `zappit_pro`, 상품 `yearly`(연간 구독), API 키는 `config.dart`의 `revenueCatApiKey`.
+- `test_` 키는 RevenueCat Test Store 키다. 출시 빌드 전에 플랫폼별 키(`appl_`, `goog_`)로 바꾼다.
+- Android `MainActivity`는 `FlutterFragmentActivity`여야 한다(Customer Center·Paywall).
+- Android release 서명: `keystore.properties`(저장소 루트)와 `android/app/upload-keystore.p12`(Play 업로드 키). 둘 다 gitignore이며 저장소 밖에 백업한다. 없으면 debug 키로 서명된다.
+- 광고가 없으므로 Firebase Analytics가 넣는 `AD_ID`·`ACCESS_ADSERVICES_*` 권한을 매니페스트에서 제거했다(Play Console 광고 ID 선언 = No). 다시 넣지 않는다.
 
 
 ## More tab

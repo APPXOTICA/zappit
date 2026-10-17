@@ -17,6 +17,7 @@ import 'package:zappit/core/storage/preferences.dart';
 import 'package:zappit/core/theme/theme.dart';
 import 'package:zappit/core/utils/ui_helper.dart';
 import 'package:zappit/features/loading/presentation/pages/loading_page.dart';
+import 'package:zappit/features/purchase/purchase_service.dart';
 import 'package:zappit/features/share_intent/share_intent_controller.dart';
 import 'package:zappit/features/voice/voice_command_service.dart';
 import 'package:zappit/firebase_options.dart';
@@ -116,6 +117,7 @@ class _AppServicesState extends ConsumerState<_AppServices> with WidgetsBindingO
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     ref.listenManual(currentUidProvider, (previous, uid) {
+      unawaited(ref.read(purchaseServiceProvider).syncUser(uid));
       if (uid != null) {
         unawaited(Analytics.identify(uid));
       } else if (previous != null) {

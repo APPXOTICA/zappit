@@ -8,27 +8,27 @@ part of 'pro_controller.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Whether the user has Zappit Pro.
+/// Whether the user has Zappit Pro: the RevenueCat `zappit_pro` entitlement.
 ///
-/// RevenueCat is not wired yet (IAP is screen-only for now). Until then this
-/// is false, with a debug-only switch on the IAP screen to test Pro paths.
-/// Later: read the RevenueCat entitlement here; callers don't change.
+/// RevenueCat pushes every change (purchase, restore, renewal, expiry,
+/// logIn/logOut on account switch) through the customer info listener, so
+/// callers just watch this. Debug builds can force Pro from the Pro screen.
 
 @ProviderFor(ProController)
 final proControllerProvider = ProControllerProvider._();
 
-/// Whether the user has Zappit Pro.
+/// Whether the user has Zappit Pro: the RevenueCat `zappit_pro` entitlement.
 ///
-/// RevenueCat is not wired yet (IAP is screen-only for now). Until then this
-/// is false, with a debug-only switch on the IAP screen to test Pro paths.
-/// Later: read the RevenueCat entitlement here; callers don't change.
+/// RevenueCat pushes every change (purchase, restore, renewal, expiry,
+/// logIn/logOut on account switch) through the customer info listener, so
+/// callers just watch this. Debug builds can force Pro from the Pro screen.
 final class ProControllerProvider
     extends $NotifierProvider<ProController, bool> {
-  /// Whether the user has Zappit Pro.
+  /// Whether the user has Zappit Pro: the RevenueCat `zappit_pro` entitlement.
   ///
-  /// RevenueCat is not wired yet (IAP is screen-only for now). Until then this
-  /// is false, with a debug-only switch on the IAP screen to test Pro paths.
-  /// Later: read the RevenueCat entitlement here; callers don't change.
+  /// RevenueCat pushes every change (purchase, restore, renewal, expiry,
+  /// logIn/logOut on account switch) through the customer info listener, so
+  /// callers just watch this. Debug builds can force Pro from the Pro screen.
   ProControllerProvider._()
     : super(
         from: null,
@@ -56,13 +56,13 @@ final class ProControllerProvider
   }
 }
 
-String _$proControllerHash() => r'8b9904b20af22b3188101c8a02db7cc90b4a6a9e';
+String _$proControllerHash() => r'88286d60da8bc17949058160c3a843dc6504a5aa';
 
-/// Whether the user has Zappit Pro.
+/// Whether the user has Zappit Pro: the RevenueCat `zappit_pro` entitlement.
 ///
-/// RevenueCat is not wired yet (IAP is screen-only for now). Until then this
-/// is false, with a debug-only switch on the IAP screen to test Pro paths.
-/// Later: read the RevenueCat entitlement here; callers don't change.
+/// RevenueCat pushes every change (purchase, restore, renewal, expiry,
+/// logIn/logOut on account switch) through the customer info listener, so
+/// callers just watch this. Debug builds can force Pro from the Pro screen.
 
 abstract class _$ProController extends $Notifier<bool> {
   bool build();

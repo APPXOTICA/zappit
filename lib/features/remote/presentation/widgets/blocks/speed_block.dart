@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
+import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/features/purchase/pro_controller.dart';
 import 'package:zappit/features/remote/controllers/playback_controller.dart';
 import 'package:zappit/features/remote/controllers/playback_math.dart';
@@ -19,6 +20,7 @@ class SpeedBlock extends ConsumerStatefulWidget {
 
 class _SpeedBlockState extends ConsumerState<SpeedBlock> {
   Timer? _ticker;
+  DateTime? _trialStarted;
 
   @override
   void dispose() {
@@ -45,6 +47,21 @@ class _SpeedBlockState extends ConsumerState<SpeedBlock> {
     final isPro = ref.watch(proControllerProvider);
     final hasData = ref.watch(playbackControllerProvider.select((v) => v.hasData));
     _ensureTicker(trialEndsAt);
+    ref.listen(playbackControllerProvider.select((v) => v.snapshot?.speedTrialEndsAt), (previous, next) {
+      if (previous == null && next != null) {
+        // Timed with the phone clock: the browser's clock may differ.
+        _trialStarted = DateTime.now();
+      } else if (previous != null && next == null) {
+        final started = _trialStarted;
+        _trialStarted = null;
+        // Ran out, not cut short by picking another speed.
+        final expired = started != null &&
+            DateTime.now().difference(started) >= const Duration(seconds: RemoteController.proTrialSeconds - 1);
+        if (expired && !ref.read(proControllerProvider)) {
+          AppNotice.snack('Back to 1x. Free users can use this speed for ${RemoteController.proTrialSeconds} seconds.', vibrate: true);
+        }
+      }
+    });
 
     final selected = PlaybackMath.matchingPreset(rate) ?? (rate * 100).round() / 100;
     final now = DateTime.now().millisecondsSinceEpoch;

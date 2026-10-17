@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/constants/config.dart';
@@ -7,12 +10,14 @@ import 'package:zappit/core/constants/strings.dart';
 import 'package:zappit/core/routes/app_routes.dart';
 import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/features/purchase/pro_controller.dart';
+import 'package:zappit/features/purchase/purchase_service.dart';
+import 'package:zappit/shared/providers/activity_indicator_provider.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
 import 'package:zappit/shared/widgets/web_view_page.dart';
 
-/// Zappit Pro paywall. Screen only: purchases are wired to RevenueCat after
-/// feature testing, so Subscribe / Restore show a notice for now.
-class ProPage extends ConsumerWidget {
+/// Zappit Pro paywall (design screen), selling the yearly package of the
+/// current RevenueCat offering. Pro users get Customer Center instead.
+class ProPage extends ConsumerStatefulWidget {
   const ProPage({super.key});
 
   static const features = [
@@ -25,9 +30,92 @@ class ProPage extends ConsumerWidget {
   ];
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ProPage> createState() => _ProPageState();
+}
+
+class _ProPageState extends ConsumerState<ProPage> {
+  Package? _package;
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    unawaited(_loadPackage());
+  }
+
+  Future<Package?> _loadPackage() async {
+    final package = await ref.read(purchaseServiceProvider).yearlyPackage();
+    if (mounted) {
+      setState(() {
+        _package = package;
+        _loading = false;
+      });
+    }
+    return package;
+  }
+
+  /// Not gated on the package having loaded: a tap retries, and if the store
+  /// still has nothing to sell the user is told so instead of facing a
+  /// dead button (sssurf App Review rejection).
+  Future<void> _subscribe() async {
+    final indicator = ref.read(activityIndicatorProvider.notifier);
+    indicator.show(null);
+    try {
+      final package = _package ?? await _loadPackage();
+      if (!mounted) return;
+      if (package == null) {
+        AppNotice.snack('The store is not available right now. Please try again later.', error: true);
+        return;
+      }
+      final outcome = await ref.read(purchaseServiceProvider).purchase(context, package);
+      if (outcome == PurchaseOutcome.purchased && mounted) {
+        AppNotice.snack('Welcome to ${Strings.appTitlePro}');
+        Navigator.of(context).maybePop();
+      }
+    } finally {
+      indicator.hide();
+    }
+  }
+
+  Future<void> _restore() async {
+    final indicator = ref.read(activityIndicatorProvider.notifier);
+    indicator.show(null);
+    try {
+      final pro = await ref.read(purchaseServiceProvider).restore(context);
+      if (pro && mounted) {
+        AppNotice.snack('${Strings.appTitlePro} restored');
+        Navigator.of(context).maybePop();
+      }
+    } finally {
+      indicator.hide();
+    }
+  }
+
+  String get _priceText {
+    final product = _package?.storeProduct;
+    if (product == null) return _loading ? '' : 'Unavailable';
+    return '${product.priceString} / year';
+  }
+
+  /// "7-day free trial" when the product has a free introductory offer.
+  String? get _trialText {
+    final intro = _package?.storeProduct.introductoryPrice;
+    if (intro == null || intro.price > 0) return null;
+    final unit = switch (intro.periodUnit) {
+      PeriodUnit.day => 'day',
+      PeriodUnit.week => 'week',
+      PeriodUnit.month => 'month',
+      PeriodUnit.year => 'year',
+      PeriodUnit.unknown => null,
+    };
+    return unit == null ? 'Free trial' : '${intro.periodNumberOfUnits}-$unit free trial';
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final t = context.tokens;
     final isPro = ref.watch(proControllerProvider);
+    final trial = _trialText;
 
     return Scaffold(
       backgroundColor: t.bgBase,
@@ -76,7 +164,7 @@ class ProPage extends ConsumerWidget {
                       const SizedBox(height: AppTokens.space4),
                       ZpGroup(
                         children: [
-                          for (final f in features)
+                          for (final f in ProPage.features)
                             ZpListRow(title: f, minHeight: 50, leading: Icon(Icons.check_rounded, color: t.inkMuted)),
                         ],
                       ),
@@ -86,7 +174,13 @@ class ProPage extends ConsumerWidget {
                           children: [
                             Text('Subscription', style: AppText.label.copyWith(color: t.inkMuted)),
                             const SizedBox(height: 4),
-                            Text('[PRICE] / [PERIOD]', style: AppText.heading.copyWith(fontSize: 22, color: t.ink)),
+                            SizedBox(
+                              height: 30,
+                              child: _loading
+                                  ? const Center(child: SizedBox.square(dimension: 20, child: CircularProgressIndicator(strokeWidth: 2)))
+                                  : Text(_priceText, style: AppText.heading.copyWith(fontSize: 22, color: t.ink)),
+                            ),
+                            if (trial != null) Text(trial, style: AppText.body.copyWith(color: t.ink)),
                             const SizedBox(height: 4),
                             Text(
                               'Cancel anytime in your store account',
@@ -120,12 +214,12 @@ class ProPage extends ConsumerWidget {
                   child: Column(
                     children: [
                       ZpButton(
-                        label: isPro ? "You're Pro" : 'Subscribe',
+                        label: isPro ? 'Manage subscription' : (trial != null ? 'Start free trial' : 'Subscribe'),
                         style: ZpButtonStyle.accent,
-                        onPressed: isPro ? null : () => AppNotice.snack('Purchases are coming soon'),
+                        onPressed: isPro ? ref.read(purchaseServiceProvider).openCustomerCenter : (_loading ? null : _subscribe),
                       ),
                       const SizedBox(height: AppTokens.space4),
-                      ZpLinkText('Restore purchases', onTap: () => AppNotice.snack('Purchases are coming soon')),
+                      ZpLinkText('Restore purchases', onTap: _restore),
                       const SizedBox(height: AppTokens.space4),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

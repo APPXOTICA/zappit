@@ -55,13 +55,12 @@ class RemoteHeader extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    if (canOpenInApp)
-                      ZpIconButton(
-                        size: ZpIconButtonSize.sm,
-                        semanticLabel: 'Play in app',
-                        onPressed: controller.openInNativeApp,
-                        child: const ZpImageIcon('assets/images/import.svg', size: 28),
-                      ),
+                    ZpIconButton(
+                      size: ZpIconButtonSize.sm,
+                      semanticLabel: 'Play in app',
+                      onPressed: canOpenInApp ? controller.openInNativeApp : null,
+                      child: const ZpImageIcon('assets/images/import.svg', size: 28),
+                    ),
                     ZpIconButton(
                       size: ZpIconButtonSize.sm,
                       semanticLabel: 'Open a link in the browser',

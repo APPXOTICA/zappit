@@ -23,3 +23,6 @@ const region = 'us-central1';
 
 // Ably
 const ablyKey = '1uS9Cw.kxJcyQ:iaa63KLRQSMsv6bA7LT8s65z0o2bCta1kYODDQ2a_LY';
+
+// RevenueCat
+const revenueCatApiKey = 'test_CmvaGqnoNogxOVjdHYvopUCbSfq';
