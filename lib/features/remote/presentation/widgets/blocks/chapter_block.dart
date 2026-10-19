@@ -41,21 +41,25 @@ class ChapterBlock extends ConsumerWidget {
           ),
           const SizedBox(width: AppTokens.space2),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Chapter ${index + 1}/${chapters.length}',
-                  style: AppText.label.copyWith(color: t.inkMuted, fontWeight: FontWeight.w400),
-                ),
-                Text(
-                  current.title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppText.body.copyWith(fontSize: 15, height: 1.3, color: t.ink),
-                ),
-              ],
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => showChaptersSheet(context, ref),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Chapter ${index + 1}/${chapters.length}',
+                    style: AppText.label.copyWith(color: t.inkMuted, fontWeight: FontWeight.w400),
+                  ),
+                  Text(
+                    current.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppText.body.copyWith(fontSize: 15, height: 1.3, color: t.ink),
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(width: AppTokens.space2),

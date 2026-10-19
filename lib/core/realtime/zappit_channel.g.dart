@@ -8,17 +8,20 @@ part of 'zappit_channel.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// App's own Ably connection state.
+/// App's own Ably connection state. Subscribes before reading the current
+/// value so a change in between isn't lost.
 
 @ProviderFor(ablyConnected)
 final ablyConnectedProvider = AblyConnectedProvider._();
 
-/// App's own Ably connection state.
+/// App's own Ably connection state. Subscribes before reading the current
+/// value so a change in between isn't lost.
 
 final class AblyConnectedProvider
     extends $FunctionalProvider<AsyncValue<bool>, bool, Stream<bool>>
     with $FutureModifier<bool>, $StreamProvider<bool> {
-  /// App's own Ably connection state.
+  /// App's own Ably connection state. Subscribes before reading the current
+  /// value so a change in between isn't lost.
   AblyConnectedProvider._()
     : super(
         from: null,
@@ -44,7 +47,7 @@ final class AblyConnectedProvider
   }
 }
 
-String _$ablyConnectedHash() => r'05ab01e059b7e1a699712b195af81214f600891f';
+String _$ablyConnectedHash() => r'e6281e613bd1d32eb89c3472fb218f4e90dc7be4';
 
 /// The signed-in user's channel `zappit:{uid}`, or null when signed out.
 

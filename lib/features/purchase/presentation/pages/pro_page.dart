@@ -26,7 +26,7 @@ class ProPage extends ConsumerStatefulWidget {
     'Sleep Timer',
     'All playback speeds',
     'Voice Control',
-    'Voice Boost',
+    'Unlimited Voice Boost',
   ];
 
   @override

@@ -49,7 +49,9 @@ final class RemoteCommand {
   const RemoteCommand.setFullscreen() : this._('set_fullscreen');
   const RemoteCommand.toggleTheater() : this._('toggle_theater');
   const RemoteCommand.toggleChat() : this._('toggle_chat');
-  const RemoteCommand.toggleVoiceBoost() : this._('toggle_voice_boost');
+  /// [trialSeconds]: free users get Voice Boost for that long, then it turns off.
+  RemoteCommand.toggleVoiceBoost({int? trialSeconds})
+      : this._('toggle_voice_boost', {'trialSeconds': ?trialSeconds});
 
   // Captions
   const RemoteCommand.toggleCc() : this._('toggle_cc');

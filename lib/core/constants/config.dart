@@ -21,8 +21,6 @@ const iosClientId = '343141943174-6fjounjr1598jjtp1c5dugoki3psjao0.apps.googleus
 // Cloud Functions
 const region = 'us-central1';
 
-// Ably
-const ablyKey = '1uS9Cw.kxJcyQ:iaa63KLRQSMsv6bA7LT8s65z0o2bCta1kYODDQ2a_LY';
 
 // RevenueCat
 const revenueCatApiKey = 'test_CmvaGqnoNogxOVjdHYvopUCbSfq';

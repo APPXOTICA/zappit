@@ -10,12 +10,19 @@ import 'package:zappit/protocol/protocol.dart';
 
 part 'zappit_channel.g.dart';
 
-/// App's own Ably connection state.
+/// App's own Ably connection state. Subscribes before reading the current
+/// value so a change in between isn't lost.
 @Riverpod(keepAlive: true)
-Stream<bool> ablyConnected(Ref ref) async* {
+Stream<bool> ablyConnected(Ref ref) {
   final service = ref.watch(realtimeServiceProvider);
-  yield service.isConnected;
-  yield* service.connectedChanges;
+  final controller = StreamController<bool>();
+  final sub = service.connectedChanges.listen(controller.add);
+  controller.add(service.isConnected);
+  ref.onDispose(() {
+    unawaited(sub.cancel());
+    unawaited(controller.close());
+  });
+  return controller.stream;
 }
 
 /// The signed-in user's channel `zappit:{uid}`, or null when signed out.

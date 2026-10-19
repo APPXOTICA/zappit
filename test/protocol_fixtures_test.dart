@@ -100,6 +100,8 @@ void main() {
       expect(state.endScreenMode, EndScreenMode.upNext);
       expect(state.endScreenCountdown, 8);
       expect(state.endScreenCard?.channel, 'Night Owl Radio');
+      expect(state.voiceBoostOn, isTrue);
+      expect(state.voiceBoostTrialEndsAt, 1792130010000);
     });
 
     test('missing fields fall back to defaults', () {

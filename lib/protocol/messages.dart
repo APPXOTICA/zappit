@@ -173,6 +173,7 @@ final class SiteState {
     this.theaterOn = false,
     this.voiceBoostAvailable = false,
     this.voiceBoostOn = false,
+    this.voiceBoostTrialEndsAt,
     this.subtitle = const SubtitleState(),
     this.chapterCount = 0,
     this.isSeries = false,
@@ -191,6 +192,9 @@ final class SiteState {
   final bool theaterOn;
   final bool voiceBoostAvailable;
   final bool voiceBoostOn;
+
+  /// Free trial running until then (browser clock, epoch ms).
+  final int? voiceBoostTrialEndsAt;
   final SubtitleState subtitle;
   final int chapterCount;
   final bool isSeries;
@@ -216,6 +220,7 @@ final class SiteState {
       theaterOn: asBool(asJsonMap(json['theater'])['on']),
       voiceBoostAvailable: asBool(voiceBoost['available']),
       voiceBoostOn: asBool(voiceBoost['on']),
+      voiceBoostTrialEndsAt: asInt(voiceBoost['trialEndsAt']),
       subtitle: SubtitleState.fromJson(json['subtitle']),
       chapterCount: asInt(asJsonMap(json['chapters'])['count']) ?? 0,
       isSeries: asBool(json['isSeries']),

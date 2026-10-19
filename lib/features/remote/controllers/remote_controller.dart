@@ -37,6 +37,9 @@ class RemoteController {
 
   static const proTrialSeconds = 5;
 
+  /// Free users try Voice Boost this long; then it turns off and Pro opens.
+  static const voiceBoostTrialSeconds = 10;
+
   void _tap() => unawaited(HapticUtils.hapticFeedback(HapticType.light));
 
   void openPro() => _ref.read(routerProvider).push(AppRoutes.pro);
@@ -202,13 +205,13 @@ class RemoteController {
     _bus.fire(const RemoteCommand.toggleChat());
   }
 
+  /// Free users: a 10 s trial when it's off. Turning it off (or ending a
+  /// running trial) is always allowed.
   void toggleVoiceBoost() {
-    if (!_isPro) {
-      openPro();
-      return;
-    }
     _tap();
-    _bus.fire(const RemoteCommand.toggleVoiceBoost());
+    final site = _ref.read(siteStateControllerProvider);
+    final startTrial = !_isPro && !site.voiceBoostOn && site.voiceBoostTrialEndsAt == null;
+    _bus.fire(RemoteCommand.toggleVoiceBoost(trialSeconds: startTrial ? voiceBoostTrialSeconds : null));
   }
 
   // ---------------------------------------------------------------- captions

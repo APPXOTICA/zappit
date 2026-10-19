@@ -14,7 +14,7 @@ Zappit은 폰(Flutter 앱)으로 컴퓨터 브라우저의 영상 재생을 제�
 
 - `zappit/` (이 저장소): Flutter 앱. 리모컨 역할.
 - `../zappit_extension/`: 브라우저 확장(WXT + Svelte 5 + TypeScript). 영상 페이지를 실제로 제어한다. 구조는 아래 "확장 구조" 참고.
-- `../zappit_firebase/`: Firestore 규칙(`firestore.rules`), RTDB 규칙(`database.rules.json`), Cloud Functions(`functions/index.js`, Node 22). `onUserCreated`, `onUserDeleted`, callable `delete_account`(앱에서 계정 삭제 시 호출).
+- `../zappit_firebase/`: Firestore 규칙(`firestore.rules`), RTDB 규칙(`database.rules.json`), Cloud Functions(`functions/index.js`, Node 22). `onUserCreated`, `onUserDeleted`, callable `delete_account`(앱에서 계정 삭제 시 호출), callable `ably_token`(Ably 토큰 발급).
 - `../zappit_web/`: zappit.tv 정적 사이트(Render). 아직 비어 있다.
 - `../zappit_assets/`: 디자인 시안·DS(`docs/design/`), 앱↔확장 메시지 규격(`protocol/README.md`, `protocol/fixtures/`), 이미지, 사운드, Firebase 설정 파일 원본.
 
@@ -36,7 +36,7 @@ flutter run -t lib/dev/preview_main.dart --dart-define=SCENARIO=main   # 가짜 
 - 테스트: `test/protocol_fixtures_test.dart`가 `../zappit_assets/protocol/fixtures`를 읽는다(앱과 확장이 같은 파일로 메시지 규격을 검증).
 - 화면 미리보기: `lib/dev/preview_main.dart`는 실제 앱에 포함되지 않는 개발용 진입점이다. 시나리오(main, ad, live, ab, upnext, pick, home, netflix, shorts, web, disconnected, nobrowser, nothing, more, settings, pro, login, tabs, sleep, episodes)별로 provider를 가짜 데이터로 덮어써서 디자인 PNG와 비교한다. 시뮬레이터에 한 번 빌드해 두면 앱 컨테이너의 `tmp/scenario.txt`에 시나리오 이름을 쓰고 다시 실행해 바꿀 수 있다.
 
-확장 (`../zappit_extension/`, `.env` 필요: `VITE_FIREBASE_*`(`VITE_FIREBASE_DATABASE_URL` 포함), `VITE_ABLY_API_KEY`, `VITE_GOOGLE_OAUTH_CLIENT_ID`, `VITE_APPLE_SERVICES_ID`, 선택 `VITE_ABLY_CHANNEL_NAME`. 항목은 `.env.example` 참고):
+확장 (`../zappit_extension/`, `.env` 필요: `VITE_FIREBASE_*`(`VITE_FIREBASE_DATABASE_URL` 포함), `VITE_GOOGLE_OAUTH_CLIENT_ID`, `VITE_APPLE_SERVICES_ID`. 항목은 `.env.example` 참고):
 ```bash
 npm run dev       # Chrome 개발 모드 (dev:firefox)
 npm run build     # build:firefox, zip
@@ -73,13 +73,14 @@ Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이�
 - 시작 흐름: `main.dart`에서 Firebase 초기화 → `registerSingletons()` → `SharedPreferences` override → `initializerProvider`(Remote Config + Ably 초기화) 동안 `LoadingPage` → `_AppServices`(공유 링크 수신, PostHog identify, Voice Control 시작/중지).
 - 라우팅: `core/routes/router_provider.dart`. 경로 이름은 `app_routes.dart`. 인증 상태에 따라 `/login` ↔ `/remote`로 redirect. 하단 탭은 `StatefulShellRoute.indexedStack`, Pro·리모컨 설정·연결 방법·웹뷰는 root navigator 위의 화면.
 - 인증: `auth_state_provider.dart`. 계정 삭제 시 iOS Apple 로그인 사용자는 Apple 토큰을 먼저 해지한다(`revokeTokenWithAuthorizationCode`). 로그아웃·삭제 실패는 인증 상태를 바꾸지 않고 스낵바로 알린다.
-- 상수: `core/constants/config.dart`(OAuth 클라이언트 ID, Functions region, Ably 키, 웹 URL, 공유 URL, App Store ID, PostHog).
+- 상수: `core/constants/config.dart`(OAuth 클라이언트 ID, Functions region, 웹 URL, 공유 URL, App Store ID, PostHog).
 - Firebase 네이티브 설정(`ios/Runner/GoogleService-Info.plist`의 `DATABASE_URL`, `android/app/google-services.json`의 `firebase_url`)은 `lib/firebase_options.dart`와 값이 같아야 한다. 다르면 시작할 때 `[core/duplicate-app]`으로 실패한다.
 
 
 ## 앱 ↔ 확장 실시간 통신 (Ably)
 
-- 앱과 확장은 Firebase에 같은 계정으로 로그인하고, 같은 Ably 채널 `zappit:<Firebase UID>`를 쓴다(소문자. Ably 키 권한이 `zappit:*`로 제한돼 있어 대소문자가 다르면 연결되지 않는다). 이름 규칙은 앱 `core/realtime/channel_provider.dart`의 `RealtimeChannelNames`와 확장 `src/lib/ably-channel.ts`의 `getAblyChannelName`에 각각 있다. 바꾸려면 두 곳을 같이 바꾼다.
+- 앱과 확장은 Firebase에 같은 계정으로 로그인하고, 같은 Ably 채널 `zappit:<Firebase UID>`를 쓴다.
+- 인증은 Ably 토큰: 앱(`RealtimeService`)과 확장(`ably-link.ts`)이 `authCallback`에서 Cloud Function `ably_token`을 부른다. 토큰은 본인 채널 `zappit:{uid}`에만 publish·subscribe·presence 권한, 1시간. 클라이언트에 Ably 키를 두지 않는다(키는 Secret Manager `ABLY_API_KEY`). 앱은 로그인 시 연결, 계정 전환 시 `authorize()`, 로그아웃 시 close. 이름 규칙은 앱 `core/realtime/channel_provider.dart`의 `RealtimeChannelNames`와 확장 `src/lib/ably-channel.ts`의 `getAblyChannelName`에 각각 있다. 바꾸려면 두 곳을 같이 바꾼다.
 - 앱 clientId는 `zappit-flutter`, presence data `{device: 'flutter', type: 'remote'}`. 확장 clientId는 `extension-{instanceId}`, presence data에 `instanceId`·브라우저·OS·기기 이름·대상 탭 제목.
 - 선택된 브라우저(`session/{uid}/selectedInstanceId`)만 'target'·'state'·'ack'를 보내고 RTDB에 쓴다. 온라인 브라우저가 하나뿐이고 선택이 비었으면 앱과 확장이 같은 RTDB transaction 규칙으로 그 브라우저를 선택한다.
 - 확장 background ↔ popup 간 상태는 `chrome.storage` 키 `zappitAblyStatus`(`PopupStatus`)로 동기화한다.
