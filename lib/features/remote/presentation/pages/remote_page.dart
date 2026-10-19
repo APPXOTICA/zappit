@@ -30,6 +30,7 @@ class RemotePage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: t.bgBase,
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           SafeArea(

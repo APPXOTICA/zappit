@@ -28,6 +28,9 @@ class PlaybackView {
   bool get hasData => snapshot != null;
   bool get isAd => snapshot?.isAd ?? false;
   bool get isLive => snapshot?.isLive ?? false;
+
+  /// False for live and while the page has not loaded the video yet.
+  bool get hasDuration => snapshot?.hasDuration ?? false;
   bool get paused => snapshot?.paused ?? true;
   double get duration => snapshot?.duration ?? 0;
 }

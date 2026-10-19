@@ -33,6 +33,9 @@ final class RemoteCommand {
   RemoteCommand.setSpeed(double rate, {int? trialSeconds})
       : this._('set_speed', {'rate': rate, 'trialSeconds': ?trialSeconds});
 
+  /// Press-and-hold Play: 2x while [on]; repeat every few seconds while held.
+  RemoteCommand.holdSpeed({required bool on}) : this._('hold_speed', {'on': on});
+
   /// [count] null means unlimited (Pro).
   RemoteCommand.setLoop(bool loop, {int? count}) : this._('set_loop', {'loop': loop, 'count': count});
 
@@ -94,7 +97,7 @@ final class RemoteCommand {
   static const functionNames = <String>{
     'play', 'pause', 'replay', 'seek_forward', 'seek_backward', 'seek_to',
     'set_volume', 'volume_up', 'volume_down', 'set_mute',
-    'set_speed', 'set_loop', 'set_ab', 'clear_ab', 'set_sleep_timer',
+    'set_speed', 'hold_speed', 'set_loop', 'set_ab', 'clear_ab', 'set_sleep_timer',
     'set_fullscreen', 'toggle_theater', 'toggle_chat', 'toggle_voice_boost',
     'toggle_cc', 'set_subtitle_track', 'set_subtitle_size',
     'skip_ad', 'skip_intro', 'next_episode', 'next_video', 'prev_video',

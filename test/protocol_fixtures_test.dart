@@ -128,7 +128,15 @@ void main() {
     test('live has no duration', () {
       final p = PlaybackSnapshot.fromJson(fixture('playback_live'));
       expect(p.isLive, isTrue);
+      expect(p.hasDuration, isFalse);
       expect(p.loopStart, isNull);
+    });
+
+    test('unknown duration is not live', () {
+      final json = {...fixture('playback_youtube') as Map<String, Object?>, 'duration': null};
+      final p = PlaybackSnapshot.fromJson(json);
+      expect(p.isLive, isFalse);
+      expect(p.hasDuration, isFalse);
     });
   });
 

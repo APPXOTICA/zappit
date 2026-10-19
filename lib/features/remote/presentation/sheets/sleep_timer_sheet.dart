@@ -60,7 +60,7 @@ class _SleepTimerOptions extends ConsumerWidget {
           centered: true,
           minHeight: 64,
           selected: mode == SleepMode.endOfVideo,
-          onTap: view.isLive ? null : () => pick(controller.sleepAtEndOfVideo),
+          onTap: view.isLive || !view.hasDuration ? null : () => pick(controller.sleepAtEndOfVideo),
         ),
       ],
     );

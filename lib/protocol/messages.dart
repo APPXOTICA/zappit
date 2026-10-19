@@ -253,6 +253,7 @@ final class PlaybackSnapshot {
     this.title,
     this.currentTime = 0,
     this.duration,
+    this.live = false,
     this.paused = true,
     this.playbackRate = 1,
     this.volume = 1,
@@ -274,8 +275,11 @@ final class PlaybackSnapshot {
   final String? title;
   final double currentTime;
 
-  /// Null for live streams.
+  /// Null while unknown (not loaded yet) and for live streams.
   final double? duration;
+
+  /// The media has no end. Unknown duration alone is not live.
+  final bool live;
   final bool paused;
   final double playbackRate;
 
@@ -293,7 +297,8 @@ final class PlaybackSnapshot {
   final int? speedTrialEndsAt;
   final int updatedAt;
 
-  bool get isLive => duration == null;
+  bool get isLive => live;
+  bool get hasDuration => duration != null;
   bool get abActive => loopStart != null || loopEnd != null;
 
   factory PlaybackSnapshot.fromJson(Object? raw) {
@@ -305,6 +310,8 @@ final class PlaybackSnapshot {
       title: asString(json['title']),
       currentTime: asDouble(json['currentTime']) ?? 0,
       duration: (duration == null || duration.isInfinite || duration.isNaN) ? null : duration,
+      // Extensions before `live` sent only a null duration for live streams.
+      live: json['live'] == null ? duration == null : asBool(json['live']),
       paused: asBool(json['paused'], fallback: true),
       playbackRate: asDouble(json['playbackRate']) ?? 1,
       volume: (asDouble(json['volume']) ?? 1).clamp(0, 1).toDouble(),

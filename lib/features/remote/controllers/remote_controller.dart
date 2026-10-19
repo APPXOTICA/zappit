@@ -51,6 +51,29 @@ class RemoteController {
     _bus.fire(_view.paused ? const RemoteCommand.play() : const RemoteCommand.pause());
   }
 
+  Timer? _holdTimer;
+  double _rateBeforeHold = 1;
+
+  /// Press-and-hold Play: 2x until [endSpeedHold], like holding Space on
+  /// YouTube. Free for everyone, since the speed lasts only while held.
+  void startSpeedHold() {
+    unawaited(HapticUtils.hapticFeedback(HapticType.medium));
+    _rateBeforeHold = _view.rate;
+    _playback.holdRate(2);
+    _bus.fire(RemoteCommand.holdSpeed(on: true));
+    _holdTimer?.cancel();
+    // The extension lets go 8 s after the last renewal, e.g. if the app dies mid-hold.
+    _holdTimer = Timer.periodic(const Duration(seconds: 3), (_) => _bus.fire(RemoteCommand.holdSpeed(on: true)));
+  }
+
+  void endSpeedHold() {
+    if (_holdTimer == null) return;
+    _holdTimer!.cancel();
+    _holdTimer = null;
+    _playback.holdRate(_rateBeforeHold);
+    _bus.fire(RemoteCommand.holdSpeed(on: false));
+  }
+
   void replay() {
     _tap();
     _playback.seekTo(0);

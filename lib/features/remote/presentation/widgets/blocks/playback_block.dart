@@ -23,6 +23,7 @@ class PlaybackBlock extends ConsumerWidget {
     final hasData = ref.watch(playbackControllerProvider.select((v) => v.hasData));
     final isAd = ref.watch(playbackControllerProvider.select((v) => v.isAd));
     final isLive = ref.watch(playbackControllerProvider.select((v) => v.isLive));
+    final hasDuration = ref.watch(playbackControllerProvider.select((v) => v.hasDuration));
     final paused = ref.watch(playbackControllerProvider.select((v) => v.paused));
     final loop = ref.watch(playbackControllerProvider.select((v) => v.snapshot?.loop ?? false));
     final loopLeft = ref.watch(playbackControllerProvider.select((v) => v.snapshot?.loopRepeatLeft));
@@ -33,7 +34,7 @@ class PlaybackBlock extends ConsumerWidget {
     final shortForm = target?.isShortForm ?? false;
     final hasReplay = !shortForm && (target?.has(Capability.replay) ?? true);
     final hasLoop = !shortForm && (target?.has(Capability.loop) ?? true);
-    final canSeek = hasData && !isAd && !isLive;
+    final canSeek = hasData && !isAd && !isLive && hasDuration;
 
     // Image file names are mirrored: forward_* shows a left arrow.
     final backIcon = 'assets/images/forward_${seekInterval}s.png';
@@ -69,6 +70,8 @@ class PlaybackBlock extends ConsumerWidget {
                 extent: 68,
                 semanticLabel: paused ? 'Play' : 'Pause',
                 onPressed: hasData ? controller.togglePlay : null,
+                onLongPressStart: isAd ? null : controller.startSpeedHold,
+                onLongPressEnd: controller.endSpeedHold,
                 child: Icon(paused ? Icons.play_arrow_rounded : Icons.pause_rounded, size: 40),
               ),
               ZpIconButton(
@@ -111,7 +114,8 @@ class _LoopButton extends StatelessWidget {
         children: [
           ZpIconButton(
             variant: ZpIconButtonVariant.outlined,
-            pressed: on,
+            // The icon tells the state; no accent fill.
+            pressed: null,
             semanticLabel: on ? 'Loop on' : 'Loop off',
             onPressed: enabled ? onPressed : null,
             child: Icon(on ? Icons.repeat_one_on_rounded : Icons.repeat_one, size: 28),
@@ -292,9 +296,10 @@ class _TimelineState extends ConsumerState<_Timeline> with SingleTickerProviderS
 
     final position = _dragSeconds ?? view.timeline.positionAt(now);
     final duration = view.duration;
-    final abEnabled = view.hasData && !view.isAd && !view.isLive;
+    final abEnabled = view.hasData && !view.isAd && !view.isLive && view.hasDuration;
 
-    final timeText = '${PlaybackMath.formatTime(position)} / ${PlaybackMath.formatTime(duration)}';
+    final durationText = view.hasDuration ? PlaybackMath.formatTime(duration) : '–:––';
+    final timeText = '${PlaybackMath.formatTime(position)} / $durationText';
 
     return Column(
       mainAxisSize: MainAxisSize.min,

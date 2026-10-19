@@ -159,7 +159,7 @@ class _LinkPanelState extends ConsumerState<_LinkPanel> {
                     SizedBox(
                       height: AppTokens.targetMin,
                       child: ZpButton(
-                        label: 'Open',
+                        label: 'Send',
                         expand: false,
                         style: ZpButtonStyle.accent,
                         height: AppTokens.targetMin,

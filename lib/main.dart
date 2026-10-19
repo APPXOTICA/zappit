@@ -93,7 +93,7 @@ class _EagerInitialization extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final initializerAsync = ref.watch(initializerProvider);
- 
+
     if (initializerAsync.isLoading) return const LoadingPage();
     if (initializerAsync.hasError) return ErrorWidget(initializerAsync.error.toString());
 

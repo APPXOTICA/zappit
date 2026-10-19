@@ -8,6 +8,8 @@ class ZpPressable extends StatefulWidget {
     required this.builder,
     this.onTap,
     this.onLongPress,
+    this.onLongPressStart,
+    this.onLongPressEnd,
     this.scale = 0.96,
     this.semanticLabel,
     this.selected,
@@ -16,6 +18,10 @@ class ZpPressable extends StatefulWidget {
   final Widget Function(BuildContext context, bool pressed) builder;
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
+
+  /// Press-and-hold: the control stays pressed until [onLongPressEnd].
+  final VoidCallback? onLongPressStart;
+  final VoidCallback? onLongPressEnd;
   final double scale;
   final String? semanticLabel;
   final bool? selected;
@@ -27,7 +33,7 @@ class ZpPressable extends StatefulWidget {
 class _ZpPressableState extends State<ZpPressable> {
   bool _pressed = false;
 
-  bool get _enabled => widget.onTap != null || widget.onLongPress != null;
+  bool get _enabled => widget.onTap != null || widget.onLongPress != null || widget.onLongPressStart != null;
 
   void _setPressed(bool value) {
     if (_pressed != value && mounted) setState(() => _pressed = value);
@@ -47,6 +53,18 @@ class _ZpPressableState extends State<ZpPressable> {
         onTapCancel: _enabled ? () => _setPressed(false) : null,
         onTap: widget.onTap,
         onLongPress: widget.onLongPress,
+        onLongPressStart: widget.onLongPressStart == null
+            ? null
+            : (_) {
+                _setPressed(true);
+                widget.onLongPressStart!();
+              },
+        onLongPressEnd: widget.onLongPressStart == null
+            ? null
+            : (_) {
+                _setPressed(false);
+                widget.onLongPressEnd?.call();
+              },
         child: AnimatedScale(
           scale: _pressed ? widget.scale : 1,
           duration: const Duration(milliseconds: 80),

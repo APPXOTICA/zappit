@@ -31,6 +31,8 @@ class ZpIconButton extends StatelessWidget {
     this.semanticLabel,
     this.onDisabledTap,
     this.extent,
+    this.onLongPressStart,
+    this.onLongPressEnd,
   });
 
   /// Icon or image. Use [ZpIcon] / [ZpImageIcon] so the disabled colour applies.
@@ -47,6 +49,10 @@ class ZpIconButton extends StatelessWidget {
   /// Overrides [size] when set.
   final double? extent;
 
+  /// Press-and-hold, only while enabled.
+  final VoidCallback? onLongPressStart;
+  final VoidCallback? onLongPressEnd;
+
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
@@ -55,6 +61,8 @@ class ZpIconButton extends StatelessWidget {
 
     return ZpPressable(
       onTap: enabled ? onPressed : onDisabledTap,
+      onLongPressStart: enabled ? onLongPressStart : null,
+      onLongPressEnd: enabled ? onLongPressEnd : null,
       semanticLabel: semanticLabel,
       selected: pressed,
       scale: enabled ? 0.96 : 1,

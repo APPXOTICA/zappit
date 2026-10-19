@@ -15,6 +15,8 @@ class AppShell extends StatelessWidget {
     final t = context.tokens;
     return Scaffold(
       backgroundColor: t.bgBase,
+      // The link panel's keyboard must not push the remote up.
+      resizeToAvoidBottomInset: false,
       body: shell,
       bottomNavigationBar: DecoratedBox(
         decoration: BoxDecoration(

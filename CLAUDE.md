@@ -91,7 +91,7 @@ Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이�
 
 - `entrypoints/background.ts`: 인증 상태에 따라 `lib/background/controller.ts`(`Controller`)를 시작/중지하고 알람·메시지를 연결한다.
 - `lib/background/`: `ably-link.ts`(Ably, presence, command 구독), `session.ts`(선택된 브라우저, 자동 선택), `target-tracker.ts`(마지막 포커스된 일반 창의 활성 탭, 프레임별 미디어 보고), `playback-writer.ts`(RTDB `playback/{uid}`, 1초 throttle), `tabs-sync.ts`(Firestore Lite로 탭 목록), `sleep-timer.ts`, `activity.ts`(60일 미사용 로그아웃), `sounds.ts`(offscreen 사운드, 없는 브라우저는 생략).
-- `entrypoints/content/index.ts`: 모든 페이지·모든 프레임. 사이트 어댑터(`lib/content/adapters/`: generic, youtube, netflix, shortform)와 `MediaController`(가장 큰 video, Loop·A-B·속도 맛보기·슬립 페이드)를 연결한다. 사이트 UI 상태는 최상위 프레임만 보낸다.
+- `entrypoints/content/index.ts`: 모든 페이지·모든 프레임. 사이트 어댑터(`lib/content/adapters/`: generic, youtube, netflix, shortform)와 `MediaController`(제어할 video 선택: 장식용 후순위, 보이는 것, 재생 중, 크기 순. Loop·A-B·속도 맛보기·슬립 페이드)를 연결한다. 사이트 UI 상태는 최상위 프레임만 보낸다.
 - `entrypoints/main-world.ts`: YouTube·Netflix 페이지 컨텍스트에서 플레이어 API를 부른다(자막, 볼륨, Netflix seek·메타데이터). `lib/content/bridge.ts`가 분리된 `<script>` 요소의 CustomEvent로 요청한다.
 - `lib/lrud.ts`: BBC lrud-spatial의 이동 판정 이식(Apache-2.0). 다른 점은 파일 머리 주석 참고. `lib/content/focus-navigator.ts`가 가상 포커스로 홈 화면·종료 화면 카드를 이동한다.
 - `lib/selectors.ts`: 사이트별 기본 셀렉터와 원격 JSON(`https://zappit-23ad8.web.app/selectors/v1.json`) 병합. 사이트 UI가 바뀌면 원격 JSON만 고쳐 배포한다(1시간마다 갱신). 명령이 필요한 요소를 못 찾으면 어댑터가 `missing('<셀렉터 이름>')`을 돌려주고, background가 PostHog `extension_selector_missing`(site·셀렉터 이름·명령만, 브라우저별 조합당 하루 1회)으로 보고한다(`lib/background/selector-telemetry.ts`).

@@ -40,8 +40,8 @@ void main() {
   });
 
   group('timeline', () {
-    PlaybackSnapshot snap(double t, {bool paused = false, double rate = 1, bool ad = false, double? duration = 600}) =>
-        PlaybackSnapshot(currentTime: t, paused: paused, playbackRate: rate, isAd: ad, duration: duration);
+    PlaybackSnapshot snap(double t, {bool paused = false, double rate = 1, bool ad = false, double? duration = 600, bool live = false}) =>
+        PlaybackSnapshot(currentTime: t, paused: paused, playbackRate: rate, isAd: ad, duration: duration, live: live);
 
     test('interpolates from the local receive time at the playback rate', () {
       final timeline = Timeline()..accept(snap(100, rate: 2), 1000);
@@ -51,7 +51,7 @@ void main() {
     test('does not move while paused, during an ad, or live', () {
       expect((Timeline()..accept(snap(100, paused: true), 0)).positionAt(5000), 100);
       expect((Timeline()..accept(snap(100, ad: true), 0)).positionAt(5000), 100);
-      expect((Timeline()..accept(snap(100, duration: null), 0)).positionAt(5000), 100);
+      expect((Timeline()..accept(snap(100, duration: null, live: true), 0)).positionAt(5000), 100);
     });
 
     test('clamps to the duration', () {
