@@ -50,6 +50,8 @@ class RealtimeService {
       autoConnect: false,
       // Leave presence quickly when the app goes away; extension waits for it.
       transportParams: {'remainPresentFor': '1000'},
+      // Our own commands are not sent back to us: each delivery is billed.
+      echoMessages: false,
     );
 
     final realtime = ably.Realtime(options: options);

@@ -8,6 +8,7 @@ import 'package:zappit/core/firebase/user_settings_repository.dart';
 import 'package:zappit/core/routes/app_routes.dart';
 import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/features/purchase/pro_controller.dart';
+import 'package:zappit/features/remote/controllers/playback_math.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/features/remote/controllers/target_controller.dart';
 import 'package:zappit/features/voice/voice_command_service.dart';
@@ -76,13 +77,24 @@ class RemoteSettingsPage extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: AppTokens.space6),
-                      const _SubHeader('Seek Interval'),
-                      ZpSegmentedControl<int>(
+                      const _SubHeader('Long Press Speed'),
+                      ZpSegmentedControl<double>(
                         segments: [
-                          for (final s in UserSettings.seekIntervals) ZpSegment(value: s, label: '${s}s'),
+                          for (final r in UserSettings.holdSpeeds)
+                            ZpSegment(
+                              value: r,
+                              label: PlaybackMath.speedLabel(r),
+                              dimmed: !isPro && r != UserSettings.freeHoldSpeed,
+                            ),
                         ],
-                        selected: settings.seekInterval,
-                        onChanged: notifier.setSeekInterval,
+                        selected: isPro ? settings.holdSpeed : UserSettings.freeHoldSpeed,
+                        onChanged: (r) {
+                          if (!isPro && r != UserSettings.freeHoldSpeed) {
+                            context.push(AppRoutes.pro);
+                            return;
+                          }
+                          notifier.setHoldSpeed(r);
+                        },
                       ),
                       const SizedBox(height: AppTokens.space6),
                       const _SubHeader('A-B Loop Count'),
@@ -103,6 +115,15 @@ class RemoteSettingsPage extends ConsumerWidget {
                           }
                           notifier.setAbLoopCount(c);
                         },
+                      ),
+                      const SizedBox(height: AppTokens.space6),
+                      const _SubHeader('Seek Interval'),
+                      ZpSegmentedControl<int>(
+                        segments: [
+                          for (final s in UserSettings.seekIntervals) ZpSegment(value: s, label: '${s}s'),
+                        ],
+                        selected: settings.seekInterval,
+                        onChanged: notifier.setSeekInterval,
                       ),
                       if (target != null && target.site != Site.none && target.site != Site.generic) ...[
                         const SizedBox(height: AppTokens.space8),

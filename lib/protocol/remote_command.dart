@@ -33,8 +33,8 @@ final class RemoteCommand {
   RemoteCommand.setSpeed(double rate, {int? trialSeconds})
       : this._('set_speed', {'rate': rate, 'trialSeconds': ?trialSeconds});
 
-  /// Press-and-hold Play: 2x while [on]; repeat every few seconds while held.
-  RemoteCommand.holdSpeed({required bool on}) : this._('hold_speed', {'on': on});
+  /// Press-and-hold Play: [rate] while [on]; repeat every few seconds while held.
+  RemoteCommand.holdSpeed({required bool on, double? rate}) : this._('hold_speed', {'on': on, 'rate': ?rate});
 
   /// [count] null means unlimited (Pro).
   RemoteCommand.setLoop(bool loop, {int? count}) : this._('set_loop', {'loop': loop, 'count': count});

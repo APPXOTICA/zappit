@@ -15,6 +15,7 @@ class UserSettings {
     this.abLoopCount = 3,
     this.voiceControl = false,
     this.subtitleSize = 100,
+    this.holdSpeed = freeHoldSpeed,
   });
 
   static const seekIntervals = [3, 5, 10, 15, 20, 30];
@@ -24,40 +25,54 @@ class UserSettings {
   static const freeAbLoopCount = 3;
   static const subtitleSizes = [50, 75, 100, 150, 200, 300, 400];
 
+  /// Speed while the Play button is held. Free users get 1.25x only.
+  static const holdSpeeds = [0.5, 0.75, 1.25, 1.5, 2.0, 3.0];
+  static const freeHoldSpeed = 1.25;
+
   final int seekInterval;
 
   /// null is unlimited.
   final int? abLoopCount;
   final bool voiceControl;
   final int subtitleSize;
+  final double holdSpeed;
 
   factory UserSettings.fromJson(Map<String, dynamic> json) {
     final seek = asInt(json['seekInterval']) ?? 10;
     final ab = asInt(json['abLoopCount']);
     final size = asInt(json['subtitleSize']) ?? 100;
+    final hold = asDouble(json['holdSpeed']);
     return UserSettings(
       seekInterval: seekIntervals.contains(seek) ? seek : 10,
       // Stored as 0 for unlimited.
       abLoopCount: ab == 0 ? null : (abLoopCounts.contains(ab) ? ab : 3),
       voiceControl: asBool(json['voiceControl']),
       subtitleSize: subtitleSizes.contains(size) ? size : 100,
+      holdSpeed: holdSpeeds.contains(hold) ? hold! : freeHoldSpeed,
     );
   }
 
   Map<String, Object?> toJson() => {
-        'seekInterval': seekInterval,
-        'abLoopCount': abLoopCount ?? 0,
-        'voiceControl': voiceControl,
-        'subtitleSize': subtitleSize,
-      };
+    'seekInterval': seekInterval,
+    'abLoopCount': abLoopCount ?? 0,
+    'voiceControl': voiceControl,
+    'subtitleSize': subtitleSize,
+    'holdSpeed': holdSpeed,
+  };
 
-  UserSettings copyWith({int? seekInterval, int? Function()? abLoopCount, bool? voiceControl, int? subtitleSize}) =>
-      UserSettings(
-        seekInterval: seekInterval ?? this.seekInterval,
-        abLoopCount: abLoopCount != null ? abLoopCount() : this.abLoopCount,
-        voiceControl: voiceControl ?? this.voiceControl,
-        subtitleSize: subtitleSize ?? this.subtitleSize,
-      );
+  UserSettings copyWith({
+    int? seekInterval,
+    int? Function()? abLoopCount,
+    bool? voiceControl,
+    int? subtitleSize,
+    double? holdSpeed,
+  }) => UserSettings(
+    seekInterval: seekInterval ?? this.seekInterval,
+    abLoopCount: abLoopCount != null ? abLoopCount() : this.abLoopCount,
+    voiceControl: voiceControl ?? this.voiceControl,
+    subtitleSize: subtitleSize ?? this.subtitleSize,
+    holdSpeed: holdSpeed ?? this.holdSpeed,
+  );
 }
 
 /// Live settings with optimistic local updates.
@@ -100,4 +115,6 @@ class UserSettingsController extends _$UserSettingsController {
   Future<void> setVoiceControl(bool on) => update(state.copyWith(voiceControl: on));
 
   Future<void> setSubtitleSize(int percent) => update(state.copyWith(subtitleSize: percent));
+
+  Future<void> setHoldSpeed(double rate) => update(state.copyWith(holdSpeed: rate));
 }

@@ -54,16 +54,20 @@ class RemoteController {
   Timer? _holdTimer;
   double _rateBeforeHold = 1;
 
-  /// Press-and-hold Play: 2x until [endSpeedHold], like holding Space on
-  /// YouTube. Free for everyone, since the speed lasts only while held.
+  /// Press-and-hold Play: the Long Press Speed setting until [endSpeedHold],
+  /// like holding Space on YouTube. Free users get 1.25x.
   void startSpeedHold() {
     unawaited(HapticUtils.hapticFeedback(HapticType.medium));
+    final rate = _isPro ? _settings.holdSpeed : UserSettings.freeHoldSpeed;
     _rateBeforeHold = _view.rate;
-    _playback.holdRate(2);
-    _bus.fire(RemoteCommand.holdSpeed(on: true));
+    _playback.holdRate(rate);
+    _bus.fire(RemoteCommand.holdSpeed(on: true, rate: rate));
     _holdTimer?.cancel();
     // The extension lets go 8 s after the last renewal, e.g. if the app dies mid-hold.
-    _holdTimer = Timer.periodic(const Duration(seconds: 3), (_) => _bus.fire(RemoteCommand.holdSpeed(on: true)));
+    _holdTimer = Timer.periodic(
+      const Duration(seconds: 3),
+      (_) => _bus.fire(RemoteCommand.holdSpeed(on: true, rate: rate)),
+    );
   }
 
   void endSpeedHold() {
@@ -475,12 +479,14 @@ class EpisodeList {
             if (e is! Map) continue;
             final id = e['id']?.toString();
             if (id == null) continue;
-            episodes.add(Episode(
-              id: id,
-              number: (e['number'] as num?)?.toInt() ?? episodes.length + 1,
-              title: e['title']?.toString() ?? '',
-              durationSec: (e['durationSec'] as num?)?.toInt(),
-            ));
+            episodes.add(
+              Episode(
+                id: id,
+                number: (e['number'] as num?)?.toInt() ?? episodes.length + 1,
+                title: e['title']?.toString() ?? '',
+                durationSec: (e['durationSec'] as num?)?.toInt(),
+              ),
+            );
           }
         }
         final number = (s['number'] as num?)?.toInt() ?? seasons.length + 1;
