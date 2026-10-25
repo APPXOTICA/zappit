@@ -34,7 +34,7 @@ flutter run -t lib/dev/preview_main.dart --dart-define=SCENARIO=main   # 가짜 
 - 코드 생성 대상: `@riverpod`/`@Riverpod` provider, freezed 모델, json_serializable. 생성 파일은 커밋한다.
 - 다국어: `flutter_intl`. `lib/l10n/intl_en.arb`를 고친 뒤 `dart run intl_utils:generate`(또는 Flutter Intl IDE 플러그인)로 `lib/generated/`를 다시 만든다. `lib/generated/`는 손으로 고치지 않는다.
 - 테스트: `test/protocol_fixtures_test.dart`가 `../zappit_assets/protocol/fixtures`를 읽는다(앱과 확장이 같은 파일로 메시지 규격을 검증).
-- 화면 미리보기: `lib/dev/preview_main.dart`는 실제 앱에 포함되지 않는 개발용 진입점이다. 시나리오(main, ad, live, ab, upnext, pick, home, netflix, shorts, web, disconnected, nobrowser, nothing, more, settings, pro, login, tabs, sleep, episodes)별로 provider를 가짜 데이터로 덮어써서 디자인 PNG와 비교한다. 시뮬레이터에 한 번 빌드해 두면 앱 컨테이너의 `tmp/scenario.txt`에 시나리오 이름을 쓰고 다시 실행해 바꿀 수 있다.
+- 화면 미리보기: `lib/dev/preview_main.dart`는 실제 앱에 포함되지 않는 개발용 진입점이다. 시나리오(main, ad, live, ab, upnext, pick, home, playlist, netflix, shorts, web, disconnected, nobrowser, nothing, more, sites, settings, pro, login, tabs, sleep, episodes)별로 provider를 가짜 데이터로 덮어써서 디자인 PNG와 비교한다. 시뮬레이터에 한 번 빌드해 두면 앱 컨테이너의 `tmp/scenario.txt`에 시나리오 이름을 쓰고 다시 실행해 바꿀 수 있다.
 
 확장 (`../zappit_extension/`, `.env` 필요: `VITE_FIREBASE_*`(`VITE_FIREBASE_DATABASE_URL` 포함), `VITE_GOOGLE_OAUTH_CLIENT_ID`, `VITE_APPLE_SERVICES_ID`. 항목은 `.env.example` 참고):
 ```bash
@@ -60,7 +60,7 @@ Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이�
   - `lib/core/firebase/`: RTDB `session`·`playback` 스트림과 선택(`session_repository.dart`), Firestore 설정(`user_settings_repository.dart`), 탭 목록(`browser_tabs_repository.dart`).
   - `lib/core/theme/app_tokens.dart`: 디자인 토큰(`context.tokens`)과 글자 스타일(`AppText`). 다크 테마만 있다.
   - `lib/shared/widgets/ds/`: DS 컴포넌트 위젯(`Zp*`). `ds.dart` 하나로 import.
-  - `lib/features/`: `auth`, `shell`(하단 탭 Remote·Tabs·More), `connection`(연결 상태, 브라우저 선택), `remote`(리모컨 화면·블록·시트·컨트롤러), `tabs`, `settings`(More, 리모컨 설정 모달), `purchase`(Pro 화면과 `isPro`), `onboarding`(연결 방법), `share_intent`, `voice`(인터페이스만).
+  - `lib/features/`: `auth`, `shell`(하단 탭 Remote·Tabs·More), `connection`(연결 상태, 브라우저 선택), `remote`(리모컨 화면·블록·시트·컨트롤러), `tabs`, `settings`(More, 리모컨 설정 모달), `sites`(Supported sites 화면, 사이트 순서 `users/{uid}.settings.siteOrder`, 사이트 홈 URL), `purchase`(Pro 화면과 `isPro`), `onboarding`(연결 방법), `share_intent`, `voice`(인터페이스만).
 - 명령은 모두 `RemoteController`(`features/remote/controllers/remote_controller.dart`)의 메서드 → `RemoteCommand` → `CommandBus`로 보낸다. CommandBus가 `requestId`·`targetInstanceId`·`schema_version`·`timestamp`를 붙이고 'ack'를 기다린다. 4초 안에 응답이 없으면 상단 스낵바("Browser not responding"), 실패 ack는 스낵바.
 - 화면 상태는 `remoteModeProvider` 하나가 계산한다(disconnected · chooseBrowser · waiting · nothing · home · playing). YouTube 종료 화면은 `endScreenModeProvider`. glass 뷰 4개는 `glass_overlays.dart`.
 - 블록은 사이트 이름이 아니라 'target' 이벤트의 capability로 보여줄지 정한다(`remote_page.dart`의 `_PlayingBlocks`).
@@ -189,7 +189,6 @@ const privacyPolicyUrl = 'https://zappit.tv/privacy';
 웹은 아직 구현하지 않았다(지금은 모두 404). 개발 중 웹 URL이 필요하면 아래 가상 URL을 쓰고, 나중에 웹을 구현할 때 이 경로 그대로 만든다. 새 URL을 만들면 이 목록에 추가한다.
 - `https://zappit.tv/get`: 확장 설치 안내(온보딩). 접속한 브라우저에 맞는 스토어로 보낸다
 - `https://zappit.tv/tutorial`: Tutorial 웹뷰
-- `https://zappit.tv/supported-sites`: 전용 재생기(지원 사이트) 목록 웹뷰
 - `https://zappit.tv/voice-control`: Voice Control 사용법 웹뷰
 - `https://zappit.tv/auth`: Safari 확장용 로그인 페이지
 

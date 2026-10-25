@@ -10,15 +10,33 @@ part of 'target_controller.dart';
 // ignore_for_file: type=lint, type=warning
 /// Latest `target` from the selected browser. Null until one arrives, and
 /// reset whenever the selected browser changes.
+///
+/// The browser sends a target when the app enters presence. A reconnect that
+/// keeps presence (token renewal, short network drop) resets this without a
+/// new one, so while it stays null the app asks with `ping`. The browser
+/// sends `state` only when it changes, so a missed one is asked for the same
+/// way (a few times per tab: some pages never send one).
 
 @ProviderFor(Target)
 final targetProvider = TargetProvider._();
 
 /// Latest `target` from the selected browser. Null until one arrives, and
 /// reset whenever the selected browser changes.
+///
+/// The browser sends a target when the app enters presence. A reconnect that
+/// keeps presence (token renewal, short network drop) resets this without a
+/// new one, so while it stays null the app asks with `ping`. The browser
+/// sends `state` only when it changes, so a missed one is asked for the same
+/// way (a few times per tab: some pages never send one).
 final class TargetProvider extends $NotifierProvider<Target, TargetInfo?> {
   /// Latest `target` from the selected browser. Null until one arrives, and
   /// reset whenever the selected browser changes.
+  ///
+  /// The browser sends a target when the app enters presence. A reconnect that
+  /// keeps presence (token renewal, short network drop) resets this without a
+  /// new one, so while it stays null the app asks with `ping`. The browser
+  /// sends `state` only when it changes, so a missed one is asked for the same
+  /// way (a few times per tab: some pages never send one).
   TargetProvider._()
     : super(
         from: null,
@@ -46,10 +64,16 @@ final class TargetProvider extends $NotifierProvider<Target, TargetInfo?> {
   }
 }
 
-String _$targetHash() => r'2dd076c469b06902c2d68cd6b7133c0c6c67c1ff';
+String _$targetHash() => r'291de3ca9b0769f787049804fd7b84ad9c55ded0';
 
 /// Latest `target` from the selected browser. Null until one arrives, and
 /// reset whenever the selected browser changes.
+///
+/// The browser sends a target when the app enters presence. A reconnect that
+/// keeps presence (token renewal, short network drop) resets this without a
+/// new one, so while it stays null the app asks with `ping`. The browser
+/// sends `state` only when it changes, so a missed one is asked for the same
+/// way (a few times per tab: some pages never send one).
 
 abstract class _$Target extends $Notifier<TargetInfo?> {
   TargetInfo? build();
@@ -106,7 +130,7 @@ final class SiteStateControllerProvider
 }
 
 String _$siteStateControllerHash() =>
-    r'0d10a2de0be9d2615ffb1dfb115e125eb9618a34';
+    r'45ade18bc06be6633b4afb52bef28f7588bea360';
 
 /// Latest `state` snapshot from the selected browser.
 

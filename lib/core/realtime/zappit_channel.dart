@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:ably_flutter/ably_flutter.dart' as ably;
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/widgets.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
+import 'package:zappit/core/firebase/firebase_paths.dart';
+import 'package:zappit/core/firebase/session_repository.dart';
 import 'package:zappit/core/realtime/channel_provider.dart';
 import 'package:zappit/core/realtime/realtime_service.dart';
 import 'package:zappit/protocol/messages.dart';
@@ -127,6 +130,15 @@ class BrowserPresence extends _$BrowserPresence {
 
     unawaited(_enter());
     unawaited(_refresh());
+    if (_foreground) unawaited(_setAppOnline(true));
+    // onDisconnect fires on any RTDB socket drop (Wi-Fi blip, idle network)
+    // and the server never restores the value, so write it again on reconnect.
+    var rtdbConnected = false;
+    _subscriptions.add(FirebaseDatabase.instance.ref('.info/connected').onValue.listen((event) {
+      final connected = event.snapshot.value == true;
+      if (connected && !rtdbConnected && _foreground) unawaited(_setAppOnline(true));
+      rtdbConnected = connected;
+    }));
     return const [];
   }
 
@@ -134,12 +146,14 @@ class BrowserPresence extends _$BrowserPresence {
     switch (lifecycle) {
       case AppLifecycleState.resumed:
         _foreground = true;
+        unawaited(_setAppOnline(true));
         unawaited(_enter());
         unawaited(_refresh());
       case AppLifecycleState.paused:
       case AppLifecycleState.hidden:
         _foreground = false;
         unawaited(_leave());
+        unawaited(_setAppOnline(false));
       default:
         break;
     }
@@ -184,6 +198,26 @@ class BrowserPresence extends _$BrowserPresence {
     }
   }
 
+  /// EXPERIMENT (2026-10-20): RTDB `session/{uid}/appOnline` while in the
+  /// foreground, so the extension joins Ably only then (extension
+  /// `ABLY_ON_DEMAND`). `onDisconnect` clears it if the app dies.
+  Future<void> _setAppOnline(bool online) async {
+    final uid = ref.read(currentUidProvider);
+    if (uid == null) return;
+    final node = FirebaseDatabase.instance.ref(FirebasePaths.appOnline(uid));
+    try {
+      if (online) {
+        await node.onDisconnect().remove();
+        await node.set({'at': ServerValue.timestamp});
+      } else {
+        await node.onDisconnect().cancel();
+        await node.remove();
+      }
+    } catch (e) {
+      debugPrint('appOnline write failed: $e');
+    }
+  }
+
   /// Re-reads presence (pull to refresh, sheet open).
   Future<void> refresh() => _refresh();
 
@@ -195,6 +229,7 @@ class BrowserPresence extends _$BrowserPresence {
     _lifecycle?.dispose();
     _lifecycle = null;
     unawaited(_leave());
+    unawaited(_setAppOnline(false));
   }
 }
 

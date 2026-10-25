@@ -9,6 +9,7 @@ import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/constants/config.dart';
 import 'package:zappit/core/constants/strings.dart';
+import 'package:zappit/core/firebase/user_settings_repository.dart';
 import 'package:zappit/core/providers/remote_config_instance_provider.dart';
 import 'package:zappit/core/routes/app_routes.dart';
 import 'package:zappit/core/utils/device_utils.dart';
@@ -22,9 +23,6 @@ import 'package:zappit/shared/widgets/web_view_page.dart';
 /// More tab: Pro banner, supported sites, support, account, version.
 class MorePage extends ConsumerWidget {
   const MorePage({super.key});
-
-  /// Sites with a dedicated remote (YouTube, Shorts, Netflix, TikTok, Reels, Web).
-  static const supportedSiteCount = 6;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,9 +52,9 @@ class MorePage extends ConsumerWidget {
                 ZpGroup(children: [
                   ZpListRow(
                     title: 'Supported sites',
-                    detail: '$supportedSiteCount',
+                    detail: '${UserSettings.defaultSiteOrder.length}',
                     showChevron: true,
-                    onTap: () => _openWeb(context, 'Supported sites', supportedSitesUrl),
+                    onTap: () => context.push(AppRoutes.supportedSites),
                   ),
                 ]),
                 const SizedBox(height: AppTokens.space6),

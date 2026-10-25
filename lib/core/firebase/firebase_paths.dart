@@ -4,6 +4,7 @@ abstract final class FirebasePaths {
   static String playback(String uid) => 'playback/$uid';
   static String session(String uid) => 'session/$uid';
   static String selectedInstance(String uid) => 'session/$uid/selectedInstanceId';
+  static String appOnline(String uid) => 'session/$uid/appOnline';
 
   // Firestore
   static const users = 'users';

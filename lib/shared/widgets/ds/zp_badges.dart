@@ -141,3 +141,30 @@ class ZpMonogram extends StatelessWidget {
     );
   }
 }
+
+/// A site's brand mark in a black circle with a light ring (`.za-site-i img`,
+/// `.za-ss-row img`). Nothing for sites without a mark. Shorts uses its red
+/// mark here; the header and the YouTube menu use the white one.
+class ZpSiteLogo extends StatelessWidget {
+  const ZpSiteLogo({super.key, required this.site, this.size = 56});
+
+  final Site site;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    final asset = site == Site.shorts ? 'assets/images/shorts_red.png' : site.brandAsset;
+    return Container(
+      width: size,
+      height: size,
+      // 9 px inside a 56 px circle, 7 px inside 40.
+      padding: EdgeInsets.all(size * 0.165),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        shape: BoxShape.circle,
+        border: Border.all(color: context.tokens.hairlineStrong),
+      ),
+      child: asset == null ? null : Image.asset(asset, fit: BoxFit.contain),
+    );
+  }
+}

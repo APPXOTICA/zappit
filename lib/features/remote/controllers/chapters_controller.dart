@@ -1,6 +1,7 @@
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/features/remote/controllers/target_controller.dart';
+import 'package:zappit/protocol/messages.dart';
 
 part 'chapters_controller.g.dart';
 
@@ -25,4 +26,15 @@ Future<EpisodeList?> episodes(Ref ref) async {
   ref.watch(targetProvider.select((t) => t?.title));
   if (!isSeries) return null;
   return ref.read(remoteControllerProvider).fetchEpisodes();
+}
+
+/// Entries of the YouTube playlist being played; fetched on demand (sheet
+/// open) and again when the playing entry changes.
+@Riverpod(keepAlive: true)
+Future<PlaylistItems?> playlistItems(Ref ref) async {
+  final available = ref.watch(siteStateControllerProvider.select((s) => s.playlist.available));
+  ref.watch(siteStateControllerProvider.select((s) => s.playlist.index));
+  ref.watch(targetProvider.select((t) => t?.title));
+  if (!available) return null;
+  return ref.read(remoteControllerProvider).fetchPlaylist();
 }

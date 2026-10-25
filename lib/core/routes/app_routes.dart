@@ -9,4 +9,5 @@ abstract final class AppRoutes {
   static const remoteSettings = '/remote-settings';
   static const webView = '/web';
   static const howToConnect = '/how-to-connect';
+  static const supportedSites = '/supported-sites';
 }

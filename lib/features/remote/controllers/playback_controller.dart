@@ -29,6 +29,9 @@ class PlaybackView {
   bool get isAd => snapshot?.isAd ?? false;
   bool get isLive => snapshot?.isLive ?? false;
 
+  /// Live stream that can be rewound.
+  bool get isDvr => isLive && (snapshot?.dvr ?? false);
+
   /// False for live and while the page has not loaded the video yet.
   bool get hasDuration => snapshot?.hasDuration ?? false;
   bool get paused => snapshot?.paused ?? true;

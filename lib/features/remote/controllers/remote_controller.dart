@@ -369,6 +369,44 @@ class RemoteController {
     _bus.fire(const RemoteCommand.goHome());
   }
 
+  /// The browser's Back on the target tab (YouTube menu).
+  void goBack() {
+    _tap();
+    _bus.fire(const RemoteCommand.goBack());
+  }
+
+  /// A YouTube side menu page (menu bar, You / Explore sheets).
+  void goPage(YtPage page) {
+    if (page == YtPage.home) return goHome();
+    _tap();
+    _bus.fire(RemoteCommand.goPage(page));
+  }
+
+  // ---------------------------------------------------------------- playlist
+
+  Future<PlaylistItems?> fetchPlaylist() async {
+    final ack = await _bus.send(const RemoteCommand.getPlaylist());
+    if (!ack.ok) return null;
+    return PlaylistItems.fromJson(ack.data);
+  }
+
+  void playPlaylistItem(PlaylistItem item) {
+    _tap();
+    _bus.fire(RemoteCommand.playPlaylistItem(item.index, videoId: item.videoId));
+  }
+
+  Future<void> setShuffle(bool on) async {
+    _tap();
+    final ack = await _bus.send(RemoteCommand.setShuffle(on));
+    if (ack.ok) AppNotice.snack(on ? 'Shuffling this playlist' : 'Shuffle off');
+  }
+
+  Future<void> setPlaylistLoop(bool on) async {
+    _tap();
+    final ack = await _bus.send(RemoteCommand.setPlaylistLoop(on));
+    if (ack.ok) AppNotice.snack(on ? 'Repeating this playlist' : 'Repeat off');
+  }
+
   void nav(NavDirection direction) {
     unawaited(HapticUtils.hapticFeedback(HapticType.selection));
     _bus.fire(RemoteCommand.nav(direction));

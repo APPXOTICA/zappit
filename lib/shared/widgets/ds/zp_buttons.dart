@@ -33,10 +33,14 @@ class ZpButton extends StatelessWidget {
     this.radius = AppTokens.radiusFull,
     this.expand = true,
     this.textStyle,
+    this.onDisabledTap,
   });
 
   final String label;
   final VoidCallback? onPressed;
+
+  /// Called when tapped while disabled (to explain why in a snackbar).
+  final VoidCallback? onDisabledTap;
   final Widget? icon;
   final Widget? trailingIcon;
   final ZpButtonStyle style;
@@ -59,7 +63,7 @@ class ZpButton extends StatelessWidget {
     };
 
     return ZpPressable(
-      onTap: onPressed,
+      onTap: enabled ? onPressed : onDisabledTap,
       scale: enabled ? 0.97 : 1,
       builder: (context, pressed) => AnimatedOpacity(
         duration: const Duration(milliseconds: 150),
@@ -69,7 +73,7 @@ class ZpButton extends StatelessWidget {
           width: expand ? double.infinity : null,
           padding: const EdgeInsets.symmetric(horizontal: AppTokens.space4),
           decoration: BoxDecoration(
-            color: pressed && style == ZpButtonStyle.tonal ? t.surface300 : bg,
+            color: pressed && enabled && style == ZpButtonStyle.tonal ? t.surface300 : bg,
             borderRadius: BorderRadius.circular(radius),
             border: Border.all(color: border),
           ),

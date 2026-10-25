@@ -76,9 +76,18 @@ final class RemoteCommand {
   RemoteCommand.setQuality(String id) : this._('set_quality', {'id': id});
   const RemoteCommand.getMediaUrl() : this._('get_media_url');
 
+  // Playlist (YouTube)
+  const RemoteCommand.getPlaylist() : this._('get_playlist');
+  RemoteCommand.playPlaylistItem(int index, {String? videoId})
+      : this._('play_playlist_item', {'index': index, 'videoId': ?videoId});
+  RemoteCommand.setShuffle(bool on) : this._('set_shuffle', {'on': on});
+  RemoteCommand.setPlaylistLoop(bool on) : this._('set_playlist_loop', {'on': on});
+
   // Navigation
   RemoteCommand.openUrl(String url) : this._('open_url', {'url': url});
   const RemoteCommand.goHome() : this._('go_home');
+  const RemoteCommand.goBack() : this._('go_back');
+  RemoteCommand.goPage(YtPage page) : this._('go_page', {'page': page.wire});
   RemoteCommand.nav(NavDirection direction) : this._('nav', {'direction': direction.name});
   const RemoteCommand.navSelect() : this._('nav_select');
   const RemoteCommand.endScreenPlayNow() : this._('end_screen_play_now');
@@ -102,7 +111,8 @@ final class RemoteCommand {
     'toggle_cc', 'set_subtitle_track', 'set_subtitle_size',
     'skip_ad', 'skip_intro', 'next_episode', 'next_video', 'prev_video',
     'get_tracks', 'get_episodes', 'play_episode', 'get_quality', 'set_quality', 'get_media_url',
-    'open_url', 'go_home', 'nav', 'nav_select',
+    'open_url', 'go_home', 'go_page', 'go_back', 'nav', 'nav_select',
+    'get_playlist', 'play_playlist_item', 'set_shuffle', 'set_playlist_loop',
     'end_screen_play_now', 'end_screen_cancel', 'end_screen_dismiss',
     'watch_tabs', 'unwatch_tabs', 'activate_tab', 'ping',
   };

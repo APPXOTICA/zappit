@@ -45,7 +45,7 @@ enum Site {
   /// Brand image in `assets/images/`, null for generic sites.
   String? get brandAsset => switch (this) {
         youtube => 'assets/images/youtube.png',
-        shorts => 'assets/images/shorts.png',
+        shorts => 'assets/images/shorts_white.png',
         netflix => 'assets/images/netflix.png',
         tiktok => 'assets/images/tiktok.png',
         reels => 'assets/images/reels.png',
@@ -88,7 +88,9 @@ enum Capability {
   home,
   openInApp('open_in_app'),
   quality,
-  spatialNav('spatial_nav');
+  spatialNav('spatial_nav'),
+  browseMenu('browse_menu'),
+  playlist;
 
   const Capability([this._wireName]);
 
@@ -119,4 +121,30 @@ abstract final class AckError {
   // App-side only
   static const timeout = 'timeout';
   static const noBrowser = 'no_browser';
+}
+
+/// YouTube side menu pages (`go_page`), flattened into the app's menu bar
+/// and the You / Explore sheets.
+enum YtPage {
+  home,
+  shorts,
+  subscriptions,
+  history,
+  playlists,
+  watchLater('watch_later'),
+  liked,
+  downloads,
+  music,
+  hype,
+  live,
+  gaming,
+  courses,
+  podcasts,
+  memberships;
+
+  const YtPage([this._wire]);
+
+  final String? _wire;
+
+  String get wire => _wire ?? name;
 }

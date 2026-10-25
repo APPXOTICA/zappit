@@ -68,6 +68,12 @@ void main() {
 
       final tracks = Chapter.listFromAck(Ack.fromJson(fixture('ack_tracks')));
       expect(tracks.map((c) => c.start), [0, 80, 290]);
+
+      final playlist = PlaylistItems.fromJson(Ack.fromJson(fixture('ack_playlist')).data);
+      expect(playlist.index, 1);
+      // The untitled (deleted) entry is left out; indexes stay the page's.
+      expect(playlist.items.map((i) => i.index), [0, 1]);
+      expect(playlist.items.last.subtitle, 'STONE MUSIC · 3:43');
     });
   });
 
@@ -80,6 +86,8 @@ void main() {
       expect(target.has(Capability.chapters), isTrue);
       expect(target.has(Capability.episodes), isFalse);
       expect(target.has(Capability.abLoop), isTrue);
+      expect(target.has(Capability.browseMenu), isTrue);
+      expect(target.has(Capability.playlist), isTrue);
     });
 
     test('no target', () {
@@ -97,11 +105,18 @@ void main() {
       expect(state.chatAvailable, isTrue);
       expect(state.subtitle.tracks.map((t) => t.id), ['en', 'ko']);
       expect(state.chapterCount, 12);
+      expect(state.canGoBack, isTrue);
       expect(state.endScreenMode, EndScreenMode.upNext);
       expect(state.endScreenCountdown, 8);
       expect(state.endScreenCard?.channel, 'Night Owl Radio');
       expect(state.voiceBoostOn, isTrue);
       expect(state.voiceBoostTrialEndsAt, 1792130010000);
+      expect(state.playlist.available, isTrue);
+      expect(state.playlist.title, 'Watch later');
+      expect(state.playlist.count, 29);
+      expect(state.playlist.loop, isTrue);
+      expect(state.playlist.hasNext, isTrue);
+      expect(state.playlist.infinite, isFalse);
     });
 
     test('missing fields fall back to defaults', () {
@@ -110,6 +125,8 @@ void main() {
       expect(state.subtitle.available, isFalse);
       expect(state.endScreenMode, EndScreenMode.none);
       expect(state.focusCard, isNull);
+      expect(state.noCards, isFalse);
+      expect(state.canGoBack, isFalse);
     });
   });
 
@@ -128,8 +145,14 @@ void main() {
     test('live has no duration', () {
       final p = PlaybackSnapshot.fromJson(fixture('playback_live'));
       expect(p.isLive, isTrue);
+      expect(p.dvr, isTrue);
       expect(p.hasDuration, isFalse);
       expect(p.loopStart, isNull);
+    });
+
+    test('dvr defaults to false', () {
+      final p = PlaybackSnapshot.fromJson(fixture('playback_youtube'));
+      expect(p.dvr, isFalse);
     });
 
     test('unknown duration is not live', () {
@@ -159,5 +182,14 @@ void main() {
     expect(UserSettings.fromJson({'abLoopCount': 0}).abLoopCount, isNull);
     expect(UserSettings.fromJson({'abLoopCount': 7}).abLoopCount, 3);
     expect(const UserSettings(abLoopCount: null).toJson()['abLoopCount'], 0);
+  });
+
+  test('site order keeps the stored order, drops unknown names and appends new sites', () {
+    expect(UserSettings.fromJson({}).siteOrder, UserSettings.defaultSiteOrder);
+    expect(
+      UserSettings.fromJson({'siteOrder': ['netflix', 'bogus', 'youtube', 'netflix', 'generic']}).siteOrder,
+      [Site.netflix, Site.youtube, Site.shorts, Site.tiktok, Site.reels],
+    );
+    expect(const UserSettings(siteOrder: [Site.reels, Site.youtube]).toJson()['siteOrder'], ['reels', 'youtube']);
   });
 }

@@ -1,5 +1,6 @@
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
+import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/features/remote/controllers/playback_controller.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/protocol/messages.dart';
@@ -61,6 +62,11 @@ class _SleepTimerOptions extends ConsumerWidget {
           minHeight: 64,
           selected: mode == SleepMode.endOfVideo,
           onTap: view.isLive || !view.hasDuration ? null : () => pick(controller.sleepAtEndOfVideo),
+          onDisabledTap: () => AppNotice.top(
+            title: view.isLive ? 'Not available for live streams' : "This video's length is unknown",
+            icon: Icons.info_outline_rounded,
+            error: false,
+          ),
         ),
       ],
     );

@@ -12,6 +12,7 @@ import 'package:zappit/features/remote/presentation/pages/remote_page.dart';
 import 'package:zappit/features/settings/presentation/pages/more_page.dart';
 import 'package:zappit/features/settings/presentation/pages/remote_settings_page.dart';
 import 'package:zappit/features/shell/presentation/app_shell.dart';
+import 'package:zappit/features/sites/presentation/supported_sites_page.dart';
 import 'package:zappit/features/tabs/presentation/pages/tabs_page.dart';
 import 'package:zappit/shared/widgets/web_view_page.dart';
 
@@ -62,6 +63,11 @@ GoRouter router(Ref ref) {
         path: AppRoutes.howToConnect,
         parentNavigatorKey: rootNavigatorKey,
         builder: (context, state) => const HowToConnectPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.supportedSites,
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => const SupportedSitesPage(),
       ),
       GoRoute(
         path: AppRoutes.webView,

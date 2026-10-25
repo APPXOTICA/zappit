@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
+import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/core/utils/haptic_utils.dart';
 import 'package:zappit/features/purchase/pro_controller.dart';
 import 'package:zappit/features/remote/controllers/playback_controller.dart';
@@ -102,6 +103,9 @@ class _VolumeBlockState extends ConsumerState<VolumeBlock> {
                             ? 'Voice Boost trial, $trialLeft seconds left'
                             : (voiceBoostOn ? 'Voice Boost on' : 'Voice Boost off'),
                         onPressed: voiceBoostAvailable ? controller.toggleVoiceBoost : null,
+                        onDisabledTap: () => AppNotice.snack(
+                          view.isAd ? "Voice Boost isn't available during an ad" : "This video doesn't support Voice Boost",
+                        ),
                         child: Icon(
                           voiceBoostOn || trialLeft != null
                               ? Icons.record_voice_over_rounded

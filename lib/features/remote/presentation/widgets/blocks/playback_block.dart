@@ -24,6 +24,7 @@ class PlaybackBlock extends ConsumerWidget {
     final isAd = ref.watch(playbackControllerProvider.select((v) => v.isAd));
     final isLive = ref.watch(playbackControllerProvider.select((v) => v.isLive));
     final hasDuration = ref.watch(playbackControllerProvider.select((v) => v.hasDuration));
+    final isDvr = ref.watch(playbackControllerProvider.select((v) => v.isDvr));
     final paused = ref.watch(playbackControllerProvider.select((v) => v.paused));
     final loop = ref.watch(playbackControllerProvider.select((v) => v.snapshot?.loop ?? false));
     final loopLeft = ref.watch(playbackControllerProvider.select((v) => v.snapshot?.loopRepeatLeft));
@@ -34,7 +35,11 @@ class PlaybackBlock extends ConsumerWidget {
     final shortForm = target?.isShortForm ?? false;
     final hasReplay = !shortForm && (target?.has(Capability.replay) ?? true);
     final hasLoop = !shortForm && (target?.has(Capability.loop) ?? true);
-    final canSeek = hasData && !isAd && !isLive && hasDuration;
+    // DVR live streams can be rewound; other live streams can't.
+    final canSeek = hasData && !isAd && (isLive ? isDvr : hasDuration);
+    final seekBlocked = canSeek
+        ? null
+        : _seekBlockedNotice(hasData: hasData, isAd: isAd, isLive: isLive, hasDuration: hasDuration);
 
     // Image file names are mirrored: forward_* shows a left arrow.
     final backIcon = 'assets/images/forward_${seekInterval}s.png';
@@ -56,12 +61,14 @@ class PlaybackBlock extends ConsumerWidget {
                   variant: ZpIconButtonVariant.outlined,
                   semanticLabel: 'Replay',
                   onPressed: hasData && !isAd ? controller.replay : null,
+                  onDisabledTap: isAd ? () => AppNotice.snack(_adNotice) : null,
                   child: const Icon(Icons.refresh_rounded, size: 28),
                 ),
               ZpIconButton(
                 variant: ZpIconButtonVariant.outlined,
                 semanticLabel: 'Back $seekInterval seconds',
                 onPressed: canSeek ? controller.seekBackward : null,
+                onDisabledTap: seekBlocked,
                 child: ZpImageIcon(backIcon, size: 30),
               ),
               ZpIconButton(
@@ -78,6 +85,7 @@ class PlaybackBlock extends ConsumerWidget {
                 variant: ZpIconButtonVariant.outlined,
                 semanticLabel: 'Forward $seekInterval seconds',
                 onPressed: canSeek ? controller.seekForward : null,
+                onDisabledTap: seekBlocked,
                 child: ZpImageIcon(forwardIcon, size: 30),
               ),
               if (hasLoop)
@@ -86,6 +94,7 @@ class PlaybackBlock extends ConsumerWidget {
                   left: loop ? loopLeft : null,
                   enabled: hasData && !abActive,
                   onPressed: controller.toggleLoop,
+                  onDisabledTap: abActive ? () => AppNotice.snack('Turn off the A-B loop first') : null,
                 ),
             ],
           ),
@@ -95,13 +104,39 @@ class PlaybackBlock extends ConsumerWidget {
   }
 }
 
+const _adNotice = 'Not available during an ad';
+
+/// Why seeking (or A-B, with [seekNotice] false) is off, as a tap handler for
+/// the greyed-out buttons. Null while playback data is still on its way (it
+/// turns on by itself).
+VoidCallback? _seekBlockedNotice({
+  required bool hasData,
+  required bool isAd,
+  required bool isLive,
+  required bool hasDuration,
+  bool seekNotice = true,
+}) {
+  if (!hasData) return null;
+  if (isAd) return () => AppNotice.snack(_adNotice);
+  if (isLive) return () => AppNotice.snack(seekNotice ? "This live stream can't be rewound" : 'A-B loop is off for live streams');
+  if (!hasDuration) return () => AppNotice.snack("Can't seek in this video");
+  return null;
+}
+
 class _LoopButton extends StatelessWidget {
-  const _LoopButton({required this.on, required this.left, required this.enabled, required this.onPressed});
+  const _LoopButton({
+    required this.on,
+    required this.left,
+    required this.enabled,
+    required this.onPressed,
+    this.onDisabledTap,
+  });
 
   final bool on;
   final int? left;
   final bool enabled;
   final VoidCallback onPressed;
+  final VoidCallback? onDisabledTap;
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +153,7 @@ class _LoopButton extends StatelessWidget {
             pressed: null,
             semanticLabel: on ? 'Loop on' : 'Loop off',
             onPressed: enabled ? onPressed : null,
+            onDisabledTap: onDisabledTap,
             child: Icon(on ? Icons.repeat_one_on_rounded : Icons.repeat_one, size: 28),
           ),
           if (left != null)
@@ -297,6 +333,13 @@ class _TimelineState extends ConsumerState<_Timeline> with SingleTickerProviderS
     final position = _dragSeconds ?? view.timeline.positionAt(now);
     final duration = view.duration;
     final abEnabled = view.hasData && !view.isAd && !view.isLive && view.hasDuration;
+    final abBlocked = _seekBlockedNotice(
+      hasData: view.hasData,
+      isAd: view.isAd,
+      isLive: view.isLive,
+      hasDuration: view.hasDuration,
+      seekNotice: false,
+    );
 
     final durationText = view.hasDuration ? PlaybackMath.formatTime(duration) : '–:––';
     final timeText = '${PlaybackMath.formatTime(position)} / $durationText';
@@ -310,6 +353,7 @@ class _TimelineState extends ConsumerState<_Timeline> with SingleTickerProviderS
               label: '[',
               on: snapshot?.loopStart != null,
               enabled: abEnabled,
+              onDisabledTap: abBlocked,
               onPressed: () => controller.toggleAbPoint('a'),
             ),
             const SizedBox(width: AppTokens.space2),
@@ -334,6 +378,7 @@ class _TimelineState extends ConsumerState<_Timeline> with SingleTickerProviderS
               label: ']',
               on: snapshot?.loopEnd != null,
               enabled: abEnabled,
+              onDisabledTap: abBlocked,
               onPressed: () => controller.toggleAbPoint('b'),
             ),
           ],
@@ -348,18 +393,25 @@ class _TimelineState extends ConsumerState<_Timeline> with SingleTickerProviderS
 }
 
 class _AbButton extends StatelessWidget {
-  const _AbButton({required this.label, required this.on, required this.enabled, required this.onPressed});
+  const _AbButton({
+    required this.label,
+    required this.on,
+    required this.enabled,
+    required this.onPressed,
+    this.onDisabledTap,
+  });
 
   final String label;
   final bool on;
   final bool enabled;
   final VoidCallback onPressed;
+  final VoidCallback? onDisabledTap;
 
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
     return ZpPressable(
-      onTap: enabled ? onPressed : () => AppNotice.snack("A-B loop isn't available right now"),
+      onTap: enabled ? onPressed : onDisabledTap,
       semanticLabel: label == '[' ? 'Loop start' : 'Loop end',
       selected: on,
       builder: (context, pressed) => Container(

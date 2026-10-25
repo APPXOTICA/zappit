@@ -4,7 +4,7 @@
 //   flutter run -t lib/dev/preview_main.dart --dart-define=SCENARIO=main
 //   or build once and write the scenario to tmp/scenario.txt in the app container
 //
-// Scenarios: main, ad, live, ab, upnext, pick, home, netflix, shorts, web,
+// Scenarios: main, ad, live, ab, upnext, pick, home, playlist, netflix, shorts, web,
 // disconnected, nobrowser, nothing, more, settings, pro, login, tabs, sleep, episodes.
 import 'dart:async';
 import 'dart:io';
@@ -36,6 +36,7 @@ import 'package:zappit/features/remote/presentation/sheets/sleep_timer_sheet.dar
 import 'package:zappit/features/settings/presentation/pages/more_page.dart';
 import 'package:zappit/features/settings/presentation/pages/remote_settings_page.dart';
 import 'package:zappit/features/shell/presentation/app_shell.dart';
+import 'package:zappit/features/sites/presentation/supported_sites_page.dart';
 import 'package:zappit/features/tabs/presentation/pages/tabs_page.dart';
 import 'package:zappit/firebase_options.dart';
 import 'package:zappit/protocol/messages.dart';
@@ -63,7 +64,8 @@ const _ytCaps = {
   Capability.play, Capability.seek, Capability.speed, Capability.volume, Capability.replay, Capability.loop,
   Capability.abLoop, Capability.sleepTimer, Capability.fullscreen, Capability.theater, Capability.voiceBoost,
   Capability.chat, Capability.captions, Capability.chapters, Capability.skipAd, Capability.endScreen,
-  Capability.home, Capability.openInApp, Capability.quality, Capability.spatialNav,
+  Capability.home, Capability.openInApp, Capability.quality, Capability.spatialNav, Capability.browseMenu,
+  Capability.playlist,
 };
 const _nfCaps = {
   Capability.play, Capability.seek, Capability.speed, Capability.volume, Capability.replay, Capability.loop,
@@ -72,7 +74,7 @@ const _nfCaps = {
 };
 const _shortCaps = {
   Capability.play, Capability.seek, Capability.speed, Capability.volume, Capability.abLoop, Capability.sleepTimer,
-  Capability.fullscreen, Capability.prevNext, Capability.openInApp,
+  Capability.fullscreen, Capability.prevNext, Capability.openInApp, Capability.home, Capability.browseMenu,
 };
 const _genericCaps = {
   Capability.play, Capability.seek, Capability.speed, Capability.volume, Capability.replay, Capability.loop,
@@ -91,7 +93,7 @@ const _rainy = VideoCard(title: 'Rainy Tokyo night drive — 2 hour jazz for foc
 TargetInfo? _target() {
   final now = DateTime.now().millisecondsSinceEpoch;
   return switch (scenario) {
-    'home' => TargetInfo(instanceId: 'i1', tabId: 1, site: Site.youtube, page: PageKind.home, hasMedia: false, capabilities: const {Capability.home, Capability.spatialNav}, timestamp: now),
+    'home' => TargetInfo(instanceId: 'i1', tabId: 1, site: Site.youtube, page: PageKind.home, hasMedia: false, capabilities: const {Capability.home, Capability.spatialNav, Capability.browseMenu}, timestamp: now),
     'netflix' || 'episodes' => TargetInfo(instanceId: 'i1', tabId: 1, site: Site.netflix, page: PageKind.watch, hasMedia: true, title: 'S2 · E4 — The Lighthouse Keeper', capabilities: _nfCaps, timestamp: now),
     'shorts' => TargetInfo(instanceId: 'i1', tabId: 1, site: Site.shorts, page: PageKind.watch, isShortForm: true, hasMedia: true, title: 'One-pan garlic noodles in 60 seconds', capabilities: _shortCaps, timestamp: now),
     'web' => TargetInfo(instanceId: 'i1', tabId: 1, site: Site.generic, page: PageKind.other, hasMedia: true, title: 'Field recording: Jeju coastline at dawn', capabilities: _genericCaps, timestamp: now),
@@ -106,6 +108,11 @@ SiteState _site() => switch (scenario) {
       'upnext' => const SiteState(endScreenMode: EndScreenMode.upNext, endScreenCountdown: 8, endScreenCard: _rainy),
       'pick' => const SiteState(endScreenMode: EndScreenMode.pick, focusCard: VideoCard(title: 'Study with me — 4 hours, rain sounds', channel: 'Quiet Desk', duration: '4:00:12')),
       'home' => const SiteState(focusCard: _rainy),
+      'playlist' => const SiteState(
+          voiceBoostAvailable: true,
+          subtitle: _subs,
+          playlist: PlaylistState(available: true, title: 'Watch later', index: 2, count: 29, canShuffle: true, shuffle: true, canLoop: true, loop: true),
+        ),
       'netflix' || 'episodes' => const SiteState(skipIntro: true, isSeries: true, nextEpisodeAvailable: true, subtitle: SubtitleState(available: true, enabled: true, sizePercent: 150, tracks: [SubtitleTrack(id: 'en', label: 'English')])),
       'shorts' || 'web' || 'nothing' => SiteState.empty,
       _ => const SiteState(voiceBoostAvailable: true, subtitle: _subs, chapterCount: 12),
@@ -149,6 +156,10 @@ class _FakePro extends ProController {
 class _FakeSettings extends UserSettingsController {
   @override
   UserSettings build() => const UserSettings();
+
+  // Kept in memory: lets Supported sites be reordered in the preview.
+  @override
+  Future<void> update(UserSettings next) async => state = next;
 }
 
 Future<void> main() async {
@@ -163,6 +174,7 @@ Future<void> main() async {
     'pro' => AppRoutes.pro,
     'login' => AppRoutes.login,
     'tabs' => AppRoutes.tabs,
+    'sites' => AppRoutes.supportedSites,
     _ => AppRoutes.remote,
   };
 
@@ -173,6 +185,7 @@ Future<void> main() async {
       GoRoute(path: AppRoutes.login, builder: (_, _) => const LoginPage()),
       GoRoute(path: AppRoutes.pro, builder: (_, _) => const ProPage()),
       GoRoute(path: AppRoutes.remoteSettings, builder: (_, _) => const RemoteSettingsPage()),
+      GoRoute(path: AppRoutes.supportedSites, builder: (_, _) => const SupportedSitesPage()),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => AppShell(shell: shell),
         branches: [

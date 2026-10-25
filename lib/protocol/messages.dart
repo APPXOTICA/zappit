@@ -181,6 +181,9 @@ final class SiteState {
     this.endScreenCountdown,
     this.endScreenCard,
     this.focusCard,
+    this.noCards = false,
+    this.canGoBack = false,
+    this.playlist = const PlaylistState(),
   });
 
   final String instanceId;
@@ -202,6 +205,13 @@ final class SiteState {
   final int? endScreenCountdown;
   final VideoCard? endScreenCard;
   final VideoCard? focusCard;
+
+  /// A browse page that has loaded with no videos (e.g. no downloads).
+  final bool noCards;
+
+  /// The tab can go back to an earlier page of the same site (`go_back`).
+  final bool canGoBack;
+  final PlaylistState playlist;
 
   static const empty = SiteState();
 
@@ -228,7 +238,103 @@ final class SiteState {
       endScreenCountdown: asInt(endScreen['countdownSec']),
       endScreenCard: VideoCard.fromJson(endScreen['card']),
       focusCard: VideoCard.fromJson(json['focusCard']),
+      noCards: asBool(json['noCards']),
+      canGoBack: asBool(json['canGoBack']),
+      playlist: PlaylistState.fromJson(json['playlist']),
     );
+  }
+}
+
+/// The watch page's playlist (YouTube). Entries come with `get_playlist`.
+final class PlaylistState {
+  const PlaylistState({
+    this.available = false,
+    this.title,
+    this.index = 0,
+    this.count = 0,
+    this.canShuffle = false,
+    this.shuffle = false,
+    this.canLoop = false,
+    this.loop = false,
+    this.infinite = false,
+  });
+
+  final bool available;
+  final String? title;
+
+  /// 0-based position of the playing entry.
+  final int index;
+  final int count;
+  final bool canShuffle;
+  final bool shuffle;
+  final bool canLoop;
+
+  /// The whole list repeats.
+  final bool loop;
+
+  /// A mix YouTube keeps extending: no shuffle or loop.
+  final bool infinite;
+
+  bool get hasNext => available && (index < count - 1 || loop || shuffle);
+
+  factory PlaylistState.fromJson(Object? raw) {
+    final json = asJsonMap(raw);
+    return PlaylistState(
+      available: asBool(json['available']),
+      title: asString(json['title']),
+      index: asInt(json['index']) ?? 0,
+      count: asInt(json['count']) ?? 0,
+      canShuffle: asBool(json['canShuffle']),
+      shuffle: asBool(json['shuffle']),
+      canLoop: asBool(json['canLoop']),
+      loop: asBool(json['loop']),
+      infinite: asBool(json['infinite']),
+    );
+  }
+}
+
+/// One playlist entry (`get_playlist`).
+final class PlaylistItem {
+  const PlaylistItem({required this.index, this.videoId, required this.title, this.channel, this.duration, this.thumbnail});
+
+  final int index;
+  final String? videoId;
+  final String title;
+  final String? channel;
+  final String? duration;
+  final String? thumbnail;
+
+  String get subtitle => [channel, duration].whereType<String>().where((s) => s.isNotEmpty).join(' · ');
+}
+
+/// `get_playlist` ack data.
+final class PlaylistItems {
+  const PlaylistItems({required this.index, required this.items});
+
+  final int index;
+  final List<PlaylistItem> items;
+
+  factory PlaylistItems.fromJson(Object? raw) {
+    final json = asJsonMap(raw);
+    final rawItems = json['items'];
+    final items = <PlaylistItem>[];
+    if (rawItems is List) {
+      for (final (i, e) in rawItems.indexed) {
+        final item = asJsonMap(e);
+        final title = asString(item['title']) ?? '';
+        // Deleted or private entries come without a title: nothing to show.
+        if (title.isEmpty) continue;
+        items.add(PlaylistItem(
+          index: asInt(item['index']) ?? i,
+          videoId: asString(item['videoId']),
+          title: title,
+          channel: asString(item['channel']),
+          duration: asString(item['duration']),
+          thumbnail: asString(item['thumbnail']),
+        ));
+      }
+    }
+    return PlaylistItems(index: asInt(json['index']) ?? 0, items: items);
   }
 }
 
@@ -254,6 +360,7 @@ final class PlaybackSnapshot {
     this.currentTime = 0,
     this.duration,
     this.live = false,
+    this.dvr = false,
     this.paused = true,
     this.playbackRate = 1,
     this.volume = 1,
@@ -280,6 +387,9 @@ final class PlaybackSnapshot {
 
   /// The media has no end. Unknown duration alone is not live.
   final bool live;
+
+  /// Live stream the viewer can rewind: ±N s seeking works (A-B still doesn't).
+  final bool dvr;
   final bool paused;
   final double playbackRate;
 
@@ -312,6 +422,7 @@ final class PlaybackSnapshot {
       duration: (duration == null || duration.isInfinite || duration.isNaN) ? null : duration,
       // Extensions before `live` sent only a null duration for live streams.
       live: json['live'] == null ? duration == null : asBool(json['live']),
+      dvr: asBool(json['dvr']),
       paused: asBool(json['paused'], fallback: true),
       playbackRate: asDouble(json['playbackRate']) ?? 1,
       volume: (asDouble(json['volume']) ?? 1).clamp(0, 1).toDouble(),

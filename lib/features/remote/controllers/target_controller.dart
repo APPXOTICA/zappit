@@ -15,20 +15,27 @@ part 'target_controller.g.dart';
 ///
 /// The browser sends a target when the app enters presence. A reconnect that
 /// keeps presence (token renewal, short network drop) resets this without a
-/// new one, so while it stays null the app asks with `ping`.
+/// new one, so while it stays null the app asks with `ping`. The browser
+/// sends `state` only when it changes, so a missed one is asked for the same
+/// way (a few times per tab: some pages never send one).
 @Riverpod(keepAlive: true)
 class Target extends _$Target {
   static const _askAfter = Duration(seconds: 2);
   static const _askEvery = Duration(seconds: 5);
+  static const _maxStateAsks = 3;
+
+  int _stateAsks = 0;
 
   @override
   TargetInfo? build() {
     final instanceId = ref.watch(targetInstanceIdProvider);
+    _stateAsks = 0;
     if (instanceId == null) return null;
 
     final events = ref.watch(channelEventsProvider).stream;
     final sub = events.listen((event) {
       if (event is TargetEvent && event.target.instanceId == instanceId) {
+        if (event.target.tabId != state?.tabId) _stateAsks = 0;
         state = event.target;
       }
     });
@@ -47,7 +54,13 @@ class Target extends _$Target {
   }
 
   void _askIfMissing() {
-    if (!ref.mounted || state != null) return;
+    if (!ref.mounted) return;
+    final target = state;
+    if (target != null) {
+      if (target.tabId == null || ref.read(siteStateControllerProvider.notifier).received) return;
+      if (_stateAsks >= _maxStateAsks) return;
+      _stateAsks++;
+    }
     // In the background the app has left presence on purpose.
     if (WidgetsBinding.instance.lifecycleState != AppLifecycleState.resumed) return;
     unawaited(ref.read(commandBusProvider).send(const RemoteCommand.ping(), handleErrors: false));
@@ -60,16 +73,19 @@ class SiteStateController extends _$SiteStateController {
   @override
   SiteState build() {
     final instanceId = ref.watch(targetInstanceIdProvider);
+    _received = false;
     if (instanceId == null) return SiteState.empty;
 
     final events = ref.watch(channelEventsProvider).stream;
     final sub = events.listen((event) {
       if (event is StateEvent && event.state.instanceId == instanceId) {
+        _received = true;
         state = event.state;
       } else if (event is TargetEvent && event.target.instanceId == instanceId) {
         // A new target starts with a clean site state until its first snapshot.
         if (event.target.tabId != _tabId) {
           _tabId = event.target.tabId;
+          _received = false;
           state = SiteState.empty;
         }
       }
@@ -79,4 +95,8 @@ class SiteStateController extends _$SiteStateController {
   }
 
   int? _tabId;
+  bool _received = false;
+
+  /// A snapshot for the current tab has arrived (`Target` asks again if not).
+  bool get received => _received;
 }

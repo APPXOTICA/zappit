@@ -7,6 +7,7 @@ export 'package:zappit/shared/widgets/ds/zp_list_row.dart';
 export 'package:zappit/shared/widgets/ds/zp_pressable.dart';
 export 'package:zappit/shared/widgets/ds/zp_scrub_bar.dart';
 export 'package:zappit/shared/widgets/ds/zp_segmented_control.dart';
+export 'package:zappit/shared/widgets/ds/zp_shimmer.dart';
 export 'package:zappit/shared/widgets/ds/zp_surfaces.dart';
 export 'package:zappit/shared/widgets/ds/zp_tab_row.dart';
 export 'package:zappit/shared/widgets/ds/zp_volume_rocker.dart';

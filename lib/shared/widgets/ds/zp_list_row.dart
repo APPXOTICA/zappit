@@ -17,6 +17,7 @@ class ZpListRow extends StatelessWidget {
     this.centered = false,
     this.minHeight = 56,
     this.onTap,
+    this.onDisabledTap,
   });
 
   final String title;
@@ -30,13 +31,16 @@ class ZpListRow extends StatelessWidget {
   final double minHeight;
   final VoidCallback? onTap;
 
+  /// Called when tapped while [onTap] is null (to explain why).
+  final VoidCallback? onDisabledTap;
+
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
     final titleColor = danger ? t.signalOff : (selected ? t.accentText : t.ink);
 
     return ZpPressable(
-      onTap: onTap,
+      onTap: onTap ?? onDisabledTap,
       scale: 1,
       selected: selected,
       builder: (context, pressed) => Container(

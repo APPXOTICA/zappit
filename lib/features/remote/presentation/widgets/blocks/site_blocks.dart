@@ -1,5 +1,6 @@
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
+import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/features/remote/controllers/target_controller.dart';
 import 'package:zappit/features/remote/presentation/sheets/episodes_sheet.dart';
@@ -49,6 +50,7 @@ class CaptionsBlock extends ConsumerWidget {
           ZpIconButton(
             semanticLabel: subtitle.enabled ? 'Captions on' : 'Captions off',
             onPressed: available ? controller.toggleCc : null,
+            onDisabledTap: _noSubtitles,
             child: Icon(
               subtitle.enabled && available ? Icons.closed_caption : Icons.closed_caption_off_outlined,
               size: 30,
@@ -57,6 +59,7 @@ class CaptionsBlock extends ConsumerWidget {
           ZpIconButton(
             semanticLabel: 'Caption language',
             onPressed: available && subtitle.tracks.isNotEmpty ? () => showSubtitleSheet(context, ref) : null,
+            onDisabledTap: _noSubtitles,
             child: const Icon(Icons.translate_rounded, size: 28),
           ),
           const Spacer(),
@@ -119,6 +122,7 @@ class EpisodeButtons extends ConsumerWidget {
             icon: const Icon(Icons.skip_next_rounded),
             textStyle: AppText.bodyStrong.copyWith(fontSize: 16),
             onPressed: nextAvailable ? controller.nextEpisode : null,
+            onDisabledTap: () => AppNotice.snack('No next episode'),
           ),
         ),
       ],
@@ -204,3 +208,5 @@ class ShortFormRail extends ConsumerWidget {
     );
   }
 }
+
+void _noSubtitles() => AppNotice.snack('This video has no subtitles');

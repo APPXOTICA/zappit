@@ -104,3 +104,50 @@ final class EpisodesProvider
 }
 
 String _$episodesHash() => r'b3698d8b80bae5c501d4a0eb6b9dbbb4180e6c28';
+
+/// Entries of the YouTube playlist being played; fetched on demand (sheet
+/// open) and again when the playing entry changes.
+
+@ProviderFor(playlistItems)
+final playlistItemsProvider = PlaylistItemsProvider._();
+
+/// Entries of the YouTube playlist being played; fetched on demand (sheet
+/// open) and again when the playing entry changes.
+
+final class PlaylistItemsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<PlaylistItems?>,
+          PlaylistItems?,
+          FutureOr<PlaylistItems?>
+        >
+    with $FutureModifier<PlaylistItems?>, $FutureProvider<PlaylistItems?> {
+  /// Entries of the YouTube playlist being played; fetched on demand (sheet
+  /// open) and again when the playing entry changes.
+  PlaylistItemsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'playlistItemsProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$playlistItemsHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<PlaylistItems?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<PlaylistItems?> create(Ref ref) {
+    return playlistItems(ref);
+  }
+}
+
+String _$playlistItemsHash() => r'5144bb9c0e23e71ded2fa3a122156d63a11e5288';

@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/routes/app_routes.dart';
+import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/features/connection/connection_controller.dart';
 import 'package:zappit/features/connection/presentation/browser_picker.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
@@ -59,12 +60,20 @@ class RemoteHeader extends ConsumerWidget {
                       size: ZpIconButtonSize.sm,
                       semanticLabel: 'Play in app',
                       onPressed: canOpenInApp ? controller.openInNativeApp : null,
+                      onDisabledTap: () => AppNotice.snack(
+                        !connected
+                            ? 'Connect to a browser first'
+                            : mode != RemoteMode.playing
+                                ? 'Play a video in the browser first'
+                                : "This video can't be opened on the phone",
+                      ),
                       child: const ZpImageIcon('assets/images/import.svg', size: 28),
                     ),
                     ZpIconButton(
                       size: ZpIconButtonSize.sm,
                       semanticLabel: 'Open a link in the browser',
                       onPressed: connected ? () => showLinkPanel(context, ref) : null,
+                      onDisabledTap: () => AppNotice.snack('Connect to a browser first'),
                       child: const ZpImageIcon('assets/images/export.svg', size: 28),
                     ),
                   ],

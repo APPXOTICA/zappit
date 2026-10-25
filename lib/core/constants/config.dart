@@ -4,7 +4,6 @@ const termsOfServiceUrl = 'https://zappit.tv/terms';
 const privacyPolicyUrl = 'https://zappit.tv/privacy';
 const getExtensionUrl = 'https://zappit.tv/get';
 const tutorialUrl = 'https://zappit.tv/tutorial';
-const supportedSitesUrl = 'https://zappit.tv/supported-sites';
 const voiceControlHelpUrl = 'https://zappit.tv/voice-control';
 
 // Sharing and store

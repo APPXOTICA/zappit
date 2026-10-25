@@ -24,6 +24,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   bool _agreed = false;
   bool _busy = false;
 
+  void _needAgreement() => AppNotice.snack('Agree to the Terms and Privacy Policy first');
+
   Future<void> _run(Future<void> Function() signIn) async {
     if (!_agreed || _busy) return;
     setState(() => _busy = true);
@@ -90,12 +92,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         style: ZpButtonStyle.ink,
                         icon: const Icon(Icons.apple, size: 24),
                         onPressed: _agreed ? () => _run(auth.signInWithApple) : null,
+                        onDisabledTap: _needAgreement,
                       ),
                       const SizedBox(height: AppTokens.space3),
                       ZpButton(
                         label: 'Sign in with Google',
                         icon: Image.asset('assets/images/google_logo_256.png', width: 20, height: 20),
                         onPressed: _agreed ? () => _run(auth.signInWithGoogle) : null,
+                        onDisabledTap: _needAgreement,
                       ),
                       const SizedBox(height: AppTokens.space4),
                       GestureDetector(
