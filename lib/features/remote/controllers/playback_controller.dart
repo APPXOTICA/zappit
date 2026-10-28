@@ -29,6 +29,9 @@ class PlaybackView {
   bool get isAd => snapshot?.isAd ?? false;
   bool get isLive => snapshot?.isLive ?? false;
 
+  /// TikTok photo post: only previous / next work.
+  bool get isPhoto => snapshot?.isPhoto ?? false;
+
   /// Live stream that can be rewound.
   bool get isDvr => isLive && (snapshot?.dvr ?? false);
 

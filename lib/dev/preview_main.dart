@@ -4,7 +4,7 @@
 //   flutter run -t lib/dev/preview_main.dart --dart-define=SCENARIO=main
 //   or build once and write the scenario to tmp/scenario.txt in the app container
 //
-// Scenarios: main, ad, live, ab, upnext, pick, home, playlist, netflix, shorts, web,
+// Scenarios: main, ad, live, ab, upnext, pick, home, playlist, netflix, shorts, photo, web,
 // disconnected, nobrowser, nothing, more, settings, pro, login, tabs, sleep, episodes.
 import 'dart:async';
 import 'dart:io';
@@ -62,7 +62,7 @@ const _edge = BrowserInstance(instanceId: 'i2', browserName: 'Edge', os: 'Window
 
 const _ytCaps = {
   Capability.play, Capability.seek, Capability.speed, Capability.volume, Capability.replay, Capability.loop,
-  Capability.abLoop, Capability.sleepTimer, Capability.fullscreen, Capability.theater, Capability.voiceBoost,
+  Capability.abLoop, Capability.sleepTimer, Capability.theater, Capability.voiceBoost,
   Capability.chat, Capability.captions, Capability.chapters, Capability.skipAd, Capability.endScreen,
   Capability.home, Capability.openInApp, Capability.quality, Capability.spatialNav, Capability.browseMenu,
   Capability.playlist,
@@ -75,6 +75,10 @@ const _nfCaps = {
 const _shortCaps = {
   Capability.play, Capability.seek, Capability.speed, Capability.volume, Capability.abLoop, Capability.sleepTimer,
   Capability.fullscreen, Capability.prevNext, Capability.openInApp, Capability.home, Capability.browseMenu,
+};
+const _tiktokCaps = {
+  Capability.play, Capability.seek, Capability.speed, Capability.volume, Capability.abLoop, Capability.sleepTimer,
+  Capability.fullscreen, Capability.prevNext, Capability.openInApp,
 };
 const _genericCaps = {
   Capability.play, Capability.seek, Capability.speed, Capability.volume, Capability.replay, Capability.loop,
@@ -96,6 +100,7 @@ TargetInfo? _target() {
     'home' => TargetInfo(instanceId: 'i1', tabId: 1, site: Site.youtube, page: PageKind.home, hasMedia: false, capabilities: const {Capability.home, Capability.spatialNav, Capability.browseMenu}, timestamp: now),
     'netflix' || 'episodes' => TargetInfo(instanceId: 'i1', tabId: 1, site: Site.netflix, page: PageKind.watch, hasMedia: true, title: 'S2 · E4 — The Lighthouse Keeper', capabilities: _nfCaps, timestamp: now),
     'shorts' => TargetInfo(instanceId: 'i1', tabId: 1, site: Site.shorts, page: PageKind.watch, isShortForm: true, hasMedia: true, title: 'One-pan garlic noodles in 60 seconds', capabilities: _shortCaps, timestamp: now),
+    'photo' => TargetInfo(instanceId: 'i1', tabId: 1, site: Site.tiktok, page: PageKind.watch, isShortForm: true, hasMedia: true, title: 'Autumn in Kyoto | TikTok', capabilities: _tiktokCaps, timestamp: now),
     'web' => TargetInfo(instanceId: 'i1', tabId: 1, site: Site.generic, page: PageKind.other, hasMedia: true, title: 'Field recording: Jeju coastline at dawn', capabilities: _genericCaps, timestamp: now),
     'nothing' => TargetInfo(instanceId: 'i1', tabId: 1, site: Site.generic, hasMedia: false, capabilities: _genericCaps, timestamp: now),
     _ => TargetInfo(instanceId: 'i1', tabId: 1, site: Site.youtube, page: PageKind.watch, hasMedia: true, title: 'Lo-fi beats to study to — 3 hour mix, rainy café edition', capabilities: _ytCaps, timestamp: now),
@@ -104,7 +109,7 @@ TargetInfo? _target() {
 
 SiteState _site() => switch (scenario) {
       'ad' => const SiteState(skipAd: true, voiceBoostAvailable: true, subtitle: _subs, chapterCount: 12),
-      'live' => const SiteState(chatAvailable: true, chatVisible: true, voiceBoostAvailable: true, subtitle: SubtitleState(available: true, sizePercent: 150, tracks: [SubtitleTrack(id: 'en', label: 'English')])),
+      'live' => const SiteState(chatAvailable: true, chatVisible: true, voiceBoostAvailable: true, voiceBoostOn: true, subtitle: SubtitleState(available: true, sizePercent: 150, tracks: [SubtitleTrack(id: 'en', label: 'English')])),
       'upnext' => const SiteState(endScreenMode: EndScreenMode.upNext, endScreenCountdown: 8, endScreenCard: _rainy),
       'pick' => const SiteState(endScreenMode: EndScreenMode.pick, focusCard: VideoCard(title: 'Study with me — 4 hours, rain sounds', channel: 'Quiet Desk', duration: '4:00:12')),
       'home' => const SiteState(focusCard: _rainy),
@@ -114,7 +119,7 @@ SiteState _site() => switch (scenario) {
           playlist: PlaylistState(available: true, title: 'Watch later', index: 2, count: 29, canShuffle: true, shuffle: true, canLoop: true, loop: true),
         ),
       'netflix' || 'episodes' => const SiteState(skipIntro: true, isSeries: true, nextEpisodeAvailable: true, subtitle: SubtitleState(available: true, enabled: true, sizePercent: 150, tracks: [SubtitleTrack(id: 'en', label: 'English')])),
-      'shorts' || 'web' || 'nothing' => SiteState.empty,
+      'shorts' || 'photo' || 'web' || 'nothing' => SiteState.empty,
       _ => const SiteState(voiceBoostAvailable: true, subtitle: _subs, chapterCount: 12),
     };
 
@@ -127,6 +132,7 @@ PlaybackSnapshot? _playback() {
     'ab' => PlaybackSnapshot(source: 'i1:1', site: Site.youtube, currentTime: 1640, duration: 10800, paused: false, volume: 0.64, loopStart: 1500, loopEnd: 1900, loopLeft: 2, updatedAt: now),
     'netflix' || 'episodes' => PlaybackSnapshot(source: 'i1:1', site: Site.netflix, currentTime: 62, duration: 3104, paused: false, volume: 0.48, updatedAt: now),
     'shorts' => PlaybackSnapshot(source: 'i1:1', site: Site.shorts, currentTime: 23, duration: 58, paused: false, volume: 0.64, updatedAt: now),
+    'photo' => PlaybackSnapshot(source: 'i1:1', site: Site.tiktok, kind: MediaKind.photo, updatedAt: now),
     'web' => PlaybackSnapshot(source: 'i1:1', site: Site.generic, currentTime: 312, duration: 1260, paused: false, volume: 0.8, updatedAt: now),
     _ => PlaybackSnapshot(source: 'i1:1', site: Site.youtube, currentTime: 1420, duration: 10800, paused: false, volume: 0.64, updatedAt: now),
   };
@@ -167,6 +173,8 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   registerSingletons();
   final prefs = await SharedPreferences.getInstance();
+  // Shows the "Last used" pill on the login screen.
+  if (scenario == 'login') await prefs.setString('lastLoginMethod', 'google');
 
   final initial = switch (scenario) {
     'more' => AppRoutes.more,

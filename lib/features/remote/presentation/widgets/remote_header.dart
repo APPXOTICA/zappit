@@ -12,8 +12,9 @@ import 'package:zappit/features/remote/presentation/widgets/link_panel.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
 
-/// Fixed header: top bar (remote settings · site badge · open in app · open
-/// link) and the connection pill.
+/// Fixed header: top bar (remote settings · ‹ site badge › · open in app ·
+/// open link) and the connection pill. The arrows switch to the tab left or
+/// right of the target tab.
 class RemoteHeader extends ConsumerWidget {
   const RemoteHeader({super.key});
 
@@ -48,9 +49,11 @@ class RemoteHeader extends ConsumerWidget {
                   ),
                 ),
               ),
-              if (showSite)
-                ZpSiteBadge(site: target.site)
-              else
+              if (showSite) ...[
+                _TabArrow(right: false, enabled: target.hasLeftTab, onPressed: () => controller.switchTab(right: false)),
+                Flexible(child: ZpSiteBadge(site: target.site)),
+                _TabArrow(right: true, enabled: target.hasRightTab, onPressed: () => controller.switchTab(right: true)),
+              ] else
                 Text('Zappit', style: AppText.heading.copyWith(color: context.tokens.ink)),
               Expanded(
                 child: Row(
@@ -95,6 +98,32 @@ class RemoteHeader extends ConsumerWidget {
           onTap: status.browsers.isEmpty ? null : () => showBrowserPicker(context, ref),
         ),
       ],
+    );
+  }
+}
+
+/// Small arrow beside the site badge: the tab to the left / right. Greyed
+/// out when there is no tab on that side of the browser window.
+class _TabArrow extends StatelessWidget {
+  const _TabArrow({required this.right, required this.enabled, required this.onPressed});
+
+  final bool right;
+  final bool enabled;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    // Narrower than a full target (still 44 tall) so the site name fits
+    // between the arrows on a 390 pt phone.
+    return SizedBox(
+      width: 32,
+      child: ZpIconButton(
+        size: ZpIconButtonSize.sm,
+        semanticLabel: right ? 'Next tab' : 'Previous tab',
+        onPressed: enabled ? onPressed : null,
+        onDisabledTap: () => AppNotice.snack('No more tabs'),
+        child: Icon(right ? Icons.chevron_right_rounded : Icons.chevron_left_rounded, size: 22),
+      ),
     );
   }
 }

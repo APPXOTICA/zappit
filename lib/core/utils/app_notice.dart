@@ -17,6 +17,7 @@ abstract final class AppNotice {
     String? message,
     IconData icon = Icons.warning_rounded,
     bool error = true,
+    VoidCallback? onTap,
   }) {
     final overlay = _overlay;
     if (overlay == null) return;
@@ -25,19 +26,19 @@ abstract final class AppNotice {
       overlay,
       _TopSnack(title: title, message: message, icon: icon, error: error),
       displayDuration: const Duration(seconds: 3),
+      onTap: onTap,
       padding: const EdgeInsets.symmetric(horizontal: 12),
     );
   }
 
-  static void snack(String message, {bool vibrate = false, bool error = false}) {
+  /// Every snack comes with a haptic: a warning buzz for errors, a light tap otherwise.
+  static void snack(String message, {bool error = false}) {
     final messenger = scaffoldKey.currentState;
     if (messenger == null) {
       top(title: message, error: error);
       return;
     }
-    if (vibrate || error) {
-      HapticUtils.hapticFeedback(error ? HapticType.error : HapticType.light);
-    }
+    HapticUtils.hapticFeedback(error ? HapticType.error : HapticType.light);
     messenger
       ..hideCurrentSnackBar()
       ..showSnackBar(

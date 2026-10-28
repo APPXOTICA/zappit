@@ -87,6 +87,8 @@ void main() {
       expect(target.has(Capability.episodes), isFalse);
       expect(target.has(Capability.abLoop), isTrue);
       expect(target.has(Capability.browseMenu), isTrue);
+      expect(target.hasLeftTab, isTrue);
+      expect(target.hasRightTab, isFalse);
       expect(target.has(Capability.playlist), isTrue);
     });
 
@@ -106,6 +108,7 @@ void main() {
       expect(state.subtitle.tracks.map((t) => t.id), ['en', 'ko']);
       expect(state.chapterCount, 12);
       expect(state.canGoBack, isTrue);
+      expect(state.fullscreen, isTrue);
       expect(state.endScreenMode, EndScreenMode.upNext);
       expect(state.endScreenCountdown, 8);
       expect(state.endScreenCard?.channel, 'Night Owl Radio');
@@ -127,6 +130,7 @@ void main() {
       expect(state.focusCard, isNull);
       expect(state.noCards, isFalse);
       expect(state.canGoBack, isFalse);
+      expect(state.fullscreen, isFalse);
     });
   });
 
@@ -140,6 +144,20 @@ void main() {
       expect(p.loopStart, 1500);
       expect(p.abActive, isTrue);
       expect(p.sleepMode, SleepMode.timer);
+      expect(p.isPhoto, isFalse);
+    });
+
+    test('tiktok photo post', () {
+      final p = PlaybackSnapshot.fromJson(fixture('playback_tiktok_photo'));
+      expect(p.site, Site.tiktok);
+      expect(p.kind, MediaKind.photo);
+      expect(p.isPhoto, isTrue);
+      expect(p.hasDuration, isFalse);
+    });
+
+    test('kind defaults to video', () {
+      final json = {...fixture('playback_youtube') as Map<String, Object?>}..remove('kind');
+      expect(PlaybackSnapshot.fromJson(json).kind, MediaKind.video);
     });
 
     test('live has no duration', () {

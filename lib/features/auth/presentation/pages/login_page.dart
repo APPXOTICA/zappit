@@ -5,7 +5,9 @@ import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/constants/config.dart';
 import 'package:zappit/core/constants/strings.dart';
 import 'package:zappit/core/routes/app_routes.dart';
+import 'package:zappit/core/storage/preferences.dart';
 import 'package:zappit/core/utils/app_notice.dart';
+import 'package:zappit/features/auth/data/models/auth_provider.dart';
 import 'package:zappit/features/auth/data/models/auth_state.dart';
 import 'package:zappit/features/auth/presentation/controllers/auth_state_provider.dart';
 import 'package:zappit/shared/widgets/default_activity_indicator.dart';
@@ -43,6 +45,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Widget build(BuildContext context) {
     final t = context.tokens;
     final auth = ref.read(authStateProvider.notifier);
+    final lastMethod = ref.read(preferencesProvider).lastLoginMethod;
 
     ref.listen<AuthenticationState>(authStateProvider, (_, next) {
       if (next is AuthStateError) AppNotice.snack(next.message, error: true);
@@ -87,19 +90,25 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         style: AppText.body.copyWith(fontSize: 16, color: t.inkMuted),
                       ),
                       const Spacer(flex: 5),
-                      ZpButton(
-                        label: 'Sign in with Apple',
-                        style: ZpButtonStyle.ink,
-                        icon: const Icon(Icons.apple, size: 24),
-                        onPressed: _agreed ? () => _run(auth.signInWithApple) : null,
-                        onDisabledTap: _needAgreement,
+                      _LastUsed(
+                        show: lastMethod == AuthProvider.apple.name,
+                        child: ZpButton(
+                          label: 'Sign in with Apple',
+                          style: ZpButtonStyle.ink,
+                          icon: const Icon(Icons.apple, size: 24),
+                          onPressed: _agreed ? () => _run(auth.signInWithApple) : null,
+                          onDisabledTap: _needAgreement,
+                        ),
                       ),
                       const SizedBox(height: AppTokens.space3),
-                      ZpButton(
-                        label: 'Sign in with Google',
-                        icon: Image.asset('assets/images/google_logo_256.png', width: 20, height: 20),
-                        onPressed: _agreed ? () => _run(auth.signInWithGoogle) : null,
-                        onDisabledTap: _needAgreement,
+                      _LastUsed(
+                        show: lastMethod == AuthProvider.google.name,
+                        child: ZpButton(
+                          label: 'Sign in with Google',
+                          icon: Image.asset('assets/images/google_logo_256.png', width: 20, height: 20),
+                          onPressed: _agreed ? () => _run(auth.signInWithGoogle) : null,
+                          onDisabledTap: _needAgreement,
+                        ),
                       ),
                       const SizedBox(height: AppTokens.space4),
                       GestureDetector(
@@ -145,6 +154,42 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           ),
         ),
         if (_busy) const DefaultActivityIndicator(),
+      ],
+    );
+  }
+}
+
+/// A "Last used" pill on the top-right edge of the button the user last
+/// signed in with (`Preferences.lastLoginMethod`, kept across sign-outs).
+class _LastUsed extends StatelessWidget {
+  const _LastUsed({required this.show, required this.child});
+
+  final bool show;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!show) return child;
+    final t = context.tokens;
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        child,
+        Positioned(
+          top: -9,
+          right: AppTokens.space6,
+          child: IgnorePointer(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              decoration: BoxDecoration(
+                color: t.accent,
+                borderRadius: BorderRadius.circular(AppTokens.radiusFull),
+                border: Border.all(color: t.bgBase, width: 2),
+              ),
+              child: Text('Last used', style: AppText.label.copyWith(fontSize: 12, fontWeight: FontWeight.w600, color: t.onAccent)),
+            ),
+          ),
+        ),
       ],
     );
   }

@@ -46,6 +46,7 @@ class _SpeedBlockState extends ConsumerState<SpeedBlock> {
     final trialEndsAt = ref.watch(playbackControllerProvider.select((v) => v.snapshot?.speedTrialEndsAt));
     final isPro = ref.watch(proControllerProvider);
     final hasData = ref.watch(playbackControllerProvider.select((v) => v.hasData));
+    final isPhoto = ref.watch(playbackControllerProvider.select((v) => v.isPhoto));
     _ensureTicker(trialEndsAt);
     ref.listen(playbackControllerProvider.select((v) => v.snapshot?.speedTrialEndsAt), (previous, next) {
       if (previous == null && next != null) {
@@ -58,7 +59,7 @@ class _SpeedBlockState extends ConsumerState<SpeedBlock> {
         final expired = started != null &&
             DateTime.now().difference(started) >= const Duration(seconds: RemoteController.proTrialSeconds - 1);
         if (expired && !ref.read(proControllerProvider)) {
-          AppNotice.snack('Back to 1x. Free users can use this speed for ${RemoteController.proTrialSeconds} seconds.', vibrate: true);
+          AppNotice.snack('Back to 1x. Free users can use this speed for ${RemoteController.proTrialSeconds} seconds.');
         }
       }
     });
@@ -77,15 +78,22 @@ class _SpeedBlockState extends ConsumerState<SpeedBlock> {
         ),
     ];
 
-    return ZpSegmentedControl<double>(
+    final control = ZpSegmentedControl<double>(
       segments: segments,
       selected: selected,
-      onChanged: hasData
+      onChanged: hasData && !isPhoto
           ? (value) {
               if (value == selected && PlaybackMath.matchingPreset(value) == null) return;
               ref.read(remoteControllerProvider).setSpeed(value);
             }
           : null,
+    );
+    if (!isPhoto) return control;
+    // Photo post: greyed out, and a tap says why.
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => AppNotice.snack('Not available for photo posts'),
+      child: Opacity(opacity: 0.38, child: control),
     );
   }
 }

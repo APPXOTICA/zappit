@@ -6,6 +6,9 @@ const getExtensionUrl = 'https://zappit.tv/get';
 const tutorialUrl = 'https://zappit.tv/tutorial';
 const voiceControlHelpUrl = 'https://zappit.tv/voice-control';
 
+/// Q&A entry: why a site plays without sound (Chrome's autoplay policy).
+const soundBlockedHelpUrl = 'https://zappit.tv/faq#sound-blocked';
+
 // Sharing and store
 const shareAppUrl = 'https://onelink.to/ngsjzu';
 const appStoreId = '6823437118';

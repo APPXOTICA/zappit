@@ -8,7 +8,8 @@ import 'package:zappit/features/remote/presentation/sheets/subtitle_sheet.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
 
-/// Site buttons without a frame, centred: Home (YouTube, Netflix).
+/// Site buttons without a frame, centred: Home and Back (Netflix; YouTube has
+/// them in its menu). Back stays on the site, like YouTube's (`canGoBack`).
 class SiteButtons extends ConsumerWidget {
   const SiteButtons({super.key});
 
@@ -16,13 +17,26 @@ class SiteButtons extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final hasHome = ref.watch(targetProvider.select((t) => t?.has(Capability.home) ?? false));
     if (!hasHome) return const SizedBox.shrink();
-    return Center(
-      child: ZpIconButton(
-        variant: ZpIconButtonVariant.tonal,
-        semanticLabel: 'Home',
-        onPressed: ref.read(remoteControllerProvider).goHome,
-        child: const Icon(Icons.home_rounded, size: 28),
-      ),
+    final canGoBack = ref.watch(siteStateControllerProvider.select((s) => s.canGoBack));
+    final controller = ref.read(remoteControllerProvider);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ZpIconButton(
+          variant: ZpIconButtonVariant.tonal,
+          semanticLabel: 'Home',
+          onPressed: controller.goHome,
+          child: const Icon(Icons.home_rounded, size: 28),
+        ),
+        const SizedBox(width: AppTokens.space4),
+        ZpIconButton(
+          variant: ZpIconButtonVariant.tonal,
+          semanticLabel: 'Back',
+          onPressed: canGoBack ? controller.goBack : null,
+          onDisabledTap: () => AppNotice.snack('There is no previous page to go back to'),
+          child: const Icon(Icons.arrow_back_rounded, size: 28),
+        ),
+      ],
     );
   }
 }

@@ -12,6 +12,8 @@ final class TargetInfo {
     this.title,
     this.hasMedia = false,
     this.capabilities = const {},
+    this.hasLeftTab = false,
+    this.hasRightTab = false,
     this.timestamp = 0,
   });
 
@@ -23,6 +25,10 @@ final class TargetInfo {
   final String? title;
   final bool hasMedia;
   final Set<Capability> capabilities;
+
+  /// Another tab left / right of the target in its window (header arrows).
+  final bool hasLeftTab;
+  final bool hasRightTab;
   final int timestamp;
 
   bool has(Capability capability) => capabilities.contains(capability);
@@ -44,6 +50,8 @@ final class TargetInfo {
           .map((c) => Capability.fromWire(asString(c)))
           .whereType<Capability>()
           .toSet(),
+      hasLeftTab: asBool(json['hasLeftTab']),
+      hasRightTab: asBool(json['hasRightTab']),
       timestamp: asInt(json['timestamp']) ?? 0,
     );
   }
@@ -183,6 +191,7 @@ final class SiteState {
     this.focusCard,
     this.noCards = false,
     this.canGoBack = false,
+    this.fullscreen = false,
     this.playlist = const PlaylistState(),
   });
 
@@ -211,6 +220,9 @@ final class SiteState {
 
   /// The tab can go back to an earlier page of the same site (`go_back`).
   final bool canGoBack;
+
+  /// The video is full screen (the page's own, or the browser window).
+  final bool fullscreen;
   final PlaylistState playlist;
 
   static const empty = SiteState();
@@ -240,6 +252,7 @@ final class SiteState {
       focusCard: VideoCard.fromJson(json['focusCard']),
       noCards: asBool(json['noCards']),
       canGoBack: asBool(json['canGoBack']),
+      fullscreen: asBool(json['fullscreen']),
       playlist: PlaylistState.fromJson(json['playlist']),
     );
   }
@@ -351,12 +364,23 @@ enum SleepMode {
       SleepMode.values.firstWhere((m) => (m._wire ?? m.name) == value, orElse: () => off);
 }
 
+/// What `playback/{uid}` describes.
+enum MediaKind {
+  video,
+
+  /// TikTok photo post (image carousel): previous / next only.
+  photo;
+
+  static MediaKind fromName(String? value) => value == 'photo' ? photo : video;
+}
+
 /// RTDB `playback/{uid}`.
 final class PlaybackSnapshot {
   const PlaybackSnapshot({
     this.source,
     this.site = Site.none,
     this.title,
+    this.kind = MediaKind.video,
     this.currentTime = 0,
     this.duration,
     this.live = false,
@@ -380,6 +404,7 @@ final class PlaybackSnapshot {
   final String? source;
   final Site site;
   final String? title;
+  final MediaKind kind;
   final double currentTime;
 
   /// Null while unknown (not loaded yet) and for live streams.
@@ -408,6 +433,7 @@ final class PlaybackSnapshot {
   final int updatedAt;
 
   bool get isLive => live;
+  bool get isPhoto => kind == MediaKind.photo;
   bool get hasDuration => duration != null;
   bool get abActive => loopStart != null || loopEnd != null;
 
@@ -418,6 +444,7 @@ final class PlaybackSnapshot {
       source: asString(json['source']),
       site: Site.fromName(asString(json['site'])),
       title: asString(json['title']),
+      kind: MediaKind.fromName(asString(json['kind'])),
       currentTime: asDouble(json['currentTime']) ?? 0,
       duration: (duration == null || duration.isInfinite || duration.isNaN) ? null : duration,
       // Extensions before `live` sent only a null duration for live streams.

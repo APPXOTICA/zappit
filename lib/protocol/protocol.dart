@@ -117,6 +117,7 @@ abstract final class AckError {
   static const notChanged = 'not_changed';
   static const tabNotFound = 'tab_not_found';
   static const invalidUrl = 'invalid_url';
+  static const soundBlocked = 'sound_blocked';
   static const failed = 'failed';
   // App-side only
   static const timeout = 'timeout';

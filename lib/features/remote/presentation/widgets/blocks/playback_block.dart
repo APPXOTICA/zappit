@@ -23,6 +23,7 @@ class PlaybackBlock extends ConsumerWidget {
     final hasData = ref.watch(playbackControllerProvider.select((v) => v.hasData));
     final isAd = ref.watch(playbackControllerProvider.select((v) => v.isAd));
     final isLive = ref.watch(playbackControllerProvider.select((v) => v.isLive));
+    final isPhoto = ref.watch(playbackControllerProvider.select((v) => v.isPhoto));
     final hasDuration = ref.watch(playbackControllerProvider.select((v) => v.hasDuration));
     final isDvr = ref.watch(playbackControllerProvider.select((v) => v.isDvr));
     final paused = ref.watch(playbackControllerProvider.select((v) => v.paused));
@@ -36,10 +37,10 @@ class PlaybackBlock extends ConsumerWidget {
     final hasReplay = !shortForm && (target?.has(Capability.replay) ?? true);
     final hasLoop = !shortForm && (target?.has(Capability.loop) ?? true);
     // DVR live streams can be rewound; other live streams can't.
-    final canSeek = hasData && !isAd && (isLive ? isDvr : hasDuration);
+    final canSeek = hasData && !isAd && !isPhoto && (isLive ? isDvr : hasDuration);
     final seekBlocked = canSeek
         ? null
-        : _seekBlockedNotice(hasData: hasData, isAd: isAd, isLive: isLive, hasDuration: hasDuration);
+        : _seekBlockedNotice(hasData: hasData, isAd: isAd, isPhoto: isPhoto, isLive: isLive, hasDuration: hasDuration);
 
     // Image file names are mirrored: forward_* shows a left arrow.
     final backIcon = 'assets/images/forward_${seekInterval}s.png';
@@ -76,8 +77,9 @@ class PlaybackBlock extends ConsumerWidget {
                 size: ZpIconButtonSize.lg,
                 extent: 68,
                 semanticLabel: paused ? 'Play' : 'Pause',
-                onPressed: hasData ? controller.togglePlay : null,
-                onLongPressStart: isAd ? null : controller.startSpeedHold,
+                onPressed: hasData && !isPhoto ? controller.togglePlay : null,
+                onDisabledTap: isPhoto ? () => AppNotice.snack(_photoNotice) : null,
+                onLongPressStart: isAd || isPhoto ? null : controller.startSpeedHold,
                 onLongPressEnd: controller.endSpeedHold,
                 child: Icon(paused ? Icons.play_arrow_rounded : Icons.pause_rounded, size: 40),
               ),
@@ -105,6 +107,7 @@ class PlaybackBlock extends ConsumerWidget {
 }
 
 const _adNotice = 'Not available during an ad';
+const _photoNotice = 'Not available for photo posts';
 
 /// Why seeking (or A-B, with [seekNotice] false) is off, as a tap handler for
 /// the greyed-out buttons. Null while playback data is still on its way (it
@@ -112,12 +115,14 @@ const _adNotice = 'Not available during an ad';
 VoidCallback? _seekBlockedNotice({
   required bool hasData,
   required bool isAd,
+  required bool isPhoto,
   required bool isLive,
   required bool hasDuration,
   bool seekNotice = true,
 }) {
   if (!hasData) return null;
   if (isAd) return () => AppNotice.snack(_adNotice);
+  if (isPhoto) return () => AppNotice.snack(_photoNotice);
   if (isLive) return () => AppNotice.snack(seekNotice ? "This live stream can't be rewound" : 'A-B loop is off for live streams');
   if (!hasDuration) return () => AppNotice.snack("Can't seek in this video");
   return null;
@@ -179,17 +184,20 @@ class _TopRow extends ConsumerWidget {
     final target = ref.watch(targetProvider);
     final site = ref.watch(siteStateControllerProvider);
     final hasData = ref.watch(playbackControllerProvider.select((v) => v.hasData));
+    final isPhoto = ref.watch(playbackControllerProvider.select((v) => v.isPhoto));
     final sleepMode = ref.watch(playbackControllerProvider.select((v) => v.snapshot?.sleepMode ?? SleepMode.off));
     final controller = ref.read(remoteControllerProvider);
 
     final hasTheater = target?.has(Capability.theater) ?? false;
+    final hasFullscreen = target?.has(Capability.fullscreen) ?? false;
     final hasChat = (target?.has(Capability.chat) ?? false) && site.chatAvailable;
 
     return Row(
       children: [
         _SleepButton(
           active: sleepMode != SleepMode.off,
-          onPressed: hasData ? () => showSleepTimerSheet(context, ref) : null,
+          onPressed: hasData && !isPhoto ? () => showSleepTimerSheet(context, ref) : null,
+          onDisabledTap: isPhoto ? () => AppNotice.snack(_photoNotice) : null,
         ),
         const Spacer(),
         if (hasChat)
@@ -209,12 +217,14 @@ class _TopRow extends ConsumerWidget {
               size: 28,
             ),
           ),
-        ZpIconButton(
-          size: ZpIconButtonSize.sm,
-          semanticLabel: 'Full screen',
-          onPressed: hasData ? controller.fullscreen : null,
-          child: const Icon(Icons.fullscreen_rounded, size: 30),
-        ),
+        if (hasFullscreen)
+          ZpIconButton(
+            size: ZpIconButtonSize.sm,
+            semanticLabel: site.fullscreen ? 'Exit full screen' : 'Full screen',
+            onPressed: hasData && !isPhoto ? controller.fullscreen : null,
+            onDisabledTap: isPhoto ? () => AppNotice.snack(_photoNotice) : null,
+            child: Icon(site.fullscreen ? Icons.fullscreen_exit_rounded : Icons.fullscreen_rounded, size: 30),
+          ),
       ],
     );
   }
@@ -222,10 +232,11 @@ class _TopRow extends ConsumerWidget {
 
 /// Moon-style snooze button with the remaining minutes when a timer runs.
 class _SleepButton extends ConsumerStatefulWidget {
-  const _SleepButton({required this.active, required this.onPressed});
+  const _SleepButton({required this.active, required this.onPressed, this.onDisabledTap});
 
   final bool active;
   final VoidCallback? onPressed;
+  final VoidCallback? onDisabledTap;
 
   @override
   ConsumerState<_SleepButton> createState() => _SleepButtonState();
@@ -239,7 +250,7 @@ class _SleepButtonState extends ConsumerState<_SleepButton> {
     final label = widget.active ? _remaining(view) : null;
 
     return ZpPressable(
-      onTap: widget.onPressed,
+      onTap: widget.onPressed ?? widget.onDisabledTap,
       semanticLabel: 'Sleep timer',
       builder: (context, pressed) => Container(
         height: AppTokens.targetMin,
@@ -322,20 +333,22 @@ class _TimelineState extends ConsumerState<_Timeline> with SingleTickerProviderS
     final now = DateTime.now().millisecondsSinceEpoch;
     _syncTicker(view.timeline.running && _dragSeconds == null);
 
-    final mode = !view.hasData
+    final mode = !view.hasData || view.isPhoto
         ? ZpScrubMode.empty
         : view.isAd
-            ? ZpScrubMode.ad
-            : view.isLive
-                ? ZpScrubMode.live
-                : ZpScrubMode.normal;
+        ? ZpScrubMode.ad
+        : view.isLive
+        ? ZpScrubMode.live
+        : ZpScrubMode.normal;
 
-    final position = _dragSeconds ?? view.timeline.positionAt(now);
-    final duration = view.duration;
-    final abEnabled = view.hasData && !view.isAd && !view.isLive && view.hasDuration;
+    // Photo post: an empty bar; the soundtrack's time means nothing to seek.
+    final position = view.isPhoto ? 0.0 : _dragSeconds ?? view.timeline.positionAt(now);
+    final duration = view.isPhoto ? 0.0 : view.duration;
+    final abEnabled = view.hasData && !view.isAd && !view.isPhoto && !view.isLive && view.hasDuration;
     final abBlocked = _seekBlockedNotice(
       hasData: view.hasData,
       isAd: view.isAd,
+      isPhoto: view.isPhoto,
       isLive: view.isLive,
       hasDuration: view.hasDuration,
       seekNotice: false,
@@ -385,7 +398,7 @@ class _TimelineState extends ConsumerState<_Timeline> with SingleTickerProviderS
         ),
         Transform.translate(
           offset: const Offset(0, -6),
-          child: ZpScrubTime(text: view.hasData ? timeText : '–:–– / –:––', mode: mode),
+          child: ZpScrubTime(text: view.hasData && !view.isPhoto ? timeText : '–:–– / –:––', mode: mode),
         ),
       ],
     );

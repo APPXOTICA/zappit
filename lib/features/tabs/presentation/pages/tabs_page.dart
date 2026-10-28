@@ -10,6 +10,7 @@ import 'package:zappit/core/utils/haptic_utils.dart';
 import 'package:zappit/features/connection/connection_controller.dart';
 import 'package:zappit/features/connection/presentation/browser_picker.dart';
 import 'package:zappit/features/remote/controllers/target_controller.dart';
+import 'package:zappit/features/remote/presentation/widgets/mode_views.dart';
 import 'package:zappit/protocol/messages.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/protocol/remote_command.dart';
@@ -111,6 +112,15 @@ class _TabsPageState extends ConsumerState<TabsPage> with WidgetsBindingObserver
                   deviceLabel: status.selectedLabel ?? 'No browser selected',
                   onTap: status.browsers.isEmpty ? null : () => showBrowserPicker(context, ref),
                 ),
+                if (instanceId != null && status.canSendCommands) ...[
+                  // The supported sites, as under "Nothing playing", then the open tabs.
+                  const SizedBox(height: AppTokens.space6),
+                  const SiteStrip(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: AppTokens.space4),
+                    child: Divider(height: 1, thickness: 1, color: t.hairline),
+                  ),
+                ],
                 Expanded(
                   child: instanceId == null || !status.canSendCommands
                       ? _NoBrowser(phase: status.phase)

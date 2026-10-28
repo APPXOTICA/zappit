@@ -75,7 +75,8 @@ class ZpConnectionStatus extends StatelessWidget {
   }
 }
 
-/// Site badge (`.zp-site`): brand favicon or monogram + site name.
+/// Site badge (`.zp-site`): brand favicon or monogram + site name. No box
+/// around it, so it doesn't read as a button.
 class ZpSiteBadge extends StatelessWidget {
   const ZpSiteBadge({super.key, required this.site});
 
@@ -85,14 +86,8 @@ class ZpSiteBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.tokens;
     final asset = site.brandAsset;
-    return Container(
+    return SizedBox(
       height: 36,
-      padding: const EdgeInsets.fromLTRB(4, 0, AppTokens.space4, 0),
-      decoration: BoxDecoration(
-        color: t.surface200,
-        borderRadius: BorderRadius.circular(AppTokens.radiusFull),
-        border: Border.all(color: t.hairline),
-      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -101,7 +96,14 @@ class ZpSiteBadge extends StatelessWidget {
           else
             ZpMonogram(text: site.displayName, size: 28),
           const SizedBox(width: AppTokens.space2),
-          Text(site.displayName, style: AppText.bodyStrong.copyWith(color: t.ink)),
+          Flexible(
+            child: Text(
+              site.displayName,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppText.bodyStrong.copyWith(color: t.ink),
+            ),
+          ),
         ],
       ),
     );

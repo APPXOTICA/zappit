@@ -1,14 +1,19 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
+import 'package:zappit/core/constants/config.dart';
 import 'package:zappit/core/realtime/zappit_channel.dart';
+import 'package:zappit/core/routes/app_routes.dart';
+import 'package:zappit/core/routes/router_provider.dart';
 import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/features/connection/connection_controller.dart';
 import 'package:zappit/protocol/messages.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/protocol/remote_command.dart';
+import 'package:zappit/shared/widgets/web_view_page.dart';
 
 part 'command_bus.g.dart';
 
@@ -90,6 +95,8 @@ class CommandBus {
     if (!ack.ok && handleErrors) {
       if (ack.error == AckError.timeout) {
         _showTimeout(target.label);
+      } else if (ack.error == AckError.soundBlocked) {
+        _showSoundBlocked();
       } else {
         AppNotice.snack(messageFor(ack), error: true);
       }
@@ -109,6 +116,21 @@ class CommandBus {
     AppNotice.top(
       title: 'Browser not responding',
       message: "$browserLabel didn't answer. Check that it's open.",
+    );
+  }
+
+  /// The browser kept the video muted (Chrome's autoplay policy). Shown
+  /// every time; tapping it opens the Q&A entry.
+  void _showSoundBlocked() {
+    AppNotice.top(
+      title: "Why can't I hear anything?",
+      message: 'Tap to see how to turn the sound on.',
+      icon: Icons.volume_off_rounded,
+      error: false,
+      onTap: () => rootNavigatorKey.currentContext?.push(
+        AppRoutes.webView,
+        extra: const WebViewArgs(title: 'Sound', url: soundBlockedHelpUrl),
+      ),
     );
   }
 

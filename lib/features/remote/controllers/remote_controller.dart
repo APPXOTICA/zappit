@@ -369,6 +369,12 @@ class RemoteController {
     _bus.fire(const RemoteCommand.goHome());
   }
 
+  /// The tab left or right of the target tab (header arrows).
+  void switchTab({required bool right}) {
+    _tap();
+    _bus.fire(RemoteCommand.switchTab(right: right));
+  }
+
   /// The browser's Back on the target tab (YouTube menu).
   void goBack() {
     _tap();

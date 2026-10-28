@@ -34,7 +34,7 @@ flutter run -t lib/dev/preview_main.dart --dart-define=SCENARIO=main   # 가짜 
 - 코드 생성 대상: `@riverpod`/`@Riverpod` provider, freezed 모델, json_serializable. 생성 파일은 커밋한다.
 - 다국어: `flutter_intl`. `lib/l10n/intl_en.arb`를 고친 뒤 `dart run intl_utils:generate`(또는 Flutter Intl IDE 플러그인)로 `lib/generated/`를 다시 만든다. `lib/generated/`는 손으로 고치지 않는다.
 - 테스트: `test/protocol_fixtures_test.dart`가 `../zappit_assets/protocol/fixtures`를 읽는다(앱과 확장이 같은 파일로 메시지 규격을 검증).
-- 화면 미리보기: `lib/dev/preview_main.dart`는 실제 앱에 포함되지 않는 개발용 진입점이다. 시나리오(main, ad, live, ab, upnext, pick, home, playlist, netflix, shorts, web, disconnected, nobrowser, nothing, more, sites, settings, pro, login, tabs, sleep, episodes)별로 provider를 가짜 데이터로 덮어써서 디자인 PNG와 비교한다. 시뮬레이터에 한 번 빌드해 두면 앱 컨테이너의 `tmp/scenario.txt`에 시나리오 이름을 쓰고 다시 실행해 바꿀 수 있다.
+- 화면 미리보기: `lib/dev/preview_main.dart`는 실제 앱에 포함되지 않는 개발용 진입점이다. 시나리오(main, ad, live, ab, upnext, pick, home, playlist, netflix, shorts, photo, web, disconnected, nobrowser, nothing, more, sites, settings, pro, login, tabs, sleep, episodes)별로 provider를 가짜 데이터로 덮어써서 디자인 PNG와 비교한다. 시뮬레이터에 한 번 빌드해 두면 앱 컨테이너의 `tmp/scenario.txt`에 시나리오 이름을 쓰고 다시 실행해 바꿀 수 있다.
 
 확장 (`../zappit_extension/`, `.env` 필요: `VITE_FIREBASE_*`(`VITE_FIREBASE_DATABASE_URL` 포함), `VITE_GOOGLE_OAUTH_CLIENT_ID`, `VITE_APPLE_SERVICES_ID`. 항목은 `.env.example` 참고):
 ```bash
@@ -190,6 +190,7 @@ const privacyPolicyUrl = 'https://zappit.tv/privacy';
 - `https://zappit.tv/get`: 확장 설치 안내(온보딩). 접속한 브라우저에 맞는 스토어로 보낸다
 - `https://zappit.tv/tutorial`: Tutorial 웹뷰
 - `https://zappit.tv/voice-control`: Voice Control 사용법 웹뷰
+- `https://zappit.tv/faq#sound-blocked`: Q&A 중 "소리가 안 나는 이유"(Chrome 자동 재생 정책) 항목. 앱의 `sound_blocked` 상단 스낵바를 탭하면 웹뷰로 연다
 - `https://zappit.tv/auth`: Safari 확장용 로그인 페이지
 
 

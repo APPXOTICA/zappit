@@ -200,7 +200,7 @@ class NothingPlayingView extends ConsumerWidget {
             ),
           ),
         ),
-        const _SiteStrip(),
+        const SiteStrip(),
       ],
     );
   }
@@ -208,8 +208,9 @@ class NothingPlayingView extends ConsumerWidget {
 
 /// "Open one of these to start" (`.za-sites`): the supported sites in the
 /// user's order, scrolling sideways. A tap opens the site in the browser.
-class _SiteStrip extends ConsumerWidget {
-  const _SiteStrip();
+/// Also at the top of the Tabs tab.
+class SiteStrip extends ConsumerWidget {
+  const SiteStrip({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

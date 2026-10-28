@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
@@ -49,40 +50,48 @@ GoRouter router(Ref ref) {
       GoRoute(
         path: AppRoutes.pro,
         parentNavigatorKey: rootNavigatorKey,
-        builder: (context, state) => const ProPage(),
+        pageBuilder: (context, state) => _push(state, const ProPage()),
       ),
       GoRoute(
         path: AppRoutes.remoteSettings,
         parentNavigatorKey: rootNavigatorKey,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: RemoteSettingsPage(),
-        ),
+        pageBuilder: (context, state) => _modal(state, const RemoteSettingsPage()),
       ),
       GoRoute(
         path: AppRoutes.howToConnect,
         parentNavigatorKey: rootNavigatorKey,
-        builder: (context, state) => const HowToConnectPage(),
+        pageBuilder: (context, state) => _push(state, const HowToConnectPage()),
       ),
       GoRoute(
         path: AppRoutes.supportedSites,
         parentNavigatorKey: rootNavigatorKey,
-        builder: (context, state) => const SupportedSitesPage(),
+        pageBuilder: (context, state) => _push(state, const SupportedSitesPage()),
       ),
       GoRoute(
         path: AppRoutes.webView,
         parentNavigatorKey: rootNavigatorKey,
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final args = state.extra is WebViewArgs ? state.extra! as WebViewArgs : null;
-          return WebViewPage(
-            title: args?.title ?? '',
-            url: args?.url ?? state.uri.queryParameters['url'] ?? '',
+          return _modal(
+            state,
+            WebViewPage(
+              title: args?.title ?? '',
+              url: args?.url ?? state.uri.queryParameters['url'] ?? '',
+            ),
           );
         },
       ),
     ],
   );
 }
+
+/// Pages above the tab shell. Back-button pages slide in from the right
+/// (swipe back on iOS); close-button pages rise from the bottom.
+Page<void> _push(GoRouterState state, Widget child) =>
+    CupertinoPage(key: state.pageKey, name: state.name, child: child);
+
+Page<void> _modal(GoRouterState state, Widget child) =>
+    CupertinoPage(key: state.pageKey, name: state.name, fullscreenDialog: true, child: child);
 
 class _RouteNotifier extends ChangeNotifier {
   _RouteNotifier(this.ref) {
