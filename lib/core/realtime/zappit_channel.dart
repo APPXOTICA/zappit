@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:ably_flutter/ably_flutter.dart' as ably;
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/firebase/firebase_paths.dart';
@@ -100,6 +101,12 @@ ChannelEventBus channelEvents(Ref ref) {
 /// The app enters presence while in the foreground and leaves when it goes
 /// to the background, so the extension stops writing RTDB while nobody
 /// watches. It re-enters whenever the channel re-attaches.
+///
+/// After a long time away the list is dropped on resume: the extension may
+/// have left Ably meanwhile (it closes Ably 10 min after the app leaves) and
+/// the app, suspended, never got the leave. The list comes back from a read
+/// made once the app's own enter went through, or from presence events, so
+/// nothing is sent to a browser that is not there yet.
 @Riverpod(keepAlive: true)
 class BrowserPresence extends _$BrowserPresence {
   ably.RealtimeChannel? _channel;
@@ -107,6 +114,11 @@ class BrowserPresence extends _$BrowserPresence {
   AppLifecycleListener? _lifecycle;
   bool _present = false;
   bool _foreground = true;
+  DateTime? _hiddenAt;
+  /// Bumped when the list is dropped; reads started before are ignored.
+  int _generation = 0;
+
+  static const _staleAfter = Duration(minutes: 1);
 
   @override
   List<BrowserInstance> build() {
@@ -146,12 +158,22 @@ class BrowserPresence extends _$BrowserPresence {
     switch (lifecycle) {
       case AppLifecycleState.resumed:
         _foreground = true;
-        unawaited(_setAppOnline(true));
-        unawaited(_enter());
-        unawaited(_refresh());
+        final hiddenAt = _hiddenAt;
+        _hiddenAt = null;
+        final stale = hiddenAt != null && DateTime.now().difference(hiddenAt) >= _staleAfter;
+        unawaited(_resumeAppOnline(reconnectRtdb: stale));
+        if (stale) {
+          _generation++;
+          state = const [];
+          unawaited(_enterThenRefresh());
+        } else {
+          unawaited(_enter());
+          unawaited(_refresh());
+        }
       case AppLifecycleState.paused:
       case AppLifecycleState.hidden:
         _foreground = false;
+        _hiddenAt ??= DateTime.now();
         unawaited(_leave());
         unawaited(_setAppOnline(false));
       default:
@@ -162,8 +184,10 @@ class BrowserPresence extends _$BrowserPresence {
   Future<void> _refresh() async {
     final channel = _channel;
     if (channel == null) return;
+    final generation = _generation;
     try {
       final members = await channel.presence.get();
+      if (generation != _generation) return;
       final browsers = <String, BrowserInstance>{};
       for (final member in members) {
         final browser = BrowserInstance.fromPresence(member.data);
@@ -176,15 +200,25 @@ class BrowserPresence extends _$BrowserPresence {
     }
   }
 
-  Future<void> _enter() async {
+  /// True when the app is in presence afterwards.
+  Future<bool> _enter() async {
     final channel = _channel;
-    if (channel == null || _present || !_foreground) return;
+    if (channel == null || !_foreground) return false;
+    if (_present) return true;
     try {
       await channel.presence.enter({'device': Protocol.deviceApp, 'type': 'remote'});
       _present = true;
     } catch (e) {
       debugPrint('presence.enter failed: $e');
     }
+    return _present;
+  }
+
+  /// The enter is acknowledged by Ably, so the connection is live and the
+  /// read that follows is the server's. If it fails, the attached and
+  /// presence listeners fill the list instead.
+  Future<void> _enterThenRefresh() async {
+    if (await _enter()) await _refresh();
   }
 
   Future<void> _leave() async {
@@ -196,6 +230,22 @@ class BrowserPresence extends _$BrowserPresence {
     } catch (e) {
       debugPrint('presence.leave failed: $e');
     }
+  }
+
+  /// Android blocks a background app's network, so RTDB keeps failing to
+  /// reconnect and its retry delay grows to about 30 s; the Android SDK does
+  /// not cut it short when the app comes back (the iOS one does). Reconnect
+  /// now, or appOnline, which wakes the extension, waits for that retry.
+  Future<void> _resumeAppOnline({required bool reconnectRtdb}) async {
+    if (reconnectRtdb && defaultTargetPlatform == TargetPlatform.android) {
+      try {
+        await FirebaseDatabase.instance.goOffline();
+        await FirebaseDatabase.instance.goOnline();
+      } catch (e) {
+        debugPrint('RTDB reconnect failed: $e');
+      }
+    }
+    await _setAppOnline(true);
   }
 
   /// EXPERIMENT (2026-10-20): RTDB `session/{uid}/appOnline` while in the

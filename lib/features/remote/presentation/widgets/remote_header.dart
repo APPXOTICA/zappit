@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:go_router/go_router.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
@@ -36,53 +38,66 @@ class RemoteHeader extends ConsumerWidget {
       children: [
         SizedBox(
           height: AppTokens.targetMin,
-          child: Row(
-            children: [
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: ZpIconButton(
-                    size: ZpIconButtonSize.sm,
-                    semanticLabel: 'Remote settings',
-                    onPressed: () => context.push(AppRoutes.remoteSettings),
-                    child: const Icon(Icons.tune_rounded, size: 28),
+          child: LayoutBuilder(
+            builder: (context, constraints) => Row(
+              children: [
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: ZpIconButton(
+                      size: ZpIconButtonSize.sm,
+                      semanticLabel: 'Remote settings',
+                      onPressed: () => context.push(AppRoutes.remoteSettings),
+                      child: const Icon(Icons.tune_rounded, size: 28),
+                    ),
                   ),
                 ),
-              ),
-              if (showSite) ...[
-                _TabArrow(right: false, enabled: target.hasLeftTab, onPressed: () => controller.switchTab(right: false)),
-                Flexible(child: ZpSiteBadge(site: target.site)),
-                _TabArrow(right: true, enabled: target.hasRightTab, onPressed: () => controller.switchTab(right: true)),
-              ] else
-                Text('Zappit', style: AppText.heading.copyWith(color: context.tokens.ink)),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ZpIconButton(
-                      size: ZpIconButtonSize.sm,
-                      semanticLabel: 'Play in app',
-                      onPressed: canOpenInApp ? controller.openInNativeApp : null,
-                      onDisabledTap: () => AppNotice.snack(
-                        !connected
-                            ? 'Connect to a browser first'
-                            : mode != RemoteMode.playing
-                                ? 'Play a video in the browser first'
-                                : "This video can't be opened on the phone",
+                if (showSite)
+                  // Not a Flexible: it would share the free space with the two
+                  // Expanded sides and push the row off centre. Each side keeps
+                  // room for two buttons.
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: math.max(0, constraints.maxWidth - 4 * AppTokens.targetMin)),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _TabArrow(right: false, enabled: target.hasLeftTab, onPressed: () => controller.switchTab(right: false)),
+                        Flexible(child: ZpSiteBadge(site: target.site)),
+                        _TabArrow(right: true, enabled: target.hasRightTab, onPressed: () => controller.switchTab(right: true)),
+                      ],
+                    ),
+                  )
+                else
+                  Text('Zappit', style: AppText.heading.copyWith(color: context.tokens.ink)),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ZpIconButton(
+                        size: ZpIconButtonSize.sm,
+                        semanticLabel: 'Play in app',
+                        onPressed: canOpenInApp ? controller.openInNativeApp : null,
+                        onDisabledTap: () => AppNotice.snack(
+                          !connected
+                              ? 'Connect to a browser first'
+                              : mode != RemoteMode.playing
+                                  ? 'Play a video in the browser first'
+                                  : "This video can't be opened on the phone",
+                        ),
+                        child: const ZpImageIcon('assets/images/import.svg', size: 28),
                       ),
-                      child: const ZpImageIcon('assets/images/import.svg', size: 28),
-                    ),
-                    ZpIconButton(
-                      size: ZpIconButtonSize.sm,
-                      semanticLabel: 'Open a link in the browser',
-                      onPressed: connected ? () => showLinkPanel(context, ref) : null,
-                      onDisabledTap: () => AppNotice.snack('Connect to a browser first'),
-                      child: const ZpImageIcon('assets/images/export.svg', size: 28),
-                    ),
-                  ],
+                      ZpIconButton(
+                        size: ZpIconButtonSize.sm,
+                        semanticLabel: 'Open a link in the browser',
+                        onPressed: connected ? () => showLinkPanel(context, ref) : null,
+                        onDisabledTap: () => AppNotice.snack('Connect to a browser first'),
+                        child: const ZpImageIcon('assets/images/export.svg', size: 28),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 4),

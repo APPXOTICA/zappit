@@ -63,6 +63,9 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+    <!-- ZappitUrlScheme:// only brings the app forward (Share Extension); keep it away from go_router. -->
+    <key>FlutterDeepLinkingEnabled</key>
+    <false/>
     <key>CFBundleURLTypes</key>
     <array>
         <dict>
@@ -72,6 +75,7 @@
             <array>
                 <!-- GoogleService-Info.plist의 REVERSED_CLIENT_ID 값 -->
                 <string>com.googleusercontent.apps.343141943174-6fjounjr1598jjtp1c5dugoki3psjao0</string>
+                <string>ZappitUrlScheme</string>
             </array>
         </dict>
     </array>

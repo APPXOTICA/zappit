@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:ably_flutter/ably_flutter.dart' as ably;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/constants/config.dart' as config;
 import 'package:zappit/protocol/protocol.dart';
@@ -31,6 +31,7 @@ class RealtimeService {
   final _connected = StreamController<bool>.broadcast();
   StreamSubscription<ably.ConnectionStateChange>? _connectionSub;
   StreamSubscription<User?>? _authSub;
+  AppLifecycleListener? _lifecycle;
   String? _uid;
   bool _isConnected = false;
 
@@ -62,6 +63,29 @@ class RealtimeService {
       _setConnected(change.current == ably.ConnectionState.connected);
     });
     _authSub = FirebaseAuth.instance.authStateChanges().listen(_onUser);
+    _lifecycle = AppLifecycleListener(onResume: _reconnectNow);
+  }
+
+  /// Back in the foreground. A socket that died in the background (Android
+  /// freezes the app) is otherwise retried on the SDK's own timer, up to
+  /// 15 s later: the remote (or a shared link) waits on "offline" meanwhile.
+  /// Retries a few times because the network can come back a moment after
+  /// the app.
+  void _reconnectNow() {
+    for (final delay in const [0, 1, 2, 4]) {
+      Future<void>.delayed(Duration(seconds: delay), () async {
+        final realtime = _realtime;
+        if (realtime == null || _uid == null) return;
+        final state = realtime.connection.state;
+        if (state != ably.ConnectionState.disconnected && state != ably.ConnectionState.suspended) return;
+        debugPrint('Ably reconnect on resume (${state.name}, +${delay}s)');
+        try {
+          await realtime.connect();
+        } catch (e) {
+          debugPrint('Ably reconnect failed: $e');
+        }
+      });
+    }
   }
 
   void _setConnected(bool connected) {
@@ -136,6 +160,8 @@ class RealtimeService {
     if (realtime == null) return;
     await _connectionSub?.cancel();
     await _authSub?.cancel();
+    _lifecycle?.dispose();
+    _lifecycle = null;
     _uid = null;
     await realtime.close();
     _realtime = null;

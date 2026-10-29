@@ -27,6 +27,15 @@ void main() {
       'https://youtu.be/abc123?si=x',
     );
     expect(LinkUtils.firstUrlIn('no link here'), isNull);
+    // Share texts from the YouTube, TikTok and Instagram apps.
+    expect(LinkUtils.firstUrlIn('이 영상 봐봐: https://youtu.be/xyz?si=Ab_1').toString(), 'https://youtu.be/xyz?si=Ab_1');
+    expect(
+      LinkUtils.firstUrlIn('Check out this video! https://vt.tiktok.com/ZS6abc/ #fyp').toString(),
+      'https://vt.tiktok.com/ZS6abc/',
+    );
+    expect(LinkUtils.firstUrlIn('https://www.instagram.com/reel/C1x/?igsh=MW1'), isNotNull);
+    expect(LinkUtils.firstUrlIn('링크(https://youtu.be/xyz)입니다').toString(), 'https://youtu.be/xyz');
+    expect(LinkUtils.firstUrlIn('https://youtu.be/xyz」').toString(), 'https://youtu.be/xyz');
   });
 
   test('native app link adds t= for YouTube only', () {

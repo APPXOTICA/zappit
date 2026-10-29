@@ -2,7 +2,8 @@ import 'package:zappit/protocol/protocol.dart';
 
 /// Link rules for "open in browser", shared text and "open in native app".
 abstract final class LinkUtils {
-  static final _urlInText = RegExp(r'https?://[^\s<>"]+', caseSensitive: false);
+  // Shared URLs are ASCII: text glued after one (「…」, Korean) is not part of it.
+  static final _urlInText = RegExp(r'https?://[^\s<>"\u0080-\uFFFF]+', caseSensitive: false);
 
   /// Trims, adds `https://` when there is no scheme, and accepts only
   /// http/https with a host. Returns null for anything else (javascript:, file: …).

@@ -15,7 +15,6 @@ class Preferences {
   static const _launchCountKey = 'launchCount';
   static const _lastLoginMethodKey = 'lastLoginMethod';
   static const _debugProKey = 'debugPro';
-  static const _pendingSharedUrlKey = 'pendingSharedUrl';
 
   final SharedPreferences instance;
 
@@ -38,11 +37,6 @@ class Preferences {
 
   bool get debugPro => instance.getBool(_debugProKey) ?? false;
   void setDebugPro(bool on) => instance.setBool(_debugProKey, on);
-
-  /// A URL shared into the app before the browser was reachable.
-  String? get pendingSharedUrl => instance.getString(_pendingSharedUrlKey);
-  void setPendingSharedUrl(String? url) =>
-      url == null ? instance.remove(_pendingSharedUrlKey) : instance.setString(_pendingSharedUrlKey, url);
 
   int get launchCount => instance.getInt(_launchCountKey) ?? 0;
   void setLaunchCount(int count) => instance.setInt(_launchCountKey, count);
