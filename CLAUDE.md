@@ -14,7 +14,7 @@ Zappit은 폰(Flutter 앱)으로 컴퓨터 브라우저의 영상 재생을 제�
 
 - `zappit/` (이 저장소): Flutter 앱. 리모컨 역할.
 - `../zappit_extension/`: 브라우저 확장(WXT + Svelte 5 + TypeScript). 영상 페이지를 실제로 제어한다. 구조는 아래 "확장 구조" 참고.
-- `../zappit_firebase/`: Firestore 규칙(`firestore.rules`), RTDB 규칙(`database.rules.json`), Cloud Functions(`functions/index.js`, Node 22). `onUserCreated`, `onUserDeleted`, callable `delete_account`(앱에서 계정 삭제 시 호출), callable `ably_token`(Ably 토큰 발급).
+- `../zappit_firebase/`: Firestore 규칙(`firestore.rules`), RTDB 규칙(`database.rules.json`), Cloud Functions(`functions/index.js`, Node 22). `onUserCreated`, `onUserDeleted`, callable `delete_account`(앱에서 계정 삭제 시 호출), callable `ably_token`(Ably 토큰 발급), callable `extension_token`(Safari 확장 웹 로그인용 custom token, `zappit.tv/auth`가 호출).
 - `../zappit_web/`: zappit.tv 정적 사이트(Render). 아직 비어 있다.
 - `../zappit_assets/`: 디자인 시안·DS(`docs/design/`), 앱↔확장 메시지 규격(`protocol/README.md`, `protocol/fixtures/`), 이미지, 사운드, Firebase 설정 파일 원본.
 
@@ -40,6 +40,7 @@ flutter run -t lib/dev/preview_main.dart --dart-define=SCENARIO=main   # 가짜 
 ```bash
 npm run dev       # Chrome 개발 모드 (dev:firefox)
 npm run build     # build:firefox, zip
+npm run build:safari   # Safari MV2 → .output/safari-mv2 (Xcode 컨테이너 프로젝트 ../zappit_safari가 이 폴더를 참조. 빌드 후 Xcode에서 Run)
 npm run check     # svelte-check 타입 검사
 npm test          # vitest (프로토콜 fixtures, lrud 이동 판정, 사이트 판별, 셀렉터, 챕터 파싱)
 npx vitest run src/lib/lrud.test.ts -t "<이름>"   # 단일 테스트
@@ -90,9 +91,9 @@ Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이�
 ## 확장 구조 (`../zappit_extension/src/`)
 
 - `entrypoints/background.ts`: 인증 상태에 따라 `lib/background/controller.ts`(`Controller`)를 시작/중지하고 알람·메시지를 연결한다.
-- `lib/background/`: `ably-link.ts`(Ably, presence, command 구독), `session.ts`(선택된 브라우저, 자동 선택), `target-tracker.ts`(마지막 포커스된 일반 창의 활성 탭, 프레임별 미디어 보고), `playback-writer.ts`(RTDB `playback/{uid}`, 1초 throttle), `tabs-sync.ts`(Firestore Lite로 탭 목록), `sleep-timer.ts`, `activity.ts`(60일 미사용 로그아웃), `sounds.ts`(offscreen 사운드, 없는 브라우저는 생략).
+- `lib/background/`: `ably-link.ts`(Ably, presence, command 구독), `session.ts`(선택된 브라우저, 자동 선택), `target-tracker.ts`(마지막 포커스된 일반 창의 활성 탭, 프레임별 미디어 보고), `playback-writer.ts`(RTDB `playback/{uid}`, 1초 throttle), `tabs-sync.ts`(Firestore Lite로 탭 목록), `sleep-timer.ts`, `activity.ts`(60일 미사용 로그아웃), `sounds.ts`(사운드: Chrome·Edge는 offscreen, Safari는 컨테이너 앱의 `SafariWebExtensionHandler.swift`가 `sendNativeMessage`로 받아 재생. Safari background page의 `Audio`는 사용자 동작이 없어 소리가 나지 않는다. 파일은 `public/sounds/`).
 - `entrypoints/content/index.ts`: 모든 페이지·모든 프레임. 사이트 어댑터(`lib/content/adapters/`: generic, youtube, netflix, shortform)와 `MediaController`(제어할 video 선택: 장식용 후순위, 보이는 것, 재생 중, 크기 순. Loop·A-B·속도 맛보기·슬립 페이드)를 연결한다. 사이트 UI 상태는 최상위 프레임만 보낸다.
-- `entrypoints/main-world.ts`: YouTube·Netflix 페이지 컨텍스트에서 플레이어 API를 부른다(자막, 볼륨, Netflix seek·메타데이터). `lib/content/bridge.ts`가 분리된 `<script>` 요소의 CustomEvent로 요청한다.
+- `entrypoints/main-world.content.ts`: YouTube·Netflix 페이지 컨텍스트(manifest `world: 'MAIN'` content script)에서 플레이어 API를 부른다(자막, 볼륨, Netflix seek·메타데이터). `lib/content/bridge.ts`가 `document`의 CustomEvent로 요청한다. `<script>` 태그로 넣지 않는다(Safari는 페이지 CSP를 적용해 YouTube에서 막힌다).
 - `lib/lrud.ts`: BBC lrud-spatial의 이동 판정 이식(Apache-2.0). 다른 점은 파일 머리 주석 참고. `lib/content/focus-navigator.ts`가 가상 포커스로 홈 화면·종료 화면 카드를 이동한다.
 - `lib/selectors.ts`: 사이트별 기본 셀렉터와 원격 JSON(`https://zappit-23ad8.web.app/selectors/v1.json`) 병합. 사이트 UI가 바뀌면 원격 JSON만 고쳐 배포한다(1시간마다 갱신). 명령이 필요한 요소를 못 찾으면 어댑터가 `missing('<셀렉터 이름>')`을 돌려주고, background가 PostHog `extension_selector_missing`(site·셀렉터 이름·명령만, 브라우저별 조합당 하루 1회)으로 보고한다(`lib/background/selector-telemetry.ts`).
 - `lib/protocol.ts`: 앱과 같은 메시지 규격(TypeScript). `lib/sites.ts`: URL로 사이트·페이지 판별과 capability 목록.
@@ -101,7 +102,9 @@ Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이�
 ## 지원 브라우저 (확장)
 
 - 초기 버전은 Chrome, Safari만 지원한다. Edge, Firefox는 출시 후 추가한다(따라서 구현시 브라우저 추가를 고려해 설계한다.).
-- MV3만 사용한다. MV2는 절대 쓰지 않는다(장시간 연결 유지 문제가 있어도 MV2 persistent 백그라운드로 해결하지 않는다).
+- Safari는 MV2를 사용하고, 나머지 브라우저는 MV3를 사용한다. Safari MV3 service worker는 `new WebSocket()`에서 멈추고, MV2 persistent background page는 Ably·RTDB 연결을 유지한다.
+- Safari 빌드는 ASCII만 쓴다(`wxt.config.ts`의 esbuild `charset: 'ascii'`). Safari가 background.js를 Latin-1로 읽어 비ASCII 문자가 깨진다. 정규식 리터럴은 esbuild가 바꾸지 않으므로 소스에서 `\u` 이스케이프로 쓴다.
+- MV2 분기: `chrome.scripting`이 없으면 `tabs.executeScript`, `storage.session`이 없으면 메모리.
 - Safari에는 `identity` API와 `offscreen` API가 없다. Safari 로그인은 zappit.tv의 로그인 웹 페이지를 거쳐 확장으로 결과를 넘기는 방식으로 구현한다. 배포는 macOS 컨테이너 앱(Xcode Safari Web Extension)으로 한다.
 - Chrome 전용 API(`chrome.identity.getAuthToken`, `chrome.offscreen`)를 쓰는 코드는 브라우저별로 분기할 수 있게 둔다.
 
