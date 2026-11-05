@@ -2,6 +2,7 @@ import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/features/remote/controllers/chapters_controller.dart';
 import 'package:zappit/features/remote/controllers/playback_controller.dart';
+import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/features/remote/controllers/remote_mode.dart';
 import 'package:zappit/features/remote/controllers/target_controller.dart';
 import 'package:zappit/features/remote/presentation/widgets/blocks/chapter_block.dart';
@@ -44,6 +45,7 @@ class RemotePage extends ConsumerWidget {
                 child: Column(
                   children: [
                     Padding(padding: EdgeInsets.fromLTRB(side, AppTokens.space2, side, 0), child: const RemoteHeader()),
+                    const _ReloadBanner(),
                     // The YouTube menu stays fixed under the header (d-pad and
                     // playing screens) so browsing can start over at any time;
                     // the blocks below move without moving it.
@@ -76,6 +78,42 @@ class RemotePage extends ConsumerWidget {
           ),
           const Positioned.fill(child: GlassOverlay()),
         ],
+      ),
+    );
+  }
+}
+
+/// The tab was open before the extension was updated (`needsReload`): some
+/// controls only work after a reload. Stays until the tab is reloaded.
+class _ReloadBanner extends ConsumerWidget {
+  const _ReloadBanner();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mode = ref.watch(remoteModeProvider);
+    final needsReload = ref.watch(siteStateControllerProvider.select((s) => s.needsReload));
+    final shown = mode == RemoteMode.home || mode == RemoteMode.playing || mode == RemoteMode.nothing;
+    if (!needsReload || !shown) return const SizedBox.shrink();
+    final t = context.tokens;
+    final side = context.isTablet ? AppTokens.space8 : AppTokens.space4;
+    return Padding(
+      padding: EdgeInsets.fromLTRB(side, AppTokens.space3, side, 0),
+      child: ZpCluster(
+        padding: const EdgeInsets.fromLTRB(AppTokens.space4, AppTokens.space2, AppTokens.space2, AppTokens.space2),
+        child: Row(
+          children: [
+            Expanded(child: Text('Reload this tab to use all controls.', style: AppText.body.copyWith(color: t.ink))),
+            const SizedBox(width: AppTokens.space3),
+            ZpButton(
+              label: 'Reload',
+              icon: const Icon(Icons.refresh_rounded),
+              style: ZpButtonStyle.accent,
+              height: AppTokens.targetMin,
+              expand: false,
+              onPressed: ref.read(remoteControllerProvider).reloadTab,
+            ),
+          ],
+        ),
       ),
     );
   }

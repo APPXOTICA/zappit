@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ably_flutter/ably_flutter.dart' as ably;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -29,16 +30,32 @@ Stream<bool> ablyConnected(Ref ref) {
   return controller.stream;
 }
 
-/// The signed-in user's channel `zappit:{uid}`, or null when signed out.
+/// The signed-in user's channel `zappit:{uid}` on the current client, or
+/// null when signed out.
+///
+/// Attached explicitly whenever the connection comes up. An attach (or the
+/// implicit one in presence.enter and subscribe) made while the connection
+/// is closed or not yet connecting is dropped and never retried, and sign-in
+/// builds this before the connection opens: the app then never entered
+/// presence and saw no browser.
+///
+/// Rebuilt when the client is replaced (account change). Never detached
+/// here: the old client is closed then, and a rebuild for the same client
+/// would detach the very channel the new build returns.
 @Riverpod(keepAlive: true)
 ably.RealtimeChannel? zappitChannel(Ref ref) {
   final name = ref.watch(channelNameProvider);
   final service = ref.watch(realtimeServiceProvider);
+  final clientSub = service.clientChanges.listen((_) => ref.invalidateSelf());
+  ref.onDispose(() => unawaited(clientSub.cancel()));
   if (name == null || !service.isInitialized) return null;
   final channel = service.channel(name);
-  ref.onDispose(() {
-    unawaited(channel.detach().catchError((Object e) => debugPrint('detach: $e')));
+  void attach() => unawaited(channel.attach().catchError((Object e) => debugPrint('attach: $e')));
+  final sub = service.connectedChanges.listen((connected) {
+    if (connected) attach();
   });
+  ref.onDispose(() => unawaited(sub.cancel()));
+  if (service.isConnected) attach();
   return channel;
 }
 
@@ -110,6 +127,8 @@ ChannelEventBus channelEvents(Ref ref) {
 @Riverpod(keepAlive: true)
 class BrowserPresence extends _$BrowserPresence {
   ably.RealtimeChannel? _channel;
+  // Read in build: onDispose may not use ref.
+  String? _uid;
   final _subscriptions = <StreamSubscription<Object?>>[];
   AppLifecycleListener? _lifecycle;
   bool _present = false;
@@ -123,6 +142,7 @@ class BrowserPresence extends _$BrowserPresence {
   @override
   List<BrowserInstance> build() {
     _channel = ref.watch(zappitChannelProvider);
+    _uid = ref.read(currentUidProvider);
     ref.onDispose(_dispose);
 
     final channel = _channel;
@@ -132,6 +152,11 @@ class BrowserPresence extends _$BrowserPresence {
         WidgetsBinding.instance.lifecycleState != AppLifecycleState.hidden;
 
     _lifecycle = AppLifecycleListener(onStateChange: _onLifecycle);
+
+    // TEMP [presence-debug]: channel and presence trace for the account-switch bug.
+    debugPrint('[presence-debug] build ${channel.name} state=${channel.state.name} present=$_present fg=$_foreground');
+    _subscriptions.add(channel.on().listen((c) => debugPrint(
+        '[presence-debug] ${channel.name} ${c.previous.name} → ${c.current.name} ${c.reason?.code ?? ''} ${c.reason?.message ?? ''}')));
 
     _subscriptions.add(channel.on(ably.ChannelEvent.attached).listen((_) {
       _present = false;
@@ -186,7 +211,12 @@ class BrowserPresence extends _$BrowserPresence {
     if (channel == null) return;
     final generation = _generation;
     try {
-      final members = await channel.presence.get();
+      // No waitForSync: Android ably-java answers get on the main thread and
+      // would block it until the sync (or attach timeout, ~30 s), and the
+      // token authCallback needs that thread, so sign-in stalled. A read
+      // before the sync is partial; the sync's presence events refresh it.
+      final members = await channel.presence.get(const ably.RealtimePresenceParams(waitForSync: false));
+      debugPrint('[presence-debug] get ${channel.name}: ${members.map((m) => m.clientId).join(', ')}');
       if (generation != _generation) return;
       final browsers = <String, BrowserInstance>{};
       for (final member in members) {
@@ -206,7 +236,9 @@ class BrowserPresence extends _$BrowserPresence {
     if (channel == null || !_foreground) return false;
     if (_present) return true;
     try {
+      debugPrint('[presence-debug] enter ${channel.name} state=${channel.state.name}');
       await channel.presence.enter({'device': Protocol.deviceApp, 'type': 'remote'});
+      debugPrint('[presence-debug] entered ${channel.name}');
       _present = true;
     } catch (e) {
       debugPrint('presence.enter failed: $e');
@@ -252,19 +284,29 @@ class BrowserPresence extends _$BrowserPresence {
   /// foreground, so the extension joins Ably only then (extension
   /// `ABLY_ON_DEMAND`). `onDisconnect` clears it if the app dies.
   Future<void> _setAppOnline(bool online) async {
-    final uid = ref.read(currentUidProvider);
-    if (uid == null) return;
+    final uid = _uid;
+    // Signed out already: the rules deny it (sign-out cleared it first).
+    if (uid == null || FirebaseAuth.instance.currentUser?.uid != uid) return;
+    if (!online) return clearAppOnline(uid);
     final node = FirebaseDatabase.instance.ref(FirebasePaths.appOnline(uid));
     try {
-      if (online) {
-        await node.onDisconnect().remove();
-        await node.set({'at': ServerValue.timestamp});
-      } else {
-        await node.onDisconnect().cancel();
-        await node.remove();
-      }
+      await node.onDisconnect().remove();
+      await node.set({'at': ServerValue.timestamp});
     } catch (e) {
       debugPrint('appOnline write failed: $e');
+    }
+  }
+
+  /// Removes `appOnline` and its onDisconnect. Sign-out calls it while the
+  /// user can still write; otherwise the old account's extension would keep
+  /// Ably open. Bounded: offline, the write would wait for a reconnect, and
+  /// the server's onDisconnect has removed the value anyway.
+  static Future<void> clearAppOnline(String uid) async {
+    final node = FirebaseDatabase.instance.ref(FirebasePaths.appOnline(uid));
+    try {
+      await Future.wait([node.onDisconnect().cancel(), node.remove()]).timeout(const Duration(seconds: 3));
+    } catch (e) {
+      debugPrint('appOnline clear failed: $e');
     }
   }
 

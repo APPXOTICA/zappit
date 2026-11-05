@@ -109,6 +109,7 @@ void main() {
       expect(state.chapterCount, 12);
       expect(state.canGoBack, isTrue);
       expect(state.fullscreen, isTrue);
+      expect(state.needsReload, isFalse);
       expect(state.endScreenMode, EndScreenMode.upNext);
       expect(state.endScreenCountdown, 8);
       expect(state.endScreenCard?.channel, 'Night Owl Radio');

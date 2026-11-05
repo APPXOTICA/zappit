@@ -101,6 +101,8 @@ final class RemoteCommand {
       : this._('activate_tab', {'tabId': tabId, 'windowId': windowId});
   /// The tab left or right of the target tab in its window.
   RemoteCommand.switchTab({required bool right}) : this._('switch_tab', {'direction': right ? 'right' : 'left'});
+  /// Reloads the target tab (`needsReload`); a YouTube video goes on where it was.
+  const RemoteCommand.reloadTab() : this._('reload_tab');
 
   const RemoteCommand.ping() : this._('ping');
 
@@ -116,7 +118,7 @@ final class RemoteCommand {
     'open_url', 'go_home', 'go_page', 'go_back', 'nav', 'nav_select',
     'get_playlist', 'play_playlist_item', 'set_shuffle', 'set_playlist_loop',
     'end_screen_play_now', 'end_screen_cancel', 'end_screen_dismiss',
-    'watch_tabs', 'unwatch_tabs', 'activate_tab', 'switch_tab', 'ping',
+    'watch_tabs', 'unwatch_tabs', 'activate_tab', 'switch_tab', 'reload_tab', 'ping',
   };
 
   /// Builds a command from a model function call. Returns null for unknown names.

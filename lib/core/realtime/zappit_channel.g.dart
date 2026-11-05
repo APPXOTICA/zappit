@@ -49,12 +49,34 @@ final class AblyConnectedProvider
 
 String _$ablyConnectedHash() => r'e6281e613bd1d32eb89c3472fb218f4e90dc7be4';
 
-/// The signed-in user's channel `zappit:{uid}`, or null when signed out.
+/// The signed-in user's channel `zappit:{uid}` on the current client, or
+/// null when signed out.
+///
+/// Attached explicitly whenever the connection comes up. An attach (or the
+/// implicit one in presence.enter and subscribe) made while the connection
+/// is closed or not yet connecting is dropped and never retried, and sign-in
+/// builds this before the connection opens: the app then never entered
+/// presence and saw no browser.
+///
+/// Rebuilt when the client is replaced (account change). Never detached
+/// here: the old client is closed then, and a rebuild for the same client
+/// would detach the very channel the new build returns.
 
 @ProviderFor(zappitChannel)
 final zappitChannelProvider = ZappitChannelProvider._();
 
-/// The signed-in user's channel `zappit:{uid}`, or null when signed out.
+/// The signed-in user's channel `zappit:{uid}` on the current client, or
+/// null when signed out.
+///
+/// Attached explicitly whenever the connection comes up. An attach (or the
+/// implicit one in presence.enter and subscribe) made while the connection
+/// is closed or not yet connecting is dropped and never retried, and sign-in
+/// builds this before the connection opens: the app then never entered
+/// presence and saw no browser.
+///
+/// Rebuilt when the client is replaced (account change). Never detached
+/// here: the old client is closed then, and a rebuild for the same client
+/// would detach the very channel the new build returns.
 
 final class ZappitChannelProvider
     extends
@@ -64,7 +86,18 @@ final class ZappitChannelProvider
           ably.RealtimeChannel?
         >
     with $Provider<ably.RealtimeChannel?> {
-  /// The signed-in user's channel `zappit:{uid}`, or null when signed out.
+  /// The signed-in user's channel `zappit:{uid}` on the current client, or
+  /// null when signed out.
+  ///
+  /// Attached explicitly whenever the connection comes up. An attach (or the
+  /// implicit one in presence.enter and subscribe) made while the connection
+  /// is closed or not yet connecting is dropped and never retried, and sign-in
+  /// builds this before the connection opens: the app then never entered
+  /// presence and saw no browser.
+  ///
+  /// Rebuilt when the client is replaced (account change). Never detached
+  /// here: the old client is closed then, and a rebuild for the same client
+  /// would detach the very channel the new build returns.
   ZappitChannelProvider._()
     : super(
         from: null,
@@ -99,7 +132,7 @@ final class ZappitChannelProvider
   }
 }
 
-String _$zappitChannelHash() => r'7e83730cbf51d07362cc6434847e24c5acd0c124';
+String _$zappitChannelHash() => r'05c1efd65b3104872bd09a55bc9bcff39a8fc329';
 
 @ProviderFor(channelEvents)
 final channelEventsProvider = ChannelEventsProvider._();
@@ -148,6 +181,12 @@ String _$channelEventsHash() => r'ea5513d93b6c9581b150e9ea3e417cb6a7aeb8de';
 /// The app enters presence while in the foreground and leaves when it goes
 /// to the background, so the extension stops writing RTDB while nobody
 /// watches. It re-enters whenever the channel re-attaches.
+///
+/// After a long time away the list is dropped on resume: the extension may
+/// have left Ably meanwhile (it closes Ably 10 min after the app leaves) and
+/// the app, suspended, never got the leave. The list comes back from a read
+/// made once the app's own enter went through, or from presence events, so
+/// nothing is sent to a browser that is not there yet.
 
 @ProviderFor(BrowserPresence)
 final browserPresenceProvider = BrowserPresenceProvider._();
@@ -157,6 +196,12 @@ final browserPresenceProvider = BrowserPresenceProvider._();
 /// The app enters presence while in the foreground and leaves when it goes
 /// to the background, so the extension stops writing RTDB while nobody
 /// watches. It re-enters whenever the channel re-attaches.
+///
+/// After a long time away the list is dropped on resume: the extension may
+/// have left Ably meanwhile (it closes Ably 10 min after the app leaves) and
+/// the app, suspended, never got the leave. The list comes back from a read
+/// made once the app's own enter went through, or from presence events, so
+/// nothing is sent to a browser that is not there yet.
 final class BrowserPresenceProvider
     extends $NotifierProvider<BrowserPresence, List<BrowserInstance>> {
   /// Browsers online on the channel, and the app's own presence.
@@ -164,6 +209,12 @@ final class BrowserPresenceProvider
   /// The app enters presence while in the foreground and leaves when it goes
   /// to the background, so the extension stops writing RTDB while nobody
   /// watches. It re-enters whenever the channel re-attaches.
+  ///
+  /// After a long time away the list is dropped on resume: the extension may
+  /// have left Ably meanwhile (it closes Ably 10 min after the app leaves) and
+  /// the app, suspended, never got the leave. The list comes back from a read
+  /// made once the app's own enter went through, or from presence events, so
+  /// nothing is sent to a browser that is not there yet.
   BrowserPresenceProvider._()
     : super(
         from: null,
@@ -191,13 +242,19 @@ final class BrowserPresenceProvider
   }
 }
 
-String _$browserPresenceHash() => r'6c669404fd243e9d431a807e036b55710bac8cc9';
+String _$browserPresenceHash() => r'b099d16f3482a2e21a5af6b830f4388f0bbeab5f';
 
 /// Browsers online on the channel, and the app's own presence.
 ///
 /// The app enters presence while in the foreground and leaves when it goes
 /// to the background, so the extension stops writing RTDB while nobody
 /// watches. It re-enters whenever the channel re-attaches.
+///
+/// After a long time away the list is dropped on resume: the extension may
+/// have left Ably meanwhile (it closes Ably 10 min after the app leaves) and
+/// the app, suspended, never got the leave. The list comes back from a read
+/// made once the app's own enter went through, or from presence events, so
+/// nothing is sent to a browser that is not there yet.
 
 abstract class _$BrowserPresence extends $Notifier<List<BrowserInstance>> {
   List<BrowserInstance> build();

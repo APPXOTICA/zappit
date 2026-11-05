@@ -381,6 +381,11 @@ class RemoteController {
     _bus.fire(const RemoteCommand.goBack());
   }
 
+  void reloadTab() {
+    _tap();
+    _bus.fire(const RemoteCommand.reloadTab());
+  }
+
   /// A YouTube side menu page (menu bar, You / Explore sheets).
   void goPage(YtPage page) {
     if (page == YtPage.home) return goHome();

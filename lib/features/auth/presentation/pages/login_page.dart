@@ -115,11 +115,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         behavior: HitTestBehavior.opaque,
                         onTap: () => setState(() => _agreed = !_agreed),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _CheckBox(checked: _agreed),
                             const SizedBox(width: AppTokens.space3),
-                            Expanded(
+                            Flexible(
                               child: Text.rich(
                                 TextSpan(
                                   style: AppText.body.copyWith(color: t.inkMuted),

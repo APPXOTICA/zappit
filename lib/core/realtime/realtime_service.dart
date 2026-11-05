@@ -13,12 +13,18 @@ part 'realtime_service.g.dart';
 @Riverpod(keepAlive: true)
 RealtimeService realtimeService(Ref ref) => RealtimeService();
 
-/// Owns the single Ably connection.
+/// Owns the Ably connection.
 ///
 /// Token auth: `authCallback` calls the `ably_token` Cloud Function, which
 /// signs a token for the signed-in user's channel only. No Ably key ships in
-/// the app. Connects on sign-in, re-authorizes on an account switch and
-/// closes on sign-out.
+/// the app. Connects on sign-in and closes on sign-out.
+///
+/// Every account change (sign-out, or a switch) replaces the client with a
+/// fresh one. A closed client keeps its token (24 h TTL, rights for the old
+/// channel only), so reusing it after a sign-in as someone else got 40160 on
+/// attach; a fresh client has no token and asks for one, and while offline
+/// Ably's own retries keep asking until it gets one. Channels come from the
+/// current client: [clientChanges] tells `zappitChannel` to fetch again.
 class RealtimeService {
   static final RealtimeService _instance = RealtimeService._internal();
 
@@ -30,6 +36,8 @@ class RealtimeService {
 
   final _connected = StreamController<bool>.broadcast();
   StreamSubscription<ably.ConnectionStateChange>? _connectionSub;
+  final _clients = StreamController<int>.broadcast();
+  int _generation = 0;
   StreamSubscription<User?>? _authSub;
   AppLifecycleListener? _lifecycle;
   String? _uid;
@@ -41,9 +49,17 @@ class RealtimeService {
   /// Emits whenever the connection goes up or down.
   Stream<bool> get connectedChanges => _connected.stream;
 
+  /// Emits each time the client is replaced (account change).
+  Stream<int> get clientChanges => _clients.stream;
+
   Future<void> init() async {
     if (_realtime != null) return;
+    _createClient();
+    _authSub = FirebaseAuth.instance.authStateChanges().listen(_onUser);
+    _lifecycle = AppLifecycleListener(onResume: _reconnectNow);
+  }
 
+  void _createClient() {
     final options = ably.ClientOptions(
       clientId: Protocol.appClientId,
       authCallback: _requestToken,
@@ -58,12 +74,28 @@ class RealtimeService {
     final realtime = ably.Realtime(options: options);
     _realtime = realtime;
     _connectionSub = realtime.connection.on().listen((change) {
+      if (_realtime != realtime) return; // replaced
       debugPrint('Ably connection: ${change.previous.name} → ${change.current.name}'
           '${change.reason != null ? ' (${change.reason?.message})' : ''}');
       _setConnected(change.current == ably.ConnectionState.connected);
     });
-    _authSub = FirebaseAuth.instance.authStateChanges().listen(_onUser);
-    _lifecycle = AppLifecycleListener(onResume: _reconnectNow);
+    _generation++;
+    _clients.add(_generation);
+  }
+
+  /// The new client is in place before the first await, so a sign-in that
+  /// arrives while the old one is closing already connects the new one.
+  Future<void> _replaceClient() async {
+    final old = _realtime;
+    final oldSub = _connectionSub;
+    _createClient();
+    _setConnected(false);
+    await oldSub?.cancel();
+    try {
+      await old?.close();
+    } catch (e) {
+      debugPrint('Ably close failed: $e');
+    }
   }
 
   /// Back in the foreground. A socket that died in the background (Android
@@ -121,20 +153,15 @@ class RealtimeService {
   }
 
   Future<void> _onUser(User? user) async {
-    final realtime = _realtime;
     final uid = user?.uid;
-    if (realtime == null || uid == _uid) return;
+    if (_realtime == null || uid == _uid) return;
     final previous = _uid;
     _uid = uid;
     try {
-      if (uid == null) {
-        await realtime.close();
-      } else if (previous == null) {
+      if (previous != null) await _replaceClient();
+      if (uid != null && _uid == uid) {
         await realtime.connect();
         _syncStateSoon();
-      } else {
-        // Another account: a new token for its channel.
-        await realtime.auth.authorize();
       }
     } catch (e) {
       debugPrint('Ably auth change failed: $e');
@@ -165,6 +192,6 @@ class RealtimeService {
     _uid = null;
     await realtime.close();
     _realtime = null;
-    _isConnected = false;
+    _setConnected(false);
   }
 }

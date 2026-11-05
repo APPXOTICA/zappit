@@ -193,6 +193,7 @@ final class SiteState {
     this.canGoBack = false,
     this.fullscreen = false,
     this.playlist = const PlaylistState(),
+    this.needsReload = false,
   });
 
   final String instanceId;
@@ -225,6 +226,10 @@ final class SiteState {
   final bool fullscreen;
   final PlaylistState playlist;
 
+  /// The tab was open before the extension was updated: some controls work
+  /// only after it is reloaded (`reload_tab`).
+  final bool needsReload;
+
   static const empty = SiteState();
 
   factory SiteState.fromJson(Object? raw) {
@@ -254,6 +259,7 @@ final class SiteState {
       canGoBack: asBool(json['canGoBack']),
       fullscreen: asBool(json['fullscreen']),
       playlist: PlaylistState.fromJson(json['playlist']),
+      needsReload: asBool(json['needsReload']),
     );
   }
 }

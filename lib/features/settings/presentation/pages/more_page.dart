@@ -15,7 +15,6 @@ import 'package:zappit/core/routes/app_routes.dart';
 import 'package:zappit/core/utils/device_utils.dart';
 import 'package:zappit/features/auth/presentation/controllers/auth_state_provider.dart';
 import 'package:zappit/features/purchase/pro_controller.dart';
-import 'package:zappit/features/purchase/purchase_service.dart';
 import 'package:zappit/shared/providers/activity_indicator_provider.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
 import 'package:zappit/shared/widgets/web_view_page.dart';
@@ -39,15 +38,14 @@ class MorePage extends ConsumerWidget {
             child: ListView(
               padding: const EdgeInsets.fromLTRB(AppTokens.space4, AppTokens.space2, AppTokens.space4, AppTokens.space8),
               children: [
-                if (!isPro) ...[
-                  ZpUpgradeBanner(
-                    title: Strings.appTitlePro,
-                    subtitle: 'Unlock every dedicated remote',
-                    cta: 'Upgrade',
-                    onTap: () => context.push(AppRoutes.pro),
-                  ),
-                  const SizedBox(height: AppTokens.space6),
-                ],
+                // Pro users keep the entry: the Pro page lists the benefits and manages the subscription.
+                ZpUpgradeBanner(
+                  title: Strings.appTitlePro,
+                  subtitle: isPro ? 'Every dedicated remote is unlocked' : 'Unlock every dedicated remote',
+                  cta: isPro ? 'View' : 'Upgrade',
+                  onTap: () => context.push(AppRoutes.pro),
+                ),
+                const SizedBox(height: AppTokens.space6),
                 const ZpSectionTitle('Zappit'),
                 ZpGroup(children: [
                   ZpListRow(
@@ -72,13 +70,6 @@ class MorePage extends ConsumerWidget {
                 const SizedBox(height: AppTokens.space6),
                 const ZpSectionTitle('Account'),
                 ZpGroup(children: [
-                  if (isPro)
-                    ZpListRow(
-                      title: 'Manage subscription',
-                      detail: Strings.appTitlePro,
-                      showChevron: true,
-                      onTap: ref.read(purchaseServiceProvider).openCustomerCenter,
-                    ),
                   ZpListRow(title: 'Log out', onTap: () => _logout(context, ref)),
                   ZpListRow(title: 'Delete account', danger: true, onTap: () => _deleteAccount(context, ref)),
                 ]),

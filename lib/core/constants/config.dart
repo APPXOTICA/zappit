@@ -25,4 +25,6 @@ const region = 'us-central1';
 
 
 // RevenueCat
-const revenueCatApiKey = 'test_CmvaGqnoNogxOVjdHYvopUCbSfq';
+// Public SDK keys, one per store app. Sandbox purchases use the same keys (the store decides).
+const revenueCatAppleApiKey = 'appl_TRBccoHmayIlvxSVHsfNJkWqKcn';
+const revenueCatGoogleApiKey = 'goog_OuZcZfMtcQYQUGZvvgTTHWGFotW';

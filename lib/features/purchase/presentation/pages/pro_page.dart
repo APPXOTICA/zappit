@@ -25,7 +25,6 @@ class ProPage extends ConsumerStatefulWidget {
     'A-B loop: 5, 10, 20, 50 or ∞ repeats',
     'Sleep Timer',
     'All playback speeds',
-    'Voice Control',
     'Unlimited Voice Boost',
   ];
 
@@ -67,7 +66,7 @@ class _ProPageState extends ConsumerState<ProPage> {
         AppNotice.snack('The store is not available right now. Please try again later.', error: true);
         return;
       }
-      final outcome = await ref.read(purchaseServiceProvider).purchase(context, package);
+      final outcome = await ref.read(purchaseServiceProvider).purchase(context, package, onStoreDone: indicator.hide);
       if (outcome == PurchaseOutcome.purchased && mounted) {
         AppNotice.snack('Welcome to ${Strings.appTitlePro}');
         Navigator.of(context).maybePop();
@@ -81,7 +80,7 @@ class _ProPageState extends ConsumerState<ProPage> {
     final indicator = ref.read(activityIndicatorProvider.notifier);
     indicator.show(null);
     try {
-      final pro = await ref.read(purchaseServiceProvider).restore(context);
+      final pro = await ref.read(purchaseServiceProvider).restore(context, onStoreDone: indicator.hide);
       if (pro && mounted) {
         AppNotice.snack('${Strings.appTitlePro} restored');
         Navigator.of(context).maybePop();
@@ -168,27 +167,29 @@ class _ProPageState extends ConsumerState<ProPage> {
                             ZpListRow(title: f, minHeight: 50, leading: Icon(Icons.check_rounded, color: t.inkMuted)),
                         ],
                       ),
-                      const SizedBox(height: AppTokens.space4),
-                      ZpCluster(
-                        child: Column(
-                          children: [
-                            Text('Subscription', style: AppText.label.copyWith(color: t.inkMuted)),
-                            const SizedBox(height: 4),
-                            SizedBox(
-                              height: 30,
-                              child: _loading
-                                  ? const Center(child: SizedBox.square(dimension: 20, child: CircularProgressIndicator(strokeWidth: 2)))
-                                  : Text(_priceText, style: AppText.heading.copyWith(fontSize: 22, color: t.ink)),
-                            ),
-                            if (trial != null) Text(trial, style: AppText.body.copyWith(color: t.ink)),
-                            const SizedBox(height: 4),
-                            Text(
-                              'Cancel anytime in your store account',
-                              style: AppText.body.copyWith(color: t.inkMuted),
-                            ),
-                          ],
+                      if (!isPro) ...[
+                        const SizedBox(height: AppTokens.space4),
+                        ZpCluster(
+                          child: Column(
+                            children: [
+                              Text('Subscription', style: AppText.label.copyWith(color: t.inkMuted)),
+                              const SizedBox(height: 4),
+                              SizedBox(
+                                height: 30,
+                                child: _loading
+                                    ? const Center(child: SizedBox.square(dimension: 20, child: CircularProgressIndicator(strokeWidth: 2)))
+                                    : Text(_priceText, style: AppText.heading.copyWith(fontSize: 22, color: t.ink)),
+                              ),
+                              if (trial != null) Text(trial, style: AppText.body.copyWith(color: t.ink)),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Cancel anytime in your store account',
+                                style: AppText.body.copyWith(color: t.inkMuted),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
+                      ],
                       if (kDebugMode) ...[
                         const SizedBox(height: AppTokens.space4),
                         ZpCluster(
@@ -218,8 +219,10 @@ class _ProPageState extends ConsumerState<ProPage> {
                         style: ZpButtonStyle.accent,
                         onPressed: isPro ? ref.read(purchaseServiceProvider).openCustomerCenter : (_loading ? null : _subscribe),
                       ),
-                      const SizedBox(height: AppTokens.space4),
-                      ZpLinkText('Restore purchases', onTap: _restore),
+                      if (!isPro) ...[
+                        const SizedBox(height: AppTokens.space4),
+                        ZpLinkText('Restore purchases', onTap: _restore),
+                      ],
                       const SizedBox(height: AppTokens.space4),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

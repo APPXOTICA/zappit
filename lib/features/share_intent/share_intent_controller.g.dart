@@ -13,7 +13,9 @@ part of 'share_intent_controller.dart';
 /// The first http(s) URL in the text is opened in the selected browser, the
 /// same way as the link panel. If the app was launched by the share, the URL
 /// waits until the browser is reachable (auth + Ably + selection), up to a
-/// short timeout, then fails with a notice. The app stays on screen.
+/// short timeout, then fails with a notice. The app stays on screen. The URL
+/// is kept in memory only: a share that never went out is not sent on a
+/// later launch.
 ///
 /// iOS: the Share Extension (`ios/ShareExtension`) leaves the text in the App
 /// Group and opens the app; it is read through the `tv.zappit/share` channel
@@ -27,7 +29,9 @@ final shareIntentControllerProvider = ShareIntentControllerProvider._();
 /// The first http(s) URL in the text is opened in the selected browser, the
 /// same way as the link panel. If the app was launched by the share, the URL
 /// waits until the browser is reachable (auth + Ably + selection), up to a
-/// short timeout, then fails with a notice. The app stays on screen.
+/// short timeout, then fails with a notice. The app stays on screen. The URL
+/// is kept in memory only: a share that never went out is not sent on a
+/// later launch.
 ///
 /// iOS: the Share Extension (`ios/ShareExtension`) leaves the text in the App
 /// Group and opens the app; it is read through the `tv.zappit/share` channel
@@ -39,7 +43,9 @@ final class ShareIntentControllerProvider
   /// The first http(s) URL in the text is opened in the selected browser, the
   /// same way as the link panel. If the app was launched by the share, the URL
   /// waits until the browser is reachable (auth + Ably + selection), up to a
-  /// short timeout, then fails with a notice. The app stays on screen.
+  /// short timeout, then fails with a notice. The app stays on screen. The URL
+  /// is kept in memory only: a share that never went out is not sent on a
+  /// later launch.
   ///
   /// iOS: the Share Extension (`ios/ShareExtension`) leaves the text in the App
   /// Group and opens the app; it is read through the `tv.zappit/share` channel
@@ -72,14 +78,16 @@ final class ShareIntentControllerProvider
 }
 
 String _$shareIntentControllerHash() =>
-    r'9f7dfe6090562cff43a99e0e41dd4ef30232ce87';
+    r'785297704a5fa9e8c708d05af7a1ae5183dbb413';
 
 /// Text shared into Zappit from YouTube, Netflix, TikTok, Instagram…
 ///
 /// The first http(s) URL in the text is opened in the selected browser, the
 /// same way as the link panel. If the app was launched by the share, the URL
 /// waits until the browser is reachable (auth + Ably + selection), up to a
-/// short timeout, then fails with a notice. The app stays on screen.
+/// short timeout, then fails with a notice. The app stays on screen. The URL
+/// is kept in memory only: a share that never went out is not sent on a
+/// later launch.
 ///
 /// iOS: the Share Extension (`ios/ShareExtension`) leaves the text in the App
 /// Group and opens the app; it is read through the `tv.zappit/share` channel

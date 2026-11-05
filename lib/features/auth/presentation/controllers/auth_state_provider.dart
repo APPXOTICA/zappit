@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/constants/config.dart' as config;
+import 'package:zappit/core/realtime/zappit_channel.dart';
 import 'package:zappit/core/storage/preferences.dart';
 import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/features/auth/data/models/auth_provider.dart' as local;
@@ -124,6 +125,8 @@ class AuthState extends _$AuthState {
 
   Future<void> signOut() async {
     try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid != null) await BrowserPresence.clearAppOnline(uid);
       await FirebaseAuth.instance.signOut();
       final lastLoginMethod = ref.read(preferencesProvider).lastLoginMethod;
 

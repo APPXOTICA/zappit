@@ -35,7 +35,7 @@ class PurchaseService {
     try {
       if (await Purchases.isConfigured) return;
       await Purchases.setLogLevel(kDebugMode ? LogLevel.debug : LogLevel.warn);
-      final configuration = PurchasesConfiguration(revenueCatApiKey)
+      final configuration = PurchasesConfiguration(defaultTargetPlatform == TargetPlatform.iOS ? revenueCatAppleApiKey : revenueCatGoogleApiKey)
         ..appUserID = FirebaseAuth.instance.currentUser?.uid;
       await Purchases.configure(configuration);
     } catch (e) {
@@ -94,9 +94,12 @@ class PurchaseService {
   /// cancellation: StoreKit sandbox reports its first-attempt failure as
   /// `purchaseCancelledError`, and a vanishing snackbar made App Review think
   /// the purchase was missing (sssurf).
-  Future<PurchaseOutcome> purchase(BuildContext context, Package package) async {
+  /// [onStoreDone] runs once the store answers, before any alert, so a
+  /// blocking spinner can be removed first (it would sit above the dialog).
+  Future<PurchaseOutcome> purchase(BuildContext context, Package package, {VoidCallback? onStoreDone}) async {
     try {
       final result = await Purchases.purchase(PurchaseParams.package(package));
+      onStoreDone?.call();
       if (!hasPro(result.customerInfo)) {
         // Paid, but the entitlement is not attached to the product yet.
         if (context.mounted) {
@@ -107,6 +110,7 @@ class PurchaseService {
       unawaited(Analytics.event('pro_purchased', {'product': package.storeProduct.identifier}));
       return PurchaseOutcome.purchased;
     } on PlatformException catch (e) {
+      onStoreDone?.call();
       final code = PurchasesErrorHelper.getErrorCode(e);
       final outcome = switch (code) {
         PurchasesErrorCode.purchaseCancelledError => PurchaseOutcome.cancelled,
@@ -126,15 +130,17 @@ class PurchaseService {
   }
 
   /// Returns true when Pro is active after restoring.
-  Future<bool> restore(BuildContext context) async {
+  Future<bool> restore(BuildContext context, {VoidCallback? onStoreDone}) async {
     try {
       final info = await Purchases.restorePurchases();
+      onStoreDone?.call();
       final pro = hasPro(info);
       if (!pro && context.mounted) {
         await _alert(context, 'Nothing to restore', 'No active Zappit Pro subscription was found for this store account.');
       }
       return pro;
     } on PlatformException catch (e) {
+      onStoreDone?.call();
       if (context.mounted) {
         await _alert(context, 'Restore failed', _messageFor(PurchasesErrorHelper.getErrorCode(e), e));
       }
