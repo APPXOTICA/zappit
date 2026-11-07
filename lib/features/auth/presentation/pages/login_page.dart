@@ -122,6 +122,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             const SizedBox(width: AppTokens.space3),
                             Flexible(
                               child: Text.rich(
+                                textAlign: TextAlign.center,
                                 TextSpan(
                                   style: AppText.body.copyWith(color: t.inkMuted),
                                   children: [

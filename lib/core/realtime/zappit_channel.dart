@@ -132,6 +132,8 @@ class BrowserPresence extends _$BrowserPresence {
   final _subscriptions = <StreamSubscription<Object?>>[];
   AppLifecycleListener? _lifecycle;
   bool _present = false;
+  /// This app's child under `appOnline` (see [_setAppOnline]).
+  DatabaseReference? _onlineKey;
   bool _foreground = true;
   DateTime? _hiddenAt;
   /// Bumped when the list is dropped; reads started before are ignored.
@@ -283,28 +285,44 @@ class BrowserPresence extends _$BrowserPresence {
   /// EXPERIMENT (2026-10-20): RTDB `session/{uid}/appOnline` while in the
   /// foreground, so the extension joins Ably only then (extension
   /// `ABLY_ON_DEMAND`). `onDisconnect` clears it if the app dies.
+  ///
+  /// A new child per write, not one value: after a network blip the app
+  /// writes again on its new RTDB connection, and the server runs the dead
+  /// connection's onDisconnect later (once it notices), which wiped the single
+  /// value while the app was still open. Each onDisconnect now removes only
+  /// its own child. The new child is written before the previous one goes,
+  /// so the node never looks empty.
   Future<void> _setAppOnline(bool online) async {
     final uid = _uid;
+    final previous = _onlineKey;
+    _onlineKey = null;
     // Signed out already: the rules deny it (sign-out cleared it first).
     if (uid == null || FirebaseAuth.instance.currentUser?.uid != uid) return;
-    if (!online) return clearAppOnline(uid);
     final node = FirebaseDatabase.instance.ref(FirebasePaths.appOnline(uid));
-    try {
-      await node.onDisconnect().remove();
-      await node.set({'at': ServerValue.timestamp});
-    } catch (e) {
-      debugPrint('appOnline write failed: $e');
+    if (online) {
+      final key = node.push();
+      _onlineKey = key;
+      try {
+        await key.onDisconnect().remove();
+        await key.set({'at': ServerValue.timestamp});
+      } catch (e) {
+        debugPrint('appOnline write failed: $e');
+      }
     }
+    // Another account's child (switch): sign-out already removed it.
+    if (previous != null && previous.parent?.path == node.path) await _removeAppOnline(previous);
   }
 
-  /// Removes `appOnline` and its onDisconnect. Sign-out calls it while the
-  /// user can still write; otherwise the old account's extension would keep
-  /// Ably open. Bounded: offline, the write would wait for a reconnect, and
-  /// the server's onDisconnect has removed the value anyway.
-  static Future<void> clearAppOnline(String uid) async {
-    final node = FirebaseDatabase.instance.ref(FirebasePaths.appOnline(uid));
+  /// Removes `appOnline` (every child) and its onDisconnect. Sign-out calls it
+  /// while the user can still write; otherwise the old account's extension
+  /// would keep Ably open.
+  static Future<void> clearAppOnline(String uid) => _removeAppOnline(FirebaseDatabase.instance.ref(FirebasePaths.appOnline(uid)));
+
+  /// Bounded: offline, the write would wait for a reconnect, and the server's
+  /// onDisconnect removes the value anyway.
+  static Future<void> _removeAppOnline(DatabaseReference ref) async {
     try {
-      await Future.wait([node.onDisconnect().cancel(), node.remove()]).timeout(const Duration(seconds: 3));
+      await Future.wait([ref.onDisconnect().cancel(), ref.remove()]).timeout(const Duration(seconds: 3));
     } catch (e) {
       debugPrint('appOnline clear failed: $e');
     }

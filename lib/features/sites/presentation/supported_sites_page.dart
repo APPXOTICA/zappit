@@ -29,7 +29,7 @@ class SupportedSitesPage extends ConsumerWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: AppTokens.space4),
-                  child: Text("Zappit's remote is optimized for these websites.", style: AppText.body.copyWith(fontSize: 16, height: 1.4, color: t.inkMuted)),
+                  child: Text('These sites get a dedicated remote built for them. On any other site, Zappit works as a standard remote.', textAlign: TextAlign.center, style: AppText.body.copyWith(fontSize: 16, height: 1.4, color: t.inkMuted)),
                 ),
                 const SizedBox(height: AppTokens.space4),
                 Container(
@@ -63,7 +63,7 @@ class SupportedSitesPage extends ConsumerWidget {
                 const SizedBox(height: AppTokens.space4),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: AppTokens.space4),
-                  child: Text('Touch and hold a site, then drag to reorder. The same order is used in "Open one of these to start".', style: AppText.label.copyWith(color: t.inkMuted)),
+                  child: Text('Touch and hold a site, then drag to reorder. The same order is used in "Open one of these to start".', textAlign: TextAlign.center, style: AppText.label.copyWith(color: t.inkMuted)),
                 ),
               ],
             ),
