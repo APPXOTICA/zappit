@@ -1,33 +1,22 @@
 import 'package:zappit/core/barrel_files/ui_core.dart';
-import 'package:zappit/core/theme/app_tokens.dart';
-import 'package:zappit/shared/widgets/ds/zp_icon_button.dart';
+import 'package:zappit/shared/widgets/ds/zp_badges.dart';
 
-/// Shown while Firebase, Remote Config and Ably start.
+/// Shown while Firebase, Remote Config and Ably start. Same as the native
+/// splash (iOS LaunchScreen.storyboard, Android flutter_native_splash in
+/// pubspec.yaml), so the handover is invisible: the icon at 200 on the icon
+/// image's own background colour. Android 12 draws the 1152 px
+/// `android_splash_logo.png` (icon at 800 px) in 288 dp: 200 dp too.
 class LoadingPage extends StatelessWidget {
   const LoadingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const t = AppTokens.dark;
-    return Directionality(
+    return const Directionality(
       textDirection: TextDirection.ltr,
       child: ColoredBox(
-        color: t.bgBase,
+        color: ZpAppIcon.background,
         child: Center(
-          child: Container(
-            width: 88,
-            height: 88,
-            padding: const EdgeInsets.all(22),
-            decoration: BoxDecoration(
-              color: t.surface100,
-              shape: BoxShape.circle,
-              border: Border.all(color: t.hairlineStrong),
-            ),
-            child: IconTheme(
-              data: IconThemeData(color: t.ink),
-              child: const ZpImageIcon('assets/images/ic_remote.svg', size: 44),
-            ),
-          ),
+          child: ZpAppIcon(size: 200),
         ),
       ),
     );

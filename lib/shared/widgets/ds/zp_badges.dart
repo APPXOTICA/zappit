@@ -170,3 +170,19 @@ class ZpSiteLogo extends StatelessWidget {
     );
   }
 }
+
+/// Zappit's app icon, drawn as is on [background] (the image's own dark
+/// background, so its edge does not show): loading, login, Pro.
+class ZpAppIcon extends StatelessWidget {
+  const ZpAppIcon({super.key, this.size = 132});
+
+  /// Background pixels of the icon image; also the native splash colour.
+  static const background = Color(0xFF01020A);
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset('assets/images/app_icon_low_glow_512.png', width: size, height: size, filterQuality: FilterQuality.medium);
+  }
+}

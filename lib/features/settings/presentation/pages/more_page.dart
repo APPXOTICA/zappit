@@ -38,10 +38,11 @@ class MorePage extends ConsumerWidget {
             child: ListView(
               padding: const EdgeInsets.fromLTRB(AppTokens.space4, AppTokens.space2, AppTokens.space4, AppTokens.space8),
               children: [
+                const SizedBox(height: AppTokens.space8),
                 // Pro users keep the entry: the Pro page lists the benefits and manages the subscription.
                 ZpUpgradeBanner(
                   title: Strings.appTitlePro,
-                  subtitle: isPro ? 'Every dedicated remote is unlocked' : 'Unlock every dedicated remote',
+                  subtitle: isPro ? 'Every dedicated remote is unlocked' : 'Unleash the full power of your remote',
                   cta: isPro ? 'View' : 'Upgrade',
                   onTap: () => context.push(AppRoutes.pro),
                 ),
@@ -73,7 +74,7 @@ class MorePage extends ConsumerWidget {
                   ZpListRow(title: 'Log out', onTap: () => _logout(context, ref)),
                   ZpListRow(title: 'Delete account', danger: true, onTap: () => _deleteAccount(context, ref)),
                 ]),
-                const SizedBox(height: AppTokens.space4),
+                const SizedBox(height: AppTokens.space6),
                 const _VersionFooter(),
               ],
             ),
@@ -162,7 +163,7 @@ class _VersionFooter extends StatelessWidget {
         return Text(
           version == null ? ' ' : '${Strings.appTitle} $version',
           textAlign: TextAlign.center,
-          style: AppText.body.copyWith(color: context.tokens.inkMuted),
+          style: AppText.caption.copyWith(color: context.tokens.inkMuted),
         );
       },
     );

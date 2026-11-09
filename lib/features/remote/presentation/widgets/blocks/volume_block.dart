@@ -4,7 +4,6 @@ import 'dart:math' as math;
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/utils/app_notice.dart';
-import 'package:zappit/core/utils/haptic_utils.dart';
 import 'package:zappit/features/purchase/pro_controller.dart';
 import 'package:zappit/features/remote/controllers/playback_controller.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
@@ -16,7 +15,7 @@ import 'package:zappit/shared/widgets/ds/ds.dart';
 /// sites keep the same empty slot so the slider length matches.
 ///
 /// Free users get a 10 s Voice Boost trial with a countdown on the button;
-/// when it runs out the extension turns it off and the Pro screen opens.
+/// when it runs out the extension turns it off and a snackbar says why.
 class VolumeBlock extends ConsumerStatefulWidget {
   const VolumeBlock({super.key});
 
@@ -46,11 +45,10 @@ class _VolumeBlockState extends ConsumerState<VolumeBlock> {
       _trialStarted = null;
       _ticker?.cancel();
       _ticker = null;
-      // Ran out (not ended early by a tap): offer Pro.
+      // Ran out (not ended early by a tap), like the speed trial.
       const full = Duration(seconds: RemoteController.voiceBoostTrialSeconds - 1);
       if (started != null && DateTime.now().difference(started) >= full && !ref.read(proControllerProvider)) {
-        unawaited(HapticUtils.hapticFeedback(HapticType.medium));
-        ref.read(remoteControllerProvider).openPro();
+        AppNotice.snack('Voice Boost is off. Free users can use Voice Boost for ${RemoteController.voiceBoostTrialSeconds} seconds.');
       }
     }
   }

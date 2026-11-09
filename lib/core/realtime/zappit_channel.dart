@@ -155,11 +155,6 @@ class BrowserPresence extends _$BrowserPresence {
 
     _lifecycle = AppLifecycleListener(onStateChange: _onLifecycle);
 
-    // TEMP [presence-debug]: channel and presence trace for the account-switch bug.
-    debugPrint('[presence-debug] build ${channel.name} state=${channel.state.name} present=$_present fg=$_foreground');
-    _subscriptions.add(channel.on().listen((c) => debugPrint(
-        '[presence-debug] ${channel.name} ${c.previous.name} → ${c.current.name} ${c.reason?.code ?? ''} ${c.reason?.message ?? ''}')));
-
     _subscriptions.add(channel.on(ably.ChannelEvent.attached).listen((_) {
       _present = false;
       unawaited(_enter());
@@ -218,7 +213,6 @@ class BrowserPresence extends _$BrowserPresence {
       // token authCallback needs that thread, so sign-in stalled. A read
       // before the sync is partial; the sync's presence events refresh it.
       final members = await channel.presence.get(const ably.RealtimePresenceParams(waitForSync: false));
-      debugPrint('[presence-debug] get ${channel.name}: ${members.map((m) => m.clientId).join(', ')}');
       if (generation != _generation) return;
       final browsers = <String, BrowserInstance>{};
       for (final member in members) {
@@ -238,9 +232,7 @@ class BrowserPresence extends _$BrowserPresence {
     if (channel == null || !_foreground) return false;
     if (_present) return true;
     try {
-      debugPrint('[presence-debug] enter ${channel.name} state=${channel.state.name}');
       await channel.presence.enter({'device': Protocol.deviceApp, 'type': 'remote'});
-      debugPrint('[presence-debug] entered ${channel.name}');
       _present = true;
     } catch (e) {
       debugPrint('presence.enter failed: $e');

@@ -54,51 +54,69 @@ class PlaybackBlock extends ConsumerWidget {
           const _TopRow(),
           const _Timeline(),
           const SizedBox(height: 6),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              if (hasReplay)
-                ZpIconButton(
-                  variant: ZpIconButtonVariant.outlined,
-                  semanticLabel: 'Replay',
-                  onPressed: hasData && !isAd ? controller.replay : null,
-                  onDisabledTap: isAd ? () => AppNotice.snack(_adNotice) : null,
-                  child: const Icon(Icons.refresh_rounded, size: 28),
-                ),
-              ZpIconButton(
-                variant: ZpIconButtonVariant.outlined,
-                semanticLabel: 'Back $seekInterval seconds',
-                onPressed: canSeek ? controller.seekBackward : null,
-                onDisabledTap: seekBlocked,
-                child: ZpImageIcon(backIcon, size: 30),
-              ),
-              ZpIconButton(
-                variant: ZpIconButtonVariant.primary,
-                size: ZpIconButtonSize.lg,
-                extent: 68,
-                semanticLabel: paused ? 'Play' : 'Pause',
-                onPressed: hasData && !isPhoto ? controller.togglePlay : null,
-                onDisabledTap: isPhoto ? () => AppNotice.snack(_photoNotice) : null,
-                onLongPressStart: isAd || isPhoto ? null : controller.startSpeedHold,
-                onLongPressEnd: controller.endSpeedHold,
-                child: Icon(paused ? Icons.play_arrow_rounded : Icons.pause_rounded, size: 40),
-              ),
-              ZpIconButton(
-                variant: ZpIconButtonVariant.outlined,
-                semanticLabel: 'Forward $seekInterval seconds',
-                onPressed: canSeek ? controller.seekForward : null,
-                onDisabledTap: seekBlocked,
-                child: ZpImageIcon(forwardIcon, size: 30),
-              ),
-              if (hasLoop)
-                _LoopButton(
-                  on: loop,
-                  left: loop ? loopLeft : null,
-                  enabled: hasData && !abActive,
-                  onPressed: controller.toggleLoop,
-                  onDisabledTap: abActive ? () => AppNotice.snack('Turn off the A-B loop first') : null,
-                ),
-            ],
+          LayoutBuilder(
+            builder: (context, constraints) {
+              // Narrow phones shrink the buttons (not below the touch minimum)
+              // to keep a small gap; wide ones keep full size and spread out.
+              const minGap = 6.0;
+              final count = 3 + (hasReplay ? 1 : 0) + (hasLoop ? 1 : 0);
+              final natural = (count - 1) * AppTokens.controlMd + _playExtent;
+              final room = constraints.maxWidth - (count - 1) * minGap;
+              final scale = (room / natural).clamp(AppTokens.targetMin / AppTokens.controlMd, 1.0);
+              final extent = AppTokens.controlMd * scale;
+
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (hasReplay)
+                    ZpIconButton(
+                      variant: ZpIconButtonVariant.outlined,
+                      extent: extent,
+                      semanticLabel: 'Replay',
+                      onPressed: hasData && !isAd ? controller.replay : null,
+                      onDisabledTap: isAd ? () => AppNotice.snack(_adNotice) : null,
+                      child: Icon(Icons.refresh_rounded, size: 28 * scale),
+                    ),
+                  ZpIconButton(
+                    variant: ZpIconButtonVariant.outlined,
+                    extent: extent,
+                    semanticLabel: 'Back $seekInterval seconds',
+                    onPressed: canSeek ? controller.seekBackward : null,
+                    onDisabledTap: seekBlocked,
+                    child: ZpImageIcon(backIcon, size: 30 * scale),
+                  ),
+                  ZpIconButton(
+                    variant: ZpIconButtonVariant.primary,
+                    size: ZpIconButtonSize.lg,
+                    extent: _playExtent * scale,
+                    semanticLabel: paused ? 'Play' : 'Pause',
+                    onPressed: hasData && !isPhoto ? controller.togglePlay : null,
+                    onDisabledTap: isPhoto ? () => AppNotice.snack(_photoNotice) : null,
+                    onLongPressStart: isAd || isPhoto ? null : controller.startSpeedHold,
+                    onLongPressEnd: controller.endSpeedHold,
+                    child: Icon(paused ? Icons.play_arrow_rounded : Icons.pause_rounded, size: 40 * scale),
+                  ),
+                  ZpIconButton(
+                    variant: ZpIconButtonVariant.outlined,
+                    extent: extent,
+                    semanticLabel: 'Forward $seekInterval seconds',
+                    onPressed: canSeek ? controller.seekForward : null,
+                    onDisabledTap: seekBlocked,
+                    child: ZpImageIcon(forwardIcon, size: 30 * scale),
+                  ),
+                  if (hasLoop)
+                    _LoopButton(
+                      on: loop,
+                      left: loop ? loopLeft : null,
+                      enabled: hasData && !abActive,
+                      extent: extent,
+                      iconSize: 28 * scale,
+                      onPressed: controller.toggleLoop,
+                      onDisabledTap: abActive ? () => AppNotice.snack('Turn off the A-B loop first') : null,
+                    ),
+                ],
+              );
+            },
           ),
         ],
       ),
@@ -106,6 +124,7 @@ class PlaybackBlock extends ConsumerWidget {
   }
 }
 
+const _playExtent = 68.0;
 const _adNotice = 'Not available during an ad';
 const _photoNotice = 'Not available for photo posts';
 
@@ -135,6 +154,8 @@ class _LoopButton extends StatelessWidget {
     required this.enabled,
     required this.onPressed,
     this.onDisabledTap,
+    this.extent = AppTokens.controlMd,
+    this.iconSize = 28,
   });
 
   final bool on;
@@ -142,12 +163,14 @@ class _LoopButton extends StatelessWidget {
   final bool enabled;
   final VoidCallback onPressed;
   final VoidCallback? onDisabledTap;
+  final double extent;
+  final double iconSize;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: AppTokens.controlMd,
-      height: AppTokens.controlMd,
+      width: extent,
+      height: extent,
       child: Stack(
         clipBehavior: Clip.none,
         alignment: Alignment.center,
@@ -156,10 +179,11 @@ class _LoopButton extends StatelessWidget {
             variant: ZpIconButtonVariant.outlined,
             // The icon tells the state; no accent fill.
             pressed: null,
+            extent: extent,
             semanticLabel: on ? 'Loop on' : 'Loop off',
             onPressed: enabled ? onPressed : null,
             onDisabledTap: onDisabledTap,
-            child: Icon(on ? Icons.repeat_one_on_rounded : Icons.repeat_one, size: 28),
+            child: Icon(on ? Icons.repeat_one_on_rounded : Icons.repeat_one, size: iconSize),
           ),
           if (left != null)
             Positioned(

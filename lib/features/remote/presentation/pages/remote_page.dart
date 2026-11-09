@@ -51,7 +51,8 @@ class RemotePage extends ConsumerWidget {
                     // the blocks below move without moving it.
                     const _YouTubeMenu(),
                     Expanded(
-                      child: LayoutBuilder(
+                      child: _TopFade(
+                        child: LayoutBuilder(
                         builder: (context, constraints) => nothing
                             // Fills the height (sites along the bottom); scrolls
                             // only when the phone is too short for it.
@@ -69,6 +70,7 @@ class RemotePage extends ConsumerWidget {
                                   child: const _RemoteStack(),
                                 ),
                               ),
+                        ),
                       ),
                     ),
                   ],
@@ -83,8 +85,79 @@ class RemotePage extends ConsumerWidget {
   }
 }
 
-/// The tab was open before the extension was updated (`needsReload`): some
-/// controls only work after a reload. Stays until the tab is reloaded.
+/// Fades the top edge of the scroll area into the background while content is
+/// hidden above it, so blocks read as sliding under the fixed header.
+class _TopFade extends StatefulWidget {
+  const _TopFade({required this.child});
+
+  final Widget child;
+
+  @override
+  State<_TopFade> createState() => _TopFadeState();
+}
+
+class _TopFadeState extends State<_TopFade> {
+  static const _height = 28.0;
+  final _hiddenAbove = ValueNotifier(false);
+
+  bool _onMetrics(ScrollMetrics m) {
+    if (m.axis != Axis.vertical) return false;
+    final above = m.axisDirection == AxisDirection.up ? m.extentAfter : m.extentBefore;
+    _hiddenAbove.value = above > 0.5;
+    return false;
+  }
+
+  @override
+  void dispose() {
+    _hiddenAbove.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bg = context.tokens.bgBase;
+    return Stack(
+      children: [
+        NotificationListener<ScrollMetricsNotification>(
+          onNotification: (n) => n.depth == 0 && _onMetrics(n.metrics),
+          child: NotificationListener<ScrollUpdateNotification>(
+            onNotification: (n) => n.depth == 0 && _onMetrics(n.metrics),
+            child: widget.child,
+          ),
+        ),
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          height: _height,
+          child: IgnorePointer(
+            child: ValueListenableBuilder<bool>(
+              valueListenable: _hiddenAbove,
+              builder: (context, shown, child) => AnimatedOpacity(
+                opacity: shown ? 1 : 0,
+                duration: const Duration(milliseconds: 150),
+                child: child,
+              ),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [bg, bg.withValues(alpha: 0)],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// The tab was open before the extension was updated (`needsReload`) and the
+/// extension's own reload didn't fix it: some controls only work after a
+/// reload. Stays until the tab is reloaded.
 class _ReloadBanner extends ConsumerWidget {
   const _ReloadBanner();
 
@@ -102,7 +175,7 @@ class _ReloadBanner extends ConsumerWidget {
         padding: const EdgeInsets.fromLTRB(AppTokens.space4, AppTokens.space2, AppTokens.space2, AppTokens.space2),
         child: Row(
           children: [
-            Expanded(child: Text('Reload this tab to use all controls.', style: AppText.body.copyWith(color: t.ink))),
+            Expanded(child: Text('The Zappit extension was updated. Reload this page to keep using all controls.', style: AppText.body.copyWith(color: t.ink))),
             const SizedBox(width: AppTokens.space3),
             ZpButton(
               label: 'Reload',

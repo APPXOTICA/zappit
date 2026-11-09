@@ -21,11 +21,11 @@ class ProPage extends ConsumerStatefulWidget {
   const ProPage({super.key});
 
   static const features = [
-    'Unlimited Loop',
-    'A-B loop: 5, 10, 20, 50 or ∞ repeats',
-    'Sleep Timer',
     'All playback speeds',
     'Unlimited Voice Boost',
+    'Unlimited Full Video Loop',
+    'Unlimited A-B Loop',
+    'Sleep Timer',
   ];
 
   @override
@@ -117,7 +117,7 @@ class _ProPageState extends ConsumerState<ProPage> {
     final trial = _trialText;
 
     return Scaffold(
-      backgroundColor: t.bgBase,
+      backgroundColor: ZpAppIcon.background,
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
@@ -139,21 +139,13 @@ class _ProPageState extends ConsumerState<ProPage> {
                   child: ListView(
                     padding: const EdgeInsets.symmetric(horizontal: AppTokens.space4),
                     children: [
-                      Center(
-                        child: Container(
-                          width: 72,
-                          height: 72,
-                          decoration: BoxDecoration(
-                            color: t.surface100,
-                            shape: BoxShape.circle,
-                            border: Border.all(color: t.hairlineStrong),
-                          ),
-                          padding: const EdgeInsets.all(18),
-                          child: const ZpImageIcon('assets/images/ic_remote.svg', size: 32),
-                        ),
-                      ),
-                      const SizedBox(height: AppTokens.space4),
-                      Text(Strings.appTitlePro, textAlign: TextAlign.center, style: AppText.bigTitle.copyWith(fontSize: 28, color: t.ink)),
+                      const Center(child: ZpAppIcon(size: 108)),
+                      const SizedBox(height: AppTokens.space1),
+                      Text(Strings.appTitlePro,
+                          textAlign: TextAlign.center,
+                          style: TextTheme.of(context).titleLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          )),
                       const SizedBox(height: AppTokens.space2),
                       Text(
                         'Unleash the full power of your remote.',
@@ -252,6 +244,7 @@ class _ProPageState extends ConsumerState<ProPage> {
                     ],
                   ),
                 ),
+                const SizedBox(height: AppTokens.space4),
               ],
             ),
           ),

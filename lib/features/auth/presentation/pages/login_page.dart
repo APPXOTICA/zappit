@@ -60,7 +60,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     return Stack(
       children: [
         Scaffold(
-          backgroundColor: t.bgBase,
+          backgroundColor: ZpAppIcon.background,
           body: SafeArea(
             child: Center(
               child: ConstrainedBox(
@@ -70,17 +70,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   child: Column(
                     children: [
                       const Spacer(flex: 2),
-                      Container(
-                        width: 88,
-                        height: 88,
-                        padding: const EdgeInsets.all(22),
-                        decoration: BoxDecoration(
-                          color: t.surface100,
-                          shape: BoxShape.circle,
-                          border: Border.all(color: t.hairlineStrong),
-                        ),
-                        child: const ZpImageIcon('assets/images/ic_remote.svg', size: 44),
-                      ),
+                      const ZpAppIcon(),
                       const SizedBox(height: AppTokens.space4),
                       Text(Strings.appTitle, style: AppText.bigTitle.copyWith(fontSize: 30, color: t.ink)),
                       const SizedBox(height: AppTokens.space3),
@@ -186,7 +176,7 @@ class _LastUsed extends StatelessWidget {
               decoration: BoxDecoration(
                 color: t.accent,
                 borderRadius: BorderRadius.circular(AppTokens.radiusFull),
-                border: Border.all(color: t.bgBase, width: 2),
+                border: Border.all(color: ZpAppIcon.background, width: 2),
               ),
               child: Text('Last used', style: AppText.label.copyWith(fontSize: 12, fontWeight: FontWeight.w600, color: t.onAccent)),
             ),

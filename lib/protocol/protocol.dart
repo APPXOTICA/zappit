@@ -45,7 +45,7 @@ enum Site {
   /// Brand image in `assets/images/`, null for generic sites.
   String? get brandAsset => switch (this) {
         youtube => 'assets/images/youtube.png',
-        shorts => 'assets/images/shorts_white.png',
+        shorts => 'assets/images/shorts_red.png',
         netflix => 'assets/images/netflix.png',
         tiktok => 'assets/images/tiktok.png',
         reels => 'assets/images/reels.png',

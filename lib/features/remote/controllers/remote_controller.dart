@@ -37,7 +37,7 @@ class RemoteController {
 
   static const proTrialSeconds = 5;
 
-  /// Free users try Voice Boost this long; then it turns off and Pro opens.
+  /// Free users try Voice Boost this long; then it turns off with a snackbar.
   static const voiceBoostTrialSeconds = 10;
 
   void _tap() => unawaited(HapticUtils.hapticFeedback(HapticType.light));
