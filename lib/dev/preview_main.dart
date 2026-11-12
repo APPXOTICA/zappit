@@ -19,7 +19,6 @@ import 'package:zappit/core/firebase/session_repository.dart';
 import 'package:zappit/core/firebase/user_settings_repository.dart';
 import 'package:zappit/core/routes/app_routes.dart';
 import 'package:zappit/core/routes/router_provider.dart';
-import 'package:zappit/core/services/service_locator.dart';
 import 'package:zappit/core/storage/preferences.dart';
 import 'package:zappit/core/theme/theme.dart';
 import 'package:zappit/core/utils/ui_helper.dart';
@@ -41,6 +40,8 @@ import 'package:zappit/features/tabs/presentation/pages/tabs_page.dart';
 import 'package:zappit/firebase_options.dart';
 import 'package:zappit/protocol/messages.dart';
 import 'package:zappit/protocol/protocol.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 final scenario = _readScenario();
 
@@ -61,27 +62,27 @@ const _chrome = BrowserInstance(instanceId: 'i1', browserName: 'Chrome', os: 'Ma
 const _edge = BrowserInstance(instanceId: 'i2', browserName: 'Edge', os: 'Windows', targetTitle: 'Netflix');
 
 const _ytCaps = {
-  Capability.play, Capability.seek, Capability.speed, Capability.volume, Capability.replay, Capability.loop,
+  Capability.play, Capability.seek, Capability.frameStep, Capability.speed, Capability.volume, Capability.replay, Capability.loop,
   Capability.abLoop, Capability.sleepTimer, Capability.theater, Capability.voiceBoost,
   Capability.chat, Capability.captions, Capability.chapters, Capability.skipAd, Capability.endScreen,
   Capability.home, Capability.openInApp, Capability.quality, Capability.spatialNav, Capability.browseMenu,
-  Capability.playlist,
+  Capability.playlist, Capability.channel,
 };
 const _nfCaps = {
-  Capability.play, Capability.seek, Capability.speed, Capability.volume, Capability.replay, Capability.loop,
+  Capability.play, Capability.seek, Capability.frameStep, Capability.speed, Capability.volume, Capability.replay, Capability.loop,
   Capability.abLoop, Capability.sleepTimer, Capability.fullscreen, Capability.captions, Capability.episodes,
   Capability.nextEpisode, Capability.skipIntro, Capability.home, Capability.openInApp,
 };
 const _shortCaps = {
-  Capability.play, Capability.seek, Capability.speed, Capability.volume, Capability.abLoop, Capability.sleepTimer,
+  Capability.play, Capability.seek, Capability.frameStep, Capability.speed, Capability.volume, Capability.abLoop, Capability.sleepTimer,
   Capability.fullscreen, Capability.prevNext, Capability.openInApp, Capability.home, Capability.browseMenu,
 };
 const _tiktokCaps = {
-  Capability.play, Capability.seek, Capability.speed, Capability.volume, Capability.abLoop, Capability.sleepTimer,
+  Capability.play, Capability.seek, Capability.frameStep, Capability.speed, Capability.volume, Capability.abLoop, Capability.sleepTimer,
   Capability.fullscreen, Capability.prevNext, Capability.openInApp,
 };
 const _genericCaps = {
-  Capability.play, Capability.seek, Capability.speed, Capability.volume, Capability.replay, Capability.loop,
+  Capability.play, Capability.seek, Capability.frameStep, Capability.speed, Capability.volume, Capability.replay, Capability.loop,
   Capability.abLoop, Capability.sleepTimer, Capability.fullscreen,
 };
 
@@ -120,7 +121,7 @@ SiteState _site() => switch (scenario) {
         ),
       'netflix' || 'episodes' => const SiteState(skipIntro: true, isSeries: true, nextEpisodeAvailable: true, subtitle: SubtitleState(available: true, enabled: true, sizePercent: 150, tracks: [SubtitleTrack(id: 'en', label: 'English')])),
       'shorts' || 'photo' || 'web' || 'nothing' => SiteState.empty,
-      _ => const SiteState(voiceBoostAvailable: true, subtitle: _subs, chapterCount: 12),
+      _ => const SiteState(voiceBoostAvailable: true, subtitle: _subs, chapterCount: 12, channel: ChannelInfo(name: 'Quiet Desk', subscribers: '131K subscribers')),
     };
 
 PlaybackSnapshot? _playback() {
@@ -144,7 +145,7 @@ ConnectionStatus _connection() => switch (scenario) {
       _ => const ConnectionStatus(phase: ConnectionPhase.connected, selected: _chrome, browsers: [_chrome]),
     };
 
-class _FakeTarget extends Target {
+class _FakeTarget extends BrowserTarget {
   @override
   TargetInfo? build() => _target();
 }
@@ -215,7 +216,7 @@ Future<void> main() async {
       currentUidProvider.overrideWithValue('preview'),
       connectionStatusProvider.overrideWithValue(_connection()),
       targetInstanceIdProvider.overrideWithValue('i1'),
-      targetProvider.overrideWith(_FakeTarget.new),
+      browserTargetProvider.overrideWith(_FakeTarget.new),
       siteStateControllerProvider.overrideWith(_FakeSite.new),
       playbackSnapshotProvider.overrideWith((ref) => Stream.value(_playback())),
       chaptersProvider.overrideWith((ref) async => chapters),
@@ -245,6 +246,13 @@ Future<void> main() async {
       theme: darkTheme,
       routerConfig: router,
       scaffoldMessengerKey: scaffoldKey,
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
     ),
   ));
 }

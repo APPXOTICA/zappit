@@ -17,7 +17,8 @@ class UserSettings {
     this.voiceControl = false,
     this.subtitleSize = 100,
     this.holdSpeed = freeHoldSpeed,
-    this.siteOrder = defaultSiteOrder,
+    this.favoriteSites = defaultFavorites,
+    this.favoritesSaved = false,
   });
 
   static const seekIntervals = [3, 5, 10, 15, 20, 30];
@@ -31,9 +32,10 @@ class UserSettings {
   static const holdSpeeds = [0.5, 0.75, 1.25, 1.5, 2.0, 3.0];
   static const freeHoldSpeed = 1.25;
 
-  /// Sites with a dedicated remote, in the order Supported sites and
-  /// "Open one of these to start" show them.
-  static const defaultSiteOrder = [Site.youtube, Site.shorts, Site.netflix, Site.tiktok, Site.reels];
+  /// Favorites of a user who hasn't saved any. A new supported site goes in
+  /// here only if the user (product owner) says so; users who saved their
+  /// favorites keep them (CLAUDE.md, 지원 사이트 추가 규칙).
+  static const defaultFavorites = [Site.youtube, Site.shorts, Site.netflix, Site.tiktok, Site.reels];
 
   final int seekInterval;
 
@@ -42,7 +44,14 @@ class UserSettings {
   final bool voiceControl;
   final int subtitleSize;
   final double holdSpeed;
-  final List<Site> siteOrder;
+  /// Supported sites → Favorites, in the user's order: also the sites of
+  /// "Open one of these to start". May be empty.
+  final List<Site> favoriteSites;
+
+  /// [favoriteSites] came from Firestore (the user chose them). Otherwise they
+  /// are [defaultFavorites] and are not written, so a site added to the
+  /// defaults later still reaches this user.
+  final bool favoritesSaved;
 
   factory UserSettings.fromJson(Map<String, dynamic> json) {
     final seek = asInt(json['seekInterval']) ?? 10;
@@ -56,16 +65,18 @@ class UserSettings {
       voiceControl: asBool(json['voiceControl']),
       subtitleSize: subtitleSizes.contains(size) ? size : 100,
       holdSpeed: holdSpeeds.contains(hold) ? hold! : freeHoldSpeed,
-      siteOrder: _siteOrder(json['siteOrder']),
+      favoriteSites: _favorites(json) ?? defaultFavorites,
+      favoritesSaved: _favorites(json) != null,
     );
   }
 
-  /// Stored names in the user's order; unknown names are dropped and sites
-  /// added later go at the end.
-  static List<Site> _siteOrder(Object? raw) {
-    final stored = raw is List ? raw.map((e) => Site.fromName(e?.toString())).where(defaultSiteOrder.contains) : const <Site>[];
-    final order = {...stored, ...defaultSiteOrder}.toList();
-    return List.unmodifiable(order);
+  /// Stored favorites in the user's order (unknown names and duplicates
+  /// dropped), else the order saved before favorites existed
+  /// (`siteOrder`, all five sites). Null when neither is stored.
+  static List<Site>? _favorites(Map<String, dynamic> json) {
+    final raw = json['favoriteSites'] ?? json['siteOrder'];
+    if (raw is! List) return null;
+    return List.unmodifiable({for (final e in raw) Site.fromName(e?.toString())}.where(Site.supported.contains));
   }
 
   Map<String, Object?> toJson() => {
@@ -74,7 +85,7 @@ class UserSettings {
     'voiceControl': voiceControl,
     'subtitleSize': subtitleSize,
     'holdSpeed': holdSpeed,
-    'siteOrder': [for (final s in siteOrder) s.name],
+    if (favoritesSaved) 'favoriteSites': [for (final s in favoriteSites) s.name],
   };
 
   UserSettings copyWith({
@@ -83,14 +94,15 @@ class UserSettings {
     bool? voiceControl,
     int? subtitleSize,
     double? holdSpeed,
-    List<Site>? siteOrder,
+    List<Site>? favoriteSites,
   }) => UserSettings(
     seekInterval: seekInterval ?? this.seekInterval,
     abLoopCount: abLoopCount != null ? abLoopCount() : this.abLoopCount,
     voiceControl: voiceControl ?? this.voiceControl,
     subtitleSize: subtitleSize ?? this.subtitleSize,
     holdSpeed: holdSpeed ?? this.holdSpeed,
-    siteOrder: siteOrder ?? this.siteOrder,
+    favoriteSites: favoriteSites ?? this.favoriteSites,
+    favoritesSaved: favoriteSites != null || favoritesSaved,
   );
 }
 
@@ -137,5 +149,5 @@ class UserSettingsController extends _$UserSettingsController {
 
   Future<void> setHoldSpeed(double rate) => update(state.copyWith(holdSpeed: rate));
 
-  Future<void> setSiteOrder(List<Site> order) => update(state.copyWith(siteOrder: List.unmodifiable(order)));
+  Future<void> setFavoriteSites(List<Site> sites) => update(state.copyWith(favoriteSites: List.unmodifiable(sites)));
 }

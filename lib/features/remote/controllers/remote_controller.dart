@@ -10,13 +10,14 @@ import 'package:zappit/core/routes/router_provider.dart';
 import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/core/utils/haptic_utils.dart';
 import 'package:zappit/core/utils/link_utils.dart';
-import 'package:zappit/features/purchase/pro_controller.dart';
+import 'package:zappit/features/purchase/pro_preview.dart';
 import 'package:zappit/features/remote/controllers/playback_controller.dart';
 import 'package:zappit/features/remote/controllers/playback_math.dart';
 import 'package:zappit/features/remote/controllers/target_controller.dart';
 import 'package:zappit/protocol/messages.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/protocol/remote_command.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 part 'remote_controller.g.dart';
 
@@ -33,7 +34,7 @@ class RemoteController {
   PlaybackController get _playback => _ref.read(playbackControllerProvider.notifier);
   PlaybackView get _view => _ref.read(playbackControllerProvider);
   UserSettings get _settings => _ref.read(userSettingsControllerProvider);
-  bool get _isPro => _ref.read(proControllerProvider);
+  bool get _isPro => _ref.read(proAccessProvider);
 
   static const proTrialSeconds = 5;
 
@@ -103,6 +104,28 @@ class RemoteController {
   void seekTo(double seconds) {
     _playback.seekTo(seconds);
     _bus.fire(RemoteCommand.seekTo(seconds));
+  }
+
+  // ------------------------------------------------------------ frame step
+
+  int _pendingFrames = 0;
+  Timer? _frameFlush;
+
+  /// Frame dial (paused): the time moves at once; the frames go out at most
+  /// ~10 times a second, added up.
+  void stepFrames(int frames) {
+    if (frames == 0) return;
+    _playback.seekBy(frames / 30);
+    _pendingFrames += frames;
+    _frameFlush ??= Timer(const Duration(milliseconds: 100), flushFrames);
+  }
+
+  void flushFrames() {
+    _frameFlush?.cancel();
+    _frameFlush = null;
+    final frames = _pendingFrames;
+    _pendingFrames = 0;
+    if (frames != 0) _bus.fire(RemoteCommand.frameStep(frames));
   }
 
   // ------------------------------------------------------------------- speed
@@ -196,21 +219,13 @@ class RemoteController {
 
   // ------------------------------------------------------------ sleep timer
 
-  /// [minutes] 0 turns it off. Pro feature.
+  /// [minutes] 0 turns it off. Free for everyone.
   void setSleepTimer(int minutes) {
-    if (!_isPro && minutes != 0) {
-      openPro();
-      return;
-    }
     _tap();
     _bus.fire(RemoteCommand.setSleepTimer(minutes));
   }
 
   void sleepAtEndOfVideo() {
-    if (!_isPro) {
-      openPro();
-      return;
-    }
     _tap();
     _bus.fire(RemoteCommand.sleepAtEndOfVideo());
   }
@@ -335,7 +350,7 @@ class RemoteController {
   /// to show under the field, or null on success.
   Future<String?> openUrl(String input) async {
     final uri = LinkUtils.normalize(input);
-    if (uri == null) return 'Enter a link that starts with http or https';
+    if (uri == null) return getIt<S>().enterValidLink;
     final ack = await _bus.send(RemoteCommand.openUrl(uri.toString()));
     if (!ack.ok) return null; // The bus already showed why.
     return null;
@@ -349,7 +364,7 @@ class RemoteController {
     if (!ack.ok) return;
     final uri = LinkUtils.normalize(ack.dataMap['url']?.toString() ?? '');
     if (uri == null) {
-      AppNotice.snack("Couldn't get the video link");
+      AppNotice.snack(getIt<S>().couldNotGetVideoLink);
       return;
     }
     final view = _view;
@@ -393,6 +408,19 @@ class RemoteController {
     _bus.fire(RemoteCommand.goPage(page));
   }
 
+  /// The YouTube video's channel, on [tab] (channel sheet). The channel
+  /// page is a browse page: the remote turns into the d-pad.
+  void goChannel(ChannelTab tab) {
+    _tap();
+    _bus.fire(RemoteCommand.goChannel(tab));
+  }
+
+  /// A Netflix genre page (Categories sheet).
+  void goGenre(int code) {
+    _tap();
+    _bus.fire(RemoteCommand.goGenre(code));
+  }
+
   // ---------------------------------------------------------------- playlist
 
   Future<PlaylistItems?> fetchPlaylist() async {
@@ -409,13 +437,13 @@ class RemoteController {
   Future<void> setShuffle(bool on) async {
     _tap();
     final ack = await _bus.send(RemoteCommand.setShuffle(on));
-    if (ack.ok) AppNotice.snack(on ? 'Shuffling this playlist' : 'Shuffle off');
+    if (ack.ok) AppNotice.snack(on ? getIt<S>().shufflingPlaylist : getIt<S>().shuffleOffNotice);
   }
 
   Future<void> setPlaylistLoop(bool on) async {
     _tap();
     final ack = await _bus.send(RemoteCommand.setPlaylistLoop(on));
-    if (ack.ok) AppNotice.snack(on ? 'Repeating this playlist' : 'Repeat off');
+    if (ack.ok) AppNotice.snack(on ? getIt<S>().repeatingPlaylist : getIt<S>().repeatOffNotice);
   }
 
   void nav(NavDirection direction) {
@@ -539,7 +567,7 @@ class EpisodeList {
           }
         }
         final number = (s['number'] as num?)?.toInt() ?? seasons.length + 1;
-        seasons.add(Season(number: number, title: s['title']?.toString() ?? 'Season $number', episodes: episodes));
+        seasons.add(Season(number: number, title: s['title']?.toString() ?? getIt<S>().seasonNumber(number), episodes: episodes));
       }
     }
     return EpisodeList(seasons: seasons, currentEpisodeId: data['currentEpisodeId']?.toString());

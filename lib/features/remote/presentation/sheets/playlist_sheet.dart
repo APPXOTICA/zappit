@@ -1,3 +1,4 @@
+import 'package:zappit/features/purchase/pro_sheet.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
@@ -5,13 +6,14 @@ import 'package:zappit/features/remote/controllers/chapters_controller.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/features/remote/controllers/target_controller.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 Future<void> showPlaylistSheet(BuildContext context, WidgetRef ref) {
   ref.invalidate(playlistItemsProvider);
   final title = ref.read(siteStateControllerProvider).playlist.title;
-  return ZpSheet.show<void>(
+  return showProSheet<void>(
     context,
-    title: title?.isNotEmpty == true ? title! : 'Playlist',
+    title: title?.isNotEmpty == true ? title! : S.of(context).playlist,
     builder: (sheetContext) => _PlaylistList(onPicked: () => Navigator.of(sheetContext).maybePop()),
   );
 }
@@ -42,7 +44,7 @@ class _PlaylistListState extends ConsumerState<_PlaylistList> {
       if (async.isLoading) return ZpGroup(children: [for (var i = 0; i < 6; i++) const _SkeletonRow()]);
       return Padding(
         padding: const EdgeInsets.all(AppTokens.space6),
-        child: Center(child: Text("Couldn't load the playlist", style: AppText.body.copyWith(color: t.inkMuted))),
+        child: Center(child: Text(S.of(context).couldNotLoadPlaylist, style: AppText.body.copyWith(color: t.inkMuted))),
       );
     }
 
@@ -61,7 +63,7 @@ class _PlaylistListState extends ConsumerState<_PlaylistList> {
             key: item.index == list.index ? _currentKey : null,
             child: ZpListRow(
               title: item.title,
-              subtitle: [if (item.index == list.index) 'Playing', item.subtitle].where((s) => s.isNotEmpty).join(' · '),
+              subtitle: [if (item.index == list.index) S.of(context).playing, item.subtitle].where((s) => s.isNotEmpty).join(' · '),
               leading: _Thumb(url: item.thumbnail),
               minHeight: 64,
               selected: item.index == list.index,

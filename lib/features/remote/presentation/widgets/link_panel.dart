@@ -2,16 +2,16 @@ import 'package:flutter/services.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/utils/link_utils.dart';
-import 'package:zappit/features/connection/connection_controller.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Drops down from the top: paste a link and open it in a new browser tab.
 Future<void> showLinkPanel(BuildContext context, WidgetRef ref) {
   return showGeneralDialog<void>(
     context: context,
     barrierDismissible: true,
-    barrierLabel: 'Close',
+    barrierLabel: S.of(context).close,
     barrierColor: context.tokens.scrim,
     transitionDuration: const Duration(milliseconds: 240),
     pageBuilder: (context, _, _) => const _LinkPanel(),
@@ -63,7 +63,7 @@ class _LinkPanelState extends ConsumerState<_LinkPanel> {
     if (_sending) return;
     final uri = LinkUtils.normalize(_controller.text);
     if (uri == null) {
-      setState(() => _error = 'Enter a link that starts with http or https');
+      setState(() => _error = S.of(context).enterValidLink);
       return;
     }
     setState(() {
@@ -83,7 +83,6 @@ class _LinkPanelState extends ConsumerState<_LinkPanel> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    final browser = ref.watch(connectionStatusProvider).selectedLabel ?? 'your browser';
 
     return Align(
       alignment: Alignment.topCenter,
@@ -110,11 +109,11 @@ class _LinkPanelState extends ConsumerState<_LinkPanel> {
             children: [
               Row(
                 children: [
-                  Expanded(child: Text('Open a link', style: AppText.heading.copyWith(color: t.ink))),
+                  Expanded(child: Text(S.of(context).openALink, style: AppText.heading.copyWith(color: t.ink))),
                   IconButton(
                     onPressed: () => Navigator.of(context).maybePop(),
                     icon: const Icon(Icons.close_rounded),
-                    tooltip: 'Close',
+                    tooltip: S.of(context).close,
                   ),
                 ],
               ),
@@ -144,7 +143,7 @@ class _LinkPanelState extends ConsumerState<_LinkPanel> {
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           filled: false,
-                          hintText: 'Paste a video link',
+                          hintText: S.of(context).pasteVideoLink,
                           hintStyle: AppText.body.copyWith(color: t.inkMuted),
                         ),
                       ),
@@ -152,14 +151,14 @@ class _LinkPanelState extends ConsumerState<_LinkPanel> {
                     if (_clipboardHasUrl)
                       IconButton(
                         onPressed: _paste,
-                        tooltip: 'Paste',
+                        tooltip: S.of(context).paste,
                         icon: Icon(Icons.content_paste_rounded, color: t.inkMuted),
                       ),
                     const SizedBox(width: 4),
                     SizedBox(
                       height: AppTokens.targetMin,
                       child: ZpButton(
-                        label: 'Send',
+                        label: S.of(context).send,
                         expand: false,
                         style: ZpButtonStyle.accent,
                         height: AppTokens.targetMin,
@@ -177,7 +176,7 @@ class _LinkPanelState extends ConsumerState<_LinkPanel> {
                 ),
               const SizedBox(height: AppTokens.space3),
               Text(
-                'Paste a video link and tap Open. It opens in a new tab in $browser.',
+                S.of(context).linkPanelHint,
                 style: AppText.label.copyWith(color: t.inkMuted, fontWeight: FontWeight.w400),
               ),
             ],

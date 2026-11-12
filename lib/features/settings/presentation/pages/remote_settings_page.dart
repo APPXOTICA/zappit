@@ -6,12 +6,14 @@ import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/firebase/user_settings_repository.dart';
 import 'package:zappit/core/routes/app_routes.dart';
 import 'package:zappit/core/utils/app_notice.dart';
-import 'package:zappit/features/purchase/pro_controller.dart';
+import 'package:zappit/features/purchase/pro_preview.dart';
 import 'package:zappit/features/remote/controllers/playback_math.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/features/remote/controllers/target_controller.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
+import 'package:zappit/shared/l10n/site_label.dart';
 
 /// Remote settings (full-screen modal). General settings apply to every
 /// remote; the section below is for the connected tab's service.
@@ -23,7 +25,7 @@ class RemoteSettingsPage extends ConsumerWidget {
     final t = context.tokens;
     final settings = ref.watch(userSettingsControllerProvider);
     final notifier = ref.read(userSettingsControllerProvider.notifier);
-    final isPro = ref.watch(proControllerProvider);
+    final isPro = ref.watch(proAccessProvider);
     final target = ref.watch(targetProvider);
     final hasQuality = target?.has(Capability.quality) ?? false;
 
@@ -40,7 +42,7 @@ class RemoteSettingsPage extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, AppTokens.space2, AppTokens.space2, 0),
                     child: IconButton(
-                      tooltip: 'Close',
+                      tooltip: S.of(context).close,
                       onPressed: () => Navigator.of(context).maybePop(),
                       icon: Icon(Icons.close_rounded, color: t.ink, size: 30),
                     ),
@@ -50,9 +52,9 @@ class RemoteSettingsPage extends ConsumerWidget {
                   child: ListView(
                     padding: const EdgeInsets.fromLTRB(AppTokens.space4, AppTokens.space2, AppTokens.space4, AppTokens.space8),
                     children: [
-                      const _SectionHeader('General Settings'),
+                      _SectionHeader(S.of(context).generalSettings),
                       const SizedBox(height: AppTokens.space6),
-                      const _SubHeader('Long Press Speed'),
+                      _SubHeader(S.of(context).longPressSpeed),
                       ZpSegmentedControl<double>(
                         segments: [
                           for (final r in UserSettings.holdSpeeds)
@@ -72,7 +74,7 @@ class RemoteSettingsPage extends ConsumerWidget {
                         },
                       ),
                       const SizedBox(height: AppTokens.space6),
-                      const _SubHeader('A-B Loop Count'),
+                      _SubHeader(S.of(context).abLoopCount),
                       ZpSegmentedControl<int?>(
                         segments: [
                           for (final c in UserSettings.abLoopCounts)
@@ -92,7 +94,7 @@ class RemoteSettingsPage extends ConsumerWidget {
                         },
                       ),
                       const SizedBox(height: AppTokens.space6),
-                      const _SubHeader('Seek Interval'),
+                      _SubHeader(S.of(context).seekInterval),
                       ZpSegmentedControl<int>(
                         segments: [
                           for (final s in UserSettings.seekIntervals) ZpSegment(value: s, label: '${s}s'),
@@ -102,13 +104,13 @@ class RemoteSettingsPage extends ConsumerWidget {
                       ),
                       if (target != null && target.site != Site.none && target.site != Site.generic) ...[
                         const SizedBox(height: AppTokens.space8),
-                        _SectionHeader('${target.site.displayName} Settings'),
+                        _SectionHeader(S.of(context).siteSettings(target.site.label(S.of(context)))),
                         const SizedBox(height: AppTokens.space6),
                         if (hasQuality)
                           const _QualitySection()
                         else
                           Text(
-                            'No settings for this site yet.',
+                            S.of(context).noSiteSettings,
                             textAlign: TextAlign.center,
                             style: AppText.body.copyWith(color: t.inkMuted),
                           ),
@@ -199,7 +201,7 @@ class _QualitySectionState extends ConsumerState<_QualitySection> {
     if (ok) {
       setState(() => _list = QualityList(items: _list!.items, current: id));
     } else {
-      AppNotice.snack("The quality didn't change");
+      AppNotice.snack(getIt<S>().qualityNotChanged);
     }
     setState(() => _pending = null);
   }
@@ -211,7 +213,7 @@ class _QualitySectionState extends ConsumerState<_QualitySection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const _SubHeader('Video Quality'),
+        _SubHeader(S.of(context).videoQuality),
         if (_loading)
           Padding(
             padding: const EdgeInsets.all(AppTokens.space6),
@@ -219,7 +221,7 @@ class _QualitySectionState extends ConsumerState<_QualitySection> {
           )
         else if (list == null || list.items.isEmpty)
           Text(
-            "Couldn't read the quality options from the page.",
+            S.of(context).couldNotReadQuality,
             textAlign: TextAlign.center,
             style: AppText.body.copyWith(color: t.inkMuted),
           )

@@ -6,6 +6,7 @@ import 'package:zappit/core/utils/haptic_utils.dart';
 import 'package:zappit/features/connection/connection_controller.dart';
 import 'package:zappit/protocol/messages.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// List of online browsers. Picking one writes `session/{uid}/selectedInstanceId`.
 class BrowserList extends ConsumerWidget {
@@ -22,7 +23,7 @@ class BrowserList extends ConsumerWidget {
       return Padding(
         padding: const EdgeInsets.all(AppTokens.space4),
         child: Text(
-          'No browser is online.',
+          S.of(context).noBrowserOnline,
           style: AppText.body.copyWith(color: context.tokens.inkMuted),
         ),
       );
@@ -55,7 +56,7 @@ Future<void> showBrowserPicker(BuildContext context, WidgetRef ref) {
   ref.read(browserPresenceProvider.notifier).refresh();
   return ZpSheet.show<void>(
     context,
-    title: 'Browsers',
+    title: S.of(context).browsers,
     builder: (sheetContext) => Padding(
       padding: const EdgeInsets.only(top: AppTokens.space2),
       child: BrowserList(onPicked: () => Navigator.of(sheetContext).maybePop()),

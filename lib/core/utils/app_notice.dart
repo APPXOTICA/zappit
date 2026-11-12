@@ -32,7 +32,8 @@ abstract final class AppNotice {
   }
 
   /// Every snack comes with a haptic: a warning buzz for errors, a light tap otherwise.
-  static void snack(String message, {bool error = false}) {
+  /// [actionLabel] / [onAction]: a button on the right (e.g. Undo); the bar stays longer.
+  static void snack(String message, {bool error = false, String? actionLabel, VoidCallback? onAction}) {
     final messenger = scaffoldKey.currentState;
     if (messenger == null) {
       top(title: message, error: error);
@@ -43,8 +44,11 @@ abstract final class AppNotice {
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
-          content: Text(message, textAlign: TextAlign.center),
-          duration: Duration(milliseconds: message.length > 40 ? 2600 : 1800),
+          content: Text(message, textAlign: onAction == null ? TextAlign.center : TextAlign.start),
+          duration: onAction != null ? const Duration(seconds: 4) : Duration(milliseconds: message.length > 40 ? 2600 : 1800),
+          // A snack bar with an action stays until closed by default; this one times out like the others.
+          persist: false,
+          action: onAction == null ? null : SnackBarAction(label: actionLabel ?? '', textColor: AppTokens.dark.signalAd, onPressed: onAction),
         ),
       );
   }

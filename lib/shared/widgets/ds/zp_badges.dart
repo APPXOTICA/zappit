@@ -3,6 +3,8 @@ import 'package:zappit/core/extensions/context_extensions.dart';
 import 'package:zappit/core/theme/app_tokens.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/shared/widgets/ds/zp_pressable.dart';
+import 'package:zappit/shared/l10n/site_label.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Connection pill (`.zp-conn`): green / red dot, state, `Chrome · Mac`, chevron.
 class ZpConnectionStatus extends StatelessWidget {
@@ -94,11 +96,11 @@ class ZpSiteBadge extends StatelessWidget {
           if (asset != null)
             ClipOval(child: Image.asset(asset, width: 28, height: 28, fit: BoxFit.cover))
           else
-            ZpMonogram(text: site.displayName, size: 28),
+            ZpMonogram(text: site.label(S.of(context)), size: 28),
           const SizedBox(width: AppTokens.space2),
           Flexible(
             child: Text(
-              site.displayName,
+              site.label(S.of(context)),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: AppText.bodyStrong.copyWith(color: t.ink),

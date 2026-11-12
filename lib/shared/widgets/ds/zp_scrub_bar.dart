@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zappit/core/extensions/context_extensions.dart';
 import 'package:zappit/core/theme/app_tokens.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 enum ZpScrubMode { normal, ad, live, empty }
 
@@ -214,11 +215,11 @@ class ZpScrubTime extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (mode == ZpScrubMode.ad) ...[
-          ZpTag(label: 'AD', color: t.signalAd),
+          ZpTag(label: S.of(context).adBadge, color: t.signalAd),
           const SizedBox(width: AppTokens.space2),
         ],
         if (mode == ZpScrubMode.live)
-          ZpTag(label: 'LIVE', color: t.signalOff)
+          ZpTag(label: S.of(context).liveBadge, color: t.signalOff)
         else
           Text(text, style: AppText.body.merge(AppText.tabular).copyWith(color: t.inkMuted)),
       ],

@@ -15,6 +15,7 @@ import 'package:zappit/protocol/messages.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/protocol/remote_command.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Open tabs of the selected browser, grouped by window. Tapping a tab
 /// activates it in the browser, which makes it the new target.
@@ -108,8 +109,8 @@ class _TabsPageState extends ConsumerState<TabsPage> with WidgetsBindingObserver
                 const SizedBox(height: AppTokens.space2),
                 ZpConnectionStatus(
                   connected: status.isGreen,
-                  stateLabel: status.isGreen ? 'Connected' : 'Not connected',
-                  deviceLabel: status.selectedLabel ?? 'No browser selected',
+                  stateLabel: status.isGreen ? S.of(context).connected : S.of(context).notConnected,
+                  deviceLabel: status.selectedLabel ?? S.of(context).noBrowserSelected,
                   onTap: status.browsers.isEmpty ? null : () => showBrowserPicker(context, ref),
                 ),
                 if (instanceId != null && status.canSendCommands) ...[
@@ -152,7 +153,7 @@ class _TabList extends ConsumerWidget {
       return Center(
         child: async.isLoading || snapshot == null
             ? CircularProgressIndicator(strokeWidth: 2, color: t.inkMuted)
-            : Text('No open tabs', style: AppText.body.copyWith(color: t.inkMuted)),
+            : Text(S.of(context).noOpenTabs, style: AppText.body.copyWith(color: t.inkMuted)),
       );
     }
 
@@ -162,12 +163,12 @@ class _TabList extends ConsumerWidget {
       children: [
         for (var w = 0; w < windows.length; w++) ...[
           if (w > 0) const SizedBox(height: AppTokens.space6),
-          ZpSectionTitle('Window ${w + 1}'),
+          ZpSectionTitle(S.of(context).windowNumber(w + 1)),
           ZpGroup(
             children: [
               for (final tab in windows[w].value)
                 ZpTabRow(
-                  title: tab.title.isEmpty ? (tab.host ?? 'Untitled') : tab.title,
+                  title: tab.title.isEmpty ? (tab.host ?? S.of(context).untitled) : tab.title,
                   host: tab.host ?? '',
                   monogram: _monogram(tab),
                   favIconUrl: tab.favIconUrl,
@@ -200,10 +201,10 @@ class _NoBrowser extends StatelessWidget {
     return Center(
       child: ZpEmptyState(
         icon: Icons.desktop_windows_outlined,
-        title: phase == ConnectionPhase.notSelected ? 'Choose a browser' : 'No browser',
+        title: phase == ConnectionPhase.notSelected ? S.of(context).chooseBrowser : S.of(context).noBrowser,
         message: phase == ConnectionPhase.notSelected
-            ? 'Pick the browser this remote should control to see its tabs.'
-            : 'Open your browser with the Zappit extension signed in to see its tabs.',
+            ? S.of(context).pickBrowserForTabs
+            : S.of(context).openBrowserForTabs,
       ),
     );
   }

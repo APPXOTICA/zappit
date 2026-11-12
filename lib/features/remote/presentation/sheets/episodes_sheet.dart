@@ -1,14 +1,16 @@
+import 'package:zappit/features/purchase/pro_sheet.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/features/remote/controllers/chapters_controller.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 Future<void> showEpisodesSheet(BuildContext context, WidgetRef ref) {
   ref.invalidate(episodesProvider);
-  return ZpSheet.show<void>(
+  return showProSheet<void>(
     context,
-    title: 'Episodes',
+    title: S.of(context).episodes,
     builder: (sheetContext) => EpisodeListView(onPicked: () => Navigator.of(sheetContext).maybePop()),
   );
 }
@@ -41,7 +43,7 @@ class _EpisodeListState extends ConsumerState<EpisodeListView> {
         child: Center(
           child: async.isLoading
               ? CircularProgressIndicator(strokeWidth: 2, color: t.inkMuted)
-              : Text("Couldn't load episodes", style: AppText.body.copyWith(color: t.inkMuted)),
+              : Text(S.of(context).couldNotLoadEpisodes, style: AppText.body.copyWith(color: t.inkMuted)),
         ),
       );
     }
@@ -54,8 +56,8 @@ class _EpisodeListState extends ConsumerState<EpisodeListView> {
         ZpListRow(
           title: '${episode.number}. ${episode.title}',
           subtitle: [
-            if (episode.id == list.currentEpisodeId) 'Watching',
-            if (episode.durationSec != null) '${(episode.durationSec! / 60).round()} min',
+            if (episode.id == list.currentEpisodeId) S.of(context).watching,
+            if (episode.durationSec != null) S.of(context).minutesShort((episode.durationSec! / 60).round()),
           ].join(' · '),
           minHeight: widget.inline ? 48 : 56,
           selected: episode.id == list.currentEpisodeId,

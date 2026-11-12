@@ -1,12 +1,14 @@
+import 'package:zappit/features/purchase/pro_sheet.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/features/remote/controllers/target_controller.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Caption language. Tapping a track applies it and closes the sheet.
 Future<void> showSubtitleSheet(BuildContext context, WidgetRef ref) {
-  return ZpSheet.show<void>(context, title: 'Captions', builder: (_) => const _SubtitleTracks());
+  return showProSheet<void>(context, title: S.of(context).captions, builder: (_) => const _SubtitleTracks());
 }
 
 class _SubtitleTracks extends ConsumerWidget {

@@ -3,14 +3,18 @@ import 'package:go_router/go_router.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/routes/app_routes.dart';
+import 'package:zappit/features/purchase/pro_preview.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/features/remote/controllers/target_controller.dart';
+import 'package:zappit/features/remote/presentation/sheets/categories_sheet.dart';
 import 'package:zappit/features/remote/presentation/widgets/link_panel.dart';
 import 'package:zappit/features/sites/supported_sites.dart';
 import 'package:zappit/protocol/messages.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/protocol/remote_command.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
+import 'package:zappit/shared/l10n/site_label.dart';
 
 /// Card thumbnail, title and channel · duration (home focus, end screen).
 ///
@@ -104,6 +108,9 @@ class HomePadView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final card = ref.watch(siteStateControllerProvider.select((s) => s.focusCard));
     final noCards = ref.watch(siteStateControllerProvider.select((s) => s.noCards));
+    final profilePicker = ref.watch(siteStateControllerProvider.select((s) => s.profilePicker));
+    // Not before a profile is picked: Netflix would ask for one again.
+    final hasCategories = !profilePicker && ref.watch(targetProvider.select((t) => t?.has(Capability.categories) ?? false));
     final controller = ref.read(remoteControllerProvider);
     final muted = AppText.body.copyWith(color: context.tokens.inkMuted);
 
@@ -122,7 +129,7 @@ class HomePadView extends ConsumerWidget {
             alignment: Alignment.center,
             children: [
               Visibility(visible: false, maintainSize: true, maintainAnimation: true, maintainState: true, child: cardView),
-              Text('There are no videos on this page.', textAlign: TextAlign.center, style: muted),
+              Text(S.of(context).noVideosOnPage, textAlign: TextAlign.center, style: muted),
             ],
           )
         else
@@ -133,31 +140,42 @@ class HomePadView extends ConsumerWidget {
             constraints: const BoxConstraints(maxWidth: 312),
             child: Column(
               children: [
+                // Netflix: its genre pages (the site has no list of them).
+                if (hasCategories) ...[
+                  ZpButton(
+                    label: S.of(context).categories,
+                    style: ZpButtonStyle.accent,
+                    height: 56,
+                    radius: AppTokens.radiusMd,
+                    onPressed: () => showCategoriesSheet(context),
+                  ),
+                  const SizedBox(height: AppTokens.space3),
+                ],
                 SizedBox(
                   height: 152,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Expanded(
-                        child: ZpDirButton(icon: Icons.chevron_left_rounded, semanticLabel: 'Left', onPressed: () => controller.nav(NavDirection.left)),
+                        child: ZpDirButton(icon: Icons.chevron_left_rounded, semanticLabel: S.of(context).left, onPressed: () => controller.nav(NavDirection.left)),
                       ),
                       const SizedBox(width: AppTokens.space2),
                       Expanded(
                         child: Column(
                           children: [
                             Expanded(
-                              child: ZpDirButton(icon: Icons.keyboard_arrow_up_rounded, semanticLabel: 'Up', onPressed: () => controller.nav(NavDirection.up)),
+                              child: ZpDirButton(icon: Icons.keyboard_arrow_up_rounded, semanticLabel: S.of(context).up, onPressed: () => controller.nav(NavDirection.up)),
                             ),
                             const SizedBox(height: AppTokens.space2),
                             Expanded(
-                              child: ZpDirButton(icon: Icons.keyboard_arrow_down_rounded, semanticLabel: 'Down', onPressed: () => controller.nav(NavDirection.down)),
+                              child: ZpDirButton(icon: Icons.keyboard_arrow_down_rounded, semanticLabel: S.of(context).down, onPressed: () => controller.nav(NavDirection.down)),
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(width: AppTokens.space2),
                       Expanded(
-                        child: ZpDirButton(icon: Icons.chevron_right_rounded, semanticLabel: 'Right', onPressed: () => controller.nav(NavDirection.right)),
+                        child: ZpDirButton(icon: Icons.chevron_right_rounded, semanticLabel: S.of(context).right, onPressed: () => controller.nav(NavDirection.right)),
                       ),
                     ],
                   ),
@@ -166,7 +184,7 @@ class HomePadView extends ConsumerWidget {
                 SizedBox(
                   height: 60,
                   width: double.infinity,
-                  child: ZpDirButton(label: 'Play', filled: true, onPressed: controller.navSelect),
+                  child: ZpDirButton(label: profilePicker ? S.of(context).select : S.of(context).play, filled: true, onPressed: controller.navSelect),
                 ),
               ],
             ),
@@ -184,6 +202,15 @@ class NothingPlayingView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final target = ref.watch(targetProvider);
+    // A free user at the end of a YouTube video: the next one is picked in
+    // the browser (the d-pad picker is Pro).
+    final endPick = target?.site == Site.youtube && ref.watch(siteStateControllerProvider.select((s) => s.endScreenMode)) == EndScreenMode.pick;
+    // YouTube / Netflix outside a video page: the user is choosing a video
+    // there, so "nothing playing" would read as broken.
+    final browsing = endPick || (target != null && target.site.hasBrowsePages && target.page != PageKind.watch);
+    // Where Pro has the d-pad: the place to tell free users.
+    final upsell = (endPick || (browsing && target!.isSpatialHome)) && !ref.watch(proAccessProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -191,11 +218,22 @@ class NothingPlayingView extends ConsumerWidget {
           child: Center(
             child: ZpEmptyState(
               icon: Icons.graphic_eq_rounded,
-              title: 'Nothing playing',
-              message: 'No video is playing right now. Pick another tab, or paste a video link.',
+              title: browsing ? S.of(context).selectVideoInBrowser : S.of(context).nothingPlaying,
+              message: browsing ? null : S.of(context).nothingPlayingMessage,
               actions: [
-                ZpButton(label: 'Pick a tab', expand: false, height: AppTokens.controlMd, icon: const ZpImageIcon('assets/images/ic_tabs.svg'), onPressed: () => context.go(AppRoutes.tabs)),
-                ZpButton(label: 'Paste a link', expand: false, height: AppTokens.controlMd, icon: const ZpImageIcon('assets/images/export.svg'), onPressed: () => showLinkPanel(context, ref)),
+                if (upsell)
+                  ZpButton(
+                    label: S.of(context).pickVideosWithPro,
+                    expand: false,
+                    height: AppTokens.controlMd,
+                    style: ZpButtonStyle.accent,
+                    icon: const Icon(Icons.auto_awesome_rounded),
+                    onPressed: ref.read(remoteControllerProvider).openPro,
+                  )
+                else ...[
+                  ZpButton(label: S.of(context).pickATab, expand: false, height: AppTokens.controlMd, icon: const ZpImageIcon('assets/images/ic_tabs.svg'), onPressed: () => context.go(AppRoutes.tabs)),
+                  ZpButton(label: S.of(context).pasteALink, expand: false, height: AppTokens.controlMd, icon: const ZpImageIcon('assets/images/export.svg'), onPressed: () => showLinkPanel(context, ref)),
+                ],
               ],
             ),
           ),
@@ -206,8 +244,8 @@ class NothingPlayingView extends ConsumerWidget {
   }
 }
 
-/// "Open one of these to start" (`.za-sites`): the supported sites in the
-/// user's order, scrolling sideways. A tap opens the site in the browser.
+/// "Open one of these to start" (`.za-sites`): the user's favorite sites in
+/// their order, scrolling sideways; nothing when there are none. A tap opens the site in the browser.
 /// Also at the top of the Tabs tab.
 class SiteStrip extends ConsumerWidget {
   const SiteStrip({super.key});
@@ -215,7 +253,9 @@ class SiteStrip extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
-    final order = watchSiteOrder(ref);
+    final order = watchFavoriteSites(ref);
+    // No favorites: no strip at all (not a title over nothing).
+    if (order.isEmpty) return const SizedBox.shrink();
     final side = context.isTablet ? AppTokens.space8 : AppTokens.space4;
 
     return Padding(
@@ -225,7 +265,7 @@ class SiteStrip extends ConsumerWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: side),
             child: Text(
-              'Open one of these to start',
+              S.of(context).openOneToStart,
               textAlign: TextAlign.center,
               style: AppText.label.copyWith(fontSize: 14, color: t.inkMuted),
             ),
@@ -241,6 +281,7 @@ class SiteStrip extends ConsumerWidget {
               ],
             ),
           ),
+          const SizedBox(height: AppTokens.space4),
         ],
       ),
     );
@@ -257,7 +298,7 @@ class _SiteItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Semantics(
       button: true,
-      label: 'Open ${site.displayName}',
+      label: S.of(context).openSite(site.label(S.of(context))),
       excludeSemantics: true,
       child: ZpPressable(
         onTap: onTap,
@@ -268,7 +309,7 @@ class _SiteItem extends StatelessWidget {
               ZpSiteLogo(site: site),
               const SizedBox(height: AppTokens.space2),
               Text(
-                site.displayName,
+                site.label(S.of(context)),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: AppText.caption.copyWith(fontSize: 13, color: context.tokens.ink),

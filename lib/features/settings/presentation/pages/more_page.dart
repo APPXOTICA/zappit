@@ -1,6 +1,7 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -9,12 +10,13 @@ import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/constants/config.dart';
 import 'package:zappit/core/constants/strings.dart';
-import 'package:zappit/core/firebase/user_settings_repository.dart';
+import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/core/providers/remote_config_instance_provider.dart';
 import 'package:zappit/core/routes/app_routes.dart';
 import 'package:zappit/core/utils/device_utils.dart';
 import 'package:zappit/features/auth/presentation/controllers/auth_state_provider.dart';
 import 'package:zappit/features/purchase/pro_controller.dart';
+import 'package:zappit/features/purchase/pro_preview.dart';
 import 'package:zappit/shared/providers/activity_indicator_provider.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
 import 'package:zappit/shared/widgets/web_view_page.dart';
@@ -27,6 +29,8 @@ class MorePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
     final isPro = ref.watch(proControllerProvider);
+    final preview = ref.watch(proPreviewProvider);
+    final previewEnds = !isPro && preview.active ? preview.endsAt : null;
 
     return Scaffold(
       backgroundColor: t.bgBase,
@@ -42,37 +46,39 @@ class MorePage extends ConsumerWidget {
                 // Pro users keep the entry: the Pro page lists the benefits and manages the subscription.
                 ZpUpgradeBanner(
                   title: Strings.appTitlePro,
-                  subtitle: isPro ? 'Every dedicated remote is unlocked' : 'Unleash the full power of your remote',
-                  cta: isPro ? 'View' : 'Upgrade',
+                  subtitle: isPro
+                      ? S.of(context).fullPowerUnlocked
+                      : (previewEnds != null ? S.of(context).proPreviewUntil(DateFormat.MMMd().format(previewEnds)) : S.of(context).proBannerSubtitle),
+                  cta: isPro ? S.of(context).view : S.of(context).upgrade,
                   onTap: () => context.push(AppRoutes.pro),
                 ),
                 const SizedBox(height: AppTokens.space6),
                 const ZpSectionTitle('Zappit'),
                 ZpGroup(children: [
                   ZpListRow(
-                    title: 'Supported sites',
-                    detail: '${UserSettings.defaultSiteOrder.length}',
+                    title: S.of(context).supportedSites,
+                    detail: '${Site.supported.length}',
                     showChevron: true,
                     onTap: () => context.push(AppRoutes.supportedSites),
                   ),
                 ]),
                 const SizedBox(height: AppTokens.space6),
-                const ZpSectionTitle('Support'),
+                ZpSectionTitle(S.of(context).support),
                 ZpGroup(children: [
                   ZpListRow(
-                    title: 'Tutorial',
+                    title: S.of(context).tutorial,
                     showChevron: true,
-                    onTap: () => _openWeb(context, 'Tutorial', tutorialUrl),
+                    onTap: () => _openWeb(context, S.of(context).tutorial, tutorialUrl),
                   ),
-                  ZpListRow(title: 'Contact us', onTap: () => _contactUs(ref)),
-                  ZpListRow(title: 'Tell a friend', onTap: () => _tellAFriend(context)),
-                  ZpListRow(title: 'Rate Zappit', onTap: _rate),
+                  ZpListRow(title: S.of(context).contactUs, onTap: () => _contactUs(ref)),
+                  ZpListRow(title: S.of(context).tellAFriend, onTap: () => _tellAFriend(context)),
+                  ZpListRow(title: S.of(context).rateZappit, onTap: _rate),
                 ]),
                 const SizedBox(height: AppTokens.space6),
-                const ZpSectionTitle('Account'),
+                ZpSectionTitle(S.of(context).account),
                 ZpGroup(children: [
-                  ZpListRow(title: 'Log out', onTap: () => _logout(context, ref)),
-                  ZpListRow(title: 'Delete account', danger: true, onTap: () => _deleteAccount(context, ref)),
+                  ZpListRow(title: S.of(context).logout, onTap: () => _logout(context, ref)),
+                  ZpListRow(title: S.of(context).deleteAccountMenu, danger: true, onTap: () => _deleteAccount(context, ref)),
                 ]),
                 const SizedBox(height: AppTokens.space6),
                 const _VersionFooter(),
@@ -94,7 +100,7 @@ class MorePage extends ConsumerWidget {
     final config = await ref.read(remoteConfigInstanceProvider.future);
     final email = config.getString(Strings.supportEmailKey);
     final device = await DeviceUtils.deviceInfo();
-    final body = "\n\n\n\n\n\n\n\n\n\nPlease don't delete the info below.\n"
+    final body = '\n\n\n\n\n\n\n\n\n\n${getIt<S>().contactUsKeepInfo}\n'
         '(${Strings.appTitle} v${info.version}  |  $device)';
     final uri = Uri.parse('mailto:$email?body=${Uri.encodeComponent(body)}');
     try {

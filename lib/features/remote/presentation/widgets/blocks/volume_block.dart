@@ -4,12 +4,13 @@ import 'dart:math' as math;
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/utils/app_notice.dart';
-import 'package:zappit/features/purchase/pro_controller.dart';
+import 'package:zappit/features/purchase/pro_preview.dart';
 import 'package:zappit/features/remote/controllers/playback_controller.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/features/remote/controllers/target_controller.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Volume block: rocker and, on YouTube, Voice Boost at the right. Other
 /// sites keep the same empty slot so the slider length matches.
@@ -47,8 +48,8 @@ class _VolumeBlockState extends ConsumerState<VolumeBlock> {
       _ticker = null;
       // Ran out (not ended early by a tap), like the speed trial.
       const full = Duration(seconds: RemoteController.voiceBoostTrialSeconds - 1);
-      if (started != null && DateTime.now().difference(started) >= full && !ref.read(proControllerProvider)) {
-        AppNotice.snack('Voice Boost is off. Free users can use Voice Boost for ${RemoteController.voiceBoostTrialSeconds} seconds.');
+      if (started != null && DateTime.now().difference(started) >= full && !ref.read(proAccessProvider)) {
+        AppNotice.snack(S.of(context).voiceBoostTrialOver(RemoteController.voiceBoostTrialSeconds));
       }
     }
   }
@@ -104,13 +105,13 @@ class _VolumeBlockState extends ConsumerState<VolumeBlock> {
                           ZpIconButton(
                             size: ZpIconButtonSize.sm,
                             semanticLabel: trialLeft != null
-                                ? 'Voice Boost trial, $trialLeft seconds left'
-                                : (voiceBoostOn ? 'Voice Boost on' : 'Voice Boost off'),
+                                ? S.of(context).voiceBoostTrialLeft(trialLeft)
+                                : (voiceBoostOn ? S.of(context).voiceBoostOn : S.of(context).voiceBoostOff),
                             onPressed: voiceBoostAvailable ? controller.toggleVoiceBoost : null,
                             onDisabledTap: () => AppNotice.snack(
                               view.isAd
-                                  ? "Voice Boost isn't available during an ad"
-                                  : "This video doesn't support Voice Boost",
+                                  ? S.of(context).voiceBoostDuringAd
+                                  : S.of(context).voiceBoostUnsupported,
                             ),
                             child: _VoiceBoostIcon(on: voiceBoostAvailable && (voiceBoostOn || trialLeft != null)),
                           ),
@@ -127,7 +128,7 @@ class _VolumeBlockState extends ConsumerState<VolumeBlock> {
                       if (trialLeft != null)
                         Positioned(
                           top: AppTokens.targetMin - 11,
-                          child: Text('${trialLeft}s', style: AppText.label.copyWith(color: context.tokens.accentText)),
+                          child: Text(S.of(context).secondsShort(trialLeft), style: AppText.label.copyWith(color: context.tokens.accentText)),
                         ),
                     ],
                   )
@@ -139,7 +140,7 @@ class _VolumeBlockState extends ConsumerState<VolumeBlock> {
     if (!isPhoto) return cluster;
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => AppNotice.snack('Not available for photo posts'),
+      onTap: () => AppNotice.snack(S.of(context).notAvailableForPhotos),
       child: AbsorbPointer(child: cluster),
     );
   }

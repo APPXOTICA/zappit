@@ -138,6 +138,12 @@ class BrowserPresence extends _$BrowserPresence {
   DateTime? _hiddenAt;
   /// Bumped when the list is dropped; reads started before are ignored.
   int _generation = 0;
+  /// Pro features unlocked (subscription or preview), sent in the presence
+  /// data: the extension shows home card focus only for Pro. Set by the app
+  /// shell ([setPro]); this provider can't watch the Pro state itself (that
+  /// depends on the connection, which depends on this). Static: it outlives
+  /// a rebuild (sign-in, new channel).
+  static bool _pro = false;
 
   static const _staleAfter = Duration(minutes: 1);
 
@@ -232,12 +238,39 @@ class BrowserPresence extends _$BrowserPresence {
     if (channel == null || !_foreground) return false;
     if (_present) return true;
     try {
-      await channel.presence.enter({'device': Protocol.deviceApp, 'type': 'remote'});
+      final data = _presenceData;
+      await channel.presence.enter(data);
       _present = true;
+      // Pro changed while entering ([setPro] skipped the update then): the
+      // browsers would keep the old value until the next enter.
+      if (data['pro'] != _pro) await channel.presence.update(_presenceData);
     } catch (e) {
       debugPrint('presence.enter failed: $e');
     }
     return _present;
+  }
+
+  /// `sites`: what this app version can show; the extension handles other
+  /// sites as generic pages until the app is updated.
+  Map<String, Object> get _presenceData => {
+    'device': Protocol.deviceApp,
+    'type': 'remote',
+    'pro': _pro,
+    'sites': [for (final site in Site.supported) site.name],
+  };
+
+  /// Pro changed: tells the browsers now if the app is in presence, else at
+  /// the next enter.
+  Future<void> setPro(bool pro) async {
+    if (pro == _pro) return;
+    _pro = pro;
+    final channel = _channel;
+    if (channel == null || !_present) return;
+    try {
+      await channel.presence.update(_presenceData);
+    } catch (e) {
+      debugPrint('presence.update failed: $e');
+    }
   }
 
   /// The enter is acknowledged by Ably, so the connection is live and the

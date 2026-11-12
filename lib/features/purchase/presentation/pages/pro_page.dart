@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
@@ -10,48 +11,65 @@ import 'package:zappit/core/constants/strings.dart';
 import 'package:zappit/core/routes/app_routes.dart';
 import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/features/purchase/pro_controller.dart';
+import 'package:zappit/features/purchase/pro_preview.dart';
+import 'package:zappit/features/purchase/pro_pricing.dart';
+import 'package:zappit/features/purchase/trial_reminder.dart';
 import 'package:zappit/features/purchase/purchase_service.dart';
 import 'package:zappit/shared/providers/activity_indicator_provider.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
 import 'package:zappit/shared/widgets/web_view_page.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
-/// Zappit Pro paywall (design screen), selling the yearly package of the
-/// current RevenueCat offering. Pro users get Customer Center instead.
+/// Zappit Pro paywall (design screen), selling the monthly and yearly packages
+/// of the current RevenueCat offering; only the yearly one has a free trial.
+/// Pro users get Customer Center instead.
 class ProPage extends ConsumerStatefulWidget {
   const ProPage({super.key});
 
-  static const features = [
-    'All playback speeds',
-    'Unlimited Voice Boost',
-    'Unlimited Full Video Loop',
-    'Unlimited A-B Loop',
-    'Sleep Timer',
-  ];
+  /// "Dedicated controllers" will open a page that shows them (later).
+  /// Sleep Timer is free.
+  static List<String> features(S s) => [
+        s.proFeatureDedicatedControllers,
+        s.proFeatureAllSpeeds,
+        s.proFeatureVoiceBoost,
+        s.proFeatureFullLoop,
+        s.proFeatureAbLoop,
+      ];
 
   @override
   ConsumerState<ProPage> createState() => _ProPageState();
 }
 
 class _ProPageState extends ConsumerState<ProPage> {
-  Package? _package;
+  Package? _monthly;
+  Package? _yearly;
+  bool _yearlySelected = true;
+  bool _trialEligible = false;
   bool _loading = true;
 
   @override
   void initState() {
     super.initState();
-    unawaited(_loadPackage());
+    unawaited(_loadPackages());
   }
 
-  Future<Package?> _loadPackage() async {
-    final package = await ref.read(purchaseServiceProvider).yearlyPackage();
+  Future<void> _loadPackages() async {
+    final service = ref.read(purchaseServiceProvider);
+    final packages = await service.proPackages();
+    final yearly = packages.yearly;
+    final eligible = yearly != null && await service.trialEligible(yearly);
     if (mounted) {
       setState(() {
-        _package = package;
+        _monthly = packages.monthly;
+        _yearly = yearly;
+        _trialEligible = eligible;
         _loading = false;
       });
     }
-    return package;
   }
+
+  /// The plan the user picked; yearly when there is no monthly one to pick.
+  Package? get _selected => _yearlySelected || _monthly == null ? _yearly : _monthly;
 
   /// Not gated on the package having loaded: a tap retries, and if the store
   /// still has nothing to sell the user is told so instead of facing a
@@ -60,16 +78,21 @@ class _ProPageState extends ConsumerState<ProPage> {
     final indicator = ref.read(activityIndicatorProvider.notifier);
     indicator.show(null);
     try {
-      final package = _package ?? await _loadPackage();
+      if (_selected == null) await _loadPackages();
+      final package = _selected;
       if (!mounted) return;
       if (package == null) {
-        AppNotice.snack('The store is not available right now. Please try again later.', error: true);
+        AppNotice.snack(S.of(context).storeUnavailable, error: true);
         return;
       }
+      final trial = package == _yearly ? _trialIntro : null;
       final outcome = await ref.read(purchaseServiceProvider).purchase(context, package, onStoreDone: indicator.hide);
       if (outcome == PurchaseOutcome.purchased && mounted) {
-        AppNotice.snack('Welcome to ${Strings.appTitlePro}');
-        Navigator.of(context).maybePop();
+        AppNotice.snack(S.of(context).welcomeToPro(Strings.appTitlePro));
+        // Ask while the page is still up; the dialog is the user's answer to
+        // "remind me before I'm charged", not an OS prompt out of the blue.
+        if (trial != null) await offerTrialReminder(context, package.storeProduct, trialEndDate(trial, DateTime.now()));
+        if (mounted) Navigator.of(context).maybePop();
       }
     } finally {
       indicator.hide();
@@ -82,7 +105,7 @@ class _ProPageState extends ConsumerState<ProPage> {
     try {
       final pro = await ref.read(purchaseServiceProvider).restore(context, onStoreDone: indicator.hide);
       if (pro && mounted) {
-        AppNotice.snack('${Strings.appTitlePro} restored');
+        AppNotice.snack(S.of(context).proRestored(Strings.appTitlePro));
         Navigator.of(context).maybePop();
       }
     } finally {
@@ -90,31 +113,52 @@ class _ProPageState extends ConsumerState<ProPage> {
     }
   }
 
-  String get _priceText {
-    final product = _package?.storeProduct;
-    if (product == null) return _loading ? '' : 'Unavailable';
-    return '${product.priceString} / year';
+  /// The free introductory offer of the yearly plan (the monthly one has
+  /// none), only when this user can still get it (see `trialEligible`).
+  IntroductoryPrice? get _trialIntro {
+    if (!_trialEligible) return null;
+    final intro = _yearly?.storeProduct.introductoryPrice;
+    return intro == null || intro.price > 0 ? null : intro;
   }
 
-  /// "7-day free trial" when the product has a free introductory offer.
-  String? get _trialText {
-    final intro = _package?.storeProduct.introductoryPrice;
-    if (intro == null || intro.price > 0) return null;
-    final unit = switch (intro.periodUnit) {
-      PeriodUnit.day => 'day',
-      PeriodUnit.week => 'week',
-      PeriodUnit.month => 'month',
-      PeriodUnit.year => 'year',
-      PeriodUnit.unknown => null,
+  /// "1-week free trial" when the yearly product has a free introductory offer.
+  String? _trialText(S s) {
+    final intro = _trialIntro;
+    if (intro == null) return null;
+    final n = intro.periodNumberOfUnits;
+    return switch (intro.periodUnit) {
+      PeriodUnit.day => s.freeTrialDays(n),
+      PeriodUnit.week => s.freeTrialWeeks(n),
+      PeriodUnit.month => s.freeTrialMonths(n),
+      PeriodUnit.year => s.freeTrialYears(n),
+      PeriodUnit.unknown => s.freeTrial,
     };
-    return unit == null ? 'Free trial' : '${intro.periodNumberOfUnits}-$unit free trial';
+  }
+
+  /// "Starts with a 7-day free trial, then $29.99/year." (weeks in days).
+  static String _trialTerms(S s, IntroductoryPrice intro, String price) {
+    final n = intro.periodNumberOfUnits;
+    return switch (intro.periodUnit) {
+      PeriodUnit.day => s.trialTermsDays(n, price),
+      PeriodUnit.week => s.trialTermsDays(7 * n, price),
+      PeriodUnit.month => s.trialTermsMonths(n, price),
+      PeriodUnit.year => s.trialTermsYears(n, price),
+      PeriodUnit.unknown => s.trialTerms(price),
+    };
   }
 
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
     final isPro = ref.watch(proControllerProvider);
-    final trial = _trialText;
+    final preview = ref.watch(proPreviewProvider);
+    final s = S.of(context);
+    final trial = _trialText(s);
+    final yearly = _yearly?.storeProduct;
+    final monthly = _monthly?.storeProduct;
+    final saving = yearly != null && monthly != null ? savingsPercentOf(monthly, yearly) : null;
+    final trialApplies = trial != null && _selected == _yearly;
+    final intro = _trialIntro;
 
     return Scaffold(
       backgroundColor: ZpAppIcon.background,
@@ -129,7 +173,7 @@ class _ProPageState extends ConsumerState<ProPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(AppTokens.space2),
                     child: IconButton(
-                      tooltip: 'Back',
+                      tooltip: s.back,
                       onPressed: () => Navigator.of(context).maybePop(),
                       icon: Icon(Icons.chevron_left_rounded, color: t.ink, size: 32),
                     ),
@@ -148,39 +192,73 @@ class _ProPageState extends ConsumerState<ProPage> {
                           )),
                       const SizedBox(height: AppTokens.space2),
                       Text(
-                        'Unleash the full power of your remote.',
+                        // Opened by the end-of-preview nudge, or any time after it.
+                        !isPro && preview.startedAt != null && !preview.active
+                            ? s.proPreviewEndedSubtitle(Strings.appTitlePro)
+                            : s.proSubtitle,
                         textAlign: TextAlign.center,
                         style: AppText.body.copyWith(fontSize: 16, color: t.inkMuted),
                       ),
-                      const SizedBox(height: AppTokens.space4),
+                      const SizedBox(height: AppTokens.space8),
                       ZpGroup(
                         children: [
-                          for (final f in ProPage.features)
+                          for (final f in ProPage.features(s))
                             ZpListRow(title: f, minHeight: 50, leading: Icon(Icons.check_rounded, color: t.inkMuted)),
                         ],
                       ),
                       if (!isPro) ...[
-                        const SizedBox(height: AppTokens.space4),
-                        ZpCluster(
-                          child: Column(
-                            children: [
-                              Text('Subscription', style: AppText.label.copyWith(color: t.inkMuted)),
-                              const SizedBox(height: 4),
-                              SizedBox(
-                                height: 30,
-                                child: _loading
-                                    ? const Center(child: SizedBox.square(dimension: 20, child: CircularProgressIndicator(strokeWidth: 2)))
-                                    : Text(_priceText, style: AppText.heading.copyWith(fontSize: 22, color: t.ink)),
-                              ),
-                              if (trial != null) Text(trial, style: AppText.body.copyWith(color: t.ink)),
-                              const SizedBox(height: 4),
-                              Text(
-                                'Cancel anytime in your store account',
-                                style: AppText.body.copyWith(color: t.inkMuted),
-                              ),
-                            ],
+                        // Buying stays open during the preview: the store trial starts right away.
+                        if (preview.active && preview.endsAt != null) ...[
+                          const SizedBox(height: AppTokens.space8),
+                          ZpCluster(
+                            padding: const EdgeInsets.symmetric(horizontal: AppTokens.space4, vertical: AppTokens.space3),
+                            child: Row(
+                              children: [
+                                Icon(Icons.auto_awesome_rounded, color: t.accentText),
+                                const SizedBox(width: AppTokens.space3),
+                                Expanded(
+                                  child: Text(
+                                    s.proPreviewActiveBanner(DateFormat.MMMd().format(preview.endsAt!)),
+                                    style: AppText.body.copyWith(color: t.ink),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
+                        ],
+                        const SizedBox(height: AppTokens.space6),
+                        if (_loading)
+                          const SizedBox(height: 120, child: Center(child: SizedBox.square(dimension: 20, child: CircularProgressIndicator(strokeWidth: 2))))
+                        else if (yearly == null)
+                          Center(child: Text(s.unavailable, style: AppText.heading.copyWith(fontSize: 22, color: t.ink)))
+                        else ...[
+                          _PlanTile(
+                            selected: _selected == _yearly,
+                            title: s.yearly,
+                            subtitle: s.justPerMonth(monthlyEquivalent(yearly)),
+                            note: trial,
+                            // The store trial's terms on the card, apart from the preview's end date above.
+                            detail: intro == null ? null : _trialTerms(s, intro, yearly.priceString),
+                            price: s.pricePerYear(yearly.priceString),
+                            badge: saving == null ? null : s.savePercent(saving),
+                            onTap: () => setState(() => _yearlySelected = true),
+                          ),
+                          if (monthly != null) ...[
+                            const SizedBox(height: AppTokens.space4),
+                            _PlanTile(
+                              selected: _selected == _monthly,
+                              title: s.monthly,
+                              price: s.pricePerMonth(monthly.priceString),
+                              onTap: () => setState(() => _yearlySelected = false),
+                            ),
+                          ],
+                          const SizedBox(height: AppTokens.space4),
+                          Text(
+                            s.cancelAnytime,
+                            textAlign: TextAlign.center,
+                            style: AppText.body.copyWith(color: t.inkMuted),
+                          ),
+                        ],
                       ],
                       if (kDebugMode) ...[
                         const SizedBox(height: AppTokens.space4),
@@ -207,35 +285,35 @@ class _ProPageState extends ConsumerState<ProPage> {
                   child: Column(
                     children: [
                       ZpButton(
-                        label: isPro ? 'Manage subscription' : (trial != null ? 'Start free trial' : 'Subscribe'),
+                        label: isPro ? s.manageSubscription : (trialApplies ? s.startFreeTrial : s.subscribe),
                         style: ZpButtonStyle.accent,
                         onPressed: isPro ? ref.read(purchaseServiceProvider).openCustomerCenter : (_loading ? null : _subscribe),
                       ),
                       if (!isPro) ...[
                         const SizedBox(height: AppTokens.space4),
-                        ZpLinkText('Restore purchases', onTap: _restore),
+                        ZpLinkText(s.restorePurchases, onTap: _restore),
                       ],
                       const SizedBox(height: AppTokens.space4),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ZpLinkText(
-                            'Privacy Policy',
+                            s.privacyPolicy,
                             underline: true,
                             style: AppText.body,
                             onTap: () => context.push(
                               AppRoutes.webView,
-                              extra: const WebViewArgs(title: 'Privacy Policy', url: privacyPolicyUrl),
+                              extra: WebViewArgs(title: s.privacyPolicy, url: privacyPolicyUrl),
                             ),
                           ),
                           Text('  ·  ', style: AppText.body.copyWith(color: t.inkMuted)),
                           ZpLinkText(
-                            'Terms of Service',
+                            s.termsOfService,
                             underline: true,
                             style: AppText.body,
                             onTap: () => context.push(
                               AppRoutes.webView,
-                              extra: const WebViewArgs(title: 'Terms of Service', url: termsOfServiceUrl),
+                              extra: WebViewArgs(title: s.termsOfService, url: termsOfServiceUrl),
                             ),
                           ),
                         ],
@@ -249,6 +327,101 @@ class _ProPageState extends ConsumerState<ProPage> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// A plan to pick on the paywall: yearly (with the per-month price, the free
+/// trial and the saving) or monthly.
+class _PlanTile extends StatelessWidget {
+  const _PlanTile({required this.selected, required this.title, required this.price, required this.onTap, this.subtitle, this.note, this.detail, this.badge});
+
+  final bool selected;
+  final String title;
+  final String price;
+  final String? subtitle;
+
+  /// Free-trial line, only on the plan the trial applies to.
+  final String? note;
+
+  /// Small print at the bottom of the card (what the plan charges, and when).
+  final String? detail;
+  final String? badge;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final card = Container(
+      padding: EdgeInsets.fromLTRB(AppTokens.space4, note != null ? AppTokens.space6 : AppTokens.space4, AppTokens.space4, AppTokens.space4),
+      decoration: BoxDecoration(
+        color: t.surface100,
+        borderRadius: BorderRadius.circular(AppTokens.radiusLg),
+        border: Border.all(color: selected ? t.accent : t.hairline, width: selected ? 2 : 1),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+        children: [
+          Icon(selected ? Icons.radio_button_checked_rounded : Icons.radio_button_unchecked_rounded, color: selected ? t.accent : t.inkMuted),
+          const SizedBox(width: AppTokens.space3),
+          Expanded(child: Text(title, style: AppText.heading.copyWith(fontSize: 20, color: t.ink))),
+          const SizedBox(width: AppTokens.space2),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (badge != null) Text(badge!, style: AppText.label.copyWith(fontSize: 14, fontWeight: FontWeight.w600, color: t.accentText)),
+              Text(price, style: AppText.heading.copyWith(fontSize: 20, color: t.ink)),
+              if (subtitle != null) Text(subtitle!, style: AppText.body.copyWith(color: t.inkMuted)),
+            ],
+          ),
+        ],
+      ),
+          if (detail != null) ...[
+            const SizedBox(height: AppTokens.space3),
+            Text(detail!, textAlign: TextAlign.center, style: AppText.caption.copyWith(color: t.inkMuted)),
+          ],
+        ],
+      ),
+    );
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: note == null
+            ? card
+            // The free-trial pill sits across the top edge of the card.
+            : Padding(
+                padding: const EdgeInsets.only(top: 14),
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    card,
+                    Positioned(
+                      top: -14,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: FractionallySizedBox(
+                          widthFactor: 0.7,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(color: t.signalLive, borderRadius: BorderRadius.circular(AppTokens.radiusFull)),
+                            child: Text(note!, style: AppText.heading.copyWith(fontSize: 16, color: t.onAccent)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
       ),
     );
   }

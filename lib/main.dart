@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zappit/core/realtime/zappit_channel.dart';
+import 'package:zappit/features/purchase/pro_preview.dart';
 import 'package:zappit/core/analytics/analytics.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
@@ -124,6 +126,8 @@ class _AppServicesState extends ConsumerState<_AppServices> with WidgetsBindingO
         unawaited(Analytics.reset());
       }
     }, fireImmediately: true);
+    // The extension focuses home cards only for Pro (see BrowserPresence.setPro).
+    ref.listenManual(proAccessProvider, (_, pro) => unawaited(ref.read(browserPresenceProvider.notifier).setPro(pro)), fireImmediately: true);
   }
 
   @override

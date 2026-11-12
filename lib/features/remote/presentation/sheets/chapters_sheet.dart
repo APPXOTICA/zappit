@@ -1,3 +1,4 @@
+import 'package:zappit/features/purchase/pro_sheet.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/utils/app_notice.dart';
@@ -6,11 +7,12 @@ import 'package:zappit/features/remote/controllers/playback_controller.dart';
 import 'package:zappit/features/remote/controllers/playback_math.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 Future<void> showChaptersSheet(BuildContext context, WidgetRef ref) {
-  return ZpSheet.show<void>(
+  return showProSheet<void>(
     context,
-    title: 'Chapters',
+    title: S.of(context).chapters,
     builder: (sheetContext) => ChapterListView(onPicked: () => Navigator.of(sheetContext).maybePop()),
   );
 }
@@ -71,7 +73,7 @@ class _ChapterListState extends ConsumerState<ChapterListView> {
           current: i == current,
           onTap: () {
             if (view.isAd) {
-              AppNotice.snack("Chapters can't be skipped during an ad");
+              AppNotice.snack(S.of(context).chaptersDuringAd);
               return;
             }
             controller.seekToChapter(chapters[i]);
@@ -92,7 +94,7 @@ class _ChapterListState extends ConsumerState<ChapterListView> {
             padding: const EdgeInsets.fromLTRB(8, 0, 8, 6),
             child: Row(
               children: [
-                Text('Chapters', style: AppText.bodyStrong.copyWith(color: t.ink)),
+                Text(S.of(context).chapters, style: AppText.bodyStrong.copyWith(color: t.ink)),
                 const Spacer(),
                 Text('${current + 1}/${chapters.length}', style: AppText.label.copyWith(color: t.inkMuted)),
               ],

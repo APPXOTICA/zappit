@@ -203,12 +203,20 @@ void main() {
     expect(const UserSettings(abLoopCount: null).toJson()['abLoopCount'], 0);
   });
 
-  test('site order keeps the stored order, drops unknown names and appends new sites', () {
-    expect(UserSettings.fromJson({}).siteOrder, UserSettings.defaultSiteOrder);
+  test('favorites: stored order, unknown names dropped, defaults only until saved', () {
+    final fresh = UserSettings.fromJson({});
+    expect(fresh.favoriteSites, UserSettings.defaultFavorites);
+    // Not saved: a site added to the defaults later still reaches this user.
+    expect(fresh.toJson().containsKey('favoriteSites'), isFalse);
+    expect(fresh.copyWith(seekInterval: 5).toJson().containsKey('favoriteSites'), isFalse);
+
     expect(
-      UserSettings.fromJson({'siteOrder': ['netflix', 'bogus', 'youtube', 'netflix', 'generic']}).siteOrder,
-      [Site.netflix, Site.youtube, Site.shorts, Site.tiktok, Site.reels],
+      UserSettings.fromJson({'favoriteSites': ['netflix', 'bogus', 'youtube', 'netflix', 'generic']}).favoriteSites,
+      [Site.netflix, Site.youtube],
     );
-    expect(const UserSettings(siteOrder: [Site.reels, Site.youtube]).toJson()['siteOrder'], ['reels', 'youtube']);
+    expect(UserSettings.fromJson({'favoriteSites': []}).favoriteSites, isEmpty);
+    // The order saved before favorites existed.
+    expect(UserSettings.fromJson({'siteOrder': ['reels', 'youtube']}).favoriteSites, [Site.reels, Site.youtube]);
+    expect(fresh.copyWith(favoriteSites: [Site.reels]).toJson()['favoriteSites'], ['reels']);
   });
 }

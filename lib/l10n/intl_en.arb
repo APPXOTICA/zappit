@@ -54,5 +54,1520 @@
   "shareContent": "Control your computer's video without leaving your bed.",
   "@shareContent": {
     "description": "Text shared by Tell a friend, between the app name and the store link."
+  },
+  "browserNotResponding": "Browser not responding",
+  "@browserNotResponding": {
+    "description": "Top notice title: a command got no answer from the browser."
+  },
+  "browserDidNotAnswer": "{browser} didn't answer. Check that it's open.",
+  "@browserDidNotAnswer": {
+    "description": "Top notice message under \"Browser not responding\". browser: e.g. \"Chrome · Mac\".",
+    "placeholders": {
+      "browser": {
+        "type": "String"
+      }
+    }
+  },
+  "soundBlockedTitle": "Why can't I hear anything?",
+  "@soundBlockedTitle": {
+    "description": "Top notice title: the browser kept the video muted (autoplay policy)."
+  },
+  "soundBlockedMessage": "Tap to see how to turn the sound on.",
+  "@soundBlockedMessage": {
+    "description": "Top notice message: tapping opens the help page."
+  },
+  "soundHelpTitle": "Sound",
+  "@soundHelpTitle": {
+    "description": "Title of the help web page about sound."
+  },
+  "errorButtonNotFound": "Couldn't find that button on the page",
+  "@errorButtonNotFound": {
+    "description": "Snackbar: the browser could not find the control on the web page."
+  },
+  "errorNotSupported": "This site doesn't support that",
+  "@errorNotSupported": {
+    "description": "Snackbar: the site has no such control."
+  },
+  "errorNoMedia": "No video is playing",
+  "@errorNoMedia": {
+    "description": "Snackbar: the command needs a video, and there is none."
+  },
+  "errorDuringAd": "Can't do that during an ad",
+  "@errorDuringAd": {
+    "description": "Snackbar: the control is blocked while an ad plays."
+  },
+  "errorStartAfterEnd": "The start point must be before the end point",
+  "@errorStartAfterEnd": {
+    "description": "Snackbar: A-B loop start set after its end."
+  },
+  "errorEndBeforeStart": "The end point must be after the start point",
+  "@errorEndBeforeStart": {
+    "description": "Snackbar: A-B loop end set before its start."
+  },
+  "errorNotChanged": "The site didn't change it",
+  "@errorNotChanged": {
+    "description": "Snackbar: the site ignored the change."
+  },
+  "errorTabClosed": "That tab is already closed",
+  "@errorTabClosed": {
+    "description": "Snackbar: the chosen browser tab no longer exists."
+  },
+  "errorInvalidUrl": "That link can’t be opened",
+  "@errorInvalidUrl": {
+    "description": "Snackbar: the link could not be opened in the browser."
+  },
+  "errorNoBrowser": "No browser is selected",
+  "@errorNoBrowser": {
+    "description": "Snackbar: no browser is chosen for the remote."
+  },
+  "errorGeneric": "Something went wrong",
+  "@errorGeneric": {
+    "description": "Snackbar: unknown error."
+  },
+  "appleSignInFailed": "Apple sign in failed",
+  "@appleSignInFailed": {
+    "description": "Error: signing in with Apple failed."
+  },
+  "googleSignInUnsupported": "Google Sign In is not supported on this platform",
+  "@googleSignInUnsupported": {
+    "description": "Error: Google sign-in is unavailable on this device."
+  },
+  "googleSignInFailed": "Google sign in failed",
+  "@googleSignInFailed": {
+    "description": "Error: signing in with Google failed."
+  },
+  "signOutFailed": "Sign out failed",
+  "@signOutFailed": {
+    "description": "Snackbar: logging out failed."
+  },
+  "accountDeletionFailed": "Account deletion failed.",
+  "@accountDeletionFailed": {
+    "description": "Snackbar: the server could not delete the account."
+  },
+  "accountDeletionFailedTryAgain": "Account deletion failed. Please try again.",
+  "@accountDeletionFailedTryAgain": {
+    "description": "Snackbar: deleting the account failed."
+  },
+  "agreeFirst": "Agree to the Terms and Privacy Policy first",
+  "@agreeFirst": {
+    "description": "Snackbar on the sign-in screen: the agreement box is not checked."
+  },
+  "loginTagline": "Sit back. Control your browser from anywhere.",
+  "@loginTagline": {
+    "description": "Sign-in screen tagline under the app name."
+  },
+  "signInWithApple": "Sign in with Apple",
+  "@signInWithApple": {
+    "description": "Sign-in button."
+  },
+  "signInWithGoogle": "Sign in with Google",
+  "@signInWithGoogle": {
+    "description": "Sign-in button."
+  },
+  "agreeToTerms": "I agree to the {terms} and {privacy}.",
+  "@agreeToTerms": {
+    "description": "Sign-in agreement line. terms and privacy are the tappable links \"Terms of Service\" and \"Privacy Policy\".",
+    "placeholders": {
+      "terms": {
+        "type": "String"
+      },
+      "privacy": {
+        "type": "String"
+      }
+    }
+  },
+  "termsOfService": "Terms of Service",
+  "@termsOfService": {
+    "description": "Link and page title."
+  },
+  "privacyPolicy": "Privacy Policy",
+  "@privacyPolicy": {
+    "description": "Link and page title."
+  },
+  "lastUsed": "Last used",
+  "@lastUsed": {
+    "description": "Small pill on the sign-in button the user used last time."
+  },
+  "agreeToTheTerms": "Agree to the terms",
+  "@agreeToTheTerms": {
+    "description": "Accessibility label of the agreement checkbox."
+  },
+  "noBrowserOnline": "No browser is online.",
+  "@noBrowserOnline": {
+    "description": "Browser list when no browser with the extension is online."
+  },
+  "browsers": "Browsers",
+  "@browsers": {
+    "description": "Title of the browser picker sheet."
+  },
+  "howToConnect": "How to connect",
+  "@howToConnect": {
+    "description": "Title of the connection guide page and its button."
+  },
+  "connectStep1Title": "Install the extension on your computer",
+  "@connectStep1Title": {
+    "description": "Connection guide, step 1 title."
+  },
+  "connectStep1Body": "On your computer, open Chrome or Safari and go to {host}.",
+  "@connectStep1Body": {
+    "description": "Connection guide, step 1. host: a web address like \"zappit.tv/get\".",
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "sendLink": "Send link",
+  "@sendLink": {
+    "description": "Button: share the extension install link."
+  },
+  "installExtensionShare": "Install the Zappit extension: {url}",
+  "@installExtensionShare": {
+    "description": "Text shared by the \"Send link\" button.",
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "copyLink": "Copy link",
+  "@copyLink": {
+    "description": "Button: copy the extension install link."
+  },
+  "linkCopied": "Link copied",
+  "@linkCopied": {
+    "description": "Snackbar after copying a link."
+  },
+  "connectStep2Title": "Sign in with the same account",
+  "@connectStep2Title": {
+    "description": "Connection guide, step 2 title."
+  },
+  "connectStep2Body": "Click the Zappit icon in the browser toolbar and sign in with the account you use here.",
+  "@connectStep2Body": {
+    "description": "Connection guide, step 2 (email unknown)."
+  },
+  "connectStep2BodyEmail": "Click the Zappit icon in the browser toolbar and sign in as {email}.",
+  "@connectStep2BodyEmail": {
+    "description": "Connection guide, step 2. email: the signed-in account.",
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "connectStep3Title": "Play a video",
+  "@connectStep3Title": {
+    "description": "Connection guide, step 3 title."
+  },
+  "connectStep3Body": "Keep the browser open. The remote connects on its own and turns green.",
+  "@connectStep3Body": {
+    "description": "Connection guide, step 3."
+  },
+  "proFeatureDedicatedControllers": "Unlock dedicated controllers",
+  "@proFeatureDedicatedControllers": {
+    "description": "Pro page feature list."
+  },
+  "proFeatureAllSpeeds": "All playback speeds",
+  "@proFeatureAllSpeeds": {
+    "description": "Pro page feature list."
+  },
+  "proFeatureVoiceBoost": "Unlimited Voice Boost",
+  "@proFeatureVoiceBoost": {
+    "description": "Pro page feature list. Voice Boost is a feature name."
+  },
+  "proFeatureFullLoop": "Unlimited Full Video Loop",
+  "@proFeatureFullLoop": {
+    "description": "Pro page feature list."
+  },
+  "proFeatureAbLoop": "Unlimited A-B Loop",
+  "@proFeatureAbLoop": {
+    "description": "Pro page feature list."
+  },
+  "storeUnavailable": "The store is not available right now. Please try again later.",
+  "@storeUnavailable": {
+    "description": "Snackbar: the app store products could not be loaded."
+  },
+  "welcomeToPro": "Welcome to {proName}",
+  "@welcomeToPro": {
+    "description": "Snackbar after buying. proName: \"Zappit Pro\".",
+    "placeholders": {
+      "proName": {
+        "type": "String"
+      }
+    }
+  },
+  "proRestored": "{proName} restored",
+  "@proRestored": {
+    "description": "Snackbar after restoring purchases. proName: \"Zappit Pro\".",
+    "placeholders": {
+      "proName": {
+        "type": "String"
+      }
+    }
+  },
+  "freeTrial": "Free trial",
+  "@freeTrial": {
+    "description": "Pill on the yearly plan when the trial length is unknown."
+  },
+  "freeTrialDays": "{count}-day free trial",
+  "@freeTrialDays": {
+    "description": "Pill on the yearly plan.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "freeTrialWeeks": "{count}-week free trial",
+  "@freeTrialWeeks": {
+    "description": "Pill on the yearly plan.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "freeTrialMonths": "{count}-month free trial",
+  "@freeTrialMonths": {
+    "description": "Pill on the yearly plan.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "freeTrialYears": "{count}-year free trial",
+  "@freeTrialYears": {
+    "description": "Pill on the yearly plan.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "back": "Back",
+  "@back": {
+    "description": "Back button."
+  },
+  "proPreviewEndedSubtitle": "Your Pro preview has ended. Keep every Pro feature with {proName}.",
+  "@proPreviewEndedSubtitle": {
+    "description": "Pro page subtitle after the free preview ended. proName: \"Zappit Pro\".",
+    "placeholders": {
+      "proName": {
+        "type": "String"
+      }
+    }
+  },
+  "proSubtitle": "Unleash the full power of your remote.",
+  "@proSubtitle": {
+    "description": "Pro page subtitle."
+  },
+  "proPreviewActiveBanner": "Your free Pro preview is active until {date}. Subscribe before it ends to seamlessly keep all Pro features.",
+  "@proPreviewActiveBanner": {
+    "description": "Pro page banner while the free preview runs. date: e.g. \"Nov 19\".",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "unavailable": "Unavailable",
+  "@unavailable": {
+    "description": "Pro page when no plan can be loaded."
+  },
+  "yearly": "Yearly",
+  "@yearly": {
+    "description": "Plan name."
+  },
+  "monthly": "Monthly",
+  "@monthly": {
+    "description": "Plan name."
+  },
+  "justPerMonth": "Just {price}/mo",
+  "@justPerMonth": {
+    "description": "Yearly plan: its price per month. price: e.g. \"$2.50\".",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "trialTermsDays": "Starts with a {count}-day free trial, then {price}/year.",
+  "@trialTermsDays": {
+    "description": "Small print on the yearly plan.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "trialTermsMonths": "Starts with a {count}-month free trial, then {price}/year.",
+  "@trialTermsMonths": {
+    "description": "Small print on the yearly plan.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "trialTermsYears": "Starts with a {count}-year free trial, then {price}/year.",
+  "@trialTermsYears": {
+    "description": "Small print on the yearly plan.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "trialTerms": "Starts with a free trial, then {price}/year.",
+  "@trialTerms": {
+    "description": "Small print on the yearly plan (trial length unknown).",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "pricePerYear": "{price} / year",
+  "@pricePerYear": {
+    "description": "Plan price.",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "pricePerMonth": "{price} / month",
+  "@pricePerMonth": {
+    "description": "Plan price.",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "savePercent": "Save {percent}%",
+  "@savePercent": {
+    "description": "Badge on the yearly plan.",
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "cancelAnytime": "Cancel anytime in your store account.",
+  "@cancelAnytime": {
+    "description": "Pro page note under the plans."
+  },
+  "manageSubscription": "Manage subscription",
+  "@manageSubscription": {
+    "description": "Pro page button for subscribers."
+  },
+  "startFreeTrial": "Start free trial",
+  "@startFreeTrial": {
+    "description": "Pro page button."
+  },
+  "subscribe": "Subscribe",
+  "@subscribe": {
+    "description": "Pro page button."
+  },
+  "restorePurchases": "Restore purchases",
+  "@restorePurchases": {
+    "description": "Pro page link."
+  },
+  "youreConnected": "You're connected!",
+  "@youreConnected": {
+    "description": "Dialog title the first time the app connects to the browser."
+  },
+  "proPreviewStarted": "Enjoy all Zappit Pro features free for {days} days. No credit card required, no auto-charge.",
+  "@proPreviewStarted": {
+    "description": "Dialog message when the free Pro preview starts.",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "gotIt": "Got it",
+  "@gotIt": {
+    "description": "Dialog button."
+  },
+  "proPreviewEndsTomorrow": "Pro preview ends tomorrow",
+  "@proPreviewEndsTomorrow": {
+    "description": "Top notice on the last day of the free preview."
+  },
+  "tapToKeepPro": "Tap to keep every Pro feature.",
+  "@tapToKeepPro": {
+    "description": "Top notice message: tapping opens the Pro page."
+  },
+  "proPreviewEndedTitle": "Your Pro preview has ended",
+  "@proPreviewEndedTitle": {
+    "description": "Popup title when the free preview has ended (shown once, with the app open or on the next launch)."
+  },
+  "proPreviewEndedMessage": "Thanks for trying Zappit Pro! Subscribe to keep enjoying every Pro feature seamlessly.",
+  "@proPreviewEndedMessage": {
+    "description": "Popup message when the free preview has ended."
+  },
+  "learnMore": "Learn More",
+  "@learnMore": {
+    "description": "Popup button: opens the Pro page."
+  },
+  "proSubscriptionEnded": "Your Pro subscription has ended",
+  "@proSubscriptionEnded": {
+    "description": "Top notice when the subscription ends while a Pro sheet is open."
+  },
+  "purchaseNotActivated": "Purchase not activated",
+  "@purchaseNotActivated": {
+    "description": "Alert title."
+  },
+  "purchaseNotActivatedMessage": "Your purchase went through but Pro is not active yet. Try Restore purchases.",
+  "@purchaseNotActivatedMessage": {
+    "description": "Alert message."
+  },
+  "purchaseCancelled": "Purchase cancelled",
+  "@purchaseCancelled": {
+    "description": "Alert title."
+  },
+  "purchaseCancelledMessage": "Nothing was charged. You can try again anytime.",
+  "@purchaseCancelledMessage": {
+    "description": "Alert message."
+  },
+  "paymentPending": "Payment pending",
+  "@paymentPending": {
+    "description": "Alert title."
+  },
+  "paymentPendingMessage": "Pro turns on as soon as the store confirms your payment.",
+  "@paymentPendingMessage": {
+    "description": "Alert message."
+  },
+  "purchaseFailed": "Purchase failed",
+  "@purchaseFailed": {
+    "description": "Alert title."
+  },
+  "nothingToRestore": "Nothing to restore",
+  "@nothingToRestore": {
+    "description": "Alert title."
+  },
+  "nothingToRestoreMessage": "No active Zappit Pro subscription was found for this store account.",
+  "@nothingToRestoreMessage": {
+    "description": "Alert message."
+  },
+  "restoreFailed": "Restore failed",
+  "@restoreFailed": {
+    "description": "Alert title."
+  },
+  "checkConnection": "Check your internet connection and try again.",
+  "@checkConnection": {
+    "description": "Error message: no network."
+  },
+  "purchasesNotAllowed": "Purchases are not allowed on this device or account.",
+  "@purchasesNotAllowed": {
+    "description": "Error message."
+  },
+  "alreadySubscribed": "You already own this subscription. Try Restore purchases.",
+  "@alreadySubscribed": {
+    "description": "Error message."
+  },
+  "storeProblem": "The store had a problem. Please try again in a moment.",
+  "@storeProblem": {
+    "description": "Error message."
+  },
+  "trialReminderTitle": "Trial reminder",
+  "@trialReminderTitle": {
+    "description": "Dialog title after starting a free trial."
+  },
+  "trialReminderMessage": "Want us to remind you the day before your free trial ends, so you're never charged by surprise?",
+  "@trialReminderMessage": {
+    "description": "Dialog message."
+  },
+  "remindMe": "Remind me",
+  "@remindMe": {
+    "description": "Dialog button."
+  },
+  "noThanks": "No thanks",
+  "@noThanks": {
+    "description": "Dialog button."
+  },
+  "trialReminderBody": "Your free trial ends tomorrow. You'll be charged {price} on {date}. If you don't want to continue, cancel your subscription before then.",
+  "@trialReminderBody": {
+    "description": "Notification text. price: e.g. \"$29.99\". date: e.g. \"Nov 19\".",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "trialReminderNotificationTitle": "Zappit Pro free trial ends soon",
+  "@trialReminderNotificationTitle": {
+    "description": "Notification title."
+  },
+  "trialReminderChannel": "Free trial reminder",
+  "@trialReminderChannel": {
+    "description": "Android notification channel name."
+  },
+  "trialReminderChannelDescription": "A reminder before your free trial ends",
+  "@trialReminderChannelDescription": {
+    "description": "Android notification channel description."
+  },
+  "enterValidLink": "Enter a link that starts with http or https",
+  "@enterValidLink": {
+    "description": "Error under the link field."
+  },
+  "couldNotGetVideoLink": "Couldn't get the video link",
+  "@couldNotGetVideoLink": {
+    "description": "Snackbar: opening the video in the phone app failed."
+  },
+  "shufflingPlaylist": "Shuffling this playlist",
+  "@shufflingPlaylist": {
+    "description": "Snackbar after turning shuffle on."
+  },
+  "shuffleOffNotice": "Shuffle off",
+  "@shuffleOffNotice": {
+    "description": "Snackbar after turning shuffle off."
+  },
+  "repeatingPlaylist": "Repeating this playlist",
+  "@repeatingPlaylist": {
+    "description": "Snackbar after turning playlist repeat on."
+  },
+  "repeatOffNotice": "Repeat off",
+  "@repeatOffNotice": {
+    "description": "Snackbar after turning playlist repeat off."
+  },
+  "seasonNumber": "Season {number}",
+  "@seasonNumber": {
+    "description": "Netflix season name when the site gives none.",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "extensionUpdatedReload": "The Zappit extension was updated. Reload this page to keep using all controls.",
+  "@extensionUpdatedReload": {
+    "description": "Banner on the remote when the browser tab needs a reload."
+  },
+  "reload": "Reload",
+  "@reload": {
+    "description": "Button: reload the browser tab."
+  },
+  "categories": "Categories",
+  "@categories": {
+    "description": "Netflix genre list: sheet title and button."
+  },
+  "searchCategories": "Search categories",
+  "@searchCategories": {
+    "description": "Search field hint in the Netflix Categories sheet."
+  },
+  "clear": "Clear",
+  "@clear": {
+    "description": "Button: clear the search field."
+  },
+  "noCategoriesFound": "No categories found",
+  "@noCategoriesFound": {
+    "description": "Netflix Categories search found nothing."
+  },
+  "chapters": "Chapters",
+  "@chapters": {
+    "description": "Chapters sheet title and block title."
+  },
+  "chaptersDuringAd": "Chapters can't be skipped during an ad",
+  "@chaptersDuringAd": {
+    "description": "Snackbar."
+  },
+  "episodes": "Episodes",
+  "@episodes": {
+    "description": "Episodes sheet title and button."
+  },
+  "couldNotLoadEpisodes": "Couldn't load episodes",
+  "@couldNotLoadEpisodes": {
+    "description": "Episodes sheet error."
+  },
+  "watching": "Watching",
+  "@watching": {
+    "description": "Marks the episode being watched."
+  },
+  "minutesShort": "{count} min",
+  "@minutesShort": {
+    "description": "Short duration in minutes.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "playlist": "Playlist",
+  "@playlist": {
+    "description": "Playlist sheet title (when the playlist has no name) and block title."
+  },
+  "couldNotLoadPlaylist": "Couldn't load the playlist",
+  "@couldNotLoadPlaylist": {
+    "description": "Playlist sheet error."
+  },
+  "playing": "Playing",
+  "@playing": {
+    "description": "Marks the playlist video being played."
+  },
+  "sleepTimer": "Sleep Timer",
+  "@sleepTimer": {
+    "description": "Sleep timer sheet title."
+  },
+  "off": "Off",
+  "@off": {
+    "description": "Sleep timer option: turned off."
+  },
+  "minutesCount": "{count, plural, one{1 minute} other{{count} minutes}}",
+  "@minutesCount": {
+    "description": "Sleep timer option.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "endOfVideo": "End of video",
+  "@endOfVideo": {
+    "description": "Sleep timer option: stop when the video ends."
+  },
+  "notAvailableForLive": "Not available for live",
+  "@notAvailableForLive": {
+    "description": "Sleep timer: \"End of video\" is not available for live streams (short)."
+  },
+  "notAvailableForLiveStreams": "Not available for live streams",
+  "@notAvailableForLiveStreams": {
+    "description": "Notice: \"End of video\" is not available for live streams."
+  },
+  "videoLengthUnknown": "This video's length is unknown",
+  "@videoLengthUnknown": {
+    "description": "Notice: \"End of video\" needs the video length."
+  },
+  "captions": "Captions",
+  "@captions": {
+    "description": "Captions sheet title."
+  },
+  "chapterPosition": "Chapter {current}/{total}",
+  "@chapterPosition": {
+    "description": "Chapter block: which chapter is playing.",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "previousChapter": "Previous chapter",
+  "@previousChapter": {
+    "description": "Accessibility label."
+  },
+  "nextChapter": "Next chapter",
+  "@nextChapter": {
+    "description": "Accessibility label."
+  },
+  "replay": "Replay",
+  "@replay": {
+    "description": "Accessibility label: play from the start."
+  },
+  "backSeconds": "Back {count} seconds",
+  "@backSeconds": {
+    "description": "Accessibility label: seek back.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "play": "Play",
+  "@play": {
+    "description": "Button / accessibility label."
+  },
+  "pause": "Pause",
+  "@pause": {
+    "description": "Accessibility label."
+  },
+  "forwardSeconds": "Forward {count} seconds",
+  "@forwardSeconds": {
+    "description": "Accessibility label: seek forward.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "turnOffAbFirst": "Turn off the A-B loop first",
+  "@turnOffAbFirst": {
+    "description": "Snackbar: the full loop is blocked while an A-B loop runs."
+  },
+  "notAvailableDuringAd": "Not available during an ad",
+  "@notAvailableDuringAd": {
+    "description": "Snackbar."
+  },
+  "notAvailableForPhotos": "Not available for photo posts",
+  "@notAvailableForPhotos": {
+    "description": "Snackbar: the post is a photo, not a video."
+  },
+  "liveCantRewind": "This live stream can't be rewound",
+  "@liveCantRewind": {
+    "description": "Snackbar."
+  },
+  "abOffForLive": "A-B loop is off for live streams",
+  "@abOffForLive": {
+    "description": "Snackbar."
+  },
+  "cantSeekVideo": "Can't seek in this video",
+  "@cantSeekVideo": {
+    "description": "Snackbar."
+  },
+  "loopOn": "Loop on",
+  "@loopOn": {
+    "description": "Accessibility label."
+  },
+  "loopOff": "Loop off",
+  "@loopOff": {
+    "description": "Accessibility label."
+  },
+  "hideChat": "Hide chat",
+  "@hideChat": {
+    "description": "Accessibility label: live chat."
+  },
+  "showChat": "Show chat",
+  "@showChat": {
+    "description": "Accessibility label: live chat."
+  },
+  "frameByFrame": "Frame by frame",
+  "@frameByFrame": {
+    "description": "Accessibility label of the frame dial above the timeline (drag to step one frame at a time)."
+  },
+  "theaterMode": "Theater mode",
+  "@theaterMode": {
+    "description": "Accessibility label."
+  },
+  "exitFullScreen": "Exit full screen",
+  "@exitFullScreen": {
+    "description": "Accessibility label."
+  },
+  "fullScreen": "Full screen",
+  "@fullScreen": {
+    "description": "Accessibility label."
+  },
+  "sleepTimerLabel": "Sleep timer",
+  "@sleepTimerLabel": {
+    "description": "Accessibility label of the sleep timer button."
+  },
+  "loopStart": "Loop start",
+  "@loopStart": {
+    "description": "Accessibility label: A-B loop start point."
+  },
+  "loopEnd": "Loop end",
+  "@loopEnd": {
+    "description": "Accessibility label: A-B loop end point."
+  },
+  "nextVideo": "Next video",
+  "@nextVideo": {
+    "description": "Accessibility label."
+  },
+  "previousVideo": "Previous video",
+  "@previousVideo": {
+    "description": "Accessibility label."
+  },
+  "lastVideoInPlaylist": "This is the last video in the playlist",
+  "@lastVideoInPlaylist": {
+    "description": "Snackbar."
+  },
+  "shuffleOn": "Shuffle on",
+  "@shuffleOn": {
+    "description": "Accessibility label."
+  },
+  "shuffleOff": "Shuffle off",
+  "@shuffleOff": {
+    "description": "Accessibility label."
+  },
+  "mixCantShuffle": "This playlist keeps playing new videos endlessly, so it can't be shuffled",
+  "@mixCantShuffle": {
+    "description": "Snackbar: a YouTube mix."
+  },
+  "playlistCantShuffle": "This playlist can't be shuffled",
+  "@playlistCantShuffle": {
+    "description": "Snackbar."
+  },
+  "repeatOn": "Repeat on",
+  "@repeatOn": {
+    "description": "Accessibility label: playlist repeat."
+  },
+  "repeatOff": "Repeat off",
+  "@repeatOff": {
+    "description": "Accessibility label: playlist repeat."
+  },
+  "mixCantRepeat": "This playlist keeps playing new videos endlessly, so it can't be repeated",
+  "@mixCantRepeat": {
+    "description": "Snackbar: a YouTube mix."
+  },
+  "playlistCantRepeat": "This playlist can't be repeated",
+  "@playlistCantRepeat": {
+    "description": "Snackbar."
+  },
+  "home": "Home",
+  "@home": {
+    "description": "Button / accessibility label: the site home page."
+  },
+  "noPreviousPage": "There is no previous page to go back to",
+  "@noPreviousPage": {
+    "description": "Snackbar."
+  },
+  "captionsOn": "Captions on",
+  "@captionsOn": {
+    "description": "Accessibility label."
+  },
+  "captionsOff": "Captions off",
+  "@captionsOff": {
+    "description": "Accessibility label."
+  },
+  "captionLanguage": "Caption language",
+  "@captionLanguage": {
+    "description": "Accessibility label."
+  },
+  "smallerCaptions": "Smaller captions",
+  "@smallerCaptions": {
+    "description": "Accessibility label."
+  },
+  "largerCaptions": "Larger captions",
+  "@largerCaptions": {
+    "description": "Accessibility label."
+  },
+  "nextEpisode": "Next episode",
+  "@nextEpisode": {
+    "description": "Button."
+  },
+  "noNextEpisode": "No next episode",
+  "@noNextEpisode": {
+    "description": "Snackbar."
+  },
+  "skipAd": "Skip Ad",
+  "@skipAd": {
+    "description": "Button."
+  },
+  "skipIntro": "Skip Intro",
+  "@skipIntro": {
+    "description": "Button."
+  },
+  "noSubtitles": "This video has no subtitles",
+  "@noSubtitles": {
+    "description": "Snackbar."
+  },
+  "speedTrialOver": "Back to 1x. Free users can use this speed for {count} seconds.",
+  "@speedTrialOver": {
+    "description": "Snackbar when the free speed trial ends.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "secondsShort": "{count}s",
+  "@secondsShort": {
+    "description": "Seconds left of a free trial, e.g. \"7s\".",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "voiceBoostTrialOver": "Voice Boost is off. Free users can use Voice Boost for {count} seconds.",
+  "@voiceBoostTrialOver": {
+    "description": "Snackbar when the free Voice Boost trial ends. Voice Boost is a feature name.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "voiceBoostTrialLeft": "Voice Boost trial, {count} seconds left",
+  "@voiceBoostTrialLeft": {
+    "description": "Accessibility label.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "voiceBoostOn": "Voice Boost on",
+  "@voiceBoostOn": {
+    "description": "Accessibility label."
+  },
+  "voiceBoostOff": "Voice Boost off",
+  "@voiceBoostOff": {
+    "description": "Accessibility label."
+  },
+  "voiceBoostDuringAd": "Voice Boost isn't available during an ad",
+  "@voiceBoostDuringAd": {
+    "description": "Snackbar."
+  },
+  "voiceBoostUnsupported": "This video doesn't support Voice Boost",
+  "@voiceBoostUnsupported": {
+    "description": "Snackbar."
+  },
+  "youreOffline": "You're offline",
+  "@youreOffline": {
+    "description": "Remote overlay title: the phone has no internet."
+  },
+  "cantReachBrowser": "Can't reach a browser",
+  "@cantReachBrowser": {
+    "description": "Remote overlay title: no browser is connected."
+  },
+  "offlineMessage": "Check your internet connection. Zappit reconnects on its own.",
+  "@offlineMessage": {
+    "description": "Remote overlay message when offline."
+  },
+  "noBrowserMessage": "Open Chrome or Safari on your computer and make sure the Zappit extension is signed in to this account.",
+  "@noBrowserMessage": {
+    "description": "Remote overlay message when no browser is connected."
+  },
+  "chooseBrowser": "Choose a browser",
+  "@chooseBrowser": {
+    "description": "Title: pick which browser the remote controls."
+  },
+  "multipleBrowsersMessage": "Multiple browsers are online. Pick the one this remote should control.",
+  "@multipleBrowsersMessage": {
+    "description": "Message under \"Choose a browser\"."
+  },
+  "upNextCountdown": "Up next · plays in {count} s",
+  "@upNextCountdown": {
+    "description": "YouTube autoplay countdown.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "upNext": "Up next",
+  "@upNext": {
+    "description": "YouTube autoplay: the next video."
+  },
+  "playNow": "Play now",
+  "@playNow": {
+    "description": "Button: play the next video now."
+  },
+  "chooseNextVideo": "Choose next video",
+  "@chooseNextVideo": {
+    "description": "Title over the end-screen video picker."
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Button / accessibility label."
+  },
+  "youtubeHome": "YouTube home",
+  "@youtubeHome": {
+    "description": "Accessibility label: go to the YouTube home page."
+  },
+  "watchAgain": "Watch again",
+  "@watchAgain": {
+    "description": "Accessibility label: play the ended video again."
+  },
+  "yourBrowser": "your browser",
+  "@yourBrowser": {
+    "description": "Used in a sentence when the browser has no name: \"It opens in a new tab in your browser.\""
+  },
+  "openALink": "Open a link",
+  "@openALink": {
+    "description": "Title of the link panel."
+  },
+  "pasteVideoLink": "Paste a video link",
+  "@pasteVideoLink": {
+    "description": "Hint in the link field."
+  },
+  "paste": "Paste",
+  "@paste": {
+    "description": "Accessibility label: paste from the clipboard."
+  },
+  "send": "Send",
+  "@send": {
+    "description": "Button: send the link to the browser."
+  },
+  "linkPanelHint": "Paste a video link and tap Send. It opens in a new tab in your browser.",
+  "@linkPanelHint": {
+    "description": "Hint under the link field in the link panel."
+  },
+  "noVideosOnPage": "There are no videos on this page.",
+  "@noVideosOnPage": {
+    "description": "D-pad screen: the browse page has no videos."
+  },
+  "left": "Left",
+  "@left": {
+    "description": "Accessibility label: d-pad."
+  },
+  "up": "Up",
+  "@up": {
+    "description": "Accessibility label: d-pad."
+  },
+  "down": "Down",
+  "@down": {
+    "description": "Accessibility label: d-pad."
+  },
+  "right": "Right",
+  "@right": {
+    "description": "Accessibility label: d-pad."
+  },
+  "select": "Select",
+  "@select": {
+    "description": "D-pad button on the Netflix profile picker."
+  },
+  "selectVideoInBrowser": "Select a video in your browser",
+  "@selectVideoInBrowser": {
+    "description": "Remote screen on a browse page with nothing playing."
+  },
+  "nothingPlaying": "Nothing playing",
+  "@nothingPlaying": {
+    "description": "Remote screen title when no video is playing."
+  },
+  "nothingPlayingMessage": "No video is playing right now. Pick another tab, or paste a video link.",
+  "@nothingPlayingMessage": {
+    "description": "Remote screen message when no video is playing."
+  },
+  "pickVideosWithPro": "Pick videos from your phone with Pro",
+  "@pickVideosWithPro": {
+    "description": "Upsell button for free users on browse pages."
+  },
+  "pickATab": "Pick a tab",
+  "@pickATab": {
+    "description": "Button: go to the Tabs screen."
+  },
+  "pasteALink": "Paste a link",
+  "@pasteALink": {
+    "description": "Button: open the link panel."
+  },
+  "openOneToStart": "Open one of these to start",
+  "@openOneToStart": {
+    "description": "Title over the site shortcuts."
+  },
+  "openSite": "Open {site}",
+  "@openSite": {
+    "description": "Accessibility label of a site shortcut. site: e.g. \"YouTube\".",
+    "placeholders": {
+      "site": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteSettings": "Remote settings",
+  "@remoteSettings": {
+    "description": "Accessibility label."
+  },
+  "playInApp": "Play in app",
+  "@playInApp": {
+    "description": "Accessibility label: open the video in the phone app."
+  },
+  "connectBrowserFirst": "Connect to a browser first",
+  "@connectBrowserFirst": {
+    "description": "Snackbar."
+  },
+  "playVideoFirst": "Play a video in the browser first",
+  "@playVideoFirst": {
+    "description": "Snackbar."
+  },
+  "cantOpenOnPhone": "This video can't be opened on the phone",
+  "@cantOpenOnPhone": {
+    "description": "Snackbar."
+  },
+  "openLinkInBrowser": "Open a link in the browser",
+  "@openLinkInBrowser": {
+    "description": "Accessibility label."
+  },
+  "connected": "Connected",
+  "@connected": {
+    "description": "Connection status."
+  },
+  "notConnected": "Not connected",
+  "@notConnected": {
+    "description": "Connection status."
+  },
+  "noBrowserSelected": "No browser selected",
+  "@noBrowserSelected": {
+    "description": "Connection status detail."
+  },
+  "noBrowserOnlineShort": "No browser online",
+  "@noBrowserOnlineShort": {
+    "description": "Connection status detail."
+  },
+  "offline": "Offline",
+  "@offline": {
+    "description": "Connection status detail."
+  },
+  "nextTab": "Next tab",
+  "@nextTab": {
+    "description": "Accessibility label."
+  },
+  "previousTab": "Previous tab",
+  "@previousTab": {
+    "description": "Accessibility label."
+  },
+  "noMoreTabs": "No more tabs",
+  "@noMoreTabs": {
+    "description": "Snackbar."
+  },
+  "ytShorts": "Shorts",
+  "@ytShorts": {
+    "description": "YouTube menu: Shorts (use YouTube's own name in your language)."
+  },
+  "ytSubscriptions": "Subscriptions",
+  "@ytSubscriptions": {
+    "description": "YouTube menu (use YouTube's own name in your language)."
+  },
+  "ytYou": "You",
+  "@ytYou": {
+    "description": "YouTube menu: the \"You\" section (use YouTube's own name)."
+  },
+  "ytExplore": "Explore",
+  "@ytExplore": {
+    "description": "YouTube menu: the \"Explore\" section (use YouTube's own name)."
+  },
+  "ytHistory": "History",
+  "@ytHistory": {
+    "description": "YouTube page (use YouTube's own name)."
+  },
+  "ytPlaylists": "Playlists",
+  "@ytPlaylists": {
+    "description": "YouTube page (use YouTube's own name)."
+  },
+  "ytWatchLater": "Watch Later",
+  "@ytWatchLater": {
+    "description": "YouTube page (use YouTube's own name)."
+  },
+  "ytLikedVideos": "Liked Videos",
+  "@ytLikedVideos": {
+    "description": "YouTube page (use YouTube's own name)."
+  },
+  "ytDownloads": "Downloads",
+  "@ytDownloads": {
+    "description": "YouTube page (use YouTube's own name)."
+  },
+  "ytMusic": "Music",
+  "@ytMusic": {
+    "description": "YouTube page (use YouTube's own name)."
+  },
+  "ytHype": "Hype",
+  "@ytHype": {
+    "description": "YouTube page (use YouTube's own name)."
+  },
+  "ytLive": "Live",
+  "@ytLive": {
+    "description": "YouTube page (use YouTube's own name)."
+  },
+  "ytGaming": "Gaming",
+  "@ytGaming": {
+    "description": "YouTube page (use YouTube's own name)."
+  },
+  "ytCourses": "Courses",
+  "@ytCourses": {
+    "description": "YouTube page (use YouTube's own name)."
+  },
+  "ytPodcasts": "Podcasts",
+  "@ytPodcasts": {
+    "description": "YouTube page (use YouTube's own name)."
+  },
+  "ytMemberships": "Memberships",
+  "@ytMemberships": {
+    "description": "YouTube page (use YouTube's own name)."
+  },
+  "ytVideos": "Videos",
+  "@ytVideos": {
+    "description": "YouTube channel tab (use YouTube's own name)."
+  },
+  "channelLabel": "Channel: {name}",
+  "@channelLabel": {
+    "description": "Accessibility label of the YouTube channel button.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "fullPowerUnlocked": "Full power unlocked",
+  "@fullPowerUnlocked": {
+    "description": "More tab Pro banner for subscribers."
+  },
+  "proPreviewUntil": "Pro preview until {date}",
+  "@proPreviewUntil": {
+    "description": "More tab Pro banner during the free preview. date: e.g. \"Nov 19\".",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "proBannerSubtitle": "Unleash the full power of your remote",
+  "@proBannerSubtitle": {
+    "description": "More tab Pro banner for free users."
+  },
+  "view": "View",
+  "@view": {
+    "description": "Pro banner button for subscribers."
+  },
+  "upgrade": "Upgrade",
+  "@upgrade": {
+    "description": "Pro banner button for free users."
+  },
+  "supportedSites": "Supported sites",
+  "@supportedSites": {
+    "description": "More tab row and page title."
+  },
+  "support": "Support",
+  "@support": {
+    "description": "More tab section title."
+  },
+  "tutorial": "Tutorial",
+  "@tutorial": {
+    "description": "More tab row and page title."
+  },
+  "contactUs": "Contact us",
+  "@contactUs": {
+    "description": "More tab row."
+  },
+  "tellAFriend": "Tell a friend",
+  "@tellAFriend": {
+    "description": "More tab row."
+  },
+  "rateZappit": "Rate Zappit",
+  "@rateZappit": {
+    "description": "More tab row."
+  },
+  "account": "Account",
+  "@account": {
+    "description": "More tab section title."
+  },
+  "deleteAccountMenu": "Delete account",
+  "@deleteAccountMenu": {
+    "description": "More tab row."
+  },
+  "contactUsKeepInfo": "Please don't delete the info below.",
+  "@contactUsKeepInfo": {
+    "description": "Support email body, above the app version and device info."
+  },
+  "generalSettings": "General Settings",
+  "@generalSettings": {
+    "description": "Remote settings section."
+  },
+  "longPressSpeed": "Long Press Speed",
+  "@longPressSpeed": {
+    "description": "Remote settings: speed while holding Play."
+  },
+  "abLoopCount": "A-B Loop Count",
+  "@abLoopCount": {
+    "description": "Remote settings: how many times the A-B loop repeats."
+  },
+  "seekInterval": "Seek Interval",
+  "@seekInterval": {
+    "description": "Remote settings: seconds per skip."
+  },
+  "siteSettings": "{site} Settings",
+  "@siteSettings": {
+    "description": "Remote settings section for the current site. site: e.g. \"YouTube\".",
+    "placeholders": {
+      "site": {
+        "type": "String"
+      }
+    }
+  },
+  "noSiteSettings": "No settings for this site yet.",
+  "@noSiteSettings": {
+    "description": "Remote settings: the site has no settings."
+  },
+  "qualityNotChanged": "The quality didn't change",
+  "@qualityNotChanged": {
+    "description": "Snackbar."
+  },
+  "videoQuality": "Video Quality",
+  "@videoQuality": {
+    "description": "Remote settings: YouTube video quality."
+  },
+  "couldNotReadQuality": "Couldn't read the quality options from the page.",
+  "@couldNotReadQuality": {
+    "description": "Remote settings error."
+  },
+  "noLinkInShare": "No link found in what you shared",
+  "@noLinkInShare": {
+    "description": "Snackbar after sharing text without a link to the app."
+  },
+  "waitingForBrowser": "Waiting for your browser…",
+  "@waitingForBrowser": {
+    "description": "Snackbar: a shared link waits for the browser to connect."
+  },
+  "couldNotOpenLink": "Couldn't open the link",
+  "@couldNotOpenLink": {
+    "description": "Top notice title."
+  },
+  "noBrowserConnectedShare": "No browser is connected. Open your browser with Zappit signed in and try again.",
+  "@noBrowserConnectedShare": {
+    "description": "Top notice message: a shared link could not be sent."
+  },
+  "openingIn": "Opening in {browser}…",
+  "@openingIn": {
+    "description": "Snackbar while sending a shared link. browser: e.g. \"Chrome · Mac\" or \"your browser\".",
+    "placeholders": {
+      "browser": {
+        "type": "String"
+      }
+    }
+  },
+  "openedIn": "Opened in {browser}",
+  "@openedIn": {
+    "description": "Snackbar after sending a shared link. browser: e.g. \"Chrome · Mac\" or \"your browser\".",
+    "placeholders": {
+      "browser": {
+        "type": "String"
+      }
+    }
+  },
+  "tabRemote": "Remote",
+  "@tabRemote": {
+    "description": "Bottom tab."
+  },
+  "tabTabs": "Tabs",
+  "@tabTabs": {
+    "description": "Bottom tab: the browser tabs list."
+  },
+  "tabMore": "More",
+  "@tabMore": {
+    "description": "Bottom tab."
+  },
+  "supportedSitesIntro": "These sites get a dedicated remote built for them. On any other site, Zappit works as a standard remote.",
+  "@supportedSitesIntro": {
+    "description": "Supported sites page intro."
+  },
+  "reorderSite": "Reorder {site}",
+  "@reorderSite": {
+    "description": "Accessibility label of a site's drag handle. site: e.g. \"YouTube\".",
+    "placeholders": {
+      "site": {
+        "type": "String"
+      }
+    }
+  },
+  "noOpenTabs": "No open tabs",
+  "@noOpenTabs": {
+    "description": "Tabs screen: the browser has no tabs."
+  },
+  "windowNumber": "Window {number}",
+  "@windowNumber": {
+    "description": "Tabs screen section: a browser window.",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "untitled": "Untitled",
+  "@untitled": {
+    "description": "A browser tab with no title."
+  },
+  "noBrowser": "No browser",
+  "@noBrowser": {
+    "description": "Tabs screen title when no browser is online."
+  },
+  "pickBrowserForTabs": "Pick the browser this remote should control to see its tabs.",
+  "@pickBrowserForTabs": {
+    "description": "Tabs screen message."
+  },
+  "openBrowserForTabs": "Open your browser with the Zappit extension signed in to see its tabs.",
+  "@openBrowserForTabs": {
+    "description": "Tabs screen message."
+  },
+  "cantLoadPage": "Can't load this page",
+  "@cantLoadPage": {
+    "description": "Web page error title."
+  },
+  "checkConnectionShort": "Check your connection and try again.",
+  "@checkConnectionShort": {
+    "description": "Web page error message."
+  },
+  "tryAgain": "Try again",
+  "@tryAgain": {
+    "description": "Button."
+  },
+  "adBadge": "AD",
+  "@adBadge": {
+    "description": "Badge on the timeline while an ad plays. Keep it very short."
+  },
+  "liveBadge": "LIVE",
+  "@liveBadge": {
+    "description": "Badge on the timeline for a live stream. Keep it very short."
+  },
+  "unmute": "Unmute",
+  "@unmute": {
+    "description": "Accessibility label."
+  },
+  "mute": "Mute",
+  "@mute": {
+    "description": "Accessibility label."
+  },
+  "volumeDown": "Volume down",
+  "@volumeDown": {
+    "description": "Accessibility label."
+  },
+  "volumeUp": "Volume up",
+  "@volumeUp": {
+    "description": "Accessibility label."
+  },
+  "siteWeb": "Web",
+  "@siteWeb": {
+    "description": "Name for any website other than the supported ones (YouTube, Netflix, …)."
+  },
+  "favorites": "Favorites",
+  "@favorites": {
+    "description": "Supported sites: section of the user's favorite sites (shown in \"Open one of these to start\")."
+  },
+  "allSites": "All sites",
+  "@allSites": {
+    "description": "Supported sites: section listing every supported site, A to Z."
+  },
+  "favoritesEmptyHint": "Tap the star on a site to add it here.",
+  "@favoritesEmptyHint": {
+    "description": "Supported sites: Favorites is empty."
+  },
+  "reorderHint": "Touch and hold an item, then drag to reorder",
+  "@reorderHint": {
+    "description": "Supported sites: hint under Favorites."
+  },
+  "removedFromFavorites": "{site} removed from Favorites",
+  "@removedFromFavorites": {
+    "description": "Snackbar after taking a site out of Favorites (with Undo). site: e.g. \"YouTube\".",
+    "placeholders": {
+      "site": {
+        "type": "String"
+      }
+    }
+  },
+  "undo": "Undo",
+  "@undo": {
+    "description": "Snackbar button."
+  },
+  "addToFavorites": "Add {site} to Favorites",
+  "@addToFavorites": {
+    "description": "Accessibility label of the star. site: e.g. \"YouTube\".",
+    "placeholders": {
+      "site": {
+        "type": "String"
+      }
+    }
+  },
+  "removeFromFavorites": "Remove {site} from Favorites",
+  "@removeFromFavorites": {
+    "description": "Accessibility label of the filled star. site: e.g. \"YouTube\".",
+    "placeholders": {
+      "site": {
+        "type": "String"
+      }
+    }
   }
 }

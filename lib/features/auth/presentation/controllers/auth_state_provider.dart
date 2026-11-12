@@ -12,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 part 'auth_state_provider.g.dart';
 
@@ -61,7 +62,7 @@ class AuthState extends _$AuthState {
       await FirebaseAuth.instance.signInWithProvider(appleProvider);
     } on FirebaseAuthException catch (e) {
       _pendingLoginMethod = null;
-      state = AuthStateError(e.message ?? 'Apple sign in failed');
+      state = AuthStateError(e.message ?? getIt<S>().appleSignInFailed);
     } catch (e) {
       _pendingLoginMethod = null;
       state = AuthStateError(e.toString());
@@ -83,7 +84,7 @@ class AuthState extends _$AuthState {
       }
 
       if (!signIn.supportsAuthenticate()) {
-        state = AuthStateError('Google Sign In is not supported on this platform');
+        state = AuthStateError(getIt<S>().googleSignInUnsupported);
         return;
       }
 
@@ -100,7 +101,7 @@ class AuthState extends _$AuthState {
       state = AuthStateError(e.toString());
     } on FirebaseAuthException catch (e) {
       _pendingLoginMethod = null;
-      state = AuthStateError(e.message ?? 'Google sign in failed');
+      state = AuthStateError(e.message ?? getIt<S>().googleSignInFailed);
     } catch (e) {
       _pendingLoginMethod = null;
       state = AuthStateError(e.toString());
@@ -134,7 +135,7 @@ class AuthState extends _$AuthState {
         await GoogleSignIn.instance.signOut();
       }
     } on FirebaseAuthException catch (e) {
-      AppNotice.snack(e.message ?? 'Sign out failed', error: true);
+      AppNotice.snack(e.message ?? getIt<S>().signOutFailed, error: true);
     } catch (e) {
       AppNotice.snack(e.toString(), error: true);
     }
@@ -157,10 +158,10 @@ class AuthState extends _$AuthState {
       if (result.data['success'] == true) {
         await signOut();
       } else {
-        AppNotice.snack(result.data['message'] ?? 'Account deletion failed.', error: true);
+        AppNotice.snack(result.data['message'] ?? getIt<S>().accountDeletionFailed, error: true);
       }
     } on FirebaseFunctionsException catch (e) {
-      AppNotice.snack(e.message ?? 'Account deletion failed. Please try again.', error: true);
+      AppNotice.snack(e.message ?? getIt<S>().accountDeletionFailedTryAgain, error: true);
     } on SignInWithAppleAuthorizationException {
       // User cancelled the Apple confirmation; nothing was deleted.
     } catch (e) {

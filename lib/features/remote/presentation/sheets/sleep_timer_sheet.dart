@@ -3,12 +3,15 @@ import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/features/remote/controllers/playback_controller.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
+import 'package:zappit/features/remote/controllers/target_controller.dart';
 import 'package:zappit/protocol/messages.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Off · 10 · 15 · 20 · 30 · 45 · 60 minutes · End of video (YouTube's options).
+/// No "End of video" on short-form sites: their videos loop, so it never comes.
 Future<void> showSleepTimerSheet(BuildContext context, WidgetRef ref) {
-  return ZpSheet.show<void>(context, title: 'Sleep Timer', builder: (_) => const _SleepTimerOptions());
+  return ZpSheet.show<void>(context, title: S.of(context).sleepTimer, builder: (_) => const _SleepTimerOptions());
 }
 
 class _SleepTimerOptions extends ConsumerWidget {
@@ -22,6 +25,7 @@ class _SleepTimerOptions extends ConsumerWidget {
     final controller = ref.read(remoteControllerProvider);
     final snapshot = view.snapshot;
     final mode = snapshot?.sleepMode ?? SleepMode.off;
+    final shortForm = ref.watch(targetProvider.select((t) => t?.isShortForm ?? false));
 
     // Which preset is running: the closest preset to the remaining time.
     int? activeMinutes;
@@ -43,31 +47,32 @@ class _SleepTimerOptions extends ConsumerWidget {
     return ZpGroup(
       children: [
         ZpListRow(
-          title: 'Off',
+          title: S.of(context).off,
           centered: true,
           selected: mode == SleepMode.off,
           onTap: () => pick(() => controller.setSleepTimer(0)),
         ),
         for (final m in _minutes)
           ZpListRow(
-            title: '$m minutes',
+            title: S.of(context).minutesCount(m),
             centered: true,
             selected: activeMinutes == m,
             onTap: () => pick(() => controller.setSleepTimer(m)),
           ),
-        ZpListRow(
-          title: 'End of video',
-          subtitle: view.isLive ? 'Not available for live' : (remainingVideo != null ? '$remainingVideo min' : null),
-          centered: true,
-          minHeight: 64,
-          selected: mode == SleepMode.endOfVideo,
-          onTap: view.isLive || !view.hasDuration ? null : () => pick(controller.sleepAtEndOfVideo),
-          onDisabledTap: () => AppNotice.top(
-            title: view.isLive ? 'Not available for live streams' : "This video's length is unknown",
-            icon: Icons.info_outline_rounded,
-            error: false,
+        if (!shortForm)
+          ZpListRow(
+            title: S.of(context).endOfVideo,
+            subtitle: view.isLive ? S.of(context).notAvailableForLive : (remainingVideo != null ? S.of(context).minutesShort(remainingVideo) : null),
+            centered: true,
+            minHeight: 64,
+            selected: mode == SleepMode.endOfVideo,
+            onTap: view.isLive || !view.hasDuration ? null : () => pick(controller.sleepAtEndOfVideo),
+            onDisabledTap: () => AppNotice.top(
+              title: view.isLive ? S.of(context).notAvailableForLiveStreams : S.of(context).videoLengthUnknown,
+              icon: Icons.info_outline_rounded,
+              error: false,
+            ),
           ),
-        ),
       ],
     );
   }

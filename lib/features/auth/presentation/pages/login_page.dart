@@ -13,6 +13,7 @@ import 'package:zappit/features/auth/presentation/controllers/auth_state_provide
 import 'package:zappit/shared/widgets/default_activity_indicator.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
 import 'package:zappit/shared/widgets/web_view_page.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Sign in with Apple / Google. The consent checkbox must be ticked first.
 class LoginPage extends ConsumerStatefulWidget {
@@ -26,7 +27,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   bool _agreed = false;
   bool _busy = false;
 
-  void _needAgreement() => AppNotice.snack('Agree to the Terms and Privacy Policy first');
+  void _needAgreement() => AppNotice.snack(S.of(context).agreeFirst);
 
   Future<void> _run(Future<void> Function() signIn) async {
     if (!_agreed || _busy) return;
@@ -40,6 +41,26 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   void _openWeb(String title, String url) =>
       context.push(AppRoutes.webView, extra: WebViewArgs(title: title, url: url));
+
+  /// "I agree to the Terms of Service and Privacy Policy." with the two
+  /// names as links, wherever the translation puts them.
+  List<TextSpan> _agreementSpans(BuildContext context, TextStyle linkStyle) {
+    final s = S.of(context);
+    const termsMark = '\u0001';
+    const privacyMark = '\u0002';
+    final links = {
+      termsMark: (s.termsOfService, termsOfServiceUrl),
+      privacyMark: (s.privacyPolicy, privacyPolicyUrl),
+    };
+    final sentence = s.agreeToTerms(termsMark, privacyMark);
+    return [
+      for (final part in sentence.split(RegExp('(?=[$termsMark$privacyMark])|(?<=[$termsMark$privacyMark])')))
+        if (links[part] case (final title, final url))
+          TextSpan(text: title, style: linkStyle, recognizer: TapGestureRecognizer()..onTap = () => _openWeb(title, url))
+        else if (part.isNotEmpty)
+          TextSpan(text: part),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +96,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       Text(Strings.appTitle, style: AppText.bigTitle.copyWith(fontSize: 30, color: t.ink)),
                       const SizedBox(height: AppTokens.space3),
                       Text(
-                        'Sit back. Control your browser from anywhere.',
+                        S.of(context).loginTagline,
                         textAlign: TextAlign.center,
                         style: AppText.body.copyWith(fontSize: 16, color: t.inkMuted),
                       ),
@@ -83,7 +104,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       _LastUsed(
                         show: lastMethod == AuthProvider.apple.name,
                         child: ZpButton(
-                          label: 'Sign in with Apple',
+                          label: S.of(context).signInWithApple,
                           style: ZpButtonStyle.ink,
                           icon: const Icon(Icons.apple, size: 24),
                           onPressed: _agreed ? () => _run(auth.signInWithApple) : null,
@@ -94,7 +115,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       _LastUsed(
                         show: lastMethod == AuthProvider.google.name,
                         child: ZpButton(
-                          label: 'Sign in with Google',
+                          label: S.of(context).signInWithGoogle,
                           icon: Image.asset('assets/images/google_logo_256.png', width: 20, height: 20),
                           onPressed: _agreed ? () => _run(auth.signInWithGoogle) : null,
                           onDisabledTap: _needAgreement,
@@ -115,23 +136,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 textAlign: TextAlign.center,
                                 TextSpan(
                                   style: AppText.body.copyWith(color: t.inkMuted),
-                                  children: [
-                                    const TextSpan(text: 'I agree to the '),
-                                    TextSpan(
-                                      text: 'Terms of Service',
-                                      style: linkStyle,
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () => _openWeb('Terms of Service', termsOfServiceUrl),
-                                    ),
-                                    const TextSpan(text: ' and '),
-                                    TextSpan(
-                                      text: 'Privacy Policy',
-                                      style: linkStyle,
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () => _openWeb('Privacy Policy', privacyPolicyUrl),
-                                    ),
-                                    const TextSpan(text: '.'),
-                                  ],
+                                  children: _agreementSpans(context, linkStyle),
                                 ),
                               ),
                             ),
@@ -178,7 +183,7 @@ class _LastUsed extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppTokens.radiusFull),
                 border: Border.all(color: ZpAppIcon.background, width: 2),
               ),
-              child: Text('Last used', style: AppText.label.copyWith(fontSize: 12, fontWeight: FontWeight.w600, color: t.onAccent)),
+              child: Text(S.of(context).lastUsed, style: AppText.label.copyWith(fontSize: 12, fontWeight: FontWeight.w600, color: t.onAccent)),
             ),
           ),
         ),
@@ -197,7 +202,7 @@ class _CheckBox extends StatelessWidget {
     final t = context.tokens;
     return Semantics(
       checked: checked,
-      label: 'Agree to the terms',
+      label: S.of(context).agreeToTheTerms,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 120),
         width: 24,

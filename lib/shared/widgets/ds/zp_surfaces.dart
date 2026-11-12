@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:zappit/core/extensions/context_extensions.dart';
 import 'package:zappit/core/theme/app_tokens.dart';
 import 'package:zappit/shared/widgets/ds/zp_pressable.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Empty state (`.zp-empty`): round glyph, title, message, actions.
 class ZpEmptyState extends StatelessWidget {
@@ -205,14 +206,16 @@ class ZpSheet extends StatelessWidget {
   final Widget child;
   final bool scrollable;
 
-  static Future<T?> show<T>(BuildContext context, {required String title, required WidgetBuilder builder}) {
+  /// [scrollable] false: the child scrolls itself (a long list) and gets the
+  /// sheet's full height.
+  static Future<T?> show<T>(BuildContext context, {required String title, required WidgetBuilder builder, bool scrollable = true}) {
     return showModalBottomSheet<T>(
       context: context,
       useRootNavigator: true,
       isScrollControlled: true,
       useSafeArea: true,
       barrierColor: context.tokens.scrim,
-      builder: (context) => ZpSheet(title: title, child: builder(context)),
+      builder: (context) => ZpSheet(title: title, scrollable: scrollable, child: builder(context)),
     );
   }
 
@@ -253,7 +256,7 @@ class ZpSheet extends StatelessWidget {
                     child: IconButton(
                       onPressed: () => Navigator.of(context).maybePop(),
                       icon: Icon(Icons.close_rounded, color: t.ink),
-                      tooltip: 'Close',
+                      tooltip: S.of(context).close,
                     ),
                   ),
                 ],

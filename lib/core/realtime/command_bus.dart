@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
@@ -14,6 +15,7 @@ import 'package:zappit/protocol/messages.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/protocol/remote_command.dart';
 import 'package:zappit/shared/widgets/web_view_page.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 part 'command_bus.g.dart';
 
@@ -92,6 +94,9 @@ class CommandBus {
       return Ack.local(requestId, AckError.timeout);
     });
 
+    // TEMP diagnosis ("No video is playing" repeating): remove after.
+    if (kDebugMode && !ack.ok) debugPrint('[zappit-ack] ${command.fn} ${command.args} -> ${ack.error} ${ack.message} handleErrors=$handleErrors');
+
     if (!ack.ok && handleErrors) {
       if (ack.error == AckError.timeout) {
         _showTimeout(target.label);
@@ -114,8 +119,8 @@ class CommandBus {
     if (now.difference(_lastTimeoutNotice) < const Duration(seconds: 5)) return;
     _lastTimeoutNotice = now;
     AppNotice.top(
-      title: 'Browser not responding',
-      message: "$browserLabel didn't answer. Check that it's open.",
+      title: getIt<S>().browserNotResponding,
+      message: getIt<S>().browserDidNotAnswer(browserLabel),
     );
   }
 
@@ -123,31 +128,32 @@ class CommandBus {
   /// every time; tapping it opens the Q&A entry.
   void _showSoundBlocked() {
     AppNotice.top(
-      title: "Why can't I hear anything?",
-      message: 'Tap to see how to turn the sound on.',
+      title: getIt<S>().soundBlockedTitle,
+      message: getIt<S>().soundBlockedMessage,
       icon: Icons.volume_off_rounded,
       error: false,
       onTap: () => rootNavigatorKey.currentContext?.push(
         AppRoutes.webView,
-        extra: const WebViewArgs(title: 'Sound', url: soundBlockedHelpUrl),
+        extra: WebViewArgs(title: getIt<S>().soundHelpTitle, url: soundBlockedHelpUrl),
       ),
     );
   }
 
   /// User-facing text for a failed ack.
   static String messageFor(Ack ack) {
+    final s = getIt<S>();
     return switch (ack.error) {
-      AckError.notFound => ack.message ?? "Couldn't find that button on the page",
-      AckError.notSupported => "This site doesn't support that",
-      AckError.noMedia => 'No video is playing',
-      AckError.isAd => "Can't do that during an ad",
-      AckError.startAfterEnd => 'The start point must be before the end point',
-      AckError.endBeforeStart => 'The end point must be after the start point',
-      AckError.notChanged => "The site didn't change it",
-      AckError.tabNotFound => 'That tab is already closed',
-      AckError.invalidUrl => 'That link can’t be opened',
-      AckError.noBrowser => 'No browser is selected',
-      _ => ack.message ?? 'Something went wrong',
+      AckError.notFound => ack.message ?? s.errorButtonNotFound,
+      AckError.notSupported => s.errorNotSupported,
+      AckError.noMedia => s.errorNoMedia,
+      AckError.isAd => s.errorDuringAd,
+      AckError.startAfterEnd => s.errorStartAfterEnd,
+      AckError.endBeforeStart => s.errorEndBeforeStart,
+      AckError.notChanged => s.errorNotChanged,
+      AckError.tabNotFound => s.errorTabClosed,
+      AckError.invalidUrl => s.errorInvalidUrl,
+      AckError.noBrowser => s.errorNoBrowser,
+      _ => ack.message ?? s.errorGeneric,
     };
   }
 

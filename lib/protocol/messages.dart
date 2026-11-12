@@ -33,6 +33,20 @@ final class TargetInfo {
 
   bool has(Capability capability) => capabilities.contains(capability);
 
+  TargetInfo withCapabilities(Set<Capability> capabilities) => TargetInfo(
+    instanceId: instanceId,
+    tabId: tabId,
+    site: site,
+    page: page,
+    isShortForm: isShortForm,
+    title: title,
+    hasMedia: hasMedia,
+    capabilities: capabilities,
+    hasLeftTab: hasLeftTab,
+    hasRightTab: hasRightTab,
+    timestamp: timestamp,
+  );
+
   /// YouTube or Netflix home where the d-pad replaces "nothing playing".
   bool get isSpatialHome => page == PageKind.home && has(Capability.spatialNav);
 
@@ -169,6 +183,37 @@ enum EndScreenMode {
       EndScreenMode.values.firstWhere((m) => (m._wire ?? m.name) == value, orElse: () => none);
 }
 
+/// The YouTube video's channel (`state.channel`).
+final class ChannelInfo {
+  const ChannelInfo({required this.name, this.subscribers, this.avatar, this.handle, this.tabs});
+
+  final String name;
+
+  /// YouTube's own text ("131K subscribers"), in the page's language.
+  final String? subscribers;
+  final String? avatar;
+
+  /// TikTok "@id": the second line when there is no subscriber count.
+  final String? handle;
+
+  /// The channel's pages; null until the extension has read them (offer all).
+  final List<ChannelTab>? tabs;
+
+  static ChannelInfo? fromJson(Object? raw) {
+    final json = asJsonMap(raw);
+    final name = asString(json['name']);
+    if (name == null || name.isEmpty) return null;
+    final tabs = json['tabs'];
+    return ChannelInfo(
+      name: name,
+      subscribers: asString(json['subscribers']),
+      avatar: asString(json['avatar']),
+      handle: asString(json['handle']),
+      tabs: tabs is List ? [for (final tab in ChannelTab.values) if (tabs.contains(tab.wire)) tab] : null,
+    );
+  }
+}
+
 /// `state` event: site UI state snapshot.
 final class SiteState {
   const SiteState({
@@ -191,6 +236,8 @@ final class SiteState {
     this.focusCard,
     this.noCards = false,
     this.canGoBack = false,
+    this.profilePicker = false,
+    this.channel,
     this.fullscreen = false,
     this.playlist = const PlaylistState(),
     this.needsReload = false,
@@ -221,6 +268,12 @@ final class SiteState {
 
   /// The tab can go back to an earlier page of the same site (`go_back`).
   final bool canGoBack;
+
+  /// Netflix "Who's watching?": the d-pad picks a profile, not a title.
+  final bool profilePicker;
+
+  /// The YouTube video's channel (watch page).
+  final ChannelInfo? channel;
 
   /// The video is full screen (the page's own, or the browser window).
   final bool fullscreen;
@@ -257,6 +310,8 @@ final class SiteState {
       focusCard: VideoCard.fromJson(json['focusCard']),
       noCards: asBool(json['noCards']),
       canGoBack: asBool(json['canGoBack']),
+      profilePicker: asBool(json['profilePicker']),
+      channel: ChannelInfo.fromJson(json['channel']),
       fullscreen: asBool(json['fullscreen']),
       playlist: PlaylistState.fromJson(json['playlist']),
       needsReload: asBool(json['needsReload']),

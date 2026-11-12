@@ -10,6 +10,7 @@ import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/core/utils/link_utils.dart';
 import 'package:zappit/features/connection/connection_controller.dart';
 import 'package:zappit/protocol/remote_command.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 part 'share_intent_controller.g.dart';
 
@@ -101,7 +102,7 @@ class ShareIntentController extends _$ShareIntentController {
     if (!_clock.isRunning) _clock.start();
     _log('link ${url != null}');
     if (url == null) {
-      if (text.trim().isNotEmpty) AppNotice.snack('No link found in what you shared');
+      if (text.trim().isNotEmpty) AppNotice.snack(getIt<S>().noLinkInShare);
       return false;
     }
     _pending = url.toString();
@@ -121,15 +122,15 @@ class ShareIntentController extends _$ShareIntentController {
     final status = ref.read(connectionStatusProvider);
     _log('flush: phase ${status.phase.name} canSend=${status.canSendCommands}');
     if (!status.canSendCommands) {
-      if (_giveUp == null) AppNotice.snack('Waiting for your browser…');
+      if (_giveUp == null) AppNotice.snack(getIt<S>().waitingForBrowser);
       _giveUp ??= Timer(_waitForBrowser, () {
         _giveUp = null;
         _log('gave up, pending=${_pending != null}');
         if (_pending == null) return;
         _pending = null;
         AppNotice.top(
-          title: "Couldn't open the link",
-          message: 'No browser is connected. Open your browser with Zappit signed in and try again.',
+          title: getIt<S>().couldNotOpenLink,
+          message: getIt<S>().noBrowserConnectedShare,
         );
       });
       return;
@@ -138,10 +139,10 @@ class ShareIntentController extends _$ShareIntentController {
     _giveUp?.cancel();
     _giveUp = null;
     _pending = null;
-    AppNotice.snack('Opening in ${status.selectedLabel ?? 'your browser'}…');
+    AppNotice.snack(getIt<S>().openingIn(status.selectedLabel ?? getIt<S>().yourBrowser));
     _log('sending open_url');
     final ack = await ref.read(commandBusProvider).send(RemoteCommand.openUrl(url));
     _log('ack ok=${ack.ok} error=${ack.error}');
-    if (ack.ok) AppNotice.snack('Opened in ${status.selectedLabel ?? 'your browser'}');
+    if (ack.ok) AppNotice.snack(getIt<S>().openedIn(status.selectedLabel ?? getIt<S>().yourBrowser));
   }
 }

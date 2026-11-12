@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="YRO-k0-Ey4">
-                                <rect key="frame" x="96.666666666666686" y="326" width="200" height="200"/>
+                                <rect key="frame" x="121.66666666666669" y="351" width="150" height="150"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="Abm-jT-lra"/>
-                                    <constraint firstAttribute="width" constant="200" id="CR7-TQ-e7K"/>
+                                    <constraint firstAttribute="height" constant="150" id="Abm-jT-lra"/>
+                                    <constraint firstAttribute="width" constant="150" id="CR7-TQ-e7K"/>
                                 </constraints>
                             </imageView>
                         </subviews>

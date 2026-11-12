@@ -6,6 +6,7 @@ import 'package:zappit/core/constants/config.dart';
 import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/features/auth/presentation/controllers/auth_state_provider.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Onboarding: get the extension on the computer and sign in with the same
 /// account. The install link can be sent to the computer (mail, messages…).
@@ -16,11 +17,12 @@ class HowToConnectPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
     final email = ref.watch(authStateProvider.notifier).email;
+    final s = S.of(context);
     const host = 'zappit.tv/get';
 
     return Scaffold(
       backgroundColor: t.bgBase,
-      appBar: AppBar(title: const Text('How to connect')),
+      appBar: AppBar(title: Text(s.howToConnect)),
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
@@ -30,29 +32,29 @@ class HowToConnectPage extends ConsumerWidget {
               children: [
                 _Step(
                   number: 1,
-                  title: 'Install the extension on your computer',
-                  body: 'On your computer, open Chrome or Safari and go to $host.',
+                  title: s.connectStep1Title,
+                  body: s.connectStep1Body(host),
                   trailing: Row(
                     children: [
                       Expanded(
                         child: ZpButton(
-                          label: 'Send link',
+                          label: s.sendLink,
                           height: AppTokens.targetMin,
                           icon: const Icon(Icons.ios_share_rounded),
                           onPressed: () => SharePlus.instance.share(
-                            ShareParams(text: 'Install the Zappit extension: $getExtensionUrl'),
+                            ShareParams(text: s.installExtensionShare(getExtensionUrl)),
                           ),
                         ),
                       ),
                       const SizedBox(width: AppTokens.space2),
                       Expanded(
                         child: ZpButton(
-                          label: 'Copy link',
+                          label: s.copyLink,
                           height: AppTokens.targetMin,
                           icon: const Icon(Icons.copy_rounded),
                           onPressed: () async {
                             await Clipboard.setData(const ClipboardData(text: getExtensionUrl));
-                            AppNotice.snack('Link copied');
+                            AppNotice.snack(s.linkCopied);
                           },
                         ),
                       ),
@@ -62,16 +64,16 @@ class HowToConnectPage extends ConsumerWidget {
                 const SizedBox(height: AppTokens.space4),
                 _Step(
                   number: 2,
-                  title: 'Sign in with the same account',
+                  title: s.connectStep2Title,
                   body: email == null
-                      ? 'Click the Zappit icon in the browser toolbar and sign in with the account you use here.'
-                      : 'Click the Zappit icon in the browser toolbar and sign in as $email.',
+                      ? s.connectStep2Body
+                      : s.connectStep2BodyEmail(email),
                 ),
                 const SizedBox(height: AppTokens.space4),
-                const _Step(
+                _Step(
                   number: 3,
-                  title: 'Play a video',
-                  body: 'Keep the browser open. The remote connects on its own and turns green.',
+                  title: s.connectStep3Title,
+                  body: s.connectStep3Body,
                 ),
               ],
             ),

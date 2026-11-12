@@ -3,11 +3,12 @@ import 'dart:async';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/utils/app_notice.dart';
-import 'package:zappit/features/purchase/pro_controller.dart';
+import 'package:zappit/features/purchase/pro_preview.dart';
 import 'package:zappit/features/remote/controllers/playback_controller.dart';
 import 'package:zappit/features/remote/controllers/playback_math.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Playback speed presets, with a temporary button for an off-preset rate and
 /// a countdown under a Pro preset during the free 5 s trial.
@@ -44,7 +45,7 @@ class _SpeedBlockState extends ConsumerState<SpeedBlock> {
   Widget build(BuildContext context) {
     final rate = ref.watch(playbackControllerProvider.select((v) => v.rate));
     final trialEndsAt = ref.watch(playbackControllerProvider.select((v) => v.snapshot?.speedTrialEndsAt));
-    final isPro = ref.watch(proControllerProvider);
+    final isPro = ref.watch(proAccessProvider);
     final hasData = ref.watch(playbackControllerProvider.select((v) => v.hasData));
     final isPhoto = ref.watch(playbackControllerProvider.select((v) => v.isPhoto));
     _ensureTicker(trialEndsAt);
@@ -58,8 +59,8 @@ class _SpeedBlockState extends ConsumerState<SpeedBlock> {
         // Ran out, not cut short by picking another speed.
         final expired = started != null &&
             DateTime.now().difference(started) >= const Duration(seconds: RemoteController.proTrialSeconds - 1);
-        if (expired && !ref.read(proControllerProvider)) {
-          AppNotice.snack('Back to 1x. Free users can use this speed for ${RemoteController.proTrialSeconds} seconds.');
+        if (expired && !ref.read(proAccessProvider)) {
+          AppNotice.snack(S.of(context).speedTrialOver(RemoteController.proTrialSeconds));
         }
       }
     });
@@ -74,7 +75,7 @@ class _SpeedBlockState extends ConsumerState<SpeedBlock> {
           value: value,
           label: PlaybackMath.speedLabel(value),
           dimmed: !isPro && !PlaybackMath.isFreeSpeed(value) && PlaybackMath.matchingPreset(value) != null,
-          caption: trialLeft > 0 && value == selected ? '${trialLeft}s' : null,
+          caption: trialLeft > 0 && value == selected ? S.of(context).secondsShort(trialLeft) : null,
         ),
     ];
 
@@ -92,7 +93,7 @@ class _SpeedBlockState extends ConsumerState<SpeedBlock> {
     // Photo post: greyed out, and a tap says why.
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => AppNotice.snack('Not available for photo posts'),
+      onTap: () => AppNotice.snack(S.of(context).notAvailableForPhotos),
       child: Opacity(opacity: 0.38, child: control),
     );
   }

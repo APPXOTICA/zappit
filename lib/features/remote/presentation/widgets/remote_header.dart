@@ -13,6 +13,7 @@ import 'package:zappit/features/remote/controllers/target_controller.dart';
 import 'package:zappit/features/remote/presentation/widgets/link_panel.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Fixed header: top bar (remote settings · ‹ site badge › · open in app ·
 /// open link) and the connection pill. The arrows switch to the tab left or
@@ -46,7 +47,7 @@ class RemoteHeader extends ConsumerWidget {
                     alignment: Alignment.centerLeft,
                     child: ZpIconButton(
                       size: ZpIconButtonSize.sm,
-                      semanticLabel: 'Remote settings',
+                      semanticLabel: S.of(context).remoteSettings,
                       onPressed: () => context.push(AppRoutes.remoteSettings),
                       child: const Icon(Icons.tune_rounded, size: 28),
                     ),
@@ -75,22 +76,22 @@ class RemoteHeader extends ConsumerWidget {
                     children: [
                       ZpIconButton(
                         size: ZpIconButtonSize.sm,
-                        semanticLabel: 'Play in app',
+                        semanticLabel: S.of(context).playInApp,
                         onPressed: canOpenInApp ? controller.openInNativeApp : null,
                         onDisabledTap: () => AppNotice.snack(
                           !connected
-                              ? 'Connect to a browser first'
+                              ? S.of(context).connectBrowserFirst
                               : mode != RemoteMode.playing
-                                  ? 'Play a video in the browser first'
-                                  : "This video can't be opened on the phone",
+                                  ? S.of(context).playVideoFirst
+                                  : S.of(context).cantOpenOnPhone,
                         ),
                         child: const ZpImageIcon('assets/images/import.svg', size: 28),
                       ),
                       ZpIconButton(
                         size: ZpIconButtonSize.sm,
-                        semanticLabel: 'Open a link in the browser',
+                        semanticLabel: S.of(context).openLinkInBrowser,
                         onPressed: connected ? () => showLinkPanel(context, ref) : null,
-                        onDisabledTap: () => AppNotice.snack('Connect to a browser first'),
+                        onDisabledTap: () => AppNotice.snack(S.of(context).connectBrowserFirst),
                         child: const ZpImageIcon('assets/images/export.svg', size: 28),
                       ),
                     ],
@@ -103,12 +104,12 @@ class RemoteHeader extends ConsumerWidget {
         const SizedBox(height: 4),
         ZpConnectionStatus(
           connected: status.isGreen,
-          stateLabel: status.isGreen ? 'Connected' : 'Not connected',
+          stateLabel: status.isGreen ? S.of(context).connected : S.of(context).notConnected,
           deviceLabel: switch (status.phase) {
             ConnectionPhase.connected => status.selectedLabel,
-            ConnectionPhase.notSelected => 'No browser selected',
-            ConnectionPhase.noBrowser => 'No browser online',
-            ConnectionPhase.offline => 'Offline',
+            ConnectionPhase.notSelected => S.of(context).noBrowserSelected,
+            ConnectionPhase.noBrowser => S.of(context).noBrowserOnlineShort,
+            ConnectionPhase.offline => S.of(context).offline,
           },
           onTap: status.browsers.isEmpty ? null : () => showBrowserPicker(context, ref),
         ),
@@ -134,9 +135,9 @@ class _TabArrow extends StatelessWidget {
       width: 32,
       child: ZpIconButton(
         size: ZpIconButtonSize.sm,
-        semanticLabel: right ? 'Next tab' : 'Previous tab',
+        semanticLabel: right ? S.of(context).nextTab : S.of(context).previousTab,
         onPressed: enabled ? onPressed : null,
-        onDisabledTap: () => AppNotice.snack('No more tabs'),
+        onDisabledTap: () => AppNotice.snack(S.of(context).noMoreTabs),
         child: Icon(right ? Icons.chevron_right_rounded : Icons.chevron_left_rounded, size: 22),
       ),
     );

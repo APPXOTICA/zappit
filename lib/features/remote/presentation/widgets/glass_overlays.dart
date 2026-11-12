@@ -11,6 +11,7 @@ import 'package:zappit/features/remote/presentation/widgets/mode_views.dart';
 import 'package:zappit/protocol/messages.dart';
 import 'package:zappit/protocol/remote_command.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// The four glass covers (UI Strategies): Not connected, No browser selected,
 /// YouTube Up next, and Choose next video. Covers the remote, not the nav.
@@ -58,13 +59,13 @@ class _DisconnectedCard extends ConsumerWidget {
       child: ZpDialogCard(
         icon: Icons.link_off_rounded,
         iconColor: context.tokens.signalOff,
-        title: offline ? "You're offline" : "Can't reach a browser",
+        title: offline ? S.of(context).youreOffline : S.of(context).cantReachBrowser,
         message: offline
-            ? 'Check your internet connection. Zappit reconnects on its own.'
-            : 'Open Chrome or Safari on your computer and make sure the Zappit extension is signed in to this account.',
+            ? S.of(context).offlineMessage
+            : S.of(context).noBrowserMessage,
         children: [
           ZpButton(
-            label: 'How to connect',
+            label: S.of(context).howToConnect,
             height: AppTokens.targetMin,
             onPressed: () => context.push(AppRoutes.howToConnect),
           ),
@@ -83,8 +84,8 @@ class _ChooseBrowserCard extends StatelessWidget {
       child: SingleChildScrollView(
         child: ZpDialogCard(
           icon: Icons.desktop_windows_outlined,
-          title: 'Choose a browser',
-          message: 'Multiple browsers are online. Pick the one this remote should control.',
+          title: S.of(context).chooseBrowser,
+          message: S.of(context).multipleBrowsersMessage,
           children: [BrowserList(color: context.tokens.surface200)],
         ),
       ),
@@ -111,7 +112,7 @@ class _UpNext extends ConsumerWidget {
           children: [
             const Spacer(),
             Text(
-              countdown != null ? 'Up next · plays in $countdown s' : 'Up next',
+              countdown != null ? S.of(context).upNextCountdown(countdown) : S.of(context).upNext,
               style: AppText.body.copyWith(color: t.accentText),
             ),
             const SizedBox(height: AppTokens.space4),
@@ -121,7 +122,7 @@ class _UpNext extends ConsumerWidget {
               children: [
                 Expanded(
                   child: ZpButton(
-                    label: 'Cancel',
+                    label: S.of(context).cancel,
                     height: 64,
                     textStyle: AppText.button.copyWith(fontSize: 18),
                     onPressed: controller.endScreenCancel,
@@ -130,7 +131,7 @@ class _UpNext extends ConsumerWidget {
                 const SizedBox(width: AppTokens.space3),
                 Expanded(
                   child: ZpButton(
-                    label: 'Play now',
+                    label: S.of(context).playNow,
                     height: 64,
                     style: ZpButtonStyle.ink,
                     icon: const Icon(Icons.play_arrow_rounded),
@@ -168,11 +169,11 @@ class _PickNext extends ConsumerWidget {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Text('Choose next video', style: AppText.body.copyWith(color: t.inkMuted)),
+                  Text(S.of(context).chooseNextVideo, style: AppText.body.copyWith(color: t.inkMuted)),
                   Positioned(
                     right: 0,
                     child: IconButton(
-                      tooltip: 'Close',
+                      tooltip: S.of(context).close,
                       onPressed: controller.endScreenDismiss,
                       icon: Icon(Icons.close_rounded, color: t.ink, size: 28),
                     ),
@@ -183,6 +184,26 @@ class _PickNext extends ConsumerWidget {
             const Spacer(),
             VideoCardView(card: card),
             const Spacer(),
+            // Back to YouTube home, or watch the video that just ended again.
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ZpIconButton(
+                  variant: ZpIconButtonVariant.tonal,
+                  semanticLabel: S.of(context).youtubeHome,
+                  onPressed: controller.goHome,
+                  child: const Icon(Icons.home_rounded, size: 28),
+                ),
+                const SizedBox(width: AppTokens.space4),
+                ZpIconButton(
+                  variant: ZpIconButtonVariant.tonal,
+                  semanticLabel: S.of(context).watchAgain,
+                  onPressed: controller.replay,
+                  child: const Icon(Icons.replay_rounded, size: 28),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppTokens.space3),
             SizedBox(
               height: 96,
               child: Row(
@@ -191,7 +212,7 @@ class _PickNext extends ConsumerWidget {
                   Expanded(
                     child: ZpDirButton(
                       icon: Icons.chevron_left_rounded,
-                      semanticLabel: 'Previous video',
+                      semanticLabel: S.of(context).previousVideo,
                       onPressed: () => controller.nav(NavDirection.left),
                     ),
                   ),
@@ -199,7 +220,7 @@ class _PickNext extends ConsumerWidget {
                   Expanded(
                     child: ZpDirButton(
                       icon: Icons.chevron_right_rounded,
-                      semanticLabel: 'Next video',
+                      semanticLabel: S.of(context).nextVideo,
                       onPressed: () => controller.nav(NavDirection.right),
                     ),
                   ),
@@ -210,7 +231,7 @@ class _PickNext extends ConsumerWidget {
             SizedBox(
               height: 96,
               width: double.infinity,
-              child: ZpDirButton(label: 'Play', filled: true, onPressed: controller.navSelect),
+              child: ZpDirButton(label: S.of(context).play, filled: true, onPressed: controller.navSelect),
             ),
           ],
         ),

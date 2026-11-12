@@ -1,0 +1,510 @@
+[
+ {
+  "code": 34399,
+  "en": "Movies",
+  "items": [
+   {
+    "code": 839338,
+    "en": "Only on Netflix"
+   },
+   {
+    "code": 29764,
+    "en": "Arthouse Films"
+   },
+   {
+    "code": 1701,
+    "en": "Music"
+   }
+  ]
+ },
+ {
+  "code": 83,
+  "en": "TV Shows",
+  "items": [
+   {
+    "code": 26146,
+    "en": "Crime TV Shows"
+   },
+   {
+    "code": 9833,
+    "en": "Reality TV Shows"
+   },
+   {
+    "code": 10673,
+    "en": "Best Action & Adventure Shows"
+   },
+   {
+    "code": 10375,
+    "en": "Best TV Comedy Shows"
+   },
+   {
+    "code": 10105,
+    "en": "Documentary Series"
+   },
+   {
+    "code": 11714,
+    "en": "TV Drama Series"
+   },
+   {
+    "code": 83059,
+    "en": "TV Horror"
+   },
+   {
+    "code": 4366,
+    "en": "TV Mysteries"
+   },
+   {
+    "code": 1372,
+    "en": "Sci-Fi & Fantasy Shows"
+   },
+   {
+    "code": 27346,
+    "en": "Kids TV Shows"
+   },
+   {
+    "code": 60951,
+    "en": "TV for Teens"
+   },
+   {
+    "code": 46553,
+    "en": "Classic TV Shows"
+   },
+   {
+    "code": 52117,
+    "en": "British TV Shows"
+   },
+   {
+    "code": 67879,
+    "en": "Korean TV Shows"
+   }
+  ]
+ },
+ {
+  "code": 1365,
+  "en": "Action & Adventure Movies",
+  "items": [
+   {
+    "code": 43040,
+    "en": "Action Comedy Movies"
+   },
+   {
+    "code": 1568,
+    "en": "Action Sci-Fi & Fantasy"
+   },
+   {
+    "code": 43048,
+    "en": "Action-Thrillers"
+   },
+   {
+    "code": 7442,
+    "en": "Adventure Movies"
+   },
+   {
+    "code": 46576,
+    "en": "Classic Action & Adventure Films"
+   },
+   {
+    "code": 10118,
+    "en": "Superhero Movies"
+   },
+   {
+    "code": 9584,
+    "en": "Crime Action & Adventure Movies"
+   },
+   {
+    "code": 20541,
+    "en": "Hijacking Movies"
+   },
+   {
+    "code": 8985,
+    "en": "Martial Arts Movies"
+   },
+   {
+    "code": 10702,
+    "en": "Spy Action & Adventure Movies"
+   },
+   {
+    "code": 7700,
+    "en": "Western Movies"
+   }
+  ]
+ },
+ {
+  "code": 7424,
+  "en": "Anime",
+  "items": [
+   {
+    "code": 6721,
+    "en": "Anime Series"
+   },
+   {
+    "code": 3063,
+    "en": "Anime Movies"
+   },
+   {
+    "code": 2653,
+    "en": "Action Anime Shows and Movies"
+   },
+   {
+    "code": 2729,
+    "en": "Sci-Fi Anime"
+   },
+   {
+    "code": 11146,
+    "en": "Fantasy Anime"
+   },
+   {
+    "code": 452,
+    "en": "Drama Anime"
+   },
+   {
+    "code": 9302,
+    "en": "Comedy Anime"
+   },
+   {
+    "code": 10695,
+    "en": "Horror Anime"
+   },
+   {
+    "code": 11881,
+    "en": "Adult Animated Movies & Shows"
+   }
+  ]
+ },
+ {
+  "code": 783,
+  "en": "Children & Family Movies",
+  "items": [
+   {
+    "code": 51056,
+    "en": "Family Movies"
+   },
+   {
+    "code": 27346,
+    "en": "Kids TV Shows"
+   },
+   {
+    "code": 11177,
+    "en": "TV Cartoons"
+   },
+   {
+    "code": 10659,
+    "en": "Education for Kids"
+   },
+   {
+    "code": 5507,
+    "en": "Animal Tales"
+   },
+   {
+    "code": 67673,
+    "en": "Disney"
+   }
+  ]
+ },
+ {
+  "code": 6548,
+  "en": "Comedy Movies",
+  "items": [
+   {
+    "code": 5475,
+    "en": "Romantic Comedies"
+   },
+   {
+    "code": 869,
+    "en": "Dark Comedies"
+   },
+   {
+    "code": 89585,
+    "en": "Horror Comedies"
+   },
+   {
+    "code": 26,
+    "en": "Mockumentaries"
+   },
+   {
+    "code": 11559,
+    "en": "Stand-Up Comedy"
+   },
+   {
+    "code": 3519,
+    "en": "Teen Comedies"
+   },
+   {
+    "code": 43040,
+    "en": "Action Comedy Movies"
+   },
+   {
+    "code": 31694,
+    "en": "Classic Comedy Films"
+   },
+   {
+    "code": 7120,
+    "en": "LGBTQ+ Comedy Movies"
+   }
+  ]
+ },
+ {
+  "code": 6839,
+  "en": "Best Documentaries",
+  "items": [
+   {
+    "code": 10105,
+    "en": "Documentary Series"
+   },
+   {
+    "code": 9875,
+    "en": "Crime Documentaries"
+   },
+   {
+    "code": 3652,
+    "en": "Biographical Documentaries"
+   },
+   {
+    "code": 5349,
+    "en": "Historical Documentaries"
+   },
+   {
+    "code": 2595,
+    "en": "Science & Nature Docs"
+   },
+   {
+    "code": 3675,
+    "en": "Social & Cultural Documentaries"
+   },
+   {
+    "code": 180,
+    "en": "Sports Documentaries"
+   },
+   {
+    "code": 4720,
+    "en": "LGBTQ+ Documentaries"
+   }
+  ]
+ },
+ {
+  "code": 5763,
+  "en": "Dramas",
+  "items": [
+   {
+    "code": 1255,
+    "en": "Romantic Drama Movies"
+   },
+   {
+    "code": 3947,
+    "en": "Social Issue Dramas"
+   },
+   {
+    "code": 500,
+    "en": "LGBTQ Dramas"
+   },
+   {
+    "code": 11714,
+    "en": "TV Drama Series"
+   }
+  ]
+ },
+ {
+  "code": 8711,
+  "en": "Essential Horror Flicks",
+  "items": [
+   {
+    "code": 10944,
+    "en": "Cult Horror Movies"
+   },
+   {
+    "code": 89585,
+    "en": "Horror Comedies"
+   },
+   {
+    "code": 947,
+    "en": "Monster Movies"
+   },
+   {
+    "code": 10695,
+    "en": "Horror Anime"
+   },
+   {
+    "code": 83059,
+    "en": "TV Horror"
+   }
+  ]
+ },
+ {
+  "code": 78367,
+  "en": "International Movies",
+  "items": [
+   {
+    "code": 5685,
+    "en": "Korean Movies"
+   },
+   {
+    "code": 67879,
+    "en": "Korean TV Shows"
+   },
+   {
+    "code": 434295,
+    "en": "Taiwanese Movies & TV"
+   },
+   {
+    "code": 107570,
+    "en": "Thai Movies & TV"
+   },
+   {
+    "code": 52117,
+    "en": "British TV Shows"
+   }
+  ]
+ },
+ {
+  "code": 5977,
+  "en": "LGBTQ Movies",
+  "items": [
+   {
+    "code": 500,
+    "en": "LGBTQ Dramas"
+   },
+   {
+    "code": 7120,
+    "en": "LGBTQ+ Comedy Movies"
+   },
+   {
+    "code": 4720,
+    "en": "LGBTQ+ Documentaries"
+   },
+   {
+    "code": 3329,
+    "en": "Romantic LGBTQ+ Movies"
+   }
+  ]
+ },
+ {
+  "code": 8883,
+  "en": "Best Romantic Movies",
+  "items": [
+   {
+    "code": 502675,
+    "en": "Romantic Favorites"
+   },
+   {
+    "code": 5475,
+    "en": "Romantic Comedies"
+   },
+   {
+    "code": 1255,
+    "en": "Romantic Drama Movies"
+   },
+   {
+    "code": 35800,
+    "en": "Steamy Romantic Movies"
+   },
+   {
+    "code": 31273,
+    "en": "Classic Romantic Movies"
+   },
+   {
+    "code": 1394527,
+    "en": "Romantic Christmas Movies"
+   },
+   {
+    "code": 3329,
+    "en": "Romantic LGBTQ+ Movies"
+   }
+  ]
+ },
+ {
+  "code": 1492,
+  "en": "Best Sci-Fi Movies",
+  "items": [
+   {
+    "code": 1568,
+    "en": "Action Sci-Fi & Fantasy"
+   },
+   {
+    "code": 3327,
+    "en": "Alien Movies"
+   },
+   {
+    "code": 9744,
+    "en": "Fantasy Movies"
+   },
+   {
+    "code": 2729,
+    "en": "Sci-Fi Anime"
+   },
+   {
+    "code": 1372,
+    "en": "Sci-Fi & Fantasy Shows"
+   }
+  ]
+ },
+ {
+  "code": 4370,
+  "en": "Sports Movies",
+  "items": [
+   {
+    "code": 180,
+    "en": "Sports Documentaries"
+   },
+   {
+    "code": 8985,
+    "en": "Martial Arts Movies"
+   }
+  ]
+ },
+ {
+  "code": 8933,
+  "en": "Thrillers",
+  "items": [
+   {
+    "code": 43048,
+    "en": "Action-Thrillers"
+   },
+   {
+    "code": 5505,
+    "en": "Psychological Thrillers"
+   },
+   {
+    "code": 9994,
+    "en": "Mysteries"
+   },
+   {
+    "code": 972,
+    "en": "Steamy Thrillers"
+   },
+   {
+    "code": 31851,
+    "en": "Gangster Movies"
+   },
+   {
+    "code": 7687,
+    "en": "Film Noir"
+   }
+  ]
+ },
+ {
+  "code": 31574,
+  "en": "Classic Movies",
+  "items": [
+   {
+    "code": 46576,
+    "en": "Classic Action & Adventure Films"
+   },
+   {
+    "code": 31694,
+    "en": "Classic Comedy Films"
+   },
+   {
+    "code": 31273,
+    "en": "Classic Romantic Movies"
+   },
+   {
+    "code": 7687,
+    "en": "Film Noir"
+   },
+   {
+    "code": 46553,
+    "en": "Classic TV Shows"
+   }
+  ]
+ }
+]

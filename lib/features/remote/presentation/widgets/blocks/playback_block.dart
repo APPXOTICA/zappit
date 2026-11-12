@@ -8,9 +8,11 @@ import 'package:zappit/features/remote/controllers/playback_math.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/features/remote/controllers/target_controller.dart';
 import 'package:zappit/features/remote/presentation/sheets/sleep_timer_sheet.dart';
+import 'package:zappit/features/remote/presentation/widgets/blocks/frame_dial.dart';
 import 'package:zappit/protocol/messages.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Playback block (`.za-play`): sleep · chat · theater · full screen above,
 /// `[` timeline `]`, time, then Replay · −N · Play · +N · Loop.
@@ -33,9 +35,11 @@ class PlaybackBlock extends ConsumerWidget {
     final seekInterval = ref.watch(userSettingsControllerProvider.select((s) => s.seekInterval));
     final controller = ref.read(remoteControllerProvider);
 
-    final shortForm = target?.isShortForm ?? false;
-    final hasReplay = !shortForm && (target?.has(Capability.replay) ?? true);
-    final hasLoop = !shortForm && (target?.has(Capability.loop) ?? true);
+    // Short-form with the up / down rail (Pro) has no room for them; free
+    // short-form shows them like any player.
+    final rail = (target?.isShortForm ?? false) && (target?.has(Capability.prevNext) ?? false);
+    final hasReplay = !rail && (target?.has(Capability.replay) ?? true);
+    final hasLoop = !rail && (target?.has(Capability.loop) ?? true);
     // DVR live streams can be rewound; other live streams can't.
     final canSeek = hasData && !isAd && !isPhoto && (isLive ? isDvr : hasDuration);
     final seekBlocked = canSeek
@@ -72,7 +76,7 @@ class PlaybackBlock extends ConsumerWidget {
                     ZpIconButton(
                       variant: ZpIconButtonVariant.outlined,
                       extent: extent,
-                      semanticLabel: 'Replay',
+                      semanticLabel: S.of(context).replay,
                       onPressed: hasData && !isAd ? controller.replay : null,
                       onDisabledTap: isAd ? () => AppNotice.snack(_adNotice) : null,
                       child: Icon(Icons.refresh_rounded, size: 28 * scale),
@@ -80,7 +84,7 @@ class PlaybackBlock extends ConsumerWidget {
                   ZpIconButton(
                     variant: ZpIconButtonVariant.outlined,
                     extent: extent,
-                    semanticLabel: 'Back $seekInterval seconds',
+                    semanticLabel: S.of(context).backSeconds(seekInterval),
                     onPressed: canSeek ? controller.seekBackward : null,
                     onDisabledTap: seekBlocked,
                     child: ZpImageIcon(backIcon, size: 30 * scale),
@@ -89,7 +93,7 @@ class PlaybackBlock extends ConsumerWidget {
                     variant: ZpIconButtonVariant.primary,
                     size: ZpIconButtonSize.lg,
                     extent: _playExtent * scale,
-                    semanticLabel: paused ? 'Play' : 'Pause',
+                    semanticLabel: paused ? S.of(context).play : S.of(context).pause,
                     onPressed: hasData && !isPhoto ? controller.togglePlay : null,
                     onDisabledTap: isPhoto ? () => AppNotice.snack(_photoNotice) : null,
                     onLongPressStart: isAd || isPhoto ? null : controller.startSpeedHold,
@@ -99,7 +103,7 @@ class PlaybackBlock extends ConsumerWidget {
                   ZpIconButton(
                     variant: ZpIconButtonVariant.outlined,
                     extent: extent,
-                    semanticLabel: 'Forward $seekInterval seconds',
+                    semanticLabel: S.of(context).forwardSeconds(seekInterval),
                     onPressed: canSeek ? controller.seekForward : null,
                     onDisabledTap: seekBlocked,
                     child: ZpImageIcon(forwardIcon, size: 30 * scale),
@@ -112,7 +116,7 @@ class PlaybackBlock extends ConsumerWidget {
                       extent: extent,
                       iconSize: 28 * scale,
                       onPressed: controller.toggleLoop,
-                      onDisabledTap: abActive ? () => AppNotice.snack('Turn off the A-B loop first') : null,
+                      onDisabledTap: abActive ? () => AppNotice.snack(S.of(context).turnOffAbFirst) : null,
                     ),
                 ],
               );
@@ -125,8 +129,8 @@ class PlaybackBlock extends ConsumerWidget {
 }
 
 const _playExtent = 68.0;
-const _adNotice = 'Not available during an ad';
-const _photoNotice = 'Not available for photo posts';
+String get _adNotice => getIt<S>().notAvailableDuringAd;
+String get _photoNotice => getIt<S>().notAvailableForPhotos;
 
 /// Why seeking (or A-B, with [seekNotice] false) is off, as a tap handler for
 /// the greyed-out buttons. Null while playback data is still on its way (it
@@ -142,8 +146,8 @@ VoidCallback? _seekBlockedNotice({
   if (!hasData) return null;
   if (isAd) return () => AppNotice.snack(_adNotice);
   if (isPhoto) return () => AppNotice.snack(_photoNotice);
-  if (isLive) return () => AppNotice.snack(seekNotice ? "This live stream can't be rewound" : 'A-B loop is off for live streams');
-  if (!hasDuration) return () => AppNotice.snack("Can't seek in this video");
+  if (isLive) return () => AppNotice.snack(seekNotice ? getIt<S>().liveCantRewind : getIt<S>().abOffForLive);
+  if (!hasDuration) return () => AppNotice.snack(getIt<S>().cantSeekVideo);
   return null;
 }
 
@@ -180,7 +184,7 @@ class _LoopButton extends StatelessWidget {
             // The icon tells the state; no accent fill.
             pressed: null,
             extent: extent,
-            semanticLabel: on ? 'Loop on' : 'Loop off',
+            semanticLabel: on ? S.of(context).loopOn : S.of(context).loopOff,
             onPressed: enabled ? onPressed : null,
             onDisabledTap: onDisabledTap,
             child: Icon(on ? Icons.repeat_one_on_rounded : Icons.repeat_one, size: iconSize),
@@ -199,7 +203,8 @@ class _LoopButton extends StatelessWidget {
   }
 }
 
-/// Sleep timer at the left; live chat, theater and full screen at the right.
+/// Sleep timer at the left; live chat, theater and full screen at the right;
+/// the frame dial in the middle.
 class _TopRow extends ConsumerWidget {
   const _TopRow();
 
@@ -215,8 +220,10 @@ class _TopRow extends ConsumerWidget {
     final hasTheater = target?.has(Capability.theater) ?? false;
     final hasFullscreen = target?.has(Capability.fullscreen) ?? false;
     final hasChat = (target?.has(Capability.chat) ?? false) && site.chatAvailable;
+    final isLive = ref.watch(playbackControllerProvider.select((v) => v.isLive));
+    final hasDial = (target?.has(Capability.frameStep) ?? false) && hasData && !isLive && !isPhoto;
 
-    return Row(
+    final row = Row(
       children: [
         _SleepButton(
           active: sleepMode != SleepMode.off,
@@ -227,14 +234,14 @@ class _TopRow extends ConsumerWidget {
         if (hasChat)
           ZpIconButton(
             size: ZpIconButtonSize.sm,
-            semanticLabel: site.chatVisible ? 'Hide chat' : 'Show chat',
+            semanticLabel: site.chatVisible ? S.of(context).hideChat : S.of(context).showChat,
             onPressed: controller.toggleChat,
             child: Icon(site.chatVisible ? Icons.chat_rounded : Icons.chat_outlined),
           ),
         if (hasTheater)
           ZpIconButton(
             size: ZpIconButtonSize.sm,
-            semanticLabel: 'Theater mode',
+            semanticLabel: S.of(context).theaterMode,
             onPressed: hasData ? controller.toggleTheater : null,
             child: ZpImageIcon(
               site.theaterOn ? 'assets/images/theater_mode_on.png' : 'assets/images/theater_mode_off.png',
@@ -244,12 +251,31 @@ class _TopRow extends ConsumerWidget {
         if (hasFullscreen)
           ZpIconButton(
             size: ZpIconButtonSize.sm,
-            semanticLabel: site.fullscreen ? 'Exit full screen' : 'Full screen',
+            semanticLabel: site.fullscreen ? S.of(context).exitFullScreen : S.of(context).fullScreen,
             onPressed: hasData && !isPhoto ? controller.fullscreen : null,
             onDisabledTap: isPhoto ? () => AppNotice.snack(_photoNotice) : null,
             child: Icon(site.fullscreen ? Icons.fullscreen_exit_rounded : Icons.fullscreen_rounded, size: 30),
           ),
       ],
+    );
+    if (!hasDial) return row;
+
+    // Centred on the block, clear of the buttons on the wider side (the sleep
+    // button grows with its minutes).
+    final right = [hasChat, hasTheater, hasFullscreen].where((b) => b).length * AppTokens.targetMin;
+    final left = sleepMode == SleepMode.off ? AppTokens.targetMin : 96.0;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final side = (left > right ? left : right) + AppTokens.space3;
+        final width = (constraints.maxWidth - 2 * side).clamp(0.0, 200.0);
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            row,
+            if (width >= 96) FrameDial(width: width),
+          ],
+        );
+      },
     );
   }
 }
@@ -275,7 +301,7 @@ class _SleepButtonState extends ConsumerState<_SleepButton> {
 
     return ZpPressable(
       onTap: widget.onPressed ?? widget.onDisabledTap,
-      semanticLabel: 'Sleep timer',
+      semanticLabel: S.of(context).sleepTimerLabel,
       builder: (context, pressed) => Container(
         height: AppTokens.targetMin,
         constraints: const BoxConstraints(minWidth: AppTokens.targetMin),
@@ -449,7 +475,7 @@ class _AbButton extends StatelessWidget {
     final t = context.tokens;
     return ZpPressable(
       onTap: enabled ? onPressed : onDisabledTap,
-      semanticLabel: label == '[' ? 'Loop start' : 'Loop end',
+      semanticLabel: label == '[' ? S.of(context).loopStart : S.of(context).loopEnd,
       selected: on,
       builder: (context, pressed) => Container(
         width: 44,

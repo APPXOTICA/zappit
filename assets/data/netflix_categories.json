@@ -1,0 +1,2295 @@
+[
+ {
+  "code": 34399,
+  "name": {
+   "en": "Movies",
+   "ko": "영화",
+   "es": "Películas",
+   "fr": "Films",
+   "de": "Filme",
+   "it": "Film",
+   "tr": "Filmler",
+   "ar": "أفلام",
+   "ja": "映画",
+   "zh-Hans": "电影",
+   "zh-Hant": "電影",
+   "vi": "Phim",
+   "id": "Film",
+   "th": "ภาพยนตร์"
+  },
+  "items": [
+   {
+    "code": 839338,
+    "name": {
+     "en": "Only on Netflix",
+     "ko": "넷플릭스 단독, 최고의 콘텐츠",
+     "es": "Solo en Netflix",
+     "fr": "Uniquement sur Netflix",
+     "de": "Nur auf Netflix",
+     "it": "Solo su Netflix",
+     "tr": "Yalnızca Netflix'te",
+     "ar": "حصريًا على Netflix",
+     "ja": "Netflix独占配信",
+     "zh-Hans": "Netflix 独家",
+     "zh-Hant": "Netflix 獨家",
+     "vi": "Chỉ có trên Netflix",
+     "id": "Hanya di Netflix",
+     "th": "เฉพาะบน Netflix"
+    }
+   },
+   {
+    "code": 29764,
+    "name": {
+     "en": "Arthouse Films",
+     "ko": "예술 영화",
+     "es": "Cine de autor",
+     "fr": "Films d'auteur",
+     "de": "Arthouse-Filme",
+     "it": "Film d'autore",
+     "tr": "Sanat Filmleri",
+     "ar": "أفلام فنية",
+     "ja": "アート系映画",
+     "zh-Hans": "艺术电影",
+     "zh-Hant": "藝術電影",
+     "vi": "Phim nghệ thuật",
+     "id": "Film Arthouse",
+     "th": "ภาพยนตร์อาร์ตเฮาส์"
+    }
+   },
+   {
+    "code": 1701,
+    "name": {
+     "en": "Music",
+     "ko": "음악",
+     "es": "Música",
+     "fr": "Musique",
+     "de": "Musik",
+     "it": "Musica",
+     "tr": "Müzik",
+     "ar": "موسيقى",
+     "ja": "音楽",
+     "zh-Hans": "音乐",
+     "zh-Hant": "音樂",
+     "vi": "Âm nhạc",
+     "id": "Musik",
+     "th": "ดนตรี"
+    }
+   }
+  ]
+ },
+ {
+  "code": 83,
+  "name": {
+   "en": "TV Shows",
+   "ko": "TV 프로그램",
+   "es": "Series",
+   "fr": "Séries",
+   "de": "Serien",
+   "it": "Serie TV",
+   "tr": "Diziler",
+   "ar": "برامج تلفزيونية",
+   "ja": "TV番組",
+   "zh-Hans": "电视节目",
+   "zh-Hant": "電視節目",
+   "vi": "Chương trình truyền hình",
+   "id": "Acara TV",
+   "th": "รายการทีวี"
+  },
+  "items": [
+   {
+    "code": 26146,
+    "name": {
+     "en": "Crime TV Shows",
+     "ko": "범죄 시리즈",
+     "es": "Series policiacas",
+     "fr": "Séries policières",
+     "de": "Krimiserien",
+     "it": "Serie crime",
+     "tr": "Suç Dizileri",
+     "ar": "مسلسلات الجريمة",
+     "ja": "犯罪シリーズ",
+     "zh-Hans": "犯罪剧集",
+     "zh-Hant": "犯罪影集",
+     "vi": "Phim bộ tội phạm",
+     "id": "Serial Kriminal",
+     "th": "ซีรีส์อาชญากรรม"
+    }
+   },
+   {
+    "code": 9833,
+    "name": {
+     "en": "Reality TV Shows",
+     "ko": "리얼리티 TV",
+     "es": "Telerrealidad",
+     "fr": "Téléréalité",
+     "de": "Reality-TV",
+     "it": "Reality",
+     "tr": "Reality Programları",
+     "ar": "تلفزيون الواقع",
+     "ja": "リアリティ番組",
+     "zh-Hans": "真人秀",
+     "zh-Hant": "真人秀",
+     "vi": "Truyền hình thực tế",
+     "id": "Reality Show",
+     "th": "เรียลลิตี้โชว์"
+    }
+   },
+   {
+    "code": 10673,
+    "name": {
+     "en": "Best Action & Adventure Shows",
+     "ko": "인기 액션 & 어드벤처 프로그램",
+     "es": "Series de acción y aventuras populares",
+     "fr": "Séries d'action et d'aventure populaires",
+     "de": "Beliebte Action- & Abenteuerserien",
+     "it": "Serie d'azione e avventura popolari",
+     "tr": "Popüler Aksiyon ve Macera Dizileri",
+     "ar": "برامج حركة ومغامرة رائجة",
+     "ja": "人気のアクション&アドベンチャー番組",
+     "zh-Hans": "热门动作和冒险节目",
+     "zh-Hant": "熱門動作與冒險節目",
+     "vi": "Chương trình hành động & phiêu lưu nổi bật",
+     "id": "Acara Aksi & Petualangan Populer",
+     "th": "รายการแอ็คชั่นและผจญภัยยอดนิยม"
+    }
+   },
+   {
+    "code": 10375,
+    "name": {
+     "en": "Best TV Comedy Shows",
+     "ko": "인기 코미디 TV 프로그램",
+     "es": "Series de comedia populares",
+     "fr": "Séries comiques populaires",
+     "de": "Beliebte Comedyserien",
+     "it": "Serie TV comiche popolari",
+     "tr": "Popüler Komedi Dizileri",
+     "ar": "برامج تلفزيونية كوميدية رائجة",
+     "ja": "人気のコメディTV番組",
+     "zh-Hans": "热门喜剧电视节目",
+     "zh-Hant": "熱門喜劇電視節目",
+     "vi": "Chương trình truyền hình hài nổi bật",
+     "id": "Acara TV Komedi Populer",
+     "th": "รายการทีวีตลกยอดนิยม"
+    }
+   },
+   {
+    "code": 10105,
+    "name": {
+     "en": "Documentary Series",
+     "ko": "다큐멘터리 시리즈",
+     "es": "Series documentales",
+     "fr": "Séries documentaires",
+     "de": "Dokuserien",
+     "it": "Serie documentarie",
+     "tr": "Belgesel Dizileri",
+     "ar": "مسلسلات وثائقية",
+     "ja": "ドキュメンタリーシリーズ",
+     "zh-Hans": "纪录片剧集",
+     "zh-Hant": "紀錄片影集",
+     "vi": "Phim tài liệu dài tập",
+     "id": "Serial Dokumenter",
+     "th": "ซีรีส์สารคดี"
+    }
+   },
+   {
+    "code": 11714,
+    "name": {
+     "en": "TV Drama Series",
+     "ko": "TV 드라마 시리즈",
+     "es": "Series dramáticas",
+     "fr": "Séries dramatiques",
+     "de": "Dramaserien",
+     "it": "Serie TV drammatiche",
+     "tr": "Dram Dizileri",
+     "ar": "مسلسلات درامية",
+     "ja": "TVドラマシリーズ",
+     "zh-Hans": "电视剧",
+     "zh-Hant": "電視劇",
+     "vi": "Phim bộ chính kịch",
+     "id": "Serial Drama TV",
+     "th": "ซีรีส์ดราม่า"
+    }
+   },
+   {
+    "code": 83059,
+    "name": {
+     "en": "TV Horror",
+     "ko": "호러 시리즈",
+     "es": "Series de terror",
+     "fr": "Séries d'horreur",
+     "de": "Horrorserien",
+     "it": "Serie horror",
+     "tr": "Korku Dizileri",
+     "ar": "مسلسلات رعب",
+     "ja": "ホラーシリーズ",
+     "zh-Hans": "恐怖剧集",
+     "zh-Hant": "恐怖影集",
+     "vi": "Phim bộ kinh dị",
+     "id": "Serial Horor",
+     "th": "ซีรีส์สยองขวัญ"
+    }
+   },
+   {
+    "code": 4366,
+    "name": {
+     "en": "TV Mysteries",
+     "ko": "TV 미스터리",
+     "es": "Series de misterio",
+     "fr": "Séries à énigmes",
+     "de": "Mysteryserien",
+     "it": "Serie TV mystery",
+     "tr": "Gizem Dizileri",
+     "ar": "مسلسلات غموض",
+     "ja": "TVミステリー",
+     "zh-Hans": "悬疑电视剧",
+     "zh-Hant": "懸疑電視劇",
+     "vi": "Phim bộ bí ẩn",
+     "id": "Misteri TV",
+     "th": "ซีรีส์ลึกลับ"
+    }
+   },
+   {
+    "code": 1372,
+    "name": {
+     "en": "Sci-Fi & Fantasy Shows",
+     "ko": "SF & 판타지 시리즈",
+     "es": "Series de ciencia ficción y fantasía",
+     "fr": "Séries de SF et fantastiques",
+     "de": "Sci-Fi- & Fantasy-Serien",
+     "it": "Serie fantascientifiche e fantasy",
+     "tr": "Bilim Kurgu ve Fantastik Diziler",
+     "ar": "مسلسلات الخيال العلمي والفانتازيا",
+     "ja": "SF&ファンタジーシリーズ",
+     "zh-Hans": "科幻和奇幻剧集",
+     "zh-Hant": "科幻與奇幻影集",
+     "vi": "Phim bộ khoa học viễn tưởng & giả tưởng",
+     "id": "Serial Sci-Fi & Fantasi",
+     "th": "ซีรีส์ไซไฟและแฟนตาซี"
+    }
+   },
+   {
+    "code": 27346,
+    "name": {
+     "en": "Kids TV Shows",
+     "ko": "키즈 TV 프로그램",
+     "es": "Series infantiles",
+     "fr": "Séries pour enfants",
+     "de": "Kinderserien",
+     "it": "Serie TV per bambini",
+     "tr": "Çocuk Dizileri",
+     "ar": "برامج تلفزيونية للأطفال",
+     "ja": "キッズ向けTV番組",
+     "zh-Hans": "儿童电视节目",
+     "zh-Hant": "兒童電視節目",
+     "vi": "Chương trình truyền hình thiếu nhi",
+     "id": "Acara TV Anak",
+     "th": "รายการทีวีสำหรับเด็ก"
+    }
+   },
+   {
+    "code": 60951,
+    "name": {
+     "en": "TV for Teens",
+     "ko": "10대를 위한 TV 프로그램",
+     "es": "Series para adolescentes",
+     "fr": "Séries pour ados",
+     "de": "Serien für Teenager",
+     "it": "Serie TV per ragazzi",
+     "tr": "Gençlere Yönelik Diziler",
+     "ar": "برامج تلفزيونية للمراهقين",
+     "ja": "ティーン向けTV番組",
+     "zh-Hans": "青少年电视节目",
+     "zh-Hant": "青少年電視節目",
+     "vi": "Chương trình truyền hình cho tuổi teen",
+     "id": "Acara TV untuk Remaja",
+     "th": "รายการทีวีสำหรับวัยรุ่น"
+    }
+   },
+   {
+    "code": 46553,
+    "name": {
+     "en": "Classic TV Shows",
+     "ko": "TV 프로그램·고전",
+     "es": "Series clásicas",
+     "fr": "Séries classiques",
+     "de": "Serienklassiker",
+     "it": "Serie TV classiche",
+     "tr": "Klasik Diziler",
+     "ar": "برامج تلفزيونية كلاسيكية",
+     "ja": "TV番組・クラシック",
+     "zh-Hans": "经典电视节目",
+     "zh-Hant": "經典電視節目",
+     "vi": "Chương trình truyền hình kinh điển",
+     "id": "Acara TV Klasik",
+     "th": "รายการทีวีคลาสสิก"
+    }
+   },
+   {
+    "code": 52117,
+    "name": {
+     "en": "British TV Shows",
+     "ko": "영국 TV 프로그램",
+     "es": "Series británicas",
+     "fr": "Séries britanniques",
+     "de": "Britische Serien",
+     "it": "Serie TV britanniche",
+     "tr": "İngiliz Dizileri",
+     "ar": "برامج تلفزيونية بريطانية",
+     "ja": "イギリスのTV番組",
+     "zh-Hans": "英国电视节目",
+     "zh-Hant": "英國電視節目",
+     "vi": "Chương trình truyền hình Anh",
+     "id": "Acara TV Inggris",
+     "th": "รายการทีวีอังกฤษ"
+    }
+   },
+   {
+    "code": 67879,
+    "name": {
+     "en": "Korean TV Shows",
+     "ko": "한국 콘텐츠",
+     "es": "Series coreanas",
+     "fr": "Séries coréennes",
+     "de": "Koreanische Serien",
+     "it": "Serie TV coreane",
+     "tr": "Kore Dizileri",
+     "ar": "برامج تلفزيونية كورية",
+     "ja": "韓国の作品",
+     "zh-Hans": "韩国剧集",
+     "zh-Hant": "韓國影集",
+     "vi": "Nội dung Hàn Quốc",
+     "id": "Konten Korea",
+     "th": "คอนเทนต์เกาหลี"
+    }
+   }
+  ]
+ },
+ {
+  "code": 1365,
+  "name": {
+   "en": "Action & Adventure Movies",
+   "ko": "액션 & 어드벤처 영화",
+   "es": "Películas de acción y aventuras",
+   "fr": "Films d'action et d'aventure",
+   "de": "Action- & Abenteuerfilme",
+   "it": "Film d'azione e avventura",
+   "tr": "Aksiyon ve Macera Filmleri",
+   "ar": "أفلام الحركة والمغامرة",
+   "ja": "アクション&アドベンチャー映画",
+   "zh-Hans": "动作和冒险电影",
+   "zh-Hant": "動作與冒險電影",
+   "vi": "Phim hành động & phiêu lưu",
+   "id": "Film Aksi & Petualangan",
+   "th": "ภาพยนตร์แอ็คชั่นและผจญภัย"
+  },
+  "items": [
+   {
+    "code": 43040,
+    "name": {
+     "en": "Action Comedy Movies",
+     "ko": "액션 코미디 영화",
+     "es": "Comedias de acción",
+     "fr": "Comédies d'action",
+     "de": "Action-Komödien",
+     "it": "Commedie d'azione",
+     "tr": "Aksiyon Komedi Filmleri",
+     "ar": "أفلام كوميديا الحركة",
+     "ja": "アクションコメディ映画",
+     "zh-Hans": "动作喜剧电影",
+     "zh-Hant": "動作喜劇電影",
+     "vi": "Phim hài hành động",
+     "id": "Film Komedi Aksi",
+     "th": "ภาพยนตร์แอ็คชั่นคอมเมดี้"
+    }
+   },
+   {
+    "code": 1568,
+    "name": {
+     "en": "Action Sci-Fi & Fantasy",
+     "ko": "SF 액션 & 판타지 영화",
+     "es": "Acción de ciencia ficción y fantasía",
+     "fr": "Action, SF et fantastique",
+     "de": "Sci-Fi-Action & Fantasy",
+     "it": "Azione fantascientifica e fantasy",
+     "tr": "Bilim Kurgu Aksiyon ve Fantastik",
+     "ar": "حركة خيال علمي وفانتازيا",
+     "ja": "SFアクション&ファンタジー映画",
+     "zh-Hans": "科幻动作和奇幻电影",
+     "zh-Hant": "科幻動作與奇幻電影",
+     "vi": "Phim hành động khoa học viễn tưởng & giả tưởng",
+     "id": "Film Aksi Sci-Fi & Fantasi",
+     "th": "ภาพยนตร์แอ็คชั่นไซไฟและแฟนตาซี"
+    }
+   },
+   {
+    "code": 43048,
+    "name": {
+     "en": "Action-Thrillers",
+     "ko": "액션 스릴러",
+     "es": "Thrillers de acción",
+     "fr": "Thrillers d'action",
+     "de": "Action-Thriller",
+     "it": "Thriller d'azione",
+     "tr": "Aksiyon Gerilim",
+     "ar": "أفلام إثارة وحركة",
+     "ja": "アクションスリラー",
+     "zh-Hans": "动作惊悚片",
+     "zh-Hant": "動作驚悚片",
+     "vi": "Phim hành động giật gân",
+     "id": "Thriller Aksi",
+     "th": "แอ็คชั่นระทึกขวัญ"
+    }
+   },
+   {
+    "code": 7442,
+    "name": {
+     "en": "Adventure Movies",
+     "ko": "어드벤처 영화",
+     "es": "Películas de aventuras",
+     "fr": "Films d'aventure",
+     "de": "Abenteuerfilme",
+     "it": "Film d'avventura",
+     "tr": "Macera Filmleri",
+     "ar": "أفلام المغامرة",
+     "ja": "アドベンチャー映画",
+     "zh-Hans": "冒险电影",
+     "zh-Hant": "冒險電影",
+     "vi": "Phim phiêu lưu",
+     "id": "Film Petualangan",
+     "th": "ภาพยนตร์ผจญภัย"
+    }
+   },
+   {
+    "code": 46576,
+    "name": {
+     "en": "Classic Action & Adventure Films",
+     "ko": "고전 액션 & 어드벤처 영화",
+     "es": "Clásicos de acción y aventuras",
+     "fr": "Classiques d'action et d'aventure",
+     "de": "Action- & Abenteuer-Klassiker",
+     "it": "Classici d'azione e avventura",
+     "tr": "Klasik Aksiyon ve Macera Filmleri",
+     "ar": "أفلام حركة ومغامرة كلاسيكية",
+     "ja": "クラシック アクション&アドベンチャー映画",
+     "zh-Hans": "经典动作和冒险电影",
+     "zh-Hant": "經典動作與冒險電影",
+     "vi": "Phim hành động & phiêu lưu kinh điển",
+     "id": "Film Klasik Aksi & Petualangan",
+     "th": "ภาพยนตร์แอ็คชั่นและผจญภัยคลาสสิก"
+    }
+   },
+   {
+    "code": 10118,
+    "name": {
+     "en": "Superhero Movies",
+     "ko": "슈퍼히어로 영화",
+     "es": "Películas de superhéroes",
+     "fr": "Films de super-héros",
+     "de": "Superheldenfilme",
+     "it": "Film di supereroi",
+     "tr": "Süper Kahraman Filmleri",
+     "ar": "أفلام الأبطال الخارقين",
+     "ja": "スーパーヒーロー映画",
+     "zh-Hans": "超级英雄电影",
+     "zh-Hant": "超級英雄電影",
+     "vi": "Phim siêu anh hùng",
+     "id": "Film Superhero",
+     "th": "ภาพยนตร์ซูเปอร์ฮีโร่"
+    }
+   },
+   {
+    "code": 9584,
+    "name": {
+     "en": "Crime Action & Adventure Movies",
+     "ko": "범죄 액션 & 어드벤처 영화",
+     "es": "Películas de acción y aventuras policiacas",
+     "fr": "Films d'action et d'aventure criminels",
+     "de": "Krimi-Action & Abenteuer",
+     "it": "Film d'azione e avventura crime",
+     "tr": "Suç Aksiyon ve Macera Filmleri",
+     "ar": "أفلام حركة ومغامرة عن الجريمة",
+     "ja": "犯罪アクション&アドベンチャー映画",
+     "zh-Hans": "犯罪动作和冒险电影",
+     "zh-Hant": "犯罪動作與冒險電影",
+     "vi": "Phim hành động & phiêu lưu tội phạm",
+     "id": "Film Aksi & Petualangan Kriminal",
+     "th": "ภาพยนตร์แอ็คชั่นและผจญภัยอาชญากรรม"
+    }
+   },
+   {
+    "code": 20541,
+    "name": {
+     "en": "Hijacking Movies",
+     "ko": "하이재킹을 다룬 영화",
+     "es": "Películas de secuestros",
+     "fr": "Films de détournement",
+     "de": "Entführungsfilme",
+     "it": "Film di dirottamenti",
+     "tr": "Kaçırma Filmleri",
+     "ar": "أفلام الاختطاف",
+     "ja": "ハイジャック映画",
+     "zh-Hans": "劫持电影",
+     "zh-Hant": "劫持電影",
+     "vi": "Phim về không tặc",
+     "id": "Film Pembajakan",
+     "th": "ภาพยนตร์จี้เครื่องบิน"
+    }
+   },
+   {
+    "code": 8985,
+    "name": {
+     "en": "Martial Arts Movies",
+     "ko": "무술 영화",
+     "es": "Películas de artes marciales",
+     "fr": "Films d'arts martiaux",
+     "de": "Kampfsportfilme",
+     "it": "Film di arti marziali",
+     "tr": "Dövüş Sanatları Filmleri",
+     "ar": "أفلام الفنون القتالية",
+     "ja": "格闘技映画",
+     "zh-Hans": "武术电影",
+     "zh-Hant": "武術電影",
+     "vi": "Phim võ thuật",
+     "id": "Film Seni Bela Diri",
+     "th": "ภาพยนตร์ศิลปะการต่อสู้"
+    }
+   },
+   {
+    "code": 10702,
+    "name": {
+     "en": "Spy Action & Adventure Movies",
+     "ko": "스파이 액션 & 어드벤처 영화",
+     "es": "Películas de espías de acción y aventuras",
+     "fr": "Films d'espionnage d'action et d'aventure",
+     "de": "Spionage-Action & Abenteuer",
+     "it": "Film d'azione e avventura di spionaggio",
+     "tr": "Casus Aksiyon ve Macera Filmleri",
+     "ar": "أفلام حركة ومغامرة عن الجاسوسية",
+     "ja": "スパイ アクション&アドベンチャー映画",
+     "zh-Hans": "间谍动作和冒险电影",
+     "zh-Hant": "間諜動作與冒險電影",
+     "vi": "Phim hành động & phiêu lưu điệp viên",
+     "id": "Film Aksi & Petualangan Mata-Mata",
+     "th": "ภาพยนตร์แอ็คชั่นและผจญภัยสายลับ"
+    }
+   },
+   {
+    "code": 7700,
+    "name": {
+     "en": "Western Movies",
+     "ko": "서부 영화",
+     "es": "Películas del Oeste",
+     "fr": "Westerns",
+     "de": "Western",
+     "it": "Film western",
+     "tr": "Western Filmleri",
+     "ar": "أفلام الغرب الأمريكي",
+     "ja": "西部劇",
+     "zh-Hans": "西部片",
+     "zh-Hant": "西部片",
+     "vi": "Phim cao bồi miền Tây",
+     "id": "Film Koboi",
+     "th": "ภาพยนตร์คาวบอยตะวันตก"
+    }
+   }
+  ]
+ },
+ {
+  "code": 7424,
+  "name": {
+   "en": "Anime",
+   "ko": "애니메이션",
+   "es": "Anime",
+   "fr": "Anime",
+   "de": "Anime",
+   "it": "Anime",
+   "tr": "Anime",
+   "ar": "أنمي",
+   "ja": "アニメ",
+   "zh-Hans": "动漫",
+   "zh-Hant": "動漫",
+   "vi": "Anime",
+   "id": "Anime",
+   "th": "อนิเมะ"
+  },
+  "items": [
+   {
+    "code": 6721,
+    "name": {
+     "en": "Anime Series",
+     "ko": "애니 시리즈",
+     "es": "Series de anime",
+     "fr": "Séries anime",
+     "de": "Anime-Serien",
+     "it": "Serie anime",
+     "tr": "Anime Dizileri",
+     "ar": "مسلسلات أنمي",
+     "ja": "アニメシリーズ",
+     "zh-Hans": "动漫剧集",
+     "zh-Hant": "動漫影集",
+     "vi": "Phim bộ anime",
+     "id": "Serial Anime",
+     "th": "ซีรีส์อนิเมะ"
+    }
+   },
+   {
+    "code": 3063,
+    "name": {
+     "en": "Anime Movies",
+     "ko": "애니메이션 영화",
+     "es": "Películas de anime",
+     "fr": "Films d'anime",
+     "de": "Anime-Filme",
+     "it": "Film anime",
+     "tr": "Anime Filmleri",
+     "ar": "أفلام أنمي",
+     "ja": "アニメ映画",
+     "zh-Hans": "动漫电影",
+     "zh-Hant": "動漫電影",
+     "vi": "Phim anime",
+     "id": "Film Anime",
+     "th": "ภาพยนตร์อนิเมะ"
+    }
+   },
+   {
+    "code": 2653,
+    "name": {
+     "en": "Action Anime Shows and Movies",
+     "ko": "액션 애니메이션 시리즈 및 영화",
+     "es": "Series y películas de anime de acción",
+     "fr": "Séries et films d'anime d'action",
+     "de": "Action-Anime-Serien & -Filme",
+     "it": "Serie e film anime d'azione",
+     "tr": "Aksiyon Anime Dizileri ve Filmleri",
+     "ar": "مسلسلات وأفلام أنمي حركة",
+     "ja": "アクションアニメ シリーズ&映画",
+     "zh-Hans": "动作动漫剧集和电影",
+     "zh-Hant": "動作動漫影集與電影",
+     "vi": "Anime hành động: Phim bộ & phim lẻ",
+     "id": "Serial & Film Anime Aksi",
+     "th": "ซีรีส์และภาพยนตร์อนิเมะแอ็คชั่น"
+    }
+   },
+   {
+    "code": 2729,
+    "name": {
+     "en": "Sci-Fi Anime",
+     "ko": "SF 애니메이션",
+     "es": "Anime de ciencia ficción",
+     "fr": "Anime de science-fiction",
+     "de": "Sci-Fi-Anime",
+     "it": "Anime di fantascienza",
+     "tr": "Bilim Kurgu Animeleri",
+     "ar": "أنمي خيال علمي",
+     "ja": "SFアニメ",
+     "zh-Hans": "科幻动漫",
+     "zh-Hant": "科幻動漫",
+     "vi": "Anime khoa học viễn tưởng",
+     "id": "Anime Sci-Fi",
+     "th": "อนิเมะไซไฟ"
+    }
+   },
+   {
+    "code": 11146,
+    "name": {
+     "en": "Fantasy Anime",
+     "ko": "판타지 애니",
+     "es": "Anime de fantasía",
+     "fr": "Anime fantastiques",
+     "de": "Fantasy-Anime",
+     "it": "Anime fantasy",
+     "tr": "Fantastik Animeler",
+     "ar": "أنمي فانتازيا",
+     "ja": "ファンタジーアニメ",
+     "zh-Hans": "奇幻动漫",
+     "zh-Hant": "奇幻動漫",
+     "vi": "Anime giả tưởng",
+     "id": "Anime Fantasi",
+     "th": "อนิเมะแฟนตาซี"
+    }
+   },
+   {
+    "code": 452,
+    "name": {
+     "en": "Drama Anime",
+     "ko": "드라마 장르 애니메이션",
+     "es": "Anime dramático",
+     "fr": "Anime dramatiques",
+     "de": "Drama-Anime",
+     "it": "Anime drammatici",
+     "tr": "Dram Animeleri",
+     "ar": "أنمي دراما",
+     "ja": "ドラマアニメ",
+     "zh-Hans": "剧情动漫",
+     "zh-Hant": "劇情動漫",
+     "vi": "Anime chính kịch",
+     "id": "Anime Drama",
+     "th": "อนิเมะดราม่า"
+    }
+   },
+   {
+    "code": 9302,
+    "name": {
+     "en": "Comedy Anime",
+     "ko": "코미디 애니메이션",
+     "es": "Anime de comedia",
+     "fr": "Anime comiques",
+     "de": "Comedy-Anime",
+     "it": "Anime comici",
+     "tr": "Komedi Animeleri",
+     "ar": "أنمي كوميدي",
+     "ja": "コメディアニメ",
+     "zh-Hans": "喜剧动漫",
+     "zh-Hant": "喜劇動漫",
+     "vi": "Anime hài",
+     "id": "Anime Komedi",
+     "th": "อนิเมะคอมเมดี้"
+    }
+   },
+   {
+    "code": 10695,
+    "name": {
+     "en": "Horror Anime",
+     "ko": "호러 애니메이션",
+     "es": "Anime de terror",
+     "fr": "Anime d'horreur",
+     "de": "Horror-Anime",
+     "it": "Anime horror",
+     "tr": "Korku Animeleri",
+     "ar": "أنمي رعب",
+     "ja": "ホラーアニメ",
+     "zh-Hans": "恐怖动漫",
+     "zh-Hant": "恐怖動漫",
+     "vi": "Anime kinh dị",
+     "id": "Anime Horor",
+     "th": "อนิเมะสยองขวัญ"
+    }
+   },
+   {
+    "code": 11881,
+    "name": {
+     "en": "Adult Animated Movies & Shows",
+     "ko": "성인 애니메이션 영화 & 프로그램",
+     "es": "Películas y series animadas para adultos",
+     "fr": "Films et séries d'animation pour adultes",
+     "de": "Animationsfilme & -serien für Erwachsene",
+     "it": "Film e serie animate per adulti",
+     "tr": "Yetişkinlere Yönelik Animasyon Filmleri ve Dizileri",
+     "ar": "أفلام ومسلسلات رسوم متحركة للكبار",
+     "ja": "大人向けアニメ映画&番組",
+     "zh-Hans": "成人动画电影和节目",
+     "zh-Hant": "成人動畫電影與節目",
+     "vi": "Phim & chương trình hoạt hình cho người lớn",
+     "id": "Film & Acara Animasi Dewasa",
+     "th": "ภาพยนตร์และรายการแอนิเมชันสำหรับผู้ใหญ่"
+    }
+   }
+  ]
+ },
+ {
+  "code": 783,
+  "name": {
+   "en": "Children & Family Movies",
+   "ko": "어린이 & 가족 영화",
+   "es": "Películas infantiles y familiares",
+   "fr": "Films pour enfants et en famille",
+   "de": "Kinder- & Familienfilme",
+   "it": "Film per bambini e famiglie",
+   "tr": "Çocuk ve Aile Filmleri",
+   "ar": "أفلام الأطفال والعائلة",
+   "ja": "キッズ&ファミリー映画",
+   "zh-Hans": "儿童和家庭电影",
+   "zh-Hant": "兒童與家庭電影",
+   "vi": "Phim thiếu nhi & gia đình",
+   "id": "Film Anak & Keluarga",
+   "th": "ภาพยนตร์สำหรับเด็กและครอบครัว"
+  },
+  "items": [
+   {
+    "code": 51056,
+    "name": {
+     "en": "Family Movies",
+     "ko": "가족 영화",
+     "es": "Películas familiares",
+     "fr": "Films en famille",
+     "de": "Familienfilme",
+     "it": "Film per famiglie",
+     "tr": "Aile Filmleri",
+     "ar": "أفلام عائلية",
+     "ja": "ファミリー映画",
+     "zh-Hans": "家庭电影",
+     "zh-Hant": "家庭電影",
+     "vi": "Phim gia đình",
+     "id": "Film Keluarga",
+     "th": "ภาพยนตร์ครอบครัว"
+    }
+   },
+   {
+    "code": 27346,
+    "name": {
+     "en": "Kids TV Shows",
+     "ko": "키즈 TV 프로그램",
+     "es": "Series infantiles",
+     "fr": "Séries pour enfants",
+     "de": "Kinderserien",
+     "it": "Serie TV per bambini",
+     "tr": "Çocuk Dizileri",
+     "ar": "برامج تلفزيونية للأطفال",
+     "ja": "キッズ向けTV番組",
+     "zh-Hans": "儿童电视节目",
+     "zh-Hant": "兒童電視節目",
+     "vi": "Chương trình truyền hình thiếu nhi",
+     "id": "Acara TV Anak",
+     "th": "รายการทีวีสำหรับเด็ก"
+    }
+   },
+   {
+    "code": 11177,
+    "name": {
+     "en": "TV Cartoons",
+     "ko": "TV 만화영화",
+     "es": "Dibujos animados",
+     "fr": "Dessins animés",
+     "de": "Zeichentrickserien",
+     "it": "Cartoni animati",
+     "tr": "Çizgi Diziler",
+     "ar": "رسوم متحركة تلفزيونية",
+     "ja": "TVアニメ",
+     "zh-Hans": "电视卡通",
+     "zh-Hant": "電視卡通",
+     "vi": "Phim hoạt hình truyền hình",
+     "id": "Kartun TV",
+     "th": "การ์ตูนทีวี"
+    }
+   },
+   {
+    "code": 10659,
+    "name": {
+     "en": "Education for Kids",
+     "ko": "키즈 교육 영화",
+     "es": "Educativos para niños",
+     "fr": "Programmes éducatifs pour enfants",
+     "de": "Lernfilme für Kinder",
+     "it": "Film educativi per bambini",
+     "tr": "Çocuklar için Eğitici Filmler",
+     "ar": "أفلام تعليمية للأطفال",
+     "ja": "キッズ向け教育映画",
+     "zh-Hans": "儿童教育电影",
+     "zh-Hant": "兒童教育電影",
+     "vi": "Phim giáo dục cho trẻ em",
+     "id": "Film Edukasi Anak",
+     "th": "ภาพยนตร์เพื่อการศึกษาสำหรับเด็ก"
+    }
+   },
+   {
+    "code": 5507,
+    "name": {
+     "en": "Animal Tales",
+     "ko": "동물 이야기",
+     "es": "Historias de animales",
+     "fr": "Histoires d'animaux",
+     "de": "Tiergeschichten",
+     "it": "Storie di animali",
+     "tr": "Hayvan Hikâyeleri",
+     "ar": "حكايات الحيوانات",
+     "ja": "動物の物語",
+     "zh-Hans": "动物故事",
+     "zh-Hant": "動物故事",
+     "vi": "Chuyện về động vật",
+     "id": "Kisah Hewan",
+     "th": "เรื่องราวของสัตว์"
+    }
+   },
+   {
+    "code": 67673,
+    "name": {
+     "en": "Disney",
+     "ko": "디즈니",
+     "es": "Disney",
+     "fr": "Disney",
+     "de": "Disney",
+     "it": "Disney",
+     "tr": "Disney",
+     "ar": "ديزني",
+     "ja": "ディズニー",
+     "zh-Hans": "迪士尼",
+     "zh-Hant": "迪士尼",
+     "vi": "Disney",
+     "id": "Disney",
+     "th": "ดิสนีย์"
+    }
+   }
+  ]
+ },
+ {
+  "code": 6548,
+  "name": {
+   "en": "Comedy Movies",
+   "ko": "코미디 영화",
+   "es": "Películas de comedia",
+   "fr": "Comédies",
+   "de": "Komödien",
+   "it": "Film commedia",
+   "tr": "Komedi Filmleri",
+   "ar": "أفلام كوميدية",
+   "ja": "コメディ映画",
+   "zh-Hans": "喜剧电影",
+   "zh-Hant": "喜劇電影",
+   "vi": "Phim hài",
+   "id": "Film Komedi",
+   "th": "ภาพยนตร์ตลก"
+  },
+  "items": [
+   {
+    "code": 5475,
+    "name": {
+     "en": "Romantic Comedies",
+     "ko": "로맨틱 코미디",
+     "es": "Comedias románticas",
+     "fr": "Comédies romantiques",
+     "de": "Romantische Komödien",
+     "it": "Commedie romantiche",
+     "tr": "Romantik Komediler",
+     "ar": "كوميديا رومانسية",
+     "ja": "ロマンチックコメディ",
+     "zh-Hans": "浪漫喜剧",
+     "zh-Hant": "浪漫喜劇",
+     "vi": "Phim hài lãng mạn",
+     "id": "Komedi Romantis",
+     "th": "โรแมนติกคอมเมดี้"
+    }
+   },
+   {
+    "code": 869,
+    "name": {
+     "en": "Dark Comedies",
+     "ko": "다크 코미디",
+     "es": "Comedias negras",
+     "fr": "Comédies noires",
+     "de": "Schwarze Komödien",
+     "it": "Commedie nere",
+     "tr": "Kara Komediler",
+     "ar": "كوميديا سوداء",
+     "ja": "ダークコメディ",
+     "zh-Hans": "黑色喜剧",
+     "zh-Hant": "黑色喜劇",
+     "vi": "Phim hài đen",
+     "id": "Komedi Gelap",
+     "th": "ตลกร้าย"
+    }
+   },
+   {
+    "code": 89585,
+    "name": {
+     "en": "Horror Comedies",
+     "ko": "호러 코미디 영화",
+     "es": "Comedias de terror",
+     "fr": "Comédies horrifiques",
+     "de": "Horrorkomödien",
+     "it": "Commedie horror",
+     "tr": "Korku Komedileri",
+     "ar": "أفلام كوميديا الرعب",
+     "ja": "ホラーコメディ映画",
+     "zh-Hans": "恐怖喜剧电影",
+     "zh-Hant": "恐怖喜劇電影",
+     "vi": "Phim hài kinh dị",
+     "id": "Film Komedi Horor",
+     "th": "ภาพยนตร์ตลกสยองขวัญ"
+    }
+   },
+   {
+    "code": 26,
+    "name": {
+     "en": "Mockumentaries",
+     "ko": "모큐멘터리",
+     "es": "Falsos documentales",
+     "fr": "Documenteurs",
+     "de": "Mockumentarys",
+     "it": "Mockumentary",
+     "tr": "Sahte Belgeseller",
+     "ar": "أفلام وثائقية ساخرة",
+     "ja": "モキュメンタリー",
+     "zh-Hans": "伪纪录片",
+     "zh-Hant": "偽紀錄片",
+     "vi": "Phim tài liệu giả",
+     "id": "Mockumentary",
+     "th": "ม็อกคิวเมนทารี"
+    }
+   },
+   {
+    "code": 11559,
+    "name": {
+     "en": "Stand-Up Comedy",
+     "ko": "스탠드업 코미디",
+     "es": "Stand-up",
+     "fr": "Stand-up",
+     "de": "Stand-up-Comedy",
+     "it": "Stand-up comedy",
+     "tr": "Stand-Up",
+     "ar": "كوميديا ستاند أب",
+     "ja": "スタンダップコメディ",
+     "zh-Hans": "单口喜剧",
+     "zh-Hant": "單口喜劇",
+     "vi": "Hài độc thoại",
+     "id": "Stand-Up Comedy",
+     "th": "สแตนด์อัพคอมเมดี้"
+    }
+   },
+   {
+    "code": 3519,
+    "name": {
+     "en": "Teen Comedies",
+     "ko": "10대 코미디",
+     "es": "Comedias juveniles",
+     "fr": "Comédies pour ados",
+     "de": "Teenie-Komödien",
+     "it": "Commedie per ragazzi",
+     "tr": "Gençlik Komedileri",
+     "ar": "كوميديا المراهقين",
+     "ja": "ティーンコメディ",
+     "zh-Hans": "青春喜剧",
+     "zh-Hant": "青春喜劇",
+     "vi": "Phim hài tuổi teen",
+     "id": "Komedi Remaja",
+     "th": "คอมเมดี้วัยรุ่น"
+    }
+   },
+   {
+    "code": 43040,
+    "name": {
+     "en": "Action Comedy Movies",
+     "ko": "액션 코미디 영화",
+     "es": "Comedias de acción",
+     "fr": "Comédies d'action",
+     "de": "Action-Komödien",
+     "it": "Commedie d'azione",
+     "tr": "Aksiyon Komedi Filmleri",
+     "ar": "أفلام كوميديا الحركة",
+     "ja": "アクションコメディ映画",
+     "zh-Hans": "动作喜剧电影",
+     "zh-Hant": "動作喜劇電影",
+     "vi": "Phim hài hành động",
+     "id": "Film Komedi Aksi",
+     "th": "ภาพยนตร์แอ็คชั่นคอมเมดี้"
+    }
+   },
+   {
+    "code": 31694,
+    "name": {
+     "en": "Classic Comedy Films",
+     "ko": "고전 코미디 영화",
+     "es": "Comedias clásicas",
+     "fr": "Comédies classiques",
+     "de": "Komödienklassiker",
+     "it": "Commedie classiche",
+     "tr": "Klasik Komedi Filmleri",
+     "ar": "أفلام كوميدية كلاسيكية",
+     "ja": "クラシック コメディ映画",
+     "zh-Hans": "经典喜剧电影",
+     "zh-Hant": "經典喜劇電影",
+     "vi": "Phim hài kinh điển",
+     "id": "Film Komedi Klasik",
+     "th": "ภาพยนตร์ตลกคลาสสิก"
+    }
+   },
+   {
+    "code": 7120,
+    "name": {
+     "en": "LGBTQ+ Comedy Movies",
+     "ko": "LGBTQ+ 코미디 영화",
+     "es": "Comedias LGBTQ+",
+     "fr": "Comédies LGBTQ+",
+     "de": "LGBTQ+-Komödien",
+     "it": "Commedie LGBTQ+",
+     "tr": "LGBTQ+ Komedi Filmleri",
+     "ar": "أفلام كوميدية عن مجتمع الميم+",
+     "ja": "LGBTQ+コメディ映画",
+     "zh-Hans": "LGBTQ+ 喜剧电影",
+     "zh-Hant": "LGBTQ+ 喜劇電影",
+     "vi": "Phim hài LGBTQ+",
+     "id": "Film Komedi LGBTQ+",
+     "th": "ภาพยนตร์ตลก LGBTQ+"
+    }
+   }
+  ]
+ },
+ {
+  "code": 6839,
+  "name": {
+   "en": "Best Documentaries",
+   "ko": "인기 다큐멘터리",
+   "es": "Documentales populares",
+   "fr": "Documentaires populaires",
+   "de": "Beliebte Dokumentarfilme",
+   "it": "Documentari popolari",
+   "tr": "Popüler Belgeseller",
+   "ar": "أفلام وثائقية رائجة",
+   "ja": "人気ドキュメンタリー",
+   "zh-Hans": "热门纪录片",
+   "zh-Hant": "熱門紀錄片",
+   "vi": "Phim tài liệu nổi bật",
+   "id": "Dokumenter Populer",
+   "th": "สารคดียอดนิยม"
+  },
+  "items": [
+   {
+    "code": 10105,
+    "name": {
+     "en": "Documentary Series",
+     "ko": "다큐멘터리 시리즈",
+     "es": "Series documentales",
+     "fr": "Séries documentaires",
+     "de": "Dokuserien",
+     "it": "Serie documentarie",
+     "tr": "Belgesel Dizileri",
+     "ar": "مسلسلات وثائقية",
+     "ja": "ドキュメンタリーシリーズ",
+     "zh-Hans": "纪录片剧集",
+     "zh-Hant": "紀錄片影集",
+     "vi": "Phim tài liệu dài tập",
+     "id": "Serial Dokumenter",
+     "th": "ซีรีส์สารคดี"
+    }
+   },
+   {
+    "code": 9875,
+    "name": {
+     "en": "Crime Documentaries",
+     "ko": "범죄 다큐멘터리",
+     "es": "Documentales sobre crímenes",
+     "fr": "Documentaires criminels",
+     "de": "Krimi-Dokus",
+     "it": "Documentari crime",
+     "tr": "Suç Belgeselleri",
+     "ar": "أفلام وثائقية عن الجريمة",
+     "ja": "犯罪ドキュメンタリー",
+     "zh-Hans": "犯罪纪录片",
+     "zh-Hant": "犯罪紀錄片",
+     "vi": "Phim tài liệu tội phạm",
+     "id": "Dokumenter Kriminal",
+     "th": "สารคดีอาชญากรรม"
+    }
+   },
+   {
+    "code": 3652,
+    "name": {
+     "en": "Biographical Documentaries",
+     "ko": "실존 인물 다큐멘터리",
+     "es": "Documentales biográficos",
+     "fr": "Documentaires biographiques",
+     "de": "Biografische Dokus",
+     "it": "Documentari biografici",
+     "tr": "Biyografik Belgeseller",
+     "ar": "أفلام وثائقية عن السير الذاتية",
+     "ja": "伝記ドキュメンタリー",
+     "zh-Hans": "传记纪录片",
+     "zh-Hant": "傳記紀錄片",
+     "vi": "Phim tài liệu tiểu sử",
+     "id": "Dokumenter Biografi",
+     "th": "สารคดีชีวประวัติ"
+    }
+   },
+   {
+    "code": 5349,
+    "name": {
+     "en": "Historical Documentaries",
+     "ko": "역사 다큐멘터리",
+     "es": "Documentales históricos",
+     "fr": "Documentaires historiques",
+     "de": "Geschichtsdokus",
+     "it": "Documentari storici",
+     "tr": "Tarih Belgeselleri",
+     "ar": "أفلام وثائقية تاريخية",
+     "ja": "歴史ドキュメンタリー",
+     "zh-Hans": "历史纪录片",
+     "zh-Hant": "歷史紀錄片",
+     "vi": "Phim tài liệu lịch sử",
+     "id": "Dokumenter Sejarah",
+     "th": "สารคดีประวัติศาสตร์"
+    }
+   },
+   {
+    "code": 2595,
+    "name": {
+     "en": "Science & Nature Docs",
+     "ko": "과학 & 자연 다큐멘터리",
+     "es": "Documentales de ciencia y naturaleza",
+     "fr": "Documentaires science et nature",
+     "de": "Wissenschafts- & Naturdokus",
+     "it": "Documentari su scienza e natura",
+     "tr": "Bilim ve Doğa Belgeselleri",
+     "ar": "أفلام وثائقية عن العلوم والطبيعة",
+     "ja": "科学&自然ドキュメンタリー",
+     "zh-Hans": "科学和自然纪录片",
+     "zh-Hant": "科學與自然紀錄片",
+     "vi": "Phim tài liệu khoa học & thiên nhiên",
+     "id": "Dokumenter Sains & Alam",
+     "th": "สารคดีวิทยาศาสตร์และธรรมชาติ"
+    }
+   },
+   {
+    "code": 3675,
+    "name": {
+     "en": "Social & Cultural Documentaries",
+     "ko": "사회 & 문화 다큐멘터리",
+     "es": "Documentales sociales y culturales",
+     "fr": "Documentaires sociaux et culturels",
+     "de": "Gesellschafts- & Kulturdokus",
+     "it": "Documentari sociali e culturali",
+     "tr": "Toplum ve Kültür Belgeselleri",
+     "ar": "أفلام وثائقية اجتماعية وثقافية",
+     "ja": "社会&文化ドキュメンタリー",
+     "zh-Hans": "社会和文化纪录片",
+     "zh-Hant": "社會與文化紀錄片",
+     "vi": "Phim tài liệu xã hội & văn hóa",
+     "id": "Dokumenter Sosial & Budaya",
+     "th": "สารคดีสังคมและวัฒนธรรม"
+    }
+   },
+   {
+    "code": 180,
+    "name": {
+     "en": "Sports Documentaries",
+     "ko": "스포츠 다큐멘터리",
+     "es": "Documentales deportivos",
+     "fr": "Documentaires sportifs",
+     "de": "Sportdokus",
+     "it": "Documentari sportivi",
+     "tr": "Spor Belgeselleri",
+     "ar": "أفلام وثائقية رياضية",
+     "ja": "スポーツドキュメンタリー",
+     "zh-Hans": "体育纪录片",
+     "zh-Hant": "運動紀錄片",
+     "vi": "Phim tài liệu thể thao",
+     "id": "Dokumenter Olahraga",
+     "th": "สารคดีกีฬา"
+    }
+   },
+   {
+    "code": 4720,
+    "name": {
+     "en": "LGBTQ+ Documentaries",
+     "ko": "LGBTQ+ 다큐멘터리",
+     "es": "Documentales LGBTQ+",
+     "fr": "Documentaires LGBTQ+",
+     "de": "LGBTQ+-Dokus",
+     "it": "Documentari LGBTQ+",
+     "tr": "LGBTQ+ Belgeseller",
+     "ar": "أفلام وثائقية عن مجتمع الميم+",
+     "ja": "LGBTQ+ドキュメンタリー",
+     "zh-Hans": "LGBTQ+ 纪录片",
+     "zh-Hant": "LGBTQ+ 紀錄片",
+     "vi": "Phim tài liệu LGBTQ+",
+     "id": "Dokumenter LGBTQ+",
+     "th": "สารคดี LGBTQ+"
+    }
+   }
+  ]
+ },
+ {
+  "code": 5763,
+  "name": {
+   "en": "Dramas",
+   "ko": "드라마 장르 영화",
+   "es": "Dramas",
+   "fr": "Drames",
+   "de": "Dramen",
+   "it": "Film drammatici",
+   "tr": "Dram Filmleri",
+   "ar": "أفلام الدراما",
+   "ja": "ドラマ映画",
+   "zh-Hans": "剧情片",
+   "zh-Hant": "劇情片",
+   "vi": "Phim chính kịch",
+   "id": "Film Drama",
+   "th": "ภาพยนตร์ดราม่า"
+  },
+  "items": [
+   {
+    "code": 1255,
+    "name": {
+     "en": "Romantic Drama Movies",
+     "ko": "로맨틱한 드라마 장르 영화",
+     "es": "Dramas románticos",
+     "fr": "Drames romantiques",
+     "de": "Romantische Dramen",
+     "it": "Drammi romantici",
+     "tr": "Romantik Dram Filmleri",
+     "ar": "أفلام دراما رومانسية",
+     "ja": "ロマンチックなドラマ映画",
+     "zh-Hans": "浪漫剧情片",
+     "zh-Hant": "浪漫劇情片",
+     "vi": "Phim chính kịch lãng mạn",
+     "id": "Film Drama Romantis",
+     "th": "ภาพยนตร์ดราม่าโรแมนติก"
+    }
+   },
+   {
+    "code": 3947,
+    "name": {
+     "en": "Social Issue Dramas",
+     "ko": "사회 이슈를 다루는 드라마 장르 영화",
+     "es": "Dramas sobre problemas sociales",
+     "fr": "Drames sur des questions sociales",
+     "de": "Sozialdramen",
+     "it": "Drammi a sfondo sociale",
+     "tr": "Toplumsal Konulu Dram Filmleri",
+     "ar": "أفلام دراما عن القضايا الاجتماعية",
+     "ja": "社会問題を描いたドラマ映画",
+     "zh-Hans": "社会议题剧情片",
+     "zh-Hant": "社會議題劇情片",
+     "vi": "Phim chính kịch về vấn đề xã hội",
+     "id": "Film Drama Isu Sosial",
+     "th": "ภาพยนตร์ดราม่าประเด็นสังคม"
+    }
+   },
+   {
+    "code": 500,
+    "name": {
+     "en": "LGBTQ Dramas",
+     "ko": "LGBTQ 드라마",
+     "es": "Dramas LGBTQ",
+     "fr": "Drames LGBTQ",
+     "de": "LGBTQ-Dramen",
+     "it": "Drammi LGBTQ",
+     "tr": "LGBTQ Dramaları",
+     "ar": "دراما مجتمع الميم",
+     "ja": "LGBTQドラマ",
+     "zh-Hans": "LGBTQ 剧情片",
+     "zh-Hant": "LGBTQ 劇情片",
+     "vi": "Phim chính kịch LGBTQ",
+     "id": "Drama LGBTQ",
+     "th": "ดราม่า LGBTQ"
+    }
+   },
+   {
+    "code": 11714,
+    "name": {
+     "en": "TV Drama Series",
+     "ko": "TV 드라마 시리즈",
+     "es": "Series dramáticas",
+     "fr": "Séries dramatiques",
+     "de": "Dramaserien",
+     "it": "Serie TV drammatiche",
+     "tr": "Dram Dizileri",
+     "ar": "مسلسلات درامية",
+     "ja": "TVドラマシリーズ",
+     "zh-Hans": "电视剧",
+     "zh-Hant": "電視劇",
+     "vi": "Phim bộ chính kịch",
+     "id": "Serial Drama TV",
+     "th": "ซีรีส์ดราม่า"
+    }
+   }
+  ]
+ },
+ {
+  "code": 8711,
+  "name": {
+   "en": "Essential Horror Flicks",
+   "ko": "한여름 밤의 공포, 호러 영화",
+   "es": "Películas de terror",
+   "fr": "Films d'horreur",
+   "de": "Horrorfilme",
+   "it": "Film horror",
+   "tr": "Korku Filmleri",
+   "ar": "أفلام الرعب",
+   "ja": "ホラー映画",
+   "zh-Hans": "恐怖电影",
+   "zh-Hant": "恐怖電影",
+   "vi": "Phim kinh dị",
+   "id": "Film Horor",
+   "th": "ภาพยนตร์สยองขวัญ"
+  },
+  "items": [
+   {
+    "code": 10944,
+    "name": {
+     "en": "Cult Horror Movies",
+     "ko": "컬트 호러 영화",
+     "es": "Películas de terror de culto",
+     "fr": "Films d'horreur cultes",
+     "de": "Kult-Horrorfilme",
+     "it": "Film horror cult",
+     "tr": "Kült Korku Filmleri",
+     "ar": "أفلام رعب كلاسيكية شهيرة",
+     "ja": "カルトホラー映画",
+     "zh-Hans": "邪典恐怖电影",
+     "zh-Hant": "邪典恐怖電影",
+     "vi": "Phim kinh dị kinh điển (cult)",
+     "id": "Film Horor Kultus",
+     "th": "ภาพยนตร์สยองขวัญคัลท์"
+    }
+   },
+   {
+    "code": 89585,
+    "name": {
+     "en": "Horror Comedies",
+     "ko": "호러 코미디 영화",
+     "es": "Comedias de terror",
+     "fr": "Comédies horrifiques",
+     "de": "Horrorkomödien",
+     "it": "Commedie horror",
+     "tr": "Korku Komedileri",
+     "ar": "أفلام كوميديا الرعب",
+     "ja": "ホラーコメディ映画",
+     "zh-Hans": "恐怖喜剧电影",
+     "zh-Hant": "恐怖喜劇電影",
+     "vi": "Phim hài kinh dị",
+     "id": "Film Komedi Horor",
+     "th": "ภาพยนตร์ตลกสยองขวัญ"
+    }
+   },
+   {
+    "code": 947,
+    "name": {
+     "en": "Monster Movies",
+     "ko": "괴물 영화",
+     "es": "Películas de monstruos",
+     "fr": "Films de monstres",
+     "de": "Monsterfilme",
+     "it": "Film di mostri",
+     "tr": "Canavar Filmleri",
+     "ar": "أفلام الوحوش",
+     "ja": "モンスター映画",
+     "zh-Hans": "怪兽电影",
+     "zh-Hant": "怪獸電影",
+     "vi": "Phim quái vật",
+     "id": "Film Monster",
+     "th": "ภาพยนตร์สัตว์ประหลาด"
+    }
+   },
+   {
+    "code": 10695,
+    "name": {
+     "en": "Horror Anime",
+     "ko": "호러 애니메이션",
+     "es": "Anime de terror",
+     "fr": "Anime d'horreur",
+     "de": "Horror-Anime",
+     "it": "Anime horror",
+     "tr": "Korku Animeleri",
+     "ar": "أنمي رعب",
+     "ja": "ホラーアニメ",
+     "zh-Hans": "恐怖动漫",
+     "zh-Hant": "恐怖動漫",
+     "vi": "Anime kinh dị",
+     "id": "Anime Horor",
+     "th": "อนิเมะสยองขวัญ"
+    }
+   },
+   {
+    "code": 83059,
+    "name": {
+     "en": "TV Horror",
+     "ko": "호러 시리즈",
+     "es": "Series de terror",
+     "fr": "Séries d'horreur",
+     "de": "Horrorserien",
+     "it": "Serie horror",
+     "tr": "Korku Dizileri",
+     "ar": "مسلسلات رعب",
+     "ja": "ホラーシリーズ",
+     "zh-Hans": "恐怖剧集",
+     "zh-Hant": "恐怖影集",
+     "vi": "Phim bộ kinh dị",
+     "id": "Serial Horor",
+     "th": "ซีรีส์สยองขวัญ"
+    }
+   }
+  ]
+ },
+ {
+  "code": 78367,
+  "name": {
+   "en": "International Movies",
+   "ko": "외국 영화",
+   "es": "Películas internacionales",
+   "fr": "Films internationaux",
+   "de": "Internationale Filme",
+   "it": "Film internazionali",
+   "tr": "Yabancı Filmler",
+   "ar": "أفلام عالمية",
+   "ja": "海外映画",
+   "zh-Hans": "外国电影",
+   "zh-Hant": "外國電影",
+   "vi": "Phim quốc tế",
+   "id": "Film Internasional",
+   "th": "ภาพยนตร์ต่างประเทศ"
+  },
+  "items": [
+   {
+    "code": 5685,
+    "name": {
+     "en": "Korean Movies",
+     "ko": "한국 영화",
+     "es": "Películas coreanas",
+     "fr": "Films coréens",
+     "de": "Koreanische Filme",
+     "it": "Film coreani",
+     "tr": "Kore Filmleri",
+     "ar": "أفلام كورية",
+     "ja": "韓国映画",
+     "zh-Hans": "韩国电影",
+     "zh-Hant": "韓國電影",
+     "vi": "Phim Hàn Quốc",
+     "id": "Film Korea",
+     "th": "ภาพยนตร์เกาหลี"
+    }
+   },
+   {
+    "code": 67879,
+    "name": {
+     "en": "Korean TV Shows",
+     "ko": "한국 콘텐츠",
+     "es": "Series coreanas",
+     "fr": "Séries coréennes",
+     "de": "Koreanische Serien",
+     "it": "Serie TV coreane",
+     "tr": "Kore Dizileri",
+     "ar": "برامج تلفزيونية كورية",
+     "ja": "韓国の作品",
+     "zh-Hans": "韩国剧集",
+     "zh-Hant": "韓國影集",
+     "vi": "Nội dung Hàn Quốc",
+     "id": "Konten Korea",
+     "th": "คอนเทนต์เกาหลี"
+    }
+   },
+   {
+    "code": 434295,
+    "name": {
+     "en": "Taiwanese Movies & TV",
+     "ko": "대만 영화 & TV 프로그램",
+     "es": "Películas y series taiwanesas",
+     "fr": "Films et séries taïwanais",
+     "de": "Taiwanesische Filme & Serien",
+     "it": "Film e serie TV taiwanesi",
+     "tr": "Tayvan Filmleri ve Dizileri",
+     "ar": "أفلام ومسلسلات تايوانية",
+     "ja": "台湾の映画&TV番組",
+     "zh-Hans": "台湾影视",
+     "zh-Hant": "台灣影視",
+     "vi": "Phim & chương trình truyền hình Đài Loan",
+     "id": "Film & Acara TV Taiwan",
+     "th": "ภาพยนตร์และรายการทีวีไต้หวัน"
+    }
+   },
+   {
+    "code": 107570,
+    "name": {
+     "en": "Thai Movies & TV",
+     "ko": "태국 영화 & TV 프로그램",
+     "es": "Películas y series tailandesas",
+     "fr": "Films et séries thaïlandais",
+     "de": "Thailändische Filme & Serien",
+     "it": "Film e serie TV thailandesi",
+     "tr": "Tayland Filmleri ve Dizileri",
+     "ar": "أفلام ومسلسلات تايلاندية",
+     "ja": "タイの映画&TV番組",
+     "zh-Hans": "泰国影视",
+     "zh-Hant": "泰國影視",
+     "vi": "Phim & chương trình truyền hình Thái Lan",
+     "id": "Film & Acara TV Thailand",
+     "th": "ภาพยนตร์และรายการทีวีไทย"
+    }
+   },
+   {
+    "code": 52117,
+    "name": {
+     "en": "British TV Shows",
+     "ko": "영국 TV 프로그램",
+     "es": "Series británicas",
+     "fr": "Séries britanniques",
+     "de": "Britische Serien",
+     "it": "Serie TV britanniche",
+     "tr": "İngiliz Dizileri",
+     "ar": "برامج تلفزيونية بريطانية",
+     "ja": "イギリスのTV番組",
+     "zh-Hans": "英国电视节目",
+     "zh-Hant": "英國電視節目",
+     "vi": "Chương trình truyền hình Anh",
+     "id": "Acara TV Inggris",
+     "th": "รายการทีวีอังกฤษ"
+    }
+   }
+  ]
+ },
+ {
+  "code": 5977,
+  "name": {
+   "en": "LGBTQ Movies",
+   "ko": "LGBTQ 영화",
+   "es": "Películas LGBTQ",
+   "fr": "Films LGBTQ",
+   "de": "LGBTQ-Filme",
+   "it": "Film LGBTQ",
+   "tr": "LGBTQ Filmleri",
+   "ar": "أفلام مجتمع الميم",
+   "ja": "LGBTQ映画",
+   "zh-Hans": "LGBTQ 电影",
+   "zh-Hant": "LGBTQ 電影",
+   "vi": "Phim LGBTQ",
+   "id": "Film LGBTQ",
+   "th": "ภาพยนตร์ LGBTQ"
+  },
+  "items": [
+   {
+    "code": 500,
+    "name": {
+     "en": "LGBTQ Dramas",
+     "ko": "LGBTQ 드라마",
+     "es": "Dramas LGBTQ",
+     "fr": "Drames LGBTQ",
+     "de": "LGBTQ-Dramen",
+     "it": "Drammi LGBTQ",
+     "tr": "LGBTQ Dramaları",
+     "ar": "دراما مجتمع الميم",
+     "ja": "LGBTQドラマ",
+     "zh-Hans": "LGBTQ 剧情片",
+     "zh-Hant": "LGBTQ 劇情片",
+     "vi": "Phim chính kịch LGBTQ",
+     "id": "Drama LGBTQ",
+     "th": "ดราม่า LGBTQ"
+    }
+   },
+   {
+    "code": 7120,
+    "name": {
+     "en": "LGBTQ+ Comedy Movies",
+     "ko": "LGBTQ+ 코미디 영화",
+     "es": "Comedias LGBTQ+",
+     "fr": "Comédies LGBTQ+",
+     "de": "LGBTQ+-Komödien",
+     "it": "Commedie LGBTQ+",
+     "tr": "LGBTQ+ Komedi Filmleri",
+     "ar": "أفلام كوميدية عن مجتمع الميم+",
+     "ja": "LGBTQ+コメディ映画",
+     "zh-Hans": "LGBTQ+ 喜剧电影",
+     "zh-Hant": "LGBTQ+ 喜劇電影",
+     "vi": "Phim hài LGBTQ+",
+     "id": "Film Komedi LGBTQ+",
+     "th": "ภาพยนตร์ตลก LGBTQ+"
+    }
+   },
+   {
+    "code": 4720,
+    "name": {
+     "en": "LGBTQ+ Documentaries",
+     "ko": "LGBTQ+ 다큐멘터리",
+     "es": "Documentales LGBTQ+",
+     "fr": "Documentaires LGBTQ+",
+     "de": "LGBTQ+-Dokus",
+     "it": "Documentari LGBTQ+",
+     "tr": "LGBTQ+ Belgeseller",
+     "ar": "أفلام وثائقية عن مجتمع الميم+",
+     "ja": "LGBTQ+ドキュメンタリー",
+     "zh-Hans": "LGBTQ+ 纪录片",
+     "zh-Hant": "LGBTQ+ 紀錄片",
+     "vi": "Phim tài liệu LGBTQ+",
+     "id": "Dokumenter LGBTQ+",
+     "th": "สารคดี LGBTQ+"
+    }
+   },
+   {
+    "code": 3329,
+    "name": {
+     "en": "Romantic LGBTQ+ Movies",
+     "ko": "로맨틱한 LGBTQ+ 영화",
+     "es": "Películas románticas LGBTQ+",
+     "fr": "Films romantiques LGBTQ+",
+     "de": "Romantische LGBTQ+-Filme",
+     "it": "Film romantici LGBTQ+",
+     "tr": "Romantik LGBTQ+ Filmleri",
+     "ar": "أفلام رومانسية عن مجتمع الميم+",
+     "ja": "ロマンチックなLGBTQ+映画",
+     "zh-Hans": "浪漫 LGBTQ+ 电影",
+     "zh-Hant": "浪漫 LGBTQ+ 電影",
+     "vi": "Phim LGBTQ+ lãng mạn",
+     "id": "Film Romantis LGBTQ+",
+     "th": "ภาพยนตร์ LGBTQ+ โรแมนติก"
+    }
+   }
+  ]
+ },
+ {
+  "code": 8883,
+  "name": {
+   "en": "Best Romantic Movies",
+   "ko": "최고의 로맨스 영화",
+   "es": "Películas románticas populares",
+   "fr": "Films romantiques populaires",
+   "de": "Beliebte Liebesfilme",
+   "it": "Film romantici popolari",
+   "tr": "Popüler Romantik Filmler",
+   "ar": "أفلام رومانسية رائجة",
+   "ja": "人気のロマンス映画",
+   "zh-Hans": "热门爱情电影",
+   "zh-Hant": "熱門愛情電影",
+   "vi": "Phim lãng mạn nổi bật",
+   "id": "Film Romantis Populer",
+   "th": "ภาพยนตร์โรแมนติกยอดนิยม"
+  },
+  "items": [
+   {
+    "code": 502675,
+    "name": {
+     "en": "Romantic Favorites",
+     "ko": "인기 로맨스",
+     "es": "Romances favoritos",
+     "fr": "Romances préférées",
+     "de": "Beliebte Romanzen",
+     "it": "Romantici preferiti",
+     "tr": "Sevilen Romantik Yapımlar",
+     "ar": "أعمال رومانسية مفضلة",
+     "ja": "人気のロマンス",
+     "zh-Hans": "热门爱情片",
+     "zh-Hant": "熱門愛情片",
+     "vi": "Phim lãng mạn được yêu thích",
+     "id": "Romansa Favorit",
+     "th": "โรแมนติกยอดนิยม"
+    }
+   },
+   {
+    "code": 5475,
+    "name": {
+     "en": "Romantic Comedies",
+     "ko": "로맨틱 코미디",
+     "es": "Comedias románticas",
+     "fr": "Comédies romantiques",
+     "de": "Romantische Komödien",
+     "it": "Commedie romantiche",
+     "tr": "Romantik Komediler",
+     "ar": "كوميديا رومانسية",
+     "ja": "ロマンチックコメディ",
+     "zh-Hans": "浪漫喜剧",
+     "zh-Hant": "浪漫喜劇",
+     "vi": "Phim hài lãng mạn",
+     "id": "Komedi Romantis",
+     "th": "โรแมนติกคอมเมดี้"
+    }
+   },
+   {
+    "code": 1255,
+    "name": {
+     "en": "Romantic Drama Movies",
+     "ko": "로맨틱한 드라마 장르 영화",
+     "es": "Dramas románticos",
+     "fr": "Drames romantiques",
+     "de": "Romantische Dramen",
+     "it": "Drammi romantici",
+     "tr": "Romantik Dram Filmleri",
+     "ar": "أفلام دراما رومانسية",
+     "ja": "ロマンチックなドラマ映画",
+     "zh-Hans": "浪漫剧情片",
+     "zh-Hant": "浪漫劇情片",
+     "vi": "Phim chính kịch lãng mạn",
+     "id": "Film Drama Romantis",
+     "th": "ภาพยนตร์ดราม่าโรแมนติก"
+    }
+   },
+   {
+    "code": 35800,
+    "name": {
+     "en": "Steamy Romantic Movies",
+     "ko": "관능적 로맨틱 영화",
+     "es": "Películas románticas apasionadas",
+     "fr": "Films romantiques torrides",
+     "de": "Leidenschaftliche Liebesfilme",
+     "it": "Film romantici sensuali",
+     "tr": "Tutkulu Romantik Filmler",
+     "ar": "أفلام رومانسية جريئة",
+     "ja": "官能的なロマンス映画",
+     "zh-Hans": "激情爱情电影",
+     "zh-Hant": "激情愛情電影",
+     "vi": "Phim lãng mạn nóng bỏng",
+     "id": "Film Romantis Panas",
+     "th": "ภาพยนตร์โรแมนติกเร่าร้อน"
+    }
+   },
+   {
+    "code": 31273,
+    "name": {
+     "en": "Classic Romantic Movies",
+     "ko": "영화·로맨스·고전",
+     "es": "Películas románticas clásicas",
+     "fr": "Films romantiques classiques",
+     "de": "Romantische Filmklassiker",
+     "it": "Film romantici classici",
+     "tr": "Klasik Romantik Filmler",
+     "ar": "أفلام رومانسية كلاسيكية",
+     "ja": "映画・ロマンス・クラシック",
+     "zh-Hans": "电影·爱情·经典",
+     "zh-Hant": "電影·愛情·經典",
+     "vi": "Phim lãng mạn kinh điển",
+     "id": "Film Romantis Klasik",
+     "th": "ภาพยนตร์โรแมนติกคลาสสิก"
+    }
+   },
+   {
+    "code": 1394527,
+    "name": {
+     "en": "Romantic Christmas Movies",
+     "ko": "로맨틱 크리스마스 영화",
+     "es": "Películas románticas navideñas",
+     "fr": "Films romantiques de Noël",
+     "de": "Romantische Weihnachtsfilme",
+     "it": "Film romantici di Natale",
+     "tr": "Romantik Noel Filmleri",
+     "ar": "أفلام عيد الميلاد الرومانسية",
+     "ja": "ロマンチックなクリスマス映画",
+     "zh-Hans": "浪漫圣诞电影",
+     "zh-Hant": "浪漫聖誕電影",
+     "vi": "Phim Giáng sinh lãng mạn",
+     "id": "Film Natal Romantis",
+     "th": "ภาพยนตร์คริสต์มาสโรแมนติก"
+    }
+   },
+   {
+    "code": 3329,
+    "name": {
+     "en": "Romantic LGBTQ+ Movies",
+     "ko": "로맨틱한 LGBTQ+ 영화",
+     "es": "Películas románticas LGBTQ+",
+     "fr": "Films romantiques LGBTQ+",
+     "de": "Romantische LGBTQ+-Filme",
+     "it": "Film romantici LGBTQ+",
+     "tr": "Romantik LGBTQ+ Filmleri",
+     "ar": "أفلام رومانسية عن مجتمع الميم+",
+     "ja": "ロマンチックなLGBTQ+映画",
+     "zh-Hans": "浪漫 LGBTQ+ 电影",
+     "zh-Hant": "浪漫 LGBTQ+ 電影",
+     "vi": "Phim LGBTQ+ lãng mạn",
+     "id": "Film Romantis LGBTQ+",
+     "th": "ภาพยนตร์ LGBTQ+ โรแมนติก"
+    }
+   }
+  ]
+ },
+ {
+  "code": 1492,
+  "name": {
+   "en": "Best Sci-Fi Movies",
+   "ko": "인기 SF 영화",
+   "es": "Películas de ciencia ficción populares",
+   "fr": "Films de SF populaires",
+   "de": "Beliebte Sci-Fi-Filme",
+   "it": "Film di fantascienza popolari",
+   "tr": "Popüler Bilim Kurgu Filmleri",
+   "ar": "أفلام خيال علمي رائجة",
+   "ja": "人気のSF映画",
+   "zh-Hans": "热门科幻电影",
+   "zh-Hant": "熱門科幻電影",
+   "vi": "Phim khoa học viễn tưởng nổi bật",
+   "id": "Film Sci-Fi Populer",
+   "th": "ภาพยนตร์ไซไฟยอดนิยม"
+  },
+  "items": [
+   {
+    "code": 1568,
+    "name": {
+     "en": "Action Sci-Fi & Fantasy",
+     "ko": "SF 액션 & 판타지 영화",
+     "es": "Acción de ciencia ficción y fantasía",
+     "fr": "Action, SF et fantastique",
+     "de": "Sci-Fi-Action & Fantasy",
+     "it": "Azione fantascientifica e fantasy",
+     "tr": "Bilim Kurgu Aksiyon ve Fantastik",
+     "ar": "حركة خيال علمي وفانتازيا",
+     "ja": "SFアクション&ファンタジー映画",
+     "zh-Hans": "科幻动作和奇幻电影",
+     "zh-Hant": "科幻動作與奇幻電影",
+     "vi": "Phim hành động khoa học viễn tưởng & giả tưởng",
+     "id": "Film Aksi Sci-Fi & Fantasi",
+     "th": "ภาพยนตร์แอ็คชั่นไซไฟและแฟนตาซี"
+    }
+   },
+   {
+    "code": 3327,
+    "name": {
+     "en": "Alien Movies",
+     "ko": "외계인 영화",
+     "es": "Películas de alienígenas",
+     "fr": "Films d'extraterrestres",
+     "de": "Alien-Filme",
+     "it": "Film sugli alieni",
+     "tr": "Uzaylı Filmleri",
+     "ar": "أفلام الكائنات الفضائية",
+     "ja": "エイリアン映画",
+     "zh-Hans": "外星人电影",
+     "zh-Hant": "外星人電影",
+     "vi": "Phim về người ngoài hành tinh",
+     "id": "Film Alien",
+     "th": "ภาพยนตร์เอเลี่ยน"
+    }
+   },
+   {
+    "code": 9744,
+    "name": {
+     "en": "Fantasy Movies",
+     "ko": "판타지 영화",
+     "es": "Películas de fantasía",
+     "fr": "Films fantastiques",
+     "de": "Fantasyfilme",
+     "it": "Film fantasy",
+     "tr": "Fantastik Filmler",
+     "ar": "أفلام الفانتازيا",
+     "ja": "ファンタジー映画",
+     "zh-Hans": "奇幻电影",
+     "zh-Hant": "奇幻電影",
+     "vi": "Phim giả tưởng",
+     "id": "Film Fantasi",
+     "th": "ภาพยนตร์แฟนตาซี"
+    }
+   },
+   {
+    "code": 2729,
+    "name": {
+     "en": "Sci-Fi Anime",
+     "ko": "SF 애니메이션",
+     "es": "Anime de ciencia ficción",
+     "fr": "Anime de science-fiction",
+     "de": "Sci-Fi-Anime",
+     "it": "Anime di fantascienza",
+     "tr": "Bilim Kurgu Animeleri",
+     "ar": "أنمي خيال علمي",
+     "ja": "SFアニメ",
+     "zh-Hans": "科幻动漫",
+     "zh-Hant": "科幻動漫",
+     "vi": "Anime khoa học viễn tưởng",
+     "id": "Anime Sci-Fi",
+     "th": "อนิเมะไซไฟ"
+    }
+   },
+   {
+    "code": 1372,
+    "name": {
+     "en": "Sci-Fi & Fantasy Shows",
+     "ko": "SF & 판타지 시리즈",
+     "es": "Series de ciencia ficción y fantasía",
+     "fr": "Séries de SF et fantastiques",
+     "de": "Sci-Fi- & Fantasy-Serien",
+     "it": "Serie fantascientifiche e fantasy",
+     "tr": "Bilim Kurgu ve Fantastik Diziler",
+     "ar": "مسلسلات الخيال العلمي والفانتازيا",
+     "ja": "SF&ファンタジーシリーズ",
+     "zh-Hans": "科幻和奇幻剧集",
+     "zh-Hant": "科幻與奇幻影集",
+     "vi": "Phim bộ khoa học viễn tưởng & giả tưởng",
+     "id": "Serial Sci-Fi & Fantasi",
+     "th": "ซีรีส์ไซไฟและแฟนตาซี"
+    }
+   }
+  ]
+ },
+ {
+  "code": 4370,
+  "name": {
+   "en": "Sports Movies",
+   "ko": "스포츠 영화",
+   "es": "Películas de deportes",
+   "fr": "Films de sport",
+   "de": "Sportfilme",
+   "it": "Film sportivi",
+   "tr": "Spor Filmleri",
+   "ar": "أفلام رياضية",
+   "ja": "スポーツ映画",
+   "zh-Hans": "体育电影",
+   "zh-Hant": "運動電影",
+   "vi": "Phim thể thao",
+   "id": "Film Olahraga",
+   "th": "ภาพยนตร์กีฬา"
+  },
+  "items": [
+   {
+    "code": 180,
+    "name": {
+     "en": "Sports Documentaries",
+     "ko": "스포츠 다큐멘터리",
+     "es": "Documentales deportivos",
+     "fr": "Documentaires sportifs",
+     "de": "Sportdokus",
+     "it": "Documentari sportivi",
+     "tr": "Spor Belgeselleri",
+     "ar": "أفلام وثائقية رياضية",
+     "ja": "スポーツドキュメンタリー",
+     "zh-Hans": "体育纪录片",
+     "zh-Hant": "運動紀錄片",
+     "vi": "Phim tài liệu thể thao",
+     "id": "Dokumenter Olahraga",
+     "th": "สารคดีกีฬา"
+    }
+   },
+   {
+    "code": 8985,
+    "name": {
+     "en": "Martial Arts Movies",
+     "ko": "무술 영화",
+     "es": "Películas de artes marciales",
+     "fr": "Films d'arts martiaux",
+     "de": "Kampfsportfilme",
+     "it": "Film di arti marziali",
+     "tr": "Dövüş Sanatları Filmleri",
+     "ar": "أفلام الفنون القتالية",
+     "ja": "格闘技映画",
+     "zh-Hans": "武术电影",
+     "zh-Hant": "武術電影",
+     "vi": "Phim võ thuật",
+     "id": "Film Seni Bela Diri",
+     "th": "ภาพยนตร์ศิลปะการต่อสู้"
+    }
+   }
+  ]
+ },
+ {
+  "code": 8933,
+  "name": {
+   "en": "Thrillers",
+   "ko": "스릴러",
+   "es": "Thrillers",
+   "fr": "Thrillers",
+   "de": "Thriller",
+   "it": "Thriller",
+   "tr": "Gerilim",
+   "ar": "أفلام إثارة",
+   "ja": "スリラー",
+   "zh-Hans": "惊悚片",
+   "zh-Hant": "驚悚片",
+   "vi": "Phim giật gân",
+   "id": "Thriller",
+   "th": "ระทึกขวัญ"
+  },
+  "items": [
+   {
+    "code": 43048,
+    "name": {
+     "en": "Action-Thrillers",
+     "ko": "액션 스릴러",
+     "es": "Thrillers de acción",
+     "fr": "Thrillers d'action",
+     "de": "Action-Thriller",
+     "it": "Thriller d'azione",
+     "tr": "Aksiyon Gerilim",
+     "ar": "أفلام إثارة وحركة",
+     "ja": "アクションスリラー",
+     "zh-Hans": "动作惊悚片",
+     "zh-Hant": "動作驚悚片",
+     "vi": "Phim hành động giật gân",
+     "id": "Thriller Aksi",
+     "th": "แอ็คชั่นระทึกขวัญ"
+    }
+   },
+   {
+    "code": 5505,
+    "name": {
+     "en": "Psychological Thrillers",
+     "ko": "심리 스릴러",
+     "es": "Thrillers psicológicos",
+     "fr": "Thrillers psychologiques",
+     "de": "Psychothriller",
+     "it": "Thriller psicologici",
+     "tr": "Psikolojik Gerilim",
+     "ar": "إثارة نفسية",
+     "ja": "心理スリラー",
+     "zh-Hans": "心理惊悚片",
+     "zh-Hant": "心理驚悚片",
+     "vi": "Phim giật gân tâm lý",
+     "id": "Thriller Psikologis",
+     "th": "ระทึกขวัญจิตวิทยา"
+    }
+   },
+   {
+    "code": 9994,
+    "name": {
+     "en": "Mysteries",
+     "ko": "미스터리",
+     "es": "Misterio",
+     "fr": "Mystère",
+     "de": "Mystery",
+     "it": "Mystery",
+     "tr": "Gizem",
+     "ar": "غموض",
+     "ja": "ミステリー",
+     "zh-Hans": "悬疑片",
+     "zh-Hant": "懸疑片",
+     "vi": "Bí ẩn",
+     "id": "Misteri",
+     "th": "ลึกลับ"
+    }
+   },
+   {
+    "code": 972,
+    "name": {
+     "en": "Steamy Thrillers",
+     "ko": "관능적인 스릴러",
+     "es": "Thrillers sensuales",
+     "fr": "Thrillers sulfureux",
+     "de": "Erotikthriller",
+     "it": "Thriller sensuali",
+     "tr": "Tutkulu Gerilim",
+     "ar": "أفلام إثارة جريئة",
+     "ja": "官能的なスリラー",
+     "zh-Hans": "情色惊悚片",
+     "zh-Hant": "情色驚悚片",
+     "vi": "Phim giật gân nóng bỏng",
+     "id": "Thriller Panas",
+     "th": "ระทึกขวัญเร่าร้อน"
+    }
+   },
+   {
+    "code": 31851,
+    "name": {
+     "en": "Gangster Movies",
+     "ko": "갱스터 영화",
+     "es": "Películas de gánsteres",
+     "fr": "Films de gangsters",
+     "de": "Gangsterfilme",
+     "it": "Film di gangster",
+     "tr": "Gangster Filmleri",
+     "ar": "أفلام العصابات",
+     "ja": "ギャング映画",
+     "zh-Hans": "黑帮电影",
+     "zh-Hant": "黑幫電影",
+     "vi": "Phim xã hội đen",
+     "id": "Film Gangster",
+     "th": "ภาพยนตร์แก๊งสเตอร์"
+    }
+   },
+   {
+    "code": 7687,
+    "name": {
+     "en": "Film Noir",
+     "ko": "필름 누아르",
+     "es": "Cine negro",
+     "fr": "Films noirs",
+     "de": "Film noir",
+     "it": "Film noir",
+     "tr": "Kara Film",
+     "ar": "أفلام نوار",
+     "ja": "フィルム・ノワール",
+     "zh-Hans": "黑色电影",
+     "zh-Hant": "黑色電影",
+     "vi": "Phim đen (Film noir)",
+     "id": "Film Noir",
+     "th": "ฟิล์มนัวร์"
+    }
+   }
+  ]
+ },
+ {
+  "code": 31574,
+  "name": {
+   "en": "Classic Movies",
+   "ko": "고전 영화",
+   "es": "Películas clásicas",
+   "fr": "Films classiques",
+   "de": "Filmklassiker",
+   "it": "Film classici",
+   "tr": "Klasik Filmler",
+   "ar": "أفلام كلاسيكية",
+   "ja": "クラシック映画",
+   "zh-Hans": "经典电影",
+   "zh-Hant": "經典電影",
+   "vi": "Phim kinh điển",
+   "id": "Film Klasik",
+   "th": "ภาพยนตร์คลาสสิก"
+  },
+  "items": [
+   {
+    "code": 46576,
+    "name": {
+     "en": "Classic Action & Adventure Films",
+     "ko": "고전 액션 & 어드벤처 영화",
+     "es": "Clásicos de acción y aventuras",
+     "fr": "Classiques d'action et d'aventure",
+     "de": "Action- & Abenteuer-Klassiker",
+     "it": "Classici d'azione e avventura",
+     "tr": "Klasik Aksiyon ve Macera Filmleri",
+     "ar": "أفلام حركة ومغامرة كلاسيكية",
+     "ja": "クラシック アクション&アドベンチャー映画",
+     "zh-Hans": "经典动作和冒险电影",
+     "zh-Hant": "經典動作與冒險電影",
+     "vi": "Phim hành động & phiêu lưu kinh điển",
+     "id": "Film Klasik Aksi & Petualangan",
+     "th": "ภาพยนตร์แอ็คชั่นและผจญภัยคลาสสิก"
+    }
+   },
+   {
+    "code": 31694,
+    "name": {
+     "en": "Classic Comedy Films",
+     "ko": "고전 코미디 영화",
+     "es": "Comedias clásicas",
+     "fr": "Comédies classiques",
+     "de": "Komödienklassiker",
+     "it": "Commedie classiche",
+     "tr": "Klasik Komedi Filmleri",
+     "ar": "أفلام كوميدية كلاسيكية",
+     "ja": "クラシック コメディ映画",
+     "zh-Hans": "经典喜剧电影",
+     "zh-Hant": "經典喜劇電影",
+     "vi": "Phim hài kinh điển",
+     "id": "Film Komedi Klasik",
+     "th": "ภาพยนตร์ตลกคลาสสิก"
+    }
+   },
+   {
+    "code": 31273,
+    "name": {
+     "en": "Classic Romantic Movies",
+     "ko": "영화·로맨스·고전",
+     "es": "Películas románticas clásicas",
+     "fr": "Films romantiques classiques",
+     "de": "Romantische Filmklassiker",
+     "it": "Film romantici classici",
+     "tr": "Klasik Romantik Filmler",
+     "ar": "أفلام رومانسية كلاسيكية",
+     "ja": "映画・ロマンス・クラシック",
+     "zh-Hans": "电影·爱情·经典",
+     "zh-Hant": "電影·愛情·經典",
+     "vi": "Phim lãng mạn kinh điển",
+     "id": "Film Romantis Klasik",
+     "th": "ภาพยนตร์โรแมนติกคลาสสิก"
+    }
+   },
+   {
+    "code": 7687,
+    "name": {
+     "en": "Film Noir",
+     "ko": "필름 누아르",
+     "es": "Cine negro",
+     "fr": "Films noirs",
+     "de": "Film noir",
+     "it": "Film noir",
+     "tr": "Kara Film",
+     "ar": "أفلام نوار",
+     "ja": "フィルム・ノワール",
+     "zh-Hans": "黑色电影",
+     "zh-Hant": "黑色電影",
+     "vi": "Phim đen (Film noir)",
+     "id": "Film Noir",
+     "th": "ฟิล์มนัวร์"
+    }
+   },
+   {
+    "code": 46553,
+    "name": {
+     "en": "Classic TV Shows",
+     "ko": "TV 프로그램·고전",
+     "es": "Series clásicas",
+     "fr": "Séries classiques",
+     "de": "Serienklassiker",
+     "it": "Serie TV classiche",
+     "tr": "Klasik Diziler",
+     "ar": "برامج تلفزيونية كلاسيكية",
+     "ja": "TV番組・クラシック",
+     "zh-Hans": "经典电视节目",
+     "zh-Hant": "經典電視節目",
+     "vi": "Chương trình truyền hình kinh điển",
+     "id": "Acara TV Klasik",
+     "th": "รายการทีวีคลาสสิก"
+    }
+   }
+  ]
+ }
+]

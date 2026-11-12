@@ -7,6 +7,7 @@ import 'package:zappit/features/remote/presentation/sheets/episodes_sheet.dart';
 import 'package:zappit/features/remote/presentation/sheets/subtitle_sheet.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Site buttons without a frame, centred: Home and Back (Netflix; YouTube has
 /// them in its menu). Back stays on the site, like YouTube's (`canGoBack`).
@@ -24,16 +25,16 @@ class SiteButtons extends ConsumerWidget {
       children: [
         ZpIconButton(
           variant: ZpIconButtonVariant.tonal,
-          semanticLabel: 'Home',
+          semanticLabel: S.of(context).home,
           onPressed: controller.goHome,
           child: const Icon(Icons.home_rounded, size: 28),
         ),
         const SizedBox(width: AppTokens.space4),
         ZpIconButton(
           variant: ZpIconButtonVariant.tonal,
-          semanticLabel: 'Back',
+          semanticLabel: S.of(context).back,
           onPressed: canGoBack ? controller.goBack : null,
-          onDisabledTap: () => AppNotice.snack('There is no previous page to go back to'),
+          onDisabledTap: () => AppNotice.snack(S.of(context).noPreviousPage),
           child: const Icon(Icons.arrow_back_rounded, size: 28),
         ),
       ],
@@ -62,7 +63,7 @@ class CaptionsBlock extends ConsumerWidget {
       child: Row(
         children: [
           ZpIconButton(
-            semanticLabel: subtitle.enabled ? 'Captions on' : 'Captions off',
+            semanticLabel: subtitle.enabled ? S.of(context).captionsOn : S.of(context).captionsOff,
             onPressed: available ? controller.toggleCc : null,
             onDisabledTap: _noSubtitles,
             child: Icon(
@@ -71,7 +72,7 @@ class CaptionsBlock extends ConsumerWidget {
             ),
           ),
           ZpIconButton(
-            semanticLabel: 'Caption language',
+            semanticLabel: S.of(context).captionLanguage,
             onPressed: available && subtitle.tracks.isNotEmpty ? () => showSubtitleSheet(context, ref) : null,
             onDisabledTap: _noSubtitles,
             child: const Icon(Icons.translate_rounded, size: 28),
@@ -79,7 +80,7 @@ class CaptionsBlock extends ConsumerWidget {
           const Spacer(),
           ZpIconButton(
             variant: ZpIconButtonVariant.outlined,
-            semanticLabel: 'Smaller captions',
+            semanticLabel: S.of(context).smallerCaptions,
             onPressed: sizeEnabled && size > 50 ? () => controller.stepSubtitleSize(size, -1) : null,
             child: Text('A−', style: TextStyle(fontSize: 20, color: sizeEnabled ? t.ink : t.inkDisabled)),
           ),
@@ -95,7 +96,7 @@ class CaptionsBlock extends ConsumerWidget {
           ),
           ZpIconButton(
             variant: ZpIconButtonVariant.outlined,
-            semanticLabel: 'Larger captions',
+            semanticLabel: S.of(context).largerCaptions,
             onPressed: sizeEnabled && size < 400 ? () => controller.stepSubtitleSize(size, 1) : null,
             child: Text('A+', style: TextStyle(fontSize: 20, color: sizeEnabled ? t.ink : t.inkDisabled)),
           ),
@@ -123,7 +124,7 @@ class EpisodeButtons extends ConsumerWidget {
       children: [
         Expanded(
           child: ZpButton(
-            label: 'Episodes',
+            label: S.of(context).episodes,
             icon: const Icon(Icons.video_library_rounded),
             textStyle: AppText.bodyStrong.copyWith(fontSize: 16),
             onPressed: () => showEpisodesSheet(context, ref),
@@ -132,11 +133,11 @@ class EpisodeButtons extends ConsumerWidget {
         const SizedBox(width: AppTokens.space4),
         Expanded(
           child: ZpButton(
-            label: 'Next episode',
+            label: S.of(context).nextEpisode,
             icon: const Icon(Icons.skip_next_rounded),
             textStyle: AppText.bodyStrong.copyWith(fontSize: 16),
             onPressed: nextAvailable ? controller.nextEpisode : null,
-            onDisabledTap: () => AppNotice.snack('No next episode'),
+            onDisabledTap: () => AppNotice.snack(S.of(context).noNextEpisode),
           ),
         ),
       ],
@@ -151,8 +152,9 @@ class ActionButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final skipAd = ref.watch(siteStateControllerProvider.select((s) => s.skipAd));
-    final skipIntro = ref.watch(siteStateControllerProvider.select((s) => s.skipIntro));
+    // Pro (`skip_ad`, `skip_intro`): free users skip on the site.
+    final skipAd = ref.watch(siteStateControllerProvider.select((s) => s.skipAd)) && ref.watch(targetProvider.select((t) => t?.has(Capability.skipAd) ?? false));
+    final skipIntro = ref.watch(siteStateControllerProvider.select((s) => s.skipIntro)) && ref.watch(targetProvider.select((t) => t?.has(Capability.skipIntro) ?? false));
     final controller = ref.read(remoteControllerProvider);
     final visible = skipAd || skipIntro;
 
@@ -175,7 +177,7 @@ class ActionButton extends ConsumerWidget {
                 key: ValueKey(skipAd ? 'ad' : 'intro'),
                 padding: const EdgeInsets.only(top: AppTokens.space2, bottom: AppTokens.space3),
                 child: ZpButton(
-                  label: skipAd ? 'Skip Ad' : 'Skip Intro',
+                  label: skipAd ? S.of(context).skipAd : S.of(context).skipIntro,
                   style: ZpButtonStyle.signal,
                   trailingIcon: const Icon(Icons.skip_next_rounded, size: 26),
                   textStyle: AppText.button.copyWith(fontSize: 18),
@@ -204,7 +206,7 @@ class ShortFormRail extends ConsumerWidget {
             child: ZpDirButton(
               icon: Icons.keyboard_arrow_up_rounded,
               radius: AppTokens.radiusLg,
-              semanticLabel: 'Previous video',
+              semanticLabel: S.of(context).previousVideo,
               onPressed: controller.prevVideo,
             ),
           ),
@@ -213,7 +215,7 @@ class ShortFormRail extends ConsumerWidget {
             child: ZpDirButton(
               icon: Icons.keyboard_arrow_down_rounded,
               radius: AppTokens.radiusLg,
-              semanticLabel: 'Next video',
+              semanticLabel: S.of(context).nextVideo,
               onPressed: controller.nextVideo,
             ),
           ),
@@ -223,4 +225,4 @@ class ShortFormRail extends ConsumerWidget {
   }
 }
 
-void _noSubtitles() => AppNotice.snack('This video has no subtitles');
+void _noSubtitles() => AppNotice.snack(getIt<S>().noSubtitles);

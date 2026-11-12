@@ -6,13 +6,14 @@ import 'package:zappit/features/remote/controllers/playback_controller.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/features/remote/presentation/sheets/chapters_sheet.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// YouTube chapters (2+): list · "Chapter 3/12" + name · previous · next.
 /// Tablet shows the whole list inline instead.
 class ChapterBlock extends ConsumerWidget {
   const ChapterBlock({super.key});
 
-  static const _adMessage = "Chapters can't be skipped during an ad";
+  static String get _adMessage => getIt<S>().chaptersDuringAd;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,7 +36,7 @@ class ChapterBlock extends ConsumerWidget {
       child: Row(
         children: [
           ZpIconButton(
-            semanticLabel: 'Chapters',
+            semanticLabel: S.of(context).chapters,
             onPressed: () => showChaptersSheet(context, ref),
             child: const Icon(Icons.format_list_bulleted_rounded, size: 28),
           ),
@@ -49,7 +50,7 @@ class ChapterBlock extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Chapter ${index + 1}/${chapters.length}',
+                    S.of(context).chapterPosition(index + 1, chapters.length),
                     style: AppText.label.copyWith(color: t.inkMuted, fontWeight: FontWeight.w400),
                   ),
                   Text(
@@ -65,7 +66,7 @@ class ChapterBlock extends ConsumerWidget {
           const SizedBox(width: AppTokens.space2),
           ZpIconButton(
             variant: ZpIconButtonVariant.outlined,
-            semanticLabel: 'Previous chapter',
+            semanticLabel: S.of(context).previousChapter,
             onPressed: isAd ? null : () => controller.seekTo(Chapter.previousTarget(chapters, position)),
             onDisabledTap: () => AppNotice.snack(_adMessage),
             child: const Icon(Icons.skip_previous_rounded, size: 28),
@@ -73,7 +74,7 @@ class ChapterBlock extends ConsumerWidget {
           const SizedBox(width: AppTokens.space2),
           ZpIconButton(
             variant: ZpIconButtonVariant.outlined,
-            semanticLabel: 'Next chapter',
+            semanticLabel: S.of(context).nextChapter,
             onPressed: isAd || isLast ? null : () => controller.seekTo(chapters[index + 1].start),
             onDisabledTap: isAd ? () => AppNotice.snack(_adMessage) : null,
             child: const Icon(Icons.skip_next_rounded, size: 28),

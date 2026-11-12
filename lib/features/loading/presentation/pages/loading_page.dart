@@ -3,9 +3,9 @@ import 'package:zappit/shared/widgets/ds/zp_badges.dart';
 
 /// Shown while Firebase, Remote Config and Ably start. Same as the native
 /// splash (iOS LaunchScreen.storyboard, Android flutter_native_splash in
-/// pubspec.yaml), so the handover is invisible: the icon at 200 on the icon
+/// pubspec.yaml), so the handover is invisible: the icon at 150 on the icon
 /// image's own background colour. Android 12 draws the 1152 px
-/// `android_splash_logo.png` (icon at 800 px) in 288 dp: 200 dp too.
+/// `android_splash_logo.png` (icon at 600 px) in 288 dp: 150 dp too.
 class LoadingPage extends StatelessWidget {
   const LoadingPage({super.key});
 
@@ -16,7 +16,7 @@ class LoadingPage extends StatelessWidget {
       child: ColoredBox(
         color: ZpAppIcon.background,
         child: Center(
-          child: ZpAppIcon(size: 200),
+          child: ZpAppIcon(size: 150),
         ),
       ),
     );

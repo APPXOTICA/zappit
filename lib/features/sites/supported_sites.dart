@@ -15,8 +15,8 @@ extension SiteHome on Site {
       };
 }
 
-/// Supported sites in the user's order (Firestore `users/{uid}.settings.siteOrder`).
-List<Site> watchSiteOrder(WidgetRef ref) => ref.watch(userSettingsControllerProvider.select((s) => s.siteOrder));
+/// The user's favorite sites in their order (Firestore `users/{uid}.settings.favoriteSites`).
+List<Site> watchFavoriteSites(WidgetRef ref) => ref.watch(userSettingsControllerProvider.select((s) => s.favoriteSites));
 
 /// Opens the site's home in a new tab of the selected browser.
 void openSiteHome(WidgetRef ref, Site site) {

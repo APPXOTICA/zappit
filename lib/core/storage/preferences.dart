@@ -38,6 +38,17 @@ class Preferences {
   bool get debugPro => instance.getBool(_debugProKey) ?? false;
   void setDebugPro(bool on) => instance.setBool(_debugProKey, on);
 
+  /// [key] was marked by [markOnce].
+  bool isMarked(String key) => instance.getBool('once:$key') ?? false;
+
+  /// True the first time [key] is marked on this phone, false afterwards.
+  bool markOnce(String key) {
+    final k = 'once:$key';
+    if (instance.getBool(k) ?? false) return false;
+    instance.setBool(k, true);
+    return true;
+  }
+
   int get launchCount => instance.getInt(_launchCountKey) ?? 0;
   void setLaunchCount(int count) => instance.setInt(_launchCountKey, count);
 

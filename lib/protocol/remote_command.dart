@@ -22,6 +22,8 @@ final class RemoteCommand {
   RemoteCommand.seekForward(int seconds) : this._('seek_forward', {'seconds': seconds});
   RemoteCommand.seekBackward(int seconds) : this._('seek_backward', {'seconds': seconds});
   RemoteCommand.seekTo(double seconds) : this._('seek_to', {'seconds': seconds});
+  /// Paused: [frames] frames forward (+) or back (−).
+  RemoteCommand.frameStep(int frames) : this._('frame_step', {'frames': frames});
 
   // Volume
   RemoteCommand.setVolume(int volume) : this._('set_volume', {'volume': volume.clamp(0, 100)});
@@ -88,6 +90,10 @@ final class RemoteCommand {
   const RemoteCommand.goHome() : this._('go_home');
   const RemoteCommand.goBack() : this._('go_back');
   RemoteCommand.goPage(YtPage page) : this._('go_page', {'page': page.wire});
+  /// Netflix genre page `/browse/genre/<code>`.
+  RemoteCommand.goGenre(int code) : this._('go_genre', {'code': code});
+  /// The YouTube video's channel, on [tab].
+  RemoteCommand.goChannel(ChannelTab tab) : this._('go_channel', {'tab': tab.wire});
   RemoteCommand.nav(NavDirection direction) : this._('nav', {'direction': direction.name});
   const RemoteCommand.navSelect() : this._('nav_select');
   const RemoteCommand.endScreenPlayNow() : this._('end_screen_play_now');
@@ -108,14 +114,14 @@ final class RemoteCommand {
 
   /// Every function name the extension understands.
   static const functionNames = <String>{
-    'play', 'pause', 'replay', 'seek_forward', 'seek_backward', 'seek_to',
+    'play', 'pause', 'replay', 'seek_forward', 'seek_backward', 'seek_to', 'frame_step',
     'set_volume', 'volume_up', 'volume_down', 'set_mute',
     'set_speed', 'hold_speed', 'set_loop', 'set_ab', 'clear_ab', 'set_sleep_timer',
     'set_fullscreen', 'toggle_theater', 'toggle_chat', 'toggle_voice_boost',
     'toggle_cc', 'set_subtitle_track', 'set_subtitle_size',
     'skip_ad', 'skip_intro', 'next_episode', 'next_video', 'prev_video',
     'get_tracks', 'get_episodes', 'play_episode', 'get_quality', 'set_quality', 'get_media_url',
-    'open_url', 'go_home', 'go_page', 'go_back', 'nav', 'nav_select',
+    'open_url', 'go_home', 'go_page', 'go_genre', 'go_channel', 'go_back', 'nav', 'nav_select',
     'get_playlist', 'play_playlist_item', 'set_shuffle', 'set_playlist_loop',
     'end_screen_play_now', 'end_screen_cancel', 'end_screen_dismiss',
     'watch_tabs', 'unwatch_tabs', 'activate_tab', 'switch_tab', 'reload_tab', 'ping',

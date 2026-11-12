@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zappit/core/extensions/context_extensions.dart';
 import 'package:zappit/core/theme/app_tokens.dart';
 import 'package:zappit/shared/widgets/ds/zp_icon_button.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// DS VolumeRocker (`.zp-vol`): Mute · − · slider · +, level under the slider.
 class ZpVolumeRocker extends StatefulWidget {
@@ -72,7 +73,7 @@ class _ZpVolumeRockerState extends State<ZpVolumeRocker> {
       children: [
         ZpIconButton(
           size: ZpIconButtonSize.sm,
-          semanticLabel: widget.muted ? 'Unmute' : 'Mute',
+          semanticLabel: widget.muted ? S.of(context).unmute : S.of(context).mute,
           onPressed: enabled ? widget.onMuteToggle : null,
           child: Icon(widget.muted ? Icons.volume_off_rounded : Icons.volume_up_rounded),
         ),
@@ -80,7 +81,7 @@ class _ZpVolumeRockerState extends State<ZpVolumeRocker> {
         ZpIconButton(
           size: ZpIconButtonSize.sm,
           variant: ZpIconButtonVariant.outlined,
-          semanticLabel: 'Volume down',
+          semanticLabel: S.of(context).volumeDown,
           onPressed: enabled ? widget.onStepDown : null,
           child: const Icon(Icons.remove_rounded),
         ),
@@ -150,7 +151,7 @@ class _ZpVolumeRockerState extends State<ZpVolumeRocker> {
         ZpIconButton(
           size: ZpIconButtonSize.sm,
           variant: ZpIconButtonVariant.outlined,
-          semanticLabel: 'Volume up',
+          semanticLabel: S.of(context).volumeUp,
           onPressed: enabled ? widget.onStepUp : null,
           child: const Icon(Icons.add_rounded),
         ),

@@ -1,6 +1,7 @@
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 class WebViewArgs {
   const WebViewArgs({required this.title, required this.url});
@@ -68,11 +69,11 @@ class _WebViewPageState extends State<WebViewPage> {
           ? Center(
               child: ZpEmptyState(
                 icon: Icons.cloud_off_rounded,
-                title: "Can't load this page",
-                message: 'Check your connection and try again.',
+                title: S.of(context).cantLoadPage,
+                message: S.of(context).checkConnectionShort,
                 actions: [
                   ZpButton(
-                    label: 'Try again',
+                    label: S.of(context).tryAgain,
                     expand: false,
                     height: AppTokens.targetMin,
                     onPressed: () {

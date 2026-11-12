@@ -14,11 +14,13 @@ import 'package:zappit/features/remote/presentation/widgets/blocks/volume_block.
 import 'package:zappit/features/remote/presentation/widgets/glass_overlays.dart';
 import 'package:zappit/features/remote/presentation/widgets/mode_views.dart';
 import 'package:zappit/features/remote/presentation/widgets/remote_header.dart';
+import 'package:zappit/features/remote/presentation/widgets/channel_button.dart';
 import 'package:zappit/features/remote/presentation/widgets/title_marquee.dart';
 import 'package:zappit/features/remote/presentation/widgets/youtube_menu.dart';
 import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
 import 'package:zappit/shared/widgets/match_height_row.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Remote tab. Universal blocks are fixed; the site zone changes with the
 /// target's capabilities. Fixed header, bottom-anchored scroll stack.
@@ -175,10 +177,10 @@ class _ReloadBanner extends ConsumerWidget {
         padding: const EdgeInsets.fromLTRB(AppTokens.space4, AppTokens.space2, AppTokens.space2, AppTokens.space2),
         child: Row(
           children: [
-            Expanded(child: Text('The Zappit extension was updated. Reload this page to keep using all controls.', style: AppText.body.copyWith(color: t.ink))),
+            Expanded(child: Text(S.of(context).extensionUpdatedReload, style: AppText.body.copyWith(color: t.ink))),
             const SizedBox(width: AppTokens.space3),
             ZpButton(
-              label: 'Reload',
+              label: S.of(context).reload,
               icon: const Icon(Icons.refresh_rounded),
               style: ZpButtonStyle.accent,
               height: AppTokens.targetMin,
@@ -198,7 +200,7 @@ class _YouTubeMenu extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mode = ref.watch(remoteModeProvider);
-    final hasMenu = ref.watch(targetProvider.select((t) => t?.has(Capability.browseMenu) ?? false));
+    final hasMenu = ref.watch(targetProvider.select(hasTopMenu));
     if (!hasMenu || (mode != RemoteMode.home && mode != RemoteMode.playing)) return const SizedBox.shrink();
     final side = context.isTablet ? AppTokens.space8 : AppTokens.space4;
     return Padding(padding: EdgeInsets.fromLTRB(side, AppTokens.space2, side, 0), child: const YouTubeMenuBar());
@@ -228,6 +230,7 @@ class _RemoteStack extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        if (mode == RemoteMode.playing) const ChannelButton(),
         if (mode != RemoteMode.home) TitleMarquee(title: mode == RemoteMode.playing ? (playbackTitle ?? title) : null),
         Padding(
           padding: const EdgeInsets.only(top: AppTokens.space2),
@@ -251,15 +254,16 @@ class _PlayingBlocks extends ConsumerWidget {
 
     final shortForm = target?.isShortForm ?? false;
     final blocks = <Widget>[
-      // YouTube and Shorts have the menu bar under the header instead.
-      if ((target?.has(Capability.home) ?? false) && !(target?.has(Capability.browseMenu) ?? false)) const SiteButtons(),
+      // YouTube, Shorts, TikTok and Reels have the menu bar under the header instead.
+      if ((target?.has(Capability.home) ?? false) && !hasTopMenu(target)) const SiteButtons(),
       if ((target?.has(Capability.playlist) ?? false) && hasPlaylist) const PlaylistBlock(),
       if ((target?.has(Capability.chapters) ?? false) && chapterCount >= 2) const ChapterBlock(),
       if ((target?.has(Capability.episodes) ?? false) && isSeries) const EpisodeButtons(),
       if (target?.has(Capability.captions) ?? false) const CaptionsBlock(),
       const SpeedBlock(),
       const VolumeBlock(),
-      if (shortForm) const MatchHeightRow(main: PlaybackBlock(), side: ShortFormRail()) else const PlaybackBlock(),
+      // The up / down rail is Pro (`prev_next`); free short-form gets the plain player.
+      if (shortForm && (target?.has(Capability.prevNext) ?? false)) const MatchHeightRow(main: PlaybackBlock(), side: ShortFormRail()) else const PlaybackBlock(),
     ];
 
     return Column(

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/utils/haptic_utils.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 /// Bottom navigation: Remote · Tabs · More (`.za-nav`).
 class AppShell extends StatelessWidget {
@@ -30,21 +31,21 @@ class AppShell extends StatelessWidget {
             child: Row(
               children: [
                 _NavTab(
-                  label: 'Remote',
+                  label: S.of(context).tabRemote,
                   icon: 'assets/images/ic_remote_outline.svg',
                   selectedIcon: 'assets/images/ic_remote.svg',
                   selected: shell.currentIndex == 0,
                   onTap: () => _go(0),
                 ),
                 _NavTab(
-                  label: 'Tabs',
+                  label: S.of(context).tabTabs,
                   icon: 'assets/images/ic_tabs.svg',
                   selectedIcon: 'assets/images/ic_tabs_filled.svg',
                   selected: shell.currentIndex == 1,
                   onTap: () => _go(1),
                 ),
                 _NavTab(
-                  label: 'More',
+                  label: S.of(context).tabMore,
                   iconData: Icons.more_horiz_rounded,
                   selected: shell.currentIndex == 2,
                   onTap: () => _go(2),

@@ -30,7 +30,21 @@ enum Site {
   static Site fromName(String? name) =>
       Site.values.firstWhere((s) => s.name == name, orElse: () => Site.none);
 
+  /// Sites with a dedicated remote in this app version: Supported sites, and
+  /// the presence data `sites` (the extension handles any other as generic).
+  /// A new site: ask whether it is a default favorite (CLAUDE.md).
+  static const supported = [youtube, shorts, netflix, tiktok, reels];
+
   bool get isShortForm => this == shorts || this == tiktok || this == reels;
+
+  /// Sites whose non-video pages are browsed with the d-pad (Pro): YouTube
+  /// home and channels, Netflix browse, a TikTok profile, an Instagram
+  /// account's reels. Free users get "Select a video in your browser" there.
+  bool get hasBrowsePages => this == youtube || this == netflix || this == tiktok || this == reels;
+
+  /// TikTok and Reels: the creator button goes straight to their page, and
+  /// the top bar has only Home and Back.
+  bool get isSocialShortForm => this == tiktok || this == reels;
 
   String get displayName => switch (this) {
         youtube => 'YouTube',
@@ -90,7 +104,15 @@ enum Capability {
   quality,
   spatialNav('spatial_nav'),
   browseMenu('browse_menu'),
-  playlist;
+  playlist,
+  /// Netflix genre list (`go_genre`).
+  categories,
+
+  /// YouTube channel button: the video's channel pages (`go_channel`).
+  channel,
+
+  /// Frame-by-frame dial (`frame_step`).
+  frameStep('frame_step');
 
   const Capability([this._wireName]);
 
@@ -122,6 +144,17 @@ abstract final class AckError {
   // App-side only
   static const timeout = 'timeout';
   static const noBrowser = 'no_browser';
+}
+
+/// Tabs of a YouTube channel page (`go_channel`).
+enum ChannelTab {
+  home,
+  videos,
+  shorts,
+  live,
+  playlists;
+
+  String get wire => name;
 }
 
 /// YouTube side menu pages (`go_page`), flattened into the app's menu bar

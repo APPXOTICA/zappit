@@ -1,5 +1,6 @@
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/features/connection/connection_controller.dart';
+import 'package:zappit/features/purchase/pro_preview.dart';
 import 'package:zappit/features/remote/controllers/target_controller.dart';
 import 'package:zappit/protocol/messages.dart';
 import 'package:zappit/protocol/protocol.dart';
@@ -42,8 +43,19 @@ RemoteMode remoteMode(Ref ref) {
 
   final target = ref.watch(targetProvider);
   if (target == null) return RemoteMode.waiting;
+  // YouTube and Netflix outside a video page: only the browse pages have a
+  // remote (the d-pad, Pro). Elsewhere (search, a title's page) a preview
+  // may play, but it isn't what the user is watching.
+  if (target.site.hasBrowsePages && target.page != PageKind.watch) {
+    return target.isSpatialHome && ref.watch(proAccessProvider) ? RemoteMode.home : RemoteMode.nothing;
+  }
   if (target.isSpatialHome) return RemoteMode.home;
   if (target.site == Site.none || !target.hasMedia) return RemoteMode.nothing;
+  // Choosing the next video with the d-pad is Pro: free users pick it in the
+  // browser (Up next with Play now / Cancel stays).
+  if (target.site == Site.youtube && !ref.watch(proAccessProvider) && ref.watch(siteStateControllerProvider.select((s) => s.endScreenMode)) == EndScreenMode.pick) {
+    return RemoteMode.nothing;
+  }
   return RemoteMode.playing;
 }
 

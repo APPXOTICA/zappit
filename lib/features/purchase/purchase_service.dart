@@ -10,14 +10,16 @@ import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
 import 'package:zappit/core/analytics/analytics.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/constants/config.dart';
+import 'package:zappit/core/barrel_files/localization.dart';
 
 part 'purchase_service.g.dart';
 
 /// RevenueCat entitlement that unlocks Pro features.
 const proEntitlementId = 'zappit_pro';
 
-/// Store product of the yearly subscription (App Store Connect / Play Console).
+/// Store products of the subscriptions (App Store Connect / Play Console).
 const yearlyProductId = 'yearly';
+const monthlyProductId = 'monthly';
 
 bool hasPro(CustomerInfo info) => info.entitlements.active.containsKey(proEntitlementId);
 
@@ -69,24 +71,38 @@ class PurchaseService {
     }
   }
 
-  /// The yearly package of the current offering, or null when the store has
-  /// nothing to sell. The reason goes to PostHog: it is the only trace left
-  /// when this happens on a reviewer's device.
-  Future<Package?> yearlyPackage() async {
+  /// The plans of the current offering. [yearly] is null when the store has
+  /// nothing to sell (the reason goes to PostHog: it is the only trace left
+  /// when this happens on a reviewer's device); [monthly] is optional.
+  Future<({Package? monthly, Package? yearly})> proPackages() async {
     try {
       final offering = (await Purchases.getOfferings()).current;
       final packages = offering?.availablePackages ?? const <Package>[];
-      final yearly = packages.where(
-        (p) => p.packageType == PackageType.annual || p.storeProduct.identifier.split(':').first == yearlyProductId,
-      );
-      if (yearly.isEmpty) {
-        _reportUnavailable('no_yearly_package', 'offering: ${offering?.identifier}, packages: ${packages.length}');
-        return null;
-      }
-      return yearly.first;
+      Package? find(PackageType type, String productId) => packages.where((p) => p.packageType == type || p.storeProduct.identifier.split(':').first == productId).firstOrNull;
+      final yearly = find(PackageType.annual, yearlyProductId);
+      if (yearly == null) _reportUnavailable('no_yearly_package', 'offering: ${offering?.identifier}, packages: ${packages.length}');
+      return (monthly: find(PackageType.monthly, monthlyProductId), yearly: yearly);
     } on PlatformException catch (e) {
       _reportUnavailable(PurchasesErrorHelper.getErrorCode(e).name, e.message);
-      return null;
+      return (monthly: null, yearly: null);
+    }
+  }
+
+  /// Whether this user can still get [package]'s free trial. On iOS the
+  /// product always carries its introductory offer, and App Store decides only
+  /// at purchase, so a user who already had the trial would be promised one and
+  /// charged in full; ask RevenueCat instead. "Unknown" counts as no: better to
+  /// not promise a trial than to charge for a promised one. Play already leaves
+  /// the offer out for ineligible accounts.
+  Future<bool> trialEligible(Package package) async {
+    if (defaultTargetPlatform != TargetPlatform.iOS) return true;
+    final id = package.storeProduct.identifier;
+    try {
+      final result = await Purchases.checkTrialOrIntroductoryPriceEligibility([id]);
+      return result[id]?.status == IntroEligibilityStatus.introEligibilityStatusEligible;
+    } on PlatformException catch (e) {
+      debugPrint('RevenueCat trial eligibility failed: ${PurchasesErrorHelper.getErrorCode(e)}');
+      return false;
     }
   }
 
@@ -103,7 +119,7 @@ class PurchaseService {
       if (!hasPro(result.customerInfo)) {
         // Paid, but the entitlement is not attached to the product yet.
         if (context.mounted) {
-          await _alert(context, 'Purchase not activated', 'Your purchase went through but Pro is not active yet. Try Restore purchases.');
+          await _alert(context, S.of(context).purchaseNotActivated, S.of(context).purchaseNotActivatedMessage);
         }
         return PurchaseOutcome.failed;
       }
@@ -120,9 +136,9 @@ class PurchaseService {
       unawaited(Analytics.event('pro_purchase_failed', {'code': code.name}));
       if (context.mounted) {
         await switch (outcome) {
-          PurchaseOutcome.cancelled => _alert(context, 'Purchase cancelled', 'Nothing was charged. You can try again anytime.'),
-          PurchaseOutcome.pending => _alert(context, 'Payment pending', 'Pro turns on as soon as the store confirms your payment.'),
-          _ => _alert(context, 'Purchase failed', _messageFor(code, e)),
+          PurchaseOutcome.cancelled => _alert(context, S.of(context).purchaseCancelled, S.of(context).purchaseCancelledMessage),
+          PurchaseOutcome.pending => _alert(context, S.of(context).paymentPending, S.of(context).paymentPendingMessage),
+          _ => _alert(context, S.of(context).purchaseFailed, _messageFor(code, e)),
         };
       }
       return outcome;
@@ -136,13 +152,13 @@ class PurchaseService {
       onStoreDone?.call();
       final pro = hasPro(info);
       if (!pro && context.mounted) {
-        await _alert(context, 'Nothing to restore', 'No active Zappit Pro subscription was found for this store account.');
+        await _alert(context, S.of(context).nothingToRestore, S.of(context).nothingToRestoreMessage);
       }
       return pro;
     } on PlatformException catch (e) {
       onStoreDone?.call();
       if (context.mounted) {
-        await _alert(context, 'Restore failed', _messageFor(PurchasesErrorHelper.getErrorCode(e), e));
+        await _alert(context, S.of(context).restoreFailed, _messageFor(PurchasesErrorHelper.getErrorCode(e), e));
       }
       return false;
     }
@@ -160,10 +176,10 @@ class PurchaseService {
 
   String _messageFor(PurchasesErrorCode code, PlatformException e) => switch (code) {
         PurchasesErrorCode.networkError || PurchasesErrorCode.offlineConnectionError =>
-          'Check your internet connection and try again.',
-        PurchasesErrorCode.purchaseNotAllowedError => 'Purchases are not allowed on this device or account.',
-        PurchasesErrorCode.productAlreadyPurchasedError => 'You already own this subscription. Try Restore purchases.',
-        PurchasesErrorCode.storeProblemError => 'The store had a problem. Please try again in a moment.',
+          getIt<S>().checkConnection,
+        PurchasesErrorCode.purchaseNotAllowedError => getIt<S>().purchasesNotAllowed,
+        PurchasesErrorCode.productAlreadyPurchasedError => getIt<S>().alreadySubscribed,
+        PurchasesErrorCode.storeProblemError => getIt<S>().storeProblem,
         _ => e.message ?? code.name,
       };
 
