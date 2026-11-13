@@ -55,7 +55,9 @@ class PlaybackBlock extends ConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          const SizedBox(height: 5),
           const _TopRow(),
+          const SizedBox(height: 20),
           const _Timeline(),
           const SizedBox(height: 6),
           LayoutBuilder(
@@ -267,7 +269,7 @@ class _TopRow extends ConsumerWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final side = (left > right ? left : right) + AppTokens.space3;
-        final width = (constraints.maxWidth - 2 * side).clamp(0.0, 200.0);
+        final width = (constraints.maxWidth - 2 * side).clamp(0.0, 300.0);
         return Stack(
           alignment: Alignment.center,
           children: [

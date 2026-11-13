@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:zappit/core/extensions/context_extensions.dart';
 import 'package:zappit/core/theme/app_tokens.dart';
 
-/// Block container (`.zp-cluster`): surface-100, hairline, radius-lg.
+/// Block container (`.zp-cluster`): surface-100, hairline, radius-md.
+/// Uses md (not lg) so short remote blocks stay rounded rectangles, not pills.
 class ZpCluster extends StatelessWidget {
   const ZpCluster({
     super.key,
     required this.child,
     this.padding = const EdgeInsets.all(AppTokens.space4),
-    this.radius = AppTokens.radiusLg,
+    this.radius = AppTokens.radiusMd,
   });
 
   final Widget child;

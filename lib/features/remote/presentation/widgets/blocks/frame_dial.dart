@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/physics.dart';
 import 'package:flutter/services.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
@@ -14,7 +15,9 @@ const _tick = 8.0;
 
 /// Frame-by-frame jog dial (Pro, paused): drag the ticks like a timeline,
 /// right for earlier frames, left for later ones; a haptic tick per frame.
-/// No inertia. Dimmed and inert while playing, for free users, and during ads.
+/// A flick keeps it turning and slowing down; it always comes to rest with a
+/// tick on the centre line. Dimmed and inert while playing, for free users,
+/// and during ads.
 class FrameDial extends ConsumerStatefulWidget {
   const FrameDial({super.key, required this.width});
 
@@ -24,33 +27,70 @@ class FrameDial extends ConsumerStatefulWidget {
   ConsumerState<FrameDial> createState() => _FrameDialState();
 }
 
-class _FrameDialState extends ConsumerState<FrameDial> {
-  /// How far the ticks have moved (drawing only).
-  double _offset = 0;
+/// How quickly a flick slows down (fraction of the speed left after a second).
+const _friction = 0.05;
 
-  /// Drag distance not yet a whole frame.
-  double _carry = 0;
+/// Fastest flick, px/s: keeps one flick to roughly a hundred frames.
+const _maxFlick = 4000.0;
+
+class _FrameDialState extends ConsumerState<FrameDial> with SingleTickerProviderStateMixin {
+  /// How far the ticks have moved. At rest it is a whole number of ticks.
+  late final AnimationController _spin = AnimationController.unbounded(vsync: this)..addListener(() => _moveTo(_spin.value));
+
+  /// The frame [_offset] stands on: the nearest tick. Moving right (positive)
+  /// shows earlier frames, like scrolling a timeline.
+  int _frame = 0;
+
+  /// A finger is on the dial: no spinning or settling meanwhile.
+  bool _dragging = false;
+
+  double get _offset => _spin.value;
+
+  @override
+  void dispose() {
+    _spin.dispose();
+    super.dispose();
+  }
 
   void _step(int frames) {
     unawaited(HapticFeedback.selectionClick());
     ref.read(remoteControllerProvider).stepFrames(frames);
   }
 
-  void _drag(DragUpdateDetails details) {
-    final dx = details.delta.dx;
-    setState(() => _offset += dx);
-    _carry += dx;
-    var frames = 0;
-    // Like scrolling a timeline: content moving right shows earlier frames.
-    while (_carry >= _tick) {
-      _carry -= _tick;
-      frames--;
+  void _moveTo(double offset) {
+    final frame = -(offset / _tick).round();
+    if (frame != _frame) {
+      _step(frame - _frame);
+      _frame = frame;
     }
-    while (_carry <= -_tick) {
-      _carry += _tick;
-      frames++;
+    setState(() {});
+  }
+
+  void _dragStart(DragStartDetails _) {
+    _dragging = true;
+    _spin.stop();
+  }
+
+  void _drag(DragUpdateDetails details) => _spin.value = _offset + details.delta.dx;
+
+  /// Keeps turning with the flick's speed, then settles on the nearest tick.
+  Future<void> _release(DragEndDetails details) async {
+    _dragging = false;
+    final velocity = details.velocity.pixelsPerSecond.dx.clamp(-_maxFlick, _maxFlick);
+    if (velocity.abs() > 50) {
+      await _spin.animateWith(FrictionSimulation(_friction, _offset, velocity)).orCancel.catchError((_) {});
+      if (!mounted || _dragging) return;
     }
-    if (frames != 0) _step(frames);
+    await _settle();
+  }
+
+  Future<void> _settle() async {
+    _dragging = false;
+    final target = (_offset / _tick).round() * _tick;
+    if ((target - _offset).abs() > 0.01) {
+      await _spin.animateTo(target, duration: const Duration(milliseconds: 160), curve: Curves.easeOutBack).orCancel.catchError((_) {});
+    }
+    if (mounted) ref.read(remoteControllerProvider).flushFrames();
   }
 
   @override
@@ -62,7 +102,14 @@ class _FrameDialState extends ConsumerState<FrameDial> {
     final isAd = ref.watch(playbackControllerProvider.select((v) => v.isAd));
     final hasDuration = ref.watch(playbackControllerProvider.select((v) => v.hasDuration));
     final enabled = pro && paused && hasData && hasDuration && !isAd;
-    final controller = ref.read(remoteControllerProvider);
+
+    // Playing again (or anything else turning it off) mid-spin: stop on a tick.
+    if (!enabled && _spin.isAnimating) {
+      _spin.stop();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) unawaited(_settle());
+      });
+    }
 
     return Semantics(
       label: S.of(context).frameByFrame,
@@ -71,16 +118,16 @@ class _FrameDialState extends ConsumerState<FrameDial> {
       onDecrease: enabled ? () => _step(-1) : null,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onHorizontalDragStart: enabled ? (_) => _carry = 0 : null,
+        onHorizontalDragStart: enabled ? _dragStart : null,
         onHorizontalDragUpdate: enabled ? _drag : null,
-        onHorizontalDragEnd: enabled ? (_) => controller.flushFrames() : null,
-        onHorizontalDragCancel: enabled ? controller.flushFrames : null,
+        onHorizontalDragEnd: enabled ? _release : null,
+        onHorizontalDragCancel: enabled ? _settle : null,
         child: AnimatedOpacity(
           opacity: enabled ? 1 : 0.35,
           duration: const Duration(milliseconds: 200),
           child: Container(
             width: widget.width,
-            height: 40,
+            height: 44,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppTokens.radiusFull),
               border: Border.all(color: t.hairlineStrong),

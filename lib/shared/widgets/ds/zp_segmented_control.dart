@@ -30,8 +30,8 @@ class ZpSegmentedControl<T> extends StatelessWidget {
     required this.segments,
     required this.selected,
     required this.onChanged,
-    this.radius = AppTokens.radiusLg,
-    this.segmentRadius = 22,
+    this.radius = AppTokens.radiusMd,
+    this.segmentRadius = AppTokens.radiusSm,
   });
 
   final List<ZpSegment<T>> segments;
