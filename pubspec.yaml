@@ -41,8 +41,6 @@ dependencies:
   firebase_analytics: ^12.6.0
   firebase_remote_config: ^6.7.0
   cloud_functions: ^6.5.0
-  google_sign_in: ^7.2.0
-  sign_in_with_apple: ^8.2.0
   adaptive_dialog: ^2.8.3
   get_it: ^9.3.0
   intl: ^0.20.3
@@ -75,6 +73,10 @@ dependencies:
   flutter_native_splash: ^2.4.8
   flutter_local_notifications: ^23.0.0
   timezone: ^0.11.2
+  mobile_scanner: ^7.5.0
+  app_links: ^7.2.2
+  firebase_app_check: ^0.4.9
+  crypto: ^3.0.8
 
 
 dev_dependencies:

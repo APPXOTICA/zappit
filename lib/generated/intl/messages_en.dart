@@ -22,12 +22,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(site) => "Add ${site} to Favorites";
 
-  static String m1(terms, privacy) => "I agree to the ${terms} and ${privacy}.";
+  static String m1(count) => "Back ${count} seconds";
 
-  static String m2(count) => "Back ${count} seconds";
-
-  static String m3(browser) =>
+  static String m2(browser) =>
       "${browser} didn\'t answer. Check that it\'s open.";
+
+  static String m3(browsers) =>
+      "Disconnected from ${browsers}. To use it again, scan the QR code on that computer.";
 
   static String m4(name) => "Channel: ${name}";
 
@@ -36,8 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m6(host) =>
       "On your computer, open Chrome or Safari and go to ${host}.";
 
-  static String m7(email) =>
-      "Click the Zappit icon in the browser toolbar and sign in as ${email}.";
+  static String m7(browser) => "Connected to ${browser}";
 
   static String m8(count) => "Forward ${count} seconds";
 
@@ -129,39 +129,30 @@ class MessageLookup extends MessageLookupByLibrary {
     "abOffForLive": MessageLookupByLibrary.simpleMessage(
       "A-B loop is off for live streams",
     ),
-    "account": MessageLookupByLibrary.simpleMessage("Account"),
-    "accountDeletionFailed": MessageLookupByLibrary.simpleMessage(
-      "Account deletion failed.",
-    ),
-    "accountDeletionFailedTryAgain": MessageLookupByLibrary.simpleMessage(
-      "Account deletion failed. Please try again.",
-    ),
+    "account": MessageLookupByLibrary.simpleMessage("Connection"),
     "adBadge": MessageLookupByLibrary.simpleMessage("AD"),
     "addToFavorites": m0,
-    "agreeFirst": MessageLookupByLibrary.simpleMessage(
-      "Agree to the Terms and Privacy Policy first",
-    ),
-    "agreeToTerms": m1,
-    "agreeToTheTerms": MessageLookupByLibrary.simpleMessage(
-      "Agree to the terms",
-    ),
     "allSites": MessageLookupByLibrary.simpleMessage("All sites"),
     "alreadySubscribed": MessageLookupByLibrary.simpleMessage(
       "You already own this subscription. Try Restore purchases.",
     ),
-    "appleSignInFailed": MessageLookupByLibrary.simpleMessage(
-      "Apple sign in failed",
-    ),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
-    "backSeconds": m2,
+    "backSeconds": m1,
     "banned": MessageLookupByLibrary.simpleMessage(
       "Sorry, this account has been banned.",
     ),
-    "browserDidNotAnswer": m3,
+    "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage(
       "Browser not responding",
     ),
     "browsers": MessageLookupByLibrary.simpleMessage("Browsers"),
+    "browsersDisconnected": m3,
+    "cameraDenied": MessageLookupByLibrary.simpleMessage(
+      "Allow camera access in Settings to scan the code.",
+    ),
+    "cameraUnavailable": MessageLookupByLibrary.simpleMessage(
+      "The camera isn\'t available right now.",
+    ),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "cancelAnytime": MessageLookupByLibrary.simpleMessage(
       "Cancel anytime in your store account.",
@@ -209,17 +200,17 @@ class MessageLookup extends MessageLookupByLibrary {
       "Install the extension on your computer",
     ),
     "connectStep2Body": MessageLookupByLibrary.simpleMessage(
-      "Click the Zappit icon in the browser toolbar and sign in with the account you use here.",
+      "Click the Zappit icon in the browser toolbar and scan the QR code with this app.",
     ),
-    "connectStep2BodyEmail": m7,
     "connectStep2Title": MessageLookupByLibrary.simpleMessage(
-      "Sign in with the same account",
+      "Scan the QR code",
     ),
     "connectStep3Body": MessageLookupByLibrary.simpleMessage(
       "Keep the browser open. The remote connects on its own and turns green.",
     ),
     "connectStep3Title": MessageLookupByLibrary.simpleMessage("Play a video"),
     "connected": MessageLookupByLibrary.simpleMessage("Connected"),
+    "connectedTo": m7,
     "contactUs": MessageLookupByLibrary.simpleMessage("Contact us"),
     "contactUsKeepInfo": MessageLookupByLibrary.simpleMessage(
       "Please don\'t delete the info below.",
@@ -241,13 +232,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Couldn\'t read the quality options from the page.",
     ),
     "delete": MessageLookupByLibrary.simpleMessage("Delete"),
-    "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
-    "deleteAccountMenu": MessageLookupByLibrary.simpleMessage("Delete account"),
-    "deleteAccountMessage": MessageLookupByLibrary.simpleMessage(
-      "Are you sure you want to delete your account? This action cannot be undone.",
+    "disconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
+    "disconnectPhone": MessageLookupByLibrary.simpleMessage(
+      "Disconnect this phone",
     ),
-    "deletingAccount": MessageLookupByLibrary.simpleMessage(
-      "Deleting your account...",
+    "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
+      "This phone will stop controlling your computer. To use it again, scan the QR code on your computer.",
     ),
     "down": MessageLookupByLibrary.simpleMessage("Down"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("End of video"),
@@ -307,12 +297,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "fullScreen": MessageLookupByLibrary.simpleMessage("Full screen"),
     "generalSettings": MessageLookupByLibrary.simpleMessage("General Settings"),
-    "googleSignInFailed": MessageLookupByLibrary.simpleMessage(
-      "Google sign in failed",
-    ),
-    "googleSignInUnsupported": MessageLookupByLibrary.simpleMessage(
-      "Google Sign In is not supported on this platform",
-    ),
     "gotIt": MessageLookupByLibrary.simpleMessage("Got it"),
     "hideChat": MessageLookupByLibrary.simpleMessage("Hide chat"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -320,7 +304,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "installExtensionShare": m13,
     "justPerMonth": m14,
     "largerCaptions": MessageLookupByLibrary.simpleMessage("Larger captions"),
-    "lastUsed": MessageLookupByLibrary.simpleMessage("Last used"),
     "lastVideoInPlaylist": MessageLookupByLibrary.simpleMessage(
       "This is the last video in the playlist",
     ),
@@ -333,13 +316,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "liveBadge": MessageLookupByLibrary.simpleMessage("LIVE"),
     "liveCantRewind": MessageLookupByLibrary.simpleMessage(
       "This live stream can\'t be rewound",
-    ),
-    "loginTagline": MessageLookupByLibrary.simpleMessage(
-      "Sit back. Control your browser from anywhere.",
-    ),
-    "logout": MessageLookupByLibrary.simpleMessage("Log out"),
-    "logoutMessage": MessageLookupByLibrary.simpleMessage(
-      "Giving up the remote? You\'ll miss the convenience!",
     ),
     "longPressSpeed": MessageLookupByLibrary.simpleMessage("Long Press Speed"),
     "loopEnd": MessageLookupByLibrary.simpleMessage("Loop end"),
@@ -368,10 +344,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "nextVideo": MessageLookupByLibrary.simpleMessage("Next video"),
     "noBrowser": MessageLookupByLibrary.simpleMessage("No browser"),
     "noBrowserConnectedShare": MessageLookupByLibrary.simpleMessage(
-      "No browser is connected. Open your browser with Zappit signed in and try again.",
+      "No browser is connected. Open your browser with the Zappit extension and try again.",
     ),
     "noBrowserMessage": MessageLookupByLibrary.simpleMessage(
-      "Open Chrome or Safari on your computer and make sure the Zappit extension is signed in to this account.",
+      "Open Chrome or Safari on your computer. If nothing shows up, click the Zappit icon in the browser toolbar.",
     ),
     "noBrowserOnline": MessageLookupByLibrary.simpleMessage(
       "No browser is online.",
@@ -434,7 +410,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "openALink": MessageLookupByLibrary.simpleMessage("Open a link"),
     "openBrowserForTabs": MessageLookupByLibrary.simpleMessage(
-      "Open your browser with the Zappit extension signed in to see its tabs.",
+      "Open your browser with the Zappit extension to see its tabs.",
     ),
     "openLinkInBrowser": MessageLookupByLibrary.simpleMessage(
       "Open a link in the browser",
@@ -445,6 +421,30 @@ class MessageLookup extends MessageLookupByLibrary {
     "openSite": m17,
     "openedIn": m18,
     "openingIn": m19,
+    "pairBody": MessageLookupByLibrary.simpleMessage(
+      "Click the Zappit icon in your computer\'s browser and point the camera at the QR code.",
+    ),
+    "pairCodeExpired": MessageLookupByLibrary.simpleMessage(
+      "This code has expired. Scan the new code on your computer.",
+    ),
+    "pairCodeInvalid": MessageLookupByLibrary.simpleMessage(
+      "This code is no longer valid. Scan the new code on your computer.",
+    ),
+    "pairCodeUsed": MessageLookupByLibrary.simpleMessage(
+      "This code was already used. Scan the new code on your computer.",
+    ),
+    "pairFailed": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t connect. Check your internet connection and try again.",
+    ),
+    "pairHowToInstall": MessageLookupByLibrary.simpleMessage(
+      "How to install the extension",
+    ),
+    "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
+      "This computer already has 3 phones connected. To connect this phone, disconnect a phone you don\'t use in the Zappit extension on the computer.",
+    ),
+    "pairTitle": MessageLookupByLibrary.simpleMessage(
+      "Connect to your computer",
+    ),
     "paste": MessageLookupByLibrary.simpleMessage("Paste"),
     "pasteALink": MessageLookupByLibrary.simpleMessage("Paste a link"),
     "pasteVideoLink": MessageLookupByLibrary.simpleMessage(
@@ -585,13 +585,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "shufflingPlaylist": MessageLookupByLibrary.simpleMessage(
       "Shuffling this playlist",
     ),
-    "signInWithApple": MessageLookupByLibrary.simpleMessage(
-      "Sign in with Apple",
-    ),
-    "signInWithGoogle": MessageLookupByLibrary.simpleMessage(
-      "Sign in with Google",
-    ),
-    "signOutFailed": MessageLookupByLibrary.simpleMessage("Sign out failed"),
     "siteSettings": m33,
     "siteWeb": MessageLookupByLibrary.simpleMessage("Web"),
     "skipAd": MessageLookupByLibrary.simpleMessage("Skip Ad"),

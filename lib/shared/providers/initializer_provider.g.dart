@@ -40,4 +40,4 @@ final class InitializerProvider
   }
 }
 
-String _$initializerHash() => r'1a986e38f3eb749ec82374f452741aa530ed60dc';
+String _$initializerHash() => r'4271cbcdc15a48da609371ec9e14c24795809d62';

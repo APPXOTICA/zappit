@@ -14,7 +14,7 @@ Zappit은 폰(Flutter 앱)으로 컴퓨터 브라우저의 영상 재생을 제�
 
 - `zappit/` (이 저장소): Flutter 앱. 리모컨 역할.
 - `../zappit_extension/`: 브라우저 확장(WXT + Svelte 5 + TypeScript). 영상 페이지를 실제로 제어한다. 구조는 아래 "확장 구조" 참고.
-- `../zappit_firebase/`: Firestore 규칙(`firestore.rules`), RTDB 규칙(`database.rules.json`), Cloud Functions(`functions/index.js`, Node 22). `onUserCreated`, `onUserDeleted`, callable `delete_account`(앱에서 계정 삭제 시 호출), callable `ably_token`(Ably 토큰 발급), callable `extension_token`(Safari 확장 웹 로그인용 custom token, `zappit.tv/auth`가 호출), callable `pro_preview_start`(Pro preview 시작, 사람당 한 번).
+- `../zappit_firebase/`: Firestore 규칙(`firestore.rules`), RTDB 규칙(`database.rules.json`), Cloud Functions(`functions/index.js`, Node 22). `onUserCreated`, `onUserDeleted`, callable `delete_account`(앱에서 계정 삭제 시 호출), callable `ably_token`(Ably 토큰 발급), callable `pair_start`·`pair_claim`(QR 연결, `functions/pairing.js`), callable `pro_preview_start`(Pro preview 시작, 폰당 한 번, `functions/device.js`).
 - `../zappit_web/`: zappit.tv 정적 사이트(Render). 아직 비어 있다.
 - `../zappit_assets/`: 디자인 시안·DS(`docs/design/`), 앱↔확장 메시지 규격(`protocol/README.md`, `protocol/fixtures/`), 이미지, 사운드, Firebase 설정 파일 원본.
 
@@ -34,9 +34,9 @@ flutter run -t lib/dev/preview_main.dart --dart-define=SCENARIO=main   # 가짜 
 - 코드 생성 대상: `@riverpod`/`@Riverpod` provider, freezed 모델, json_serializable. 생성 파일은 커밋한다.
 - 다국어: `flutter_intl`. `lib/l10n/intl_en.arb`를 고친 뒤 `dart run intl_utils:generate`(또는 Flutter Intl IDE 플러그인)로 `lib/generated/`를 다시 만든다. `lib/generated/`는 손으로 고치지 않는다. 화면에 보이는 문구(접근성 라벨·스낵바·알림 포함)는 하드코딩하지 않고 모두 arb에 키(설명 `description` 포함)로 넣는다. 위젯에서는 `S.of(context)`, 컨텍스트가 없는 곳은 `getIt<S>()`. 숫자·이름이 들어가는 문장은 문장 통째로 placeholder를 쓴다(조각을 이어 붙이지 않음). 브랜드·사이트 이름(Zappit, YouTube, Netflix…)은 번역하지 않고, 일반 사이트 "Web"만 `Site.label(s)`(`shared/l10n/site_label.dart`). 로그·디버그 전용 문구는 제외. `lib/generated/`는 분석에서 제외(`analysis_options.yaml`).
 - 테스트: `test/protocol_fixtures_test.dart`가 `../zappit_assets/protocol/fixtures`를 읽는다(앱과 확장이 같은 파일로 메시지 규격을 검증).
-- 화면 미리보기: `lib/dev/preview_main.dart`는 실제 앱에 포함되지 않는 개발용 진입점이다. 시나리오(main, ad, live, ab, upnext, pick, home, playlist, netflix, shorts, photo, web, disconnected, nobrowser, nothing, more, sites, settings, pro, login, tabs, sleep, episodes)별로 provider를 가짜 데이터로 덮어써서 디자인 PNG와 비교한다. 시뮬레이터에 한 번 빌드해 두면 앱 컨테이너의 `tmp/scenario.txt`에 시나리오 이름을 쓰고 다시 실행해 바꿀 수 있다.
+- 화면 미리보기: `lib/dev/preview_main.dart`는 실제 앱에 포함되지 않는 개발용 진입점이다. 시나리오(main, ad, live, ab, upnext, pick, home, playlist, netflix, shorts, photo, web, disconnected, nobrowser, nothing, more, sites, settings, pro, pair, tabs, sleep, episodes)별로 provider를 가짜 데이터로 덮어써서 디자인 PNG와 비교한다. 시뮬레이터에 한 번 빌드해 두면 앱 컨테이너의 `tmp/scenario.txt`에 시나리오 이름을 쓰고 다시 실행해 바꿀 수 있다.
 
-확장 (`../zappit_extension/`, `.env` 필요: `VITE_FIREBASE_*`(`VITE_FIREBASE_DATABASE_URL` 포함), `VITE_GOOGLE_OAUTH_CLIENT_ID`, `VITE_APPLE_SERVICES_ID`. 항목은 `.env.example` 참고):
+확장 (`../zappit_extension/`, `.env` 필요: `VITE_FIREBASE_*`(`VITE_FIREBASE_DATABASE_URL` 포함). 항목은 `.env.example` 참고):
 ```bash
 npm run dev       # Chrome 개발 모드 (dev:firefox)
 npm run build     # build:firefox, zip
@@ -79,14 +79,15 @@ Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이�
   - Pro 시트(자막, 챕터, 에피소드, 재생목록, Categories, YouTube 메뉴 시트)는 `showProSheet`(`pro_sheet.dart`)로 연다. Pro가 끝나면 스스로 닫고 상단 알림("Your Pro preview has ended" 등). 맛보기 종료면 종료 팝업이 대신 알린다(알림 생략). 브라우저에 이미 켠 Pro 상태(배속, 구간 반복, 자막)는 되돌리지 않는다.
   - 앱 presence 데이터에 `pro`(구독 또는 맛보기)를 싣는다(`BrowserPresence.setPro`, `main.dart`에서 연결). 확장은 `zappitRemotePro`로 content script에 전하고, 무료면 YouTube·Netflix 홈과 YouTube 종료 화면의 카드 자동 포커스를 하지 않는다(`AdapterContext.homeRemote`). `pro`가 없는 옛 앱은 Pro로 본다.
   - Netflix 프로필 선택 화면은 state `profilePicker`: 앱 D-pad 버튼이 "Select", Categories 숨김.
-- Pro preview(리버스 트라이얼): 앱과 확장이 처음 연결되면(`ConnectionPhase.connected`) 7일 동안 결제 없이 모든 Pro 기능을 연다. 시작은 Cloud Function `pro_preview_start`가 한다: `users/{uid}.proPreviewStartedAt`(서버 시각, 클라이언트는 쓸 수 없음)을 기록하고, 로그인 제공자 계정 ID·이메일의 SHA-256 해시를 `proPreviewClaims/{hash}`에 남긴다. 이 컬렉션은 계정 삭제 때 지우지 않아서, 삭제 후 다시 가입하면 처음 시작 시각을 물려받는다(맛보기는 사람당 한 번). 끝나는 시각은 RTDB `.info/serverTimeOffset`으로 보정한 서버 시각 기준. 처음 시작할 때만 "You're connected!" 다이얼로그. 구독 중이면 시작하지 않는다. 맛보기 중에도 구매는 막지 않고 Pro 화면에 종료 시각을 보여준다. 넛지(이 폰·계정당 한 번, 연결 중·미구독일 때): 마지막 24시간에 상단 알림 "Pro preview ends tomorrow"(탭하면 Pro 화면), 끝나면(연결 여부와 무관) 팝업 "Your Pro preview has ended"(버튼으로만 닫힘, Learn More → Pro 화면, Close). 앱이 꺼져 있었으면 다음에 앱을 열 때(로딩·로그인 화면이 지난 뒤). RevenueCat을 한 번 새로 읽어 구독자에게는 띄우지 않는다. 열려 있던 Pro 시트는 닫히고 별도 알림은 없다.
-- 결제는 `features/purchase/purchase_service.dart`. RevenueCat App User ID는 Firebase UID다(시작 시 configure, 로그인·로그아웃 시 `syncUser`). Pro 화면은 디자인 시안대로 직접 만든 화면이고 현재 offering의 연간 패키지(`yearly`)를 판다. Pro 사용자의 구독 관리는 RevenueCat Customer Center.
+- Pro preview(리버스 트라이얼): 앱과 확장이 처음 연결되면(`ConnectionPhase.connected`) 7일 동안 결제 없이 모든 Pro 기능을 연다. 시작은 Cloud Function `pro_preview_start`(App Check 필수)가 한다: `users/{uid}.proPreviewStartedAt`(서버 시각, 클라이언트는 쓸 수 없음)을 기록한다. 맛보기는 폰당 한 번: iOS DeviceCheck bit0 / Android Play Integrity device recall bitFirst(재설치·초기화로 안 지워짐), 그리고 폰 표식(iOS Keychain 임의 값, Android ANDROID_ID) 해시 `proPreviewClaims/{hash}`. 둘 중 하나라도 걸리면 처음 시작 시각을 물려받거나 이미 끝난 맛보기가 된다. OS가 표식을 주지 않는 폰(드문 비정상 Android 등)은 앱이 만든 임의 값(SharedPreferences, 재설치하면 바뀜)으로 연결은 되지만 `markerFallback`으로 알려 맛보기는 처음부터 끝난 상태다(종료 팝업도 띄우지 않음). 앱은 `PhoneIdentity`(`features/pairing/phone_identity.dart`, 네이티브 채널 `tv.zappit/device`)로 표식·토큰을 보낸다. 끝나는 시각은 RTDB `.info/serverTimeOffset`으로 보정한 서버 시각 기준. 처음 시작할 때만 "You're connected!" 다이얼로그. 구독 중이면 시작하지 않는다. 맛보기 중에도 구매는 막지 않고 Pro 화면에 종료 시각을 보여준다. 넛지(이 폰·계정당 한 번, 연결 중·미구독일 때): 마지막 24시간에 상단 알림 "Pro preview ends tomorrow"(탭하면 Pro 화면), 끝나면(연결 여부와 무관) 팝업 "Your Pro preview has ended"(버튼으로만 닫힘, Learn More → Pro 화면, Close). 앱이 꺼져 있었으면 다음에 앱을 열 때(로딩·QR 화면이 지난 뒤). RevenueCat을 한 번 새로 읽어 구독자에게는 띄우지 않는다. 열려 있던 Pro 시트는 닫히고 별도 알림은 없다.
+- 결제는 `features/purchase/purchase_service.dart`. RevenueCat App User ID는 Firebase UID다(시작 시 configure, uid가 바뀌면 `syncUser`). QR 연결로 다른 계정에 합류하면 `syncPurchases`(스토어 로그인 창 없음)로 영수증을 그 계정으로 옮긴다. `restorePurchases`는 사용자가 누르는 Restore 버튼에만. Pro 화면은 디자인 시안대로 직접 만든 화면이고 현재 offering의 연간 패키지(`yearly`)를 판다. Pro 사용자의 구독 관리는 RevenueCat Customer Center.
 - 다크 테마만 지원한다. 다국어는 나중에(지금은 영어만).
 - 상태 관리는 Riverpod 3 + `riverpod_generator`. 전역 접근이 필요한 것(`S` 로컬라이제이션, `Logger`)만 GetIt(`core/services/service_locator.dart`의 `getIt`)에 등록한다. 컨텍스트 없이 문자열이 필요하면 `getIt<S>()`. Riverpod 3에는 StreamProvider의 `.stream`이 없으므로, 모든 이벤트가 필요하면 `ChannelEventBus`처럼 스트림을 객체로 감싸 제공한다.
 - import는 barrel 파일을 쓴다: `core/barrel_files/riverpod_core.dart`, `ui_core.dart`, `localization.dart`, `logging.dart`.
 - 시작 흐름: `main.dart`에서 Firebase 초기화 → `registerSingletons()` → `SharedPreferences` override → `initializerProvider`(Remote Config + Ably 초기화) 동안 `LoadingPage` → `_AppServices`(공유 링크 수신, PostHog identify, Voice Control 시작/중지).
-- 라우팅: `core/routes/router_provider.dart`. 경로 이름은 `app_routes.dart`. 인증 상태에 따라 `/login` ↔ `/remote`로 redirect. 하단 탭은 `StatefulShellRoute.indexedStack`, Pro·리모컨 설정·연결 방법·웹뷰는 root navigator 위의 화면.
-- 인증: `auth_state_provider.dart`. 계정 삭제 시 iOS Apple 로그인 사용자는 Apple 토큰을 먼저 해지한다(`revokeTokenWithAuthorizationCode`). 로그아웃·삭제 실패는 인증 상태를 바꾸지 않고 스낵바로 알린다.
+- 라우팅: `core/routes/router_provider.dart`. 경로 이름은 `app_routes.dart`. 이 폰이 연결됐는지(`phonePairedProvider`)에 따라 `/pair`(QR 화면) ↔ `/remote`로 redirect. 하단 탭은 `StatefulShellRoute.indexedStack`, Pro·리모컨 설정·연결 방법·웹뷰는 root navigator 위의 화면.
+- 인증: 로그인 화면 없음. 앱과 확장은 각자 Firebase 익명 계정으로 시작하고(`AuthState.ensureSignedIn`), 확장 팝업의 QR(`https://zappit.tv/p/<코드>`, 5분·1회용)을 앱이 찍으면(`features/pairing`, 기본 카메라로 찍으면 Universal Link/App Link) `pair_claim`이 누가 누구 계정에 합류할지 정하고 custom token을 준다. 규칙: 폰이 없는 새 확장 → 폰 계정으로, 빈 폰(새 설치·재설치) → 확장 계정으로, 그 외 → 찍은 폰이 PC를 가져감(떠난 폰에 "Disconnected from …" 알림 한 번, `users/{uid}.disconnectedBrowsers`). 연결된 폰은 `users/{uid}/phones/{phoneId}`(계정당 3대, 서버만 씀, 주인은 삭제 가능). 앱은 자기 항목을 계속 듣다가 지워지면 새 익명 계정으로 간다. More의 "Disconnect this phone"도 같다. 설계: `로그인 방식 변경 검토.pdf`.
+- App Check: `pair_claim`·`pro_preview_start`에 강제. 디버그 빌드는 debug provider(콘솔 App Check에 debug token 등록 필요).
 - 상수: `core/constants/config.dart`(OAuth 클라이언트 ID, Functions region, 웹 URL, 공유 URL, App Store ID, PostHog).
 - Firebase 네이티브 설정(`ios/Runner/GoogleService-Info.plist`의 `DATABASE_URL`, `android/app/google-services.json`의 `firebase_url`)은 `lib/firebase_options.dart`와 값이 같아야 한다. 다르면 시작할 때 `[core/duplicate-app]`으로 실패한다.
 
@@ -100,7 +101,7 @@ Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이�
 
 ## 앱 ↔ 확장 실시간 통신 (Ably)
 
-- 앱과 확장은 Firebase에 같은 계정으로 로그인하고, 같은 Ably 채널 `zappit:<Firebase UID>`를 쓴다.
+- 앱과 확장은 QR 연결로 같은 (익명) Firebase 계정이 되고, 같은 Ably 채널 `zappit:<Firebase UID>`를 쓴다.
 - 인증은 Ably 토큰: 앱(`RealtimeService`)과 확장(`ably-link.ts`)이 `authCallback`에서 Cloud Function `ably_token`을 부른다. 토큰은 본인 채널 `zappit:{uid}`에만 publish·subscribe·presence 권한, 1시간. 클라이언트에 Ably 키를 두지 않는다(키는 Secret Manager `ABLY_API_KEY`). 앱은 로그인 시 연결, 계정 전환 시 `authorize()`, 로그아웃 시 close. 이름 규칙은 앱 `core/realtime/channel_provider.dart`의 `RealtimeChannelNames`와 확장 `src/lib/ably-channel.ts`의 `getAblyChannelName`에 각각 있다. 바꾸려면 두 곳을 같이 바꾼다.
 - 앱 clientId는 `zappit-flutter`, presence data `{device: 'flutter', type: 'remote', pro, sites}`. `sites`는 이 앱 버전이 전용 리모컨을 아는 사이트(`Site.supported`). 확장은 연결된 앱(여럿이면 모두)이 모르는 사이트를 일반 사이트로 다룬다(`forApp`: target·capability·어댑터 모두 generic, 카드 포커스 같은 사이트 동작 없음). 그래서 확장이 먼저 새 사이트를 지원해도 앱이 업데이트될 때까지는 일반 리모컨만 보인다. `sites`가 없는 앱은 처음 5개를 아는 것으로 본다. 확장은 목록을 `zappitAppSites`(chrome.storage)로 content script에 전하고, 바뀌면 열린 탭의 어댑터를 바꾼다. 확장 clientId는 `extension-{instanceId}`, presence data에 `instanceId`·브라우저·OS·기기 이름·대상 탭 제목.
 - 선택된 브라우저(`session/{uid}/selectedInstanceId`)만 'target'·'state'·'ack'를 보내고 RTDB에 쓴다. 온라인 브라우저가 하나뿐이고 선택이 비었으면 앱과 확장이 같은 RTDB transaction 규칙으로 그 브라우저를 선택한다.
@@ -111,7 +112,7 @@ Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이�
 ## 확장 구조 (`../zappit_extension/src/`)
 
 - `entrypoints/background.ts`: 인증 상태에 따라 `lib/background/controller.ts`(`Controller`)를 시작/중지하고 알람·메시지를 연결한다.
-- `lib/background/`: `ably-link.ts`(Ably, presence, command 구독), `session.ts`(선택된 브라우저, 자동 선택), `target-tracker.ts`(마지막 포커스된 일반 창의 활성 탭, 프레임별 미디어 보고), `playback-writer.ts`(RTDB `playback/{uid}`, 1초 throttle), `tabs-sync.ts`(Firestore Lite로 탭 목록), `sleep-timer.ts`, `activity.ts`(60일 미사용 로그아웃), `sounds.ts`(사운드: Chrome·Edge는 offscreen, Safari는 컨테이너 앱의 `SafariWebExtensionHandler.swift`가 `sendNativeMessage`로 받아 재생. Safari background page의 `Audio`는 사용자 동작이 없어 소리가 나지 않는다. 파일은 `public/sounds/`).
+- `lib/background/`: `ably-link.ts`(Ably, presence, command 구독), `session.ts`(선택된 브라우저, 자동 선택), `target-tracker.ts`(마지막 포커스된 일반 창의 활성 탭, 프레임별 미디어 보고), `playback-writer.ts`(RTDB `playback/{uid}`, 1초 throttle), `tabs-sync.ts`(Firestore Lite로 탭 목록), `sleep-timer.ts`, `activity.ts`(60일 동안 앱 연결이 없으면 로그아웃 없이 RTDB만 끊고 쉼, 팝업을 열면 다시 연결), `pairing.ts`(QR 코드, RTDB `pairings/{code}/result`를 듣다가 custom token으로 전환), `phones.ts`(연결된 폰 목록·해제), `sounds.ts`(사운드: Chrome·Edge는 offscreen, Safari는 컨테이너 앱의 `SafariWebExtensionHandler.swift`가 `sendNativeMessage`로 받아 재생. Safari background page의 `Audio`는 사용자 동작이 없어 소리가 나지 않는다. 파일은 `public/sounds/`).
 - `entrypoints/content/index.ts`: 모든 페이지·모든 프레임. 사이트 어댑터(`lib/content/adapters/`: generic, youtube, netflix, shortform)와 `MediaController`(제어할 video 선택: 장식용 후순위, 보이는 것, 재생 중, 크기 순. Loop·A-B·속도 맛보기·슬립 페이드)를 연결한다. 사이트 UI 상태는 최상위 프레임만 보낸다.
 - `entrypoints/main-world.content.ts`: YouTube·Netflix 페이지 컨텍스트(manifest `world: 'MAIN'` content script)에서 플레이어 API를 부른다(자막, 볼륨, Netflix seek·메타데이터). `lib/content/bridge.ts`가 `document`의 CustomEvent로 요청한다. `<script>` 태그로 넣지 않는다(Safari는 페이지 CSP를 적용해 YouTube에서 막힌다).
 - 확장 업데이트 전부터 열려 있던 탭: background가 content script를 다시 넣는다(`requestReportsOrInject`, 응답이 `{ok: true}`일 때만 살아 있다고 본다. Safari는 받는 쪽이 없어도 `tabs.sendMessage`가 오류 없이 끝난다). MAIN world 스크립트는 다시 넣을 수 없어서, content script가 MAIN world 버전(`__ZAPPIT_MAIN_WORLD__`, `main-world.content.ts` 소스 해시)으로 확인하고 다르면 `state.needsReload`를 보낸다. 그 파일을 바꾸지 않은 업데이트는 새로고침이 필요 없다. Safari는 다시 넣은 스크립트가 확장과 통신하지 못하므로(새로고침만 해결), 다시 넣은 뒤에도 응답이 없으면 background가 직접 `needsReload` 상태를 보낸다. 스크립트를 넣을 수 없는 페이지(`chrome://`, 웹 스토어, 다른 확장 페이지: 넣기가 실패함)는 새로고침해도 소용없으므로 `needsReload` 없이 빈 상태만 보낸다. 확장이 주소를 읽을 수 없는 탭(위 페이지들)은 사이트 `none`("Web" 아님). 리모컨 사용 중(앱 연결, 선택된 브라우저)에 그 탭이 대상이 되면 background가 탭을 스스로 한 번 새로고침한다(YouTube는 재생 위치 유지). 그래도 `needsReload`면 앱이 리모컨 상단에 새로고침 배너를 띄우고 `reload_tab`을 보낸다.
@@ -126,8 +127,8 @@ Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이�
 - Safari는 MV2를 사용하고, 나머지 브라우저는 MV3를 사용한다. Safari MV3 service worker는 `new WebSocket()`에서 멈추고, MV2 persistent background page는 Ably·RTDB 연결을 유지한다.
 - Safari 빌드는 ASCII만 쓴다(`wxt.config.ts`의 esbuild `charset: 'ascii'`). Safari가 background.js를 Latin-1로 읽어 비ASCII 문자가 깨진다. 정규식 리터럴은 esbuild가 바꾸지 않으므로 소스에서 `\u` 이스케이프로 쓴다.
 - MV2 분기: `chrome.scripting`이 없으면 `tabs.executeScript`, `storage.session`이 없으면 메모리.
-- Safari에는 `identity` API와 `offscreen` API가 없다. Safari 로그인은 zappit.tv의 로그인 웹 페이지를 거쳐 확장으로 결과를 넘기는 방식으로 구현한다. 배포는 macOS 컨테이너 앱(Xcode Safari Web Extension)으로 한다.
-- Chrome 전용 API(`chrome.identity.getAuthToken`, `chrome.offscreen`)를 쓰는 코드는 브라우저별로 분기할 수 있게 둔다.
+- Safari에는 `offscreen` API가 없다. 로그인은 모든 브라우저가 익명 계정 + QR이라 `identity`를 쓰지 않는다. 배포는 macOS 컨테이너 앱(Xcode Safari Web Extension)으로 한다.
+- Chrome 전용 API(`chrome.offscreen`)를 쓰는 코드는 브라우저별로 분기할 수 있게 둔다.
 
 
 ## 개발 참조
@@ -218,7 +219,7 @@ const privacyPolicyUrl = 'https://zappit.tv/privacy';
 - `https://zappit.tv/tutorial`: Tutorial 웹뷰
 - `https://zappit.tv/voice-control`: Voice Control 사용법 웹뷰
 - `https://zappit.tv/faq#sound-blocked`: Q&A 중 "소리가 안 나는 이유"(Chrome 자동 재생 정책) 항목. 앱의 `sound_blocked` 상단 스낵바를 탭하면 웹뷰로 연다
-- `https://zappit.tv/auth`: Safari 확장용 로그인 페이지
+- `https://zappit.tv/p/<코드>`: 확장 QR 연결 링크. 앱이 있으면 앱이 열리고(`.well-known/apple-app-site-association`, `assetlinks.json`), 없으면 Render가 OneLink로 보낸다
 
 
 ## Keys

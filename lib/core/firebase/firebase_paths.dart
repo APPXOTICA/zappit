@@ -9,4 +9,6 @@ abstract final class FirebasePaths {
   // Firestore
   static const users = 'users';
   static const browserTabs = 'browserTabs';
+  /// Phones paired with the account (written by `pair_claim`).
+  static const phones = 'phones';
 }

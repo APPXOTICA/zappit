@@ -70,6 +70,8 @@ kotlin {
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+    // Pro preview: device recall through a classic integrity request (MainActivity).
+    implementation("com.google.android.play:integrity:1.4.0")
 }
 
 flutter {

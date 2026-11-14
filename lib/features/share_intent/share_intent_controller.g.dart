@@ -78,7 +78,7 @@ final class ShareIntentControllerProvider
 }
 
 String _$shareIntentControllerHash() =>
-    r'785297704a5fa9e8c708d05af7a1ae5183dbb413';
+    r'62590716a9a8679bda58aabed8c2e9443b50dafb';
 
 /// Text shared into Zappit from YouTube, Netflix, TikTok, Instagram…
 ///

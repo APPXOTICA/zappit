@@ -48,7 +48,7 @@ final class RemoteModeProvider
   }
 }
 
-String _$remoteModeHash() => r'97f37ac80a3892241f3bbe3ea8f45d3aeb90f280';
+String _$remoteModeHash() => r'd381baee6f1f70aefb9e858edd0f82bd55fb7dc5';
 
 /// End screen overlay on top of [RemoteMode.playing] (YouTube).
 

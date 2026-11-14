@@ -95,62 +95,12 @@ class S {
     );
   }
 
-  /// `Log out`
-  String get logout {
-    return Intl.message(
-      'Log out',
-      name: 'logout',
-      desc: 'Button title.',
-      args: [],
-    );
-  }
-
-  /// `Giving up the remote? You'll miss the convenience!`
-  String get logoutMessage {
-    return Intl.message(
-      'Giving up the remote? You\'ll miss the convenience!',
-      name: 'logoutMessage',
-      desc: 'A lighthearted confirmation message for logging out, reminding the user of the remote control\'s convenience.',
-      args: [],
-    );
-  }
-
   /// `Delete`
   String get delete {
     return Intl.message(
       'Delete',
       name: 'delete',
       desc: 'Button title for confirming delete actions',
-      args: [],
-    );
-  }
-
-  /// `Delete Account`
-  String get deleteAccount {
-    return Intl.message(
-      'Delete Account',
-      name: 'deleteAccount',
-      desc: 'Button title. This button allows users to delete the user\'s account.',
-      args: [],
-    );
-  }
-
-  /// `Are you sure you want to delete your account? This action cannot be undone.`
-  String get deleteAccountMessage {
-    return Intl.message(
-      'Are you sure you want to delete your account? This action cannot be undone.',
-      name: 'deleteAccountMessage',
-      desc: 'Standard warning message for account deletion, emphasizing that the action is permanent and data cannot be recovered.',
-      args: [],
-    );
-  }
-
-  /// `Deleting your account...`
-  String get deletingAccount {
-    return Intl.message(
-      'Deleting your account...',
-      name: 'deletingAccount',
-      desc: 'A status or loading message shown to the user while the account deletion process is in progress.',
       args: [],
     );
   }
@@ -355,116 +305,6 @@ class S {
     );
   }
 
-  /// `Apple sign in failed`
-  String get appleSignInFailed {
-    return Intl.message(
-      'Apple sign in failed',
-      name: 'appleSignInFailed',
-      desc: 'Error: signing in with Apple failed.',
-      args: [],
-    );
-  }
-
-  /// `Google Sign In is not supported on this platform`
-  String get googleSignInUnsupported {
-    return Intl.message(
-      'Google Sign In is not supported on this platform',
-      name: 'googleSignInUnsupported',
-      desc: 'Error: Google sign-in is unavailable on this device.',
-      args: [],
-    );
-  }
-
-  /// `Google sign in failed`
-  String get googleSignInFailed {
-    return Intl.message(
-      'Google sign in failed',
-      name: 'googleSignInFailed',
-      desc: 'Error: signing in with Google failed.',
-      args: [],
-    );
-  }
-
-  /// `Sign out failed`
-  String get signOutFailed {
-    return Intl.message(
-      'Sign out failed',
-      name: 'signOutFailed',
-      desc: 'Snackbar: logging out failed.',
-      args: [],
-    );
-  }
-
-  /// `Account deletion failed.`
-  String get accountDeletionFailed {
-    return Intl.message(
-      'Account deletion failed.',
-      name: 'accountDeletionFailed',
-      desc: 'Snackbar: the server could not delete the account.',
-      args: [],
-    );
-  }
-
-  /// `Account deletion failed. Please try again.`
-  String get accountDeletionFailedTryAgain {
-    return Intl.message(
-      'Account deletion failed. Please try again.',
-      name: 'accountDeletionFailedTryAgain',
-      desc: 'Snackbar: deleting the account failed.',
-      args: [],
-    );
-  }
-
-  /// `Agree to the Terms and Privacy Policy first`
-  String get agreeFirst {
-    return Intl.message(
-      'Agree to the Terms and Privacy Policy first',
-      name: 'agreeFirst',
-      desc: 'Snackbar on the sign-in screen: the agreement box is not checked.',
-      args: [],
-    );
-  }
-
-  /// `Sit back. Control your browser from anywhere.`
-  String get loginTagline {
-    return Intl.message(
-      'Sit back. Control your browser from anywhere.',
-      name: 'loginTagline',
-      desc: 'Sign-in screen tagline under the app name.',
-      args: [],
-    );
-  }
-
-  /// `Sign in with Apple`
-  String get signInWithApple {
-    return Intl.message(
-      'Sign in with Apple',
-      name: 'signInWithApple',
-      desc: 'Sign-in button.',
-      args: [],
-    );
-  }
-
-  /// `Sign in with Google`
-  String get signInWithGoogle {
-    return Intl.message(
-      'Sign in with Google',
-      name: 'signInWithGoogle',
-      desc: 'Sign-in button.',
-      args: [],
-    );
-  }
-
-  /// `I agree to the {terms} and {privacy}.`
-  String agreeToTerms(String terms, String privacy) {
-    return Intl.message(
-      'I agree to the $terms and $privacy.',
-      name: 'agreeToTerms',
-      desc: 'Sign-in agreement line. terms and privacy are the tappable links "Terms of Service" and "Privacy Policy".',
-      args: [terms, privacy],
-    );
-  }
-
   /// `Terms of Service`
   String get termsOfService {
     return Intl.message(
@@ -481,26 +321,6 @@ class S {
       'Privacy Policy',
       name: 'privacyPolicy',
       desc: 'Link and page title.',
-      args: [],
-    );
-  }
-
-  /// `Last used`
-  String get lastUsed {
-    return Intl.message(
-      'Last used',
-      name: 'lastUsed',
-      desc: 'Small pill on the sign-in button the user used last time.',
-      args: [],
-    );
-  }
-
-  /// `Agree to the terms`
-  String get agreeToTheTerms {
-    return Intl.message(
-      'Agree to the terms',
-      name: 'agreeToTheTerms',
-      desc: 'Accessibility label of the agreement checkbox.',
       args: [],
     );
   }
@@ -596,33 +416,23 @@ class S {
     );
   }
 
-  /// `Sign in with the same account`
+  /// `Scan the QR code`
   String get connectStep2Title {
     return Intl.message(
-      'Sign in with the same account',
+      'Scan the QR code',
       name: 'connectStep2Title',
       desc: 'Connection guide, step 2 title.',
       args: [],
     );
   }
 
-  /// `Click the Zappit icon in the browser toolbar and sign in with the account you use here.`
+  /// `Click the Zappit icon in the browser toolbar and scan the QR code with this app.`
   String get connectStep2Body {
     return Intl.message(
-      'Click the Zappit icon in the browser toolbar and sign in with the account you use here.',
+      'Click the Zappit icon in the browser toolbar and scan the QR code with this app.',
       name: 'connectStep2Body',
-      desc: 'Connection guide, step 2 (email unknown).',
+      desc: 'Connection guide, step 2.',
       args: [],
-    );
-  }
-
-  /// `Click the Zappit icon in the browser toolbar and sign in as {email}.`
-  String connectStep2BodyEmail(String email) {
-    return Intl.message(
-      'Click the Zappit icon in the browser toolbar and sign in as $email.',
-      name: 'connectStep2BodyEmail',
-      desc: 'Connection guide, step 2. email: the signed-in account.',
-      args: [email],
     );
   }
 
@@ -2163,12 +1973,12 @@ class S {
     );
   }
 
-  /// `Open Chrome or Safari on your computer and make sure the Zappit extension is signed in to this account.`
+  /// `Open Chrome or Safari on your computer. If nothing shows up, click the Zappit icon in the browser toolbar.`
   String get noBrowserMessage {
     return Intl.message(
-      'Open Chrome or Safari on your computer and make sure the Zappit extension is signed in to this account.',
+      'Open Chrome or Safari on your computer. If nothing shows up, click the Zappit icon in the browser toolbar.',
       name: 'noBrowserMessage',
-      desc: 'Remote overlay message when no browser is connected.',
+      desc: 'Remote overlay message when no browser is connected. Clicking the icon also wakes a browser that rested after 60 days without the app.',
       args: [],
     );
   }
@@ -2893,22 +2703,12 @@ class S {
     );
   }
 
-  /// `Account`
+  /// `Connection`
   String get account {
     return Intl.message(
-      'Account',
+      'Connection',
       name: 'account',
-      desc: 'More tab section title.',
-      args: [],
-    );
-  }
-
-  /// `Delete account`
-  String get deleteAccountMenu {
-    return Intl.message(
-      'Delete account',
-      name: 'deleteAccountMenu',
-      desc: 'More tab row.',
+      desc: 'More tab section title above "Disconnect this phone" (no accounts are visible to users).',
       args: [],
     );
   }
@@ -3044,10 +2844,10 @@ class S {
     );
   }
 
-  /// `No browser is connected. Open your browser with Zappit signed in and try again.`
+  /// `No browser is connected. Open your browser with the Zappit extension and try again.`
   String get noBrowserConnectedShare {
     return Intl.message(
-      'No browser is connected. Open your browser with Zappit signed in and try again.',
+      'No browser is connected. Open your browser with the Zappit extension and try again.',
       name: 'noBrowserConnectedShare',
       desc: 'Top notice message: a shared link could not be sent.',
       args: [],
@@ -3170,10 +2970,10 @@ class S {
     );
   }
 
-  /// `Open your browser with the Zappit extension signed in to see its tabs.`
+  /// `Open your browser with the Zappit extension to see its tabs.`
   String get openBrowserForTabs {
     return Intl.message(
-      'Open your browser with the Zappit extension signed in to see its tabs.',
+      'Open your browser with the Zappit extension to see its tabs.',
       name: 'openBrowserForTabs',
       desc: 'Tabs screen message.',
       args: [],
@@ -3357,6 +3157,156 @@ class S {
       name: 'removeFromFavorites',
       desc: 'Accessibility label of the filled star. site: e.g. "YouTube".',
       args: [site],
+    );
+  }
+
+  /// `Connect to your computer`
+  String get pairTitle {
+    return Intl.message(
+      'Connect to your computer',
+      name: 'pairTitle',
+      desc: 'QR pairing screen title (first screen of the app until a computer is connected).',
+      args: [],
+    );
+  }
+
+  /// `Click the Zappit icon in your computer's browser and point the camera at the QR code.`
+  String get pairBody {
+    return Intl.message(
+      'Click the Zappit icon in your computer\'s browser and point the camera at the QR code.',
+      name: 'pairBody',
+      desc: 'QR pairing screen: what to do.',
+      args: [],
+    );
+  }
+
+  /// `How to install the extension`
+  String get pairHowToInstall {
+    return Intl.message(
+      'How to install the extension',
+      name: 'pairHowToInstall',
+      desc: 'QR pairing screen button: opens the connection guide.',
+      args: [],
+    );
+  }
+
+  /// `Allow camera access in Settings to scan the code.`
+  String get cameraDenied {
+    return Intl.message(
+      'Allow camera access in Settings to scan the code.',
+      name: 'cameraDenied',
+      desc: 'QR pairing screen: camera permission was refused.',
+      args: [],
+    );
+  }
+
+  /// `The camera isn't available right now.`
+  String get cameraUnavailable {
+    return Intl.message(
+      'The camera isn\'t available right now.',
+      name: 'cameraUnavailable',
+      desc: 'QR pairing screen: the camera could not start.',
+      args: [],
+    );
+  }
+
+  /// `This code was already used. Scan the new code on your computer.`
+  String get pairCodeUsed {
+    return Intl.message(
+      'This code was already used. Scan the new code on your computer.',
+      name: 'pairCodeUsed',
+      desc: 'Top notice: the scanned QR code was used before.',
+      args: [],
+    );
+  }
+
+  /// `This code has expired. Scan the new code on your computer.`
+  String get pairCodeExpired {
+    return Intl.message(
+      'This code has expired. Scan the new code on your computer.',
+      name: 'pairCodeExpired',
+      desc: 'Top notice: the scanned QR code is older than 5 minutes.',
+      args: [],
+    );
+  }
+
+  /// `This code is no longer valid. Scan the new code on your computer.`
+  String get pairCodeInvalid {
+    return Intl.message(
+      'This code is no longer valid. Scan the new code on your computer.',
+      name: 'pairCodeInvalid',
+      desc: 'Top notice: the scanned QR code is unknown (e.g. replaced by a newer one).',
+      args: [],
+    );
+  }
+
+  /// `This computer already has 3 phones connected. To connect this phone, disconnect a phone you don't use in the Zappit extension on the computer.`
+  String get pairPhoneLimit {
+    return Intl.message(
+      'This computer already has 3 phones connected. To connect this phone, disconnect a phone you don\'t use in the Zappit extension on the computer.',
+      name: 'pairPhoneLimit',
+      desc: 'Top notice: the account already has the maximum number of phones.',
+      args: [],
+    );
+  }
+
+  /// `Couldn't connect. Check your internet connection and try again.`
+  String get pairFailed {
+    return Intl.message(
+      'Couldn\'t connect. Check your internet connection and try again.',
+      name: 'pairFailed',
+      desc: 'Top notice: pairing failed for another reason (network, server).',
+      args: [],
+    );
+  }
+
+  /// `Disconnect this phone`
+  String get disconnectPhone {
+    return Intl.message(
+      'Disconnect this phone',
+      name: 'disconnectPhone',
+      desc: 'More tab row and dialog title: this phone leaves the computer(s) it controls.',
+      args: [],
+    );
+  }
+
+  /// `This phone will stop controlling your computer. To use it again, scan the QR code on your computer.`
+  String get disconnectPhoneMessage {
+    return Intl.message(
+      'This phone will stop controlling your computer. To use it again, scan the QR code on your computer.',
+      name: 'disconnectPhoneMessage',
+      desc: 'Dialog message for disconnecting this phone.',
+      args: [],
+    );
+  }
+
+  /// `Disconnect`
+  String get disconnect {
+    return Intl.message(
+      'Disconnect',
+      name: 'disconnect',
+      desc: 'Dialog button: disconnect this phone.',
+      args: [],
+    );
+  }
+
+  /// `Connected to {browser}`
+  String connectedTo(String browser) {
+    return Intl.message(
+      'Connected to $browser',
+      name: 'connectedTo',
+      desc: 'Top notice after scanning a QR code. browser: the browser name shown in lists, like "Chrome · Mac".',
+      args: [browser],
+    );
+  }
+
+  /// `Disconnected from {browsers}. To use it again, scan the QR code on that computer.`
+  String browsersDisconnected(String browsers) {
+    return Intl.message(
+      'Disconnected from $browsers. To use it again, scan the QR code on that computer.',
+      name: 'browsersDisconnected',
+      desc: 'Top notice, once: another phone scanned the QR of a browser this phone used. browsers: browser names joined by commas.',
+      args: [browsers],
     );
   }
 }

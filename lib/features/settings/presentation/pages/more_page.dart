@@ -14,7 +14,7 @@ import 'package:zappit/protocol/protocol.dart';
 import 'package:zappit/core/providers/remote_config_instance_provider.dart';
 import 'package:zappit/core/routes/app_routes.dart';
 import 'package:zappit/core/utils/device_utils.dart';
-import 'package:zappit/features/auth/presentation/controllers/auth_state_provider.dart';
+import 'package:zappit/features/pairing/pairing_service.dart';
 import 'package:zappit/features/purchase/pro_controller.dart';
 import 'package:zappit/features/purchase/pro_preview.dart';
 import 'package:zappit/shared/providers/activity_indicator_provider.dart';
@@ -77,8 +77,7 @@ class MorePage extends ConsumerWidget {
                 const SizedBox(height: AppTokens.space6),
                 ZpSectionTitle(S.of(context).account),
                 ZpGroup(children: [
-                  ZpListRow(title: S.of(context).logout, onTap: () => _logout(context, ref)),
-                  ZpListRow(title: S.of(context).deleteAccountMenu, danger: true, onTap: () => _deleteAccount(context, ref)),
+                  ZpListRow(title: S.of(context).disconnectPhone, danger: true, onTap: () => _disconnect(context, ref)),
                 ]),
                 const SizedBox(height: AppTokens.space6),
                 const _VersionFooter(),
@@ -121,36 +120,23 @@ class MorePage extends ConsumerWidget {
 
   void _rate() => InAppReview.instance.openStoreListing(appStoreId: appStoreId);
 
-  Future<void> _logout(BuildContext context, WidgetRef ref) async {
+  /// This phone leaves the account (design doc, task 5): it gets a new, empty
+  /// one and shows the QR screen. The computer and other phones keep going.
+  Future<void> _disconnect(BuildContext context, WidgetRef ref) async {
     final s = getIt<S>();
     final result = await showOkCancelAlertDialog(
       context: context,
-      title: s.logout,
-      message: s.logoutMessage,
-      okLabel: s.logout,
+      title: s.disconnectPhone,
+      message: s.disconnectPhoneMessage,
+      okLabel: s.disconnect,
       cancelLabel: s.cancel,
       isDestructiveAction: true,
     );
     if (result != OkCancelResult.ok) return;
-    await ref.read(authStateProvider.notifier).signOut();
-  }
-
-  Future<void> _deleteAccount(BuildContext context, WidgetRef ref) async {
-    final s = getIt<S>();
-    final result = await showOkCancelAlertDialog(
-      context: context,
-      title: s.deleteAccount,
-      message: s.deleteAccountMessage,
-      okLabel: s.delete,
-      cancelLabel: s.cancel,
-      isDestructiveAction: true,
-    );
-    if (result != OkCancelResult.ok) return;
-
     final indicator = ref.read(activityIndicatorProvider.notifier);
-    indicator.show(s.deletingAccount);
+    indicator.show(null);
     try {
-      await ref.read(authStateProvider.notifier).deleteAccount();
+      await ref.read(pairingServiceProvider).disconnect();
     } finally {
       indicator.hide();
     }

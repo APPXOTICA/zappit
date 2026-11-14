@@ -61,6 +61,20 @@ class PurchaseService {
     }
   }
 
+  /// Resends this store account's receipt to RevenueCat for the current App
+  /// User ID, without the store sign-in prompt `restorePurchases` may show
+  /// (iOS). After joining the computer's account (pairing), a subscription
+  /// restored into the old account moves back (dashboard: transfer to new App
+  /// User ID). Never throws.
+  Future<void> syncPurchases() async {
+    try {
+      if (!await Purchases.isConfigured) return;
+      await Purchases.syncPurchases();
+    } on PlatformException catch (e) {
+      debugPrint('RevenueCat sync failed: ${PurchasesErrorHelper.getErrorCode(e)}');
+    }
+  }
+
   Future<CustomerInfo?> customerInfo() async {
     try {
       if (!await Purchases.isConfigured) return null;

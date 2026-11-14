@@ -5,7 +5,7 @@
 //   or build once and write the scenario to tmp/scenario.txt in the app container
 //
 // Scenarios: main, ad, live, ab, upnext, pick, home, playlist, netflix, shorts, photo, web,
-// disconnected, nobrowser, nothing, more, settings, pro, login, tabs, sleep, episodes.
+// disconnected, nobrowser, nothing, more, settings, pro, pair, tabs, sleep, episodes.
 import 'dart:async';
 import 'dart:io';
 
@@ -22,7 +22,7 @@ import 'package:zappit/core/routes/router_provider.dart';
 import 'package:zappit/core/storage/preferences.dart';
 import 'package:zappit/core/theme/theme.dart';
 import 'package:zappit/core/utils/ui_helper.dart';
-import 'package:zappit/features/auth/presentation/pages/login_page.dart';
+import 'package:zappit/features/pairing/presentation/pair_page.dart';
 import 'package:zappit/features/connection/connection_controller.dart';
 import 'package:zappit/features/purchase/presentation/pages/pro_page.dart';
 import 'package:zappit/features/purchase/pro_controller.dart';
@@ -174,14 +174,12 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   registerSingletons();
   final prefs = await SharedPreferences.getInstance();
-  // Shows the "Last used" pill on the login screen.
-  if (scenario == 'login') await prefs.setString('lastLoginMethod', 'google');
 
   final initial = switch (scenario) {
     'more' => AppRoutes.more,
     'settings' => AppRoutes.remoteSettings,
     'pro' => AppRoutes.pro,
-    'login' => AppRoutes.login,
+    'pair' => AppRoutes.pair,
     'tabs' => AppRoutes.tabs,
     'sites' => AppRoutes.supportedSites,
     _ => AppRoutes.remote,
@@ -191,7 +189,7 @@ Future<void> main() async {
     navigatorKey: rootNavigatorKey,
     initialLocation: initial,
     routes: [
-      GoRoute(path: AppRoutes.login, builder: (_, _) => const LoginPage()),
+      GoRoute(path: AppRoutes.pair, builder: (_, _) => const PairPage()),
       GoRoute(path: AppRoutes.pro, builder: (_, _) => const ProPage()),
       GoRoute(path: AppRoutes.remoteSettings, builder: (_, _) => const RemoteSettingsPage()),
       GoRoute(path: AppRoutes.supportedSites, builder: (_, _) => const SupportedSitesPage()),

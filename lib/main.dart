@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -19,6 +20,7 @@ import 'package:zappit/core/storage/preferences.dart';
 import 'package:zappit/core/theme/theme.dart';
 import 'package:zappit/core/utils/ui_helper.dart';
 import 'package:zappit/features/loading/presentation/pages/loading_page.dart';
+import 'package:zappit/features/pairing/pairing_service.dart';
 import 'package:zappit/features/purchase/purchase_service.dart';
 import 'package:zappit/features/share_intent/share_intent_controller.dart';
 import 'package:zappit/features/voice/voice_command_service.dart';
@@ -31,6 +33,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // App Check: `pair_claim` and `pro_preview_start` accept only this app.
+  // Debug builds use debug tokens (register the one printed in the log in
+  // Firebase Console > App Check).
+  await FirebaseAppCheck.instance.activate(
+    providerApple: kDebugMode ? const AppleDebugProvider() : const AppleAppAttestWithDeviceCheckFallbackProvider(),
+    providerAndroid: kDebugMode ? const AndroidDebugProvider() : const AndroidPlayIntegrityProvider(),
+  );
 
   // Portrait only; upside down is allowed (UI Strategies).
   await SystemChrome.setPreferredOrientations([
@@ -150,6 +159,7 @@ class _AppServicesState extends ConsumerState<_AppServices> with WidgetsBindingO
   @override
   Widget build(BuildContext context) {
     ref.watch(shareIntentControllerProvider);
+    ref.watch(pairingWatcherProvider);
 
     ref.listen(userSettingsControllerProvider.select((s) => s.voiceControl), (_, on) {
       final voice = ref.read(voiceCommandServiceProvider);

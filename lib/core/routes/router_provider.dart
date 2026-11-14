@@ -3,9 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/routes/app_routes.dart';
-import 'package:zappit/features/auth/data/models/auth_state.dart';
-import 'package:zappit/features/auth/presentation/controllers/auth_state_provider.dart';
-import 'package:zappit/features/auth/presentation/pages/login_page.dart';
+import 'package:zappit/core/firebase/session_repository.dart';
+import 'package:zappit/features/pairing/pairing_service.dart';
+import 'package:zappit/features/pairing/presentation/pair_page.dart';
 import 'package:zappit/features/loading/presentation/pages/loading_page.dart';
 import 'package:zappit/features/onboarding/presentation/pages/how_to_connect_page.dart';
 import 'package:zappit/features/purchase/presentation/pages/pro_page.dart';
@@ -32,7 +32,7 @@ GoRouter router(Ref ref) {
     redirect: notifier.redirect,
     routes: [
       GoRoute(path: AppRoutes.loading, builder: (context, state) => const LoadingPage()),
-      GoRoute(path: AppRoutes.login, builder: (context, state) => const LoginPage()),
+      GoRoute(path: AppRoutes.pair, builder: (context, state) => const PairPage()),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => AppShell(shell: shell),
         branches: [
@@ -95,23 +95,30 @@ Page<void> _modal(GoRouterState state, Widget child) =>
 
 class _RouteNotifier extends ChangeNotifier {
   _RouteNotifier(this.ref) {
-    final sub = ref.listen<AuthenticationState>(authStateProvider, (_, _) => notifyListeners());
-    ref.onDispose(sub.close);
+    final uidSub = ref.listen(currentUidProvider, (_, _) => notifyListeners());
+    final pairedSub = ref.listen(phonePairedProvider, (_, _) => notifyListeners());
+    ref.onDispose(uidSub.close);
+    ref.onDispose(pairedSub.close);
   }
 
   final Ref ref;
 
   String? redirect(BuildContext context, GoRouterState state) {
     final location = state.matchedLocation;
-    final authenticated = ref.read(authStateProvider) is AuthStateAuthenticated;
+    // Null until the anonymous account and this phone's entry are known.
+    final paired = ref.read(currentUidProvider) == null ? null : ref.read(phonePairedProvider).value;
 
     if (location == AppRoutes.loading) {
-      return authenticated ? AppRoutes.remote : AppRoutes.login;
+      return switch (paired) {
+        null => null,
+        true => AppRoutes.remote,
+        false => AppRoutes.pair,
+      };
     }
-    if (!authenticated && location != AppRoutes.login && location != AppRoutes.webView) {
-      return AppRoutes.login;
-    }
-    if (authenticated && location == AppRoutes.login) return AppRoutes.remote;
+    // Not paired: the QR screen, and the pages it opens.
+    const unpairedPages = {AppRoutes.pair, AppRoutes.webView, AppRoutes.howToConnect};
+    if (paired == false && !unpairedPages.contains(location)) return AppRoutes.pair;
+    if (paired == true && location == AppRoutes.pair) return AppRoutes.remote;
     return null;
   }
 }

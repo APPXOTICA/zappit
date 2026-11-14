@@ -4,19 +4,17 @@ import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/constants/config.dart';
 import 'package:zappit/core/utils/app_notice.dart';
-import 'package:zappit/features/auth/presentation/controllers/auth_state_provider.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
 import 'package:zappit/core/barrel_files/localization.dart';
 
-/// Onboarding: get the extension on the computer and sign in with the same
-/// account. The install link can be sent to the computer (mail, messages…).
+/// Onboarding: get the extension on the computer and scan its QR code with
+/// this app. The install link can be sent to the computer (mail, messages…).
 class HowToConnectPage extends ConsumerWidget {
   const HowToConnectPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
-    final email = ref.watch(authStateProvider.notifier).email;
     final s = S.of(context);
     const host = 'zappit.tv/get';
 
@@ -65,9 +63,7 @@ class HowToConnectPage extends ConsumerWidget {
                 _Step(
                   number: 2,
                   title: s.connectStep2Title,
-                  body: email == null
-                      ? s.connectStep2Body
-                      : s.connectStep2BodyEmail(email),
+                  body: s.connectStep2Body,
                 ),
                 const SizedBox(height: AppTokens.space4),
                 _Step(

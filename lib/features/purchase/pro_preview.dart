@@ -16,6 +16,7 @@ import 'package:zappit/core/routes/router_provider.dart';
 import 'package:zappit/core/storage/preferences.dart';
 import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/features/connection/connection_controller.dart';
+import 'package:zappit/features/pairing/phone_identity.dart';
 import 'package:zappit/features/purchase/pro_controller.dart';
 import 'package:zappit/core/barrel_files/localization.dart';
 
@@ -31,9 +32,10 @@ const proPreviewLength = Duration(days: 7);
 const proPreviewEndingSoon = Duration(days: 1);
 
 /// Firestore `users/{uid}` field: when the preview started (server time).
-/// Written only by the Cloud Function `pro_preview_start`, which also keeps
-/// hashed sign-in IDs in `proPreviewClaims` so a deleted and re-created
-/// account inherits the old start instead of a new preview.
+/// Written only by the Cloud Function `pro_preview_start`, which allows one
+/// preview per phone (iOS DeviceCheck / Android device recall bits, and the
+/// phone marker hash in `proPreviewClaims`), so a reinstall with a new
+/// anonymous account inherits the old start instead of a new preview.
 const proPreviewStartedAtField = 'proPreviewStartedAt';
 
 /// Server time minus phone time (RTDB `.info/serverTimeOffset`), so moving the
@@ -122,7 +124,18 @@ class ProPreview extends _$ProPreview {
     if (_starting || ref.read(proControllerProvider)) return;
     _starting = true;
     try {
-      final result = await FirebaseFunctions.instanceFor(region: config.region).httpsCallable('pro_preview_start').call<Map<Object?, Object?>>();
+      final uid = ref.read(currentUidProvider);
+      final phone = await PhoneIdentity.load();
+      if (uid == null || phone == null) return;
+      // One preview per phone: the OS's device bits and the phone marker (functions/device.js).
+      final result = await FirebaseFunctions.instanceFor(region: config.region).httpsCallable('pro_preview_start').call<Map<Object?, Object?>>({
+        'platform': phone.platform,
+        'marker': phone.marker,
+        // No OS marker: the server gives no preview, so skip the OS checks.
+        'markerFallback': phone.fallback,
+        'deviceToken': phone.fallback ? null : await PhoneIdentity.deviceCheckToken(),
+        'integrityToken': phone.fallback ? null : await PhoneIdentity.integrityToken(uid),
+      });
       final startedAt = result.data['startedAt'];
       if (startedAt is num) _apply(DateTime.fromMillisecondsSinceEpoch(startedAt.toInt()), loaded: true);
       // false: this person already had a preview (another device, or a deleted account).
@@ -171,18 +184,20 @@ class ProPreview extends _$ProPreview {
 
   /// After the end, once per account on this phone and not subscribed, a
   /// popup (only its buttons close it): when it ends with the app open, or
-  /// the next time the app opens. Learn More opens the Pro screen.
+  /// the next time the app opens. Learn More opens the Pro screen. Not on a
+  /// phone without an OS marker: it never gets a preview, so it never "ends".
   Future<void> _endedPopup() async {
     final uid = ref.read(currentUidProvider);
     if (uid == null || _endedShowing || ref.read(preferencesProvider).isMarked('proPreviewEnded:$uid')) return;
+    if ((await PhoneIdentity.load())?.fallback ?? false) return;
     final router = ref.read(routerProvider);
     // Not over the loading or sign-in screen: wait until the app is in.
     final path = router.routerDelegate.currentConfiguration.uri.path;
-    if (path == AppRoutes.loading || path == AppRoutes.login || path.isEmpty) {
+    if (path == AppRoutes.loading || path == AppRoutes.pair || path.isEmpty) {
       if (_waitForApp != null) return;
       void listener() {
         final now = router.routerDelegate.currentConfiguration.uri.path;
-        if (now == AppRoutes.loading || now == AppRoutes.login || now.isEmpty) return;
+        if (now == AppRoutes.loading || now == AppRoutes.pair || now.isEmpty) return;
         router.routerDelegate.removeListener(listener);
         _waitForApp = null;
         unawaited(_endedPopup());

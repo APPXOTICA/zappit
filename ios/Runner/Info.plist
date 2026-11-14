@@ -79,5 +79,7 @@
             </array>
         </dict>
     </array>
+	<key>NSCameraUsageDescription</key>
+	<string>Zappit uses the camera to scan the QR code shown by the Zappit extension on your computer.</string>
 </dict>
 </plist>

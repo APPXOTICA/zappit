@@ -12,8 +12,3 @@ class AuthStateAuthenticated extends AuthenticationState {
 class AuthStateUnauthenticated extends AuthenticationState {
   const AuthStateUnauthenticated();
 }
-
-class AuthStateError extends AuthenticationState {
-  final String message;
-  const AuthStateError(this.message);
-}

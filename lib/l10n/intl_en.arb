@@ -15,29 +15,9 @@
   "@settings": {
     "description": "Settings page title"
   },
-  "logout": "Log out",
-  "@logout": {
-    "description": "Button title."
-  },
-  "logoutMessage": "Giving up the remote? You'll miss the convenience!",
-  "@logoutMessage": {
-    "description": "A lighthearted confirmation message for logging out, reminding the user of the remote control's convenience."
-  },
   "delete": "Delete",
   "@delete": {
     "description": "Button title for confirming delete actions"
-  },
-  "deleteAccount": "Delete Account",
-  "@deleteAccount": {
-    "description": "Button title. This button allows users to delete the user's account."
-  },
-  "deleteAccountMessage": "Are you sure you want to delete your account? This action cannot be undone.",
-  "@deleteAccountMessage": {
-    "description": "Standard warning message for account deletion, emphasizing that the action is permanent and data cannot be recovered."
-  },
-  "deletingAccount": "Deleting your account...",
-  "@deletingAccount": {
-    "description": "A status or loading message shown to the user while the account deletion process is in progress."
   },
   "banned": "Sorry, this account has been banned.",
   "@banned": {
@@ -124,58 +104,6 @@
   "@errorGeneric": {
     "description": "Snackbar: unknown error."
   },
-  "appleSignInFailed": "Apple sign in failed",
-  "@appleSignInFailed": {
-    "description": "Error: signing in with Apple failed."
-  },
-  "googleSignInUnsupported": "Google Sign In is not supported on this platform",
-  "@googleSignInUnsupported": {
-    "description": "Error: Google sign-in is unavailable on this device."
-  },
-  "googleSignInFailed": "Google sign in failed",
-  "@googleSignInFailed": {
-    "description": "Error: signing in with Google failed."
-  },
-  "signOutFailed": "Sign out failed",
-  "@signOutFailed": {
-    "description": "Snackbar: logging out failed."
-  },
-  "accountDeletionFailed": "Account deletion failed.",
-  "@accountDeletionFailed": {
-    "description": "Snackbar: the server could not delete the account."
-  },
-  "accountDeletionFailedTryAgain": "Account deletion failed. Please try again.",
-  "@accountDeletionFailedTryAgain": {
-    "description": "Snackbar: deleting the account failed."
-  },
-  "agreeFirst": "Agree to the Terms and Privacy Policy first",
-  "@agreeFirst": {
-    "description": "Snackbar on the sign-in screen: the agreement box is not checked."
-  },
-  "loginTagline": "Sit back. Control your browser from anywhere.",
-  "@loginTagline": {
-    "description": "Sign-in screen tagline under the app name."
-  },
-  "signInWithApple": "Sign in with Apple",
-  "@signInWithApple": {
-    "description": "Sign-in button."
-  },
-  "signInWithGoogle": "Sign in with Google",
-  "@signInWithGoogle": {
-    "description": "Sign-in button."
-  },
-  "agreeToTerms": "I agree to the {terms} and {privacy}.",
-  "@agreeToTerms": {
-    "description": "Sign-in agreement line. terms and privacy are the tappable links \"Terms of Service\" and \"Privacy Policy\".",
-    "placeholders": {
-      "terms": {
-        "type": "String"
-      },
-      "privacy": {
-        "type": "String"
-      }
-    }
-  },
   "termsOfService": "Terms of Service",
   "@termsOfService": {
     "description": "Link and page title."
@@ -183,14 +111,6 @@
   "privacyPolicy": "Privacy Policy",
   "@privacyPolicy": {
     "description": "Link and page title."
-  },
-  "lastUsed": "Last used",
-  "@lastUsed": {
-    "description": "Small pill on the sign-in button the user used last time."
-  },
-  "agreeToTheTerms": "Agree to the terms",
-  "@agreeToTheTerms": {
-    "description": "Accessibility label of the agreement checkbox."
   },
   "noBrowserOnline": "No browser is online.",
   "@noBrowserOnline": {
@@ -238,22 +158,13 @@
   "@linkCopied": {
     "description": "Snackbar after copying a link."
   },
-  "connectStep2Title": "Sign in with the same account",
+  "connectStep2Title": "Scan the QR code",
   "@connectStep2Title": {
     "description": "Connection guide, step 2 title."
   },
-  "connectStep2Body": "Click the Zappit icon in the browser toolbar and sign in with the account you use here.",
+  "connectStep2Body": "Click the Zappit icon in the browser toolbar and scan the QR code with this app.",
   "@connectStep2Body": {
-    "description": "Connection guide, step 2 (email unknown)."
-  },
-  "connectStep2BodyEmail": "Click the Zappit icon in the browser toolbar and sign in as {email}.",
-  "@connectStep2BodyEmail": {
-    "description": "Connection guide, step 2. email: the signed-in account.",
-    "placeholders": {
-      "email": {
-        "type": "String"
-      }
-    }
+    "description": "Connection guide, step 2."
   },
   "connectStep3Title": "Play a video",
   "@connectStep3Title": {
@@ -1030,9 +941,9 @@
   "@offlineMessage": {
     "description": "Remote overlay message when offline."
   },
-  "noBrowserMessage": "Open Chrome or Safari on your computer and make sure the Zappit extension is signed in to this account.",
+  "noBrowserMessage": "Open Chrome or Safari on your computer. If nothing shows up, click the Zappit icon in the browser toolbar.",
   "@noBrowserMessage": {
-    "description": "Remote overlay message when no browser is connected."
+    "description": "Remote overlay message when no browser is connected. Clicking the icon also wakes a browser that rested after 60 days without the app."
   },
   "chooseBrowser": "Choose a browser",
   "@chooseBrowser": {
@@ -1342,13 +1253,9 @@
   "@rateZappit": {
     "description": "More tab row."
   },
-  "account": "Account",
+  "account": "Connection",
   "@account": {
-    "description": "More tab section title."
-  },
-  "deleteAccountMenu": "Delete account",
-  "@deleteAccountMenu": {
-    "description": "More tab row."
+    "description": "More tab section title above \"Disconnect this phone\" (no accounts are visible to users)."
   },
   "contactUsKeepInfo": "Please don't delete the info below.",
   "@contactUsKeepInfo": {
@@ -1407,7 +1314,7 @@
   "@couldNotOpenLink": {
     "description": "Top notice title."
   },
-  "noBrowserConnectedShare": "No browser is connected. Open your browser with Zappit signed in and try again.",
+  "noBrowserConnectedShare": "No browser is connected. Open your browser with the Zappit extension and try again.",
   "@noBrowserConnectedShare": {
     "description": "Top notice message: a shared link could not be sent."
   },
@@ -1479,7 +1386,7 @@
   "@pickBrowserForTabs": {
     "description": "Tabs screen message."
   },
-  "openBrowserForTabs": "Open your browser with the Zappit extension signed in to see its tabs.",
+  "openBrowserForTabs": "Open your browser with the Zappit extension to see its tabs.",
   "@openBrowserForTabs": {
     "description": "Tabs screen message."
   },
@@ -1567,6 +1474,78 @@
     "placeholders": {
       "site": {
         "type": "String"
+      }
+    }
+  },
+  "pairTitle": "Connect to your computer",
+  "@pairTitle": {
+    "description": "QR pairing screen title (first screen of the app until a computer is connected)."
+  },
+  "pairBody": "Click the Zappit icon in your computer's browser and point the camera at the QR code.",
+  "@pairBody": {
+    "description": "QR pairing screen: what to do."
+  },
+  "pairHowToInstall": "How to install the extension",
+  "@pairHowToInstall": {
+    "description": "QR pairing screen button: opens the connection guide."
+  },
+  "cameraDenied": "Allow camera access in Settings to scan the code.",
+  "@cameraDenied": {
+    "description": "QR pairing screen: camera permission was refused."
+  },
+  "cameraUnavailable": "The camera isn't available right now.",
+  "@cameraUnavailable": {
+    "description": "QR pairing screen: the camera could not start."
+  },
+  "pairCodeUsed": "This code was already used. Scan the new code on your computer.",
+  "@pairCodeUsed": {
+    "description": "Top notice: the scanned QR code was used before."
+  },
+  "pairCodeExpired": "This code has expired. Scan the new code on your computer.",
+  "@pairCodeExpired": {
+    "description": "Top notice: the scanned QR code is older than 5 minutes."
+  },
+  "pairCodeInvalid": "This code is no longer valid. Scan the new code on your computer.",
+  "@pairCodeInvalid": {
+    "description": "Top notice: the scanned QR code is unknown (e.g. replaced by a newer one)."
+  },
+  "pairPhoneLimit": "This computer already has 3 phones connected. To connect this phone, disconnect a phone you don't use in the Zappit extension on the computer.",
+  "@pairPhoneLimit": {
+    "description": "Top notice: the account already has the maximum number of phones."
+  },
+  "pairFailed": "Couldn't connect. Check your internet connection and try again.",
+  "@pairFailed": {
+    "description": "Top notice: pairing failed for another reason (network, server)."
+  },
+  "disconnectPhone": "Disconnect this phone",
+  "@disconnectPhone": {
+    "description": "More tab row and dialog title: this phone leaves the computer(s) it controls."
+  },
+  "disconnectPhoneMessage": "This phone will stop controlling your computer. To use it again, scan the QR code on your computer.",
+  "@disconnectPhoneMessage": {
+    "description": "Dialog message for disconnecting this phone."
+  },
+  "disconnect": "Disconnect",
+  "@disconnect": {
+    "description": "Dialog button: disconnect this phone."
+  },
+  "connectedTo": "Connected to {browser}",
+  "@connectedTo": {
+    "description": "Top notice after scanning a QR code. browser: the browser name shown in lists, like \"Chrome · Mac\".",
+    "placeholders": {
+      "browser": {
+        "type": "String",
+        "example": "Chrome · Mac"
+      }
+    }
+  },
+  "browsersDisconnected": "Disconnected from {browsers}. To use it again, scan the QR code on that computer.",
+  "@browsersDisconnected": {
+    "description": "Top notice, once: another phone scanned the QR of a browser this phone used. browsers: browser names joined by commas.",
+    "placeholders": {
+      "browsers": {
+        "type": "String",
+        "example": "Chrome · Mac"
       }
     }
   }

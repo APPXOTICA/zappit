@@ -1,5 +1,4 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:zappit/features/auth/data/models/auth_provider.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 
 part 'preferences.g.dart';
@@ -13,7 +12,6 @@ class Preferences {
   static const _shouldSaveEmail = 'shouldSaveEmail';
   static const _email = 'email';
   static const _launchCountKey = 'launchCount';
-  static const _lastLoginMethodKey = 'lastLoginMethod';
   static const _debugProKey = 'debugPro';
 
   final SharedPreferences instance;
@@ -31,9 +29,6 @@ class Preferences {
 
   String? get email => instance.getString(_email);
   void setEmail(String email) => instance.setString(_email, email);
-
-  String get lastLoginMethod => instance.getString(_lastLoginMethodKey) ?? AuthProvider.unknown.name;
-  void setLastLoginMethod(String method) => instance.setString(_lastLoginMethodKey, method);
 
   bool get debugPro => instance.getBool(_debugProKey) ?? false;
   void setDebugPro(bool on) => instance.setBool(_debugProKey, on);
@@ -61,7 +56,6 @@ class Preferences {
   /// Device-only counters/flags (launchCount, didReview) are intentionally kept.
   // Future<void> clearOnAccountDeletion() async {
   //   // Auth/session related
-  //   await instance.remove(_lastLoginMethodKey);
   //
   //   // Saved email / login convenience
   //   await instance.remove(_shouldSaveEmail);

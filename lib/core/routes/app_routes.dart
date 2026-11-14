@@ -1,7 +1,8 @@
 /// Route paths.
 abstract final class AppRoutes {
   static const loading = '/loading';
-  static const login = '/login';
+  /// First screen until this phone is paired: scan the extension's QR.
+  static const pair = '/pair';
   static const remote = '/remote';
   static const tabs = '/tabs';
   static const more = '/more';
