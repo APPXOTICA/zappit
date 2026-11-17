@@ -33,11 +33,10 @@ class BrowserList extends ConsumerWidget {
       children: [
         for (final browser in browsers)
           ZpListRow(
-            title: browser.label,
+            title: browser.displayName,
             subtitle: browser.targetTitle,
             minHeight: 64,
             selected: browser.instanceId == status.selected?.instanceId,
-            showChevron: true,
             onTap: () => _pick(ref, browser),
           ),
       ],

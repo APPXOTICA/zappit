@@ -10,6 +10,7 @@ import 'package:zappit/core/firebase/firebase_paths.dart';
 import 'package:zappit/core/firebase/session_repository.dart';
 import 'package:zappit/core/realtime/channel_provider.dart';
 import 'package:zappit/core/realtime/realtime_service.dart';
+import 'package:zappit/features/pairing/phone_identity.dart';
 import 'package:zappit/protocol/messages.dart';
 import 'package:zappit/protocol/protocol.dart';
 
@@ -225,7 +226,7 @@ class BrowserPresence extends _$BrowserPresence {
         final browser = BrowserInstance.fromPresence(member.data);
         if (browser != null) browsers[browser.instanceId] = browser;
       }
-      final list = browsers.values.toList()..sort((a, b) => a.label.compareTo(b.label));
+      final list = browsers.values.toList()..sort((a, b) => a.displayName.compareTo(b.displayName));
       if (ref.mounted) state = list;
     } catch (e) {
       debugPrint('presence.get failed: $e');
@@ -317,6 +318,9 @@ class BrowserPresence extends _$BrowserPresence {
   /// value while the app was still open. Each onDisconnect now removes only
   /// its own child. The new child is written before the previous one goes,
   /// so the node never looks empty.
+  ///
+  /// The child carries this phone's `phoneId` (its entry in
+  /// `users/{uid}/phones`): the extension popup marks that phone "Connected".
   Future<void> _setAppOnline(bool online) async {
     final uid = _uid;
     final previous = _onlineKey;
@@ -327,9 +331,10 @@ class BrowserPresence extends _$BrowserPresence {
     if (online) {
       final key = node.push();
       _onlineKey = key;
+      final phone = await PhoneIdentity.load();
       try {
         await key.onDisconnect().remove();
-        await key.set({'at': ServerValue.timestamp});
+        await key.set({'at': ServerValue.timestamp, 'phoneId': ?phone?.phoneId});
       } catch (e) {
         debugPrint('appOnline write failed: $e');
       }
@@ -338,10 +343,26 @@ class BrowserPresence extends _$BrowserPresence {
     if (previous != null && previous.parent?.path == node.path) await _removeAppOnline(previous);
   }
 
-  /// Removes `appOnline` (every child) and its onDisconnect. Sign-out calls it
-  /// while the user can still write; otherwise the old account's extension
-  /// would keep Ably open.
-  static Future<void> clearAppOnline(String uid) => _removeAppOnline(FirebaseDatabase.instance.ref(FirebasePaths.appOnline(uid)));
+  /// Removes this phone's children under `appOnline` and its onDisconnect.
+  /// Sign-out calls it while the user can still write; otherwise the old
+  /// account's extension would keep Ably open. Other phones' children stay:
+  /// each device leaves only itself, and the browsers stay with the phones
+  /// that are still open.
+  static Future<void> clearAppOnline(String uid) async {
+    final node = FirebaseDatabase.instance.ref(FirebasePaths.appOnline(uid));
+    final phone = await PhoneIdentity.load();
+    try {
+      final snapshot = await node.get().timeout(const Duration(seconds: 3));
+      final mine = [
+        for (final child in snapshot.children)
+          if (phone == null || child.child('phoneId').value == phone.phoneId) child.ref,
+      ];
+      // cancel(): only this phone's own onDisconnect writes under the node.
+      await Future.wait([node.onDisconnect().cancel(), for (final ref in mine) ref.remove()]).timeout(const Duration(seconds: 3));
+    } catch (e) {
+      debugPrint('appOnline clear failed: $e');
+    }
+  }
 
   /// Bounded: offline, the write would wait for a reconnect, and the server's
   /// onDisconnect removes the value anyway.

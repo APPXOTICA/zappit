@@ -81,7 +81,7 @@ final class ProPreviewProvider
   }
 }
 
-String _$proPreviewHash() => r'a710d59a290399fc1eaba052c16d9f3accac658d';
+String _$proPreviewHash() => r'e16de86403d53e5a3d16a30f1b4257b693d8a949';
 
 abstract class _$ProPreview extends $Notifier<ProPreviewState> {
   ProPreviewState build();

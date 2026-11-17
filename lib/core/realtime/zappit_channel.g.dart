@@ -242,7 +242,7 @@ final class BrowserPresenceProvider
   }
 }
 
-String _$browserPresenceHash() => r'3a4bbcd15eded73cd2b91fbc0de8269918365bd4';
+String _$browserPresenceHash() => r'22ace11671be8523fe187dcfdb76209cc9e81de8';
 
 /// Browsers online on the channel, and the app's own presence.
 ///

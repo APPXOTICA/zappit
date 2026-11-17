@@ -210,16 +210,28 @@ class _ProPageState extends ConsumerState<ProPage> {
                         // Buying stays open during the preview: the store trial starts right away.
                         if (preview.active && preview.endsAt != null) ...[
                           const SizedBox(height: AppTokens.space8),
-                          ZpCluster(
-                            padding: const EdgeInsets.symmetric(horizontal: AppTokens.space4, vertical: AppTokens.space3),
+                          // Highlighted: the preview's end is what this page has to get across.
+                          Container(
+                            padding: const EdgeInsets.all(AppTokens.space4),
+                            decoration: BoxDecoration(
+                              color: t.accentSoft,
+                              borderRadius: BorderRadius.circular(AppTokens.radiusMd),
+                              border: Border.all(color: t.accent, width: 1.5),
+                              boxShadow: [BoxShadow(color: t.accent.withValues(alpha: 0.25), blurRadius: 18)],
+                            ),
                             child: Row(
                               children: [
-                                Icon(Icons.auto_awesome_rounded, color: t.accentText),
+                                Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(color: t.accent, shape: BoxShape.circle),
+                                  child: Icon(Icons.auto_awesome_rounded, color: t.onAccent, size: 22),
+                                ),
                                 const SizedBox(width: AppTokens.space3),
                                 Expanded(
                                   child: Text(
                                     s.proPreviewActiveBanner(DateFormat.MMMd().format(preview.endsAt!)),
-                                    style: AppText.body.copyWith(color: t.ink),
+                                    style: AppText.body.copyWith(color: t.ink, fontWeight: FontWeight.w600),
                                   ),
                                 ),
                               ],

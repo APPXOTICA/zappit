@@ -1,3 +1,6 @@
+import 'dart:async';
+
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_app_review/in_app_review.dart';
@@ -15,6 +18,7 @@ import 'package:zappit/core/providers/remote_config_instance_provider.dart';
 import 'package:zappit/core/routes/app_routes.dart';
 import 'package:zappit/core/utils/device_utils.dart';
 import 'package:zappit/features/pairing/pairing_service.dart';
+import 'package:zappit/features/pairing/phone_identity.dart';
 import 'package:zappit/features/purchase/pro_controller.dart';
 import 'package:zappit/features/purchase/pro_preview.dart';
 import 'package:zappit/shared/providers/activity_indicator_provider.dart';
@@ -67,7 +71,6 @@ class MorePage extends ConsumerWidget {
                 ZpGroup(children: [
                   ZpListRow(
                     title: S.of(context).tutorial,
-                    showChevron: true,
                     onTap: () => _openWeb(context, S.of(context).tutorial, tutorialUrl),
                   ),
                   ZpListRow(title: S.of(context).contactUs, onTap: () => _contactUs(ref)),
@@ -77,6 +80,12 @@ class MorePage extends ConsumerWidget {
                 const SizedBox(height: AppTokens.space6),
                 ZpSectionTitle(S.of(context).account),
                 ZpGroup(children: [
+                  // Another browser (or one that left): the in-app scanner.
+                  ZpListRow(
+                    title: S.of(context).connectBrowser,
+                    onTap: () => context.push(AppRoutes.scan),
+                  ),
+                  const _PhoneNameRow(),
                   ZpListRow(title: S.of(context).disconnectPhone, danger: true, onTap: () => _disconnect(context, ref)),
                 ]),
                 const SizedBox(height: AppTokens.space6),
@@ -140,6 +149,57 @@ class MorePage extends ConsumerWidget {
     } finally {
       indicator.hide();
     }
+  }
+}
+
+/// This phone's name as the extension shows it; tap to change it.
+class _PhoneNameRow extends ConsumerStatefulWidget {
+  const _PhoneNameRow();
+
+  @override
+  ConsumerState<_PhoneNameRow> createState() => _PhoneNameRowState();
+}
+
+class _PhoneNameRowState extends ConsumerState<_PhoneNameRow> {
+  String? _name;
+
+  @override
+  void initState() {
+    super.initState();
+    unawaited(PhoneIdentity.load().then((phone) {
+      if (mounted) setState(() => _name = phone?.name);
+    }));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ZpListRow(
+      title: S.of(context).phoneName,
+      detail: _name ?? '',
+      onTap: _name == null ? null : _edit,
+    );
+  }
+
+  Future<void> _edit() async {
+    final s = S.of(context);
+    final result = await showTextInputDialog(
+      context: context,
+      title: s.phoneName,
+      message: s.phoneNameMessage,
+      okLabel: s.save,
+      cancelLabel: s.cancel,
+      textFields: [
+        DialogTextField(
+          initialText: _name,
+          maxLength: PhoneIdentity.maxNameLength,
+          validator: (value) => (value ?? '').trim().isEmpty ? s.phoneNameEmpty : null,
+        ),
+      ],
+    );
+    final name = result?.firstOrNull?.trim();
+    if (name == null || name.isEmpty || name == _name) return;
+    final saved = await ref.read(pairingServiceProvider).rename(name);
+    if (mounted && saved != null) setState(() => _name = saved);
   }
 }
 

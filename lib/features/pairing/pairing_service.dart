@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:app_links/app_links.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -12,10 +13,13 @@ import 'package:zappit/core/constants/config.dart' as config;
 import 'package:zappit/core/firebase/firebase_paths.dart';
 import 'package:zappit/core/firebase/session_repository.dart';
 import 'package:zappit/core/realtime/zappit_channel.dart';
+import 'package:zappit/core/routes/router_provider.dart';
+import 'package:zappit/core/storage/preferences.dart';
 import 'package:zappit/core/utils/app_notice.dart';
 import 'package:zappit/features/auth/presentation/controllers/auth_state_provider.dart';
 import 'package:zappit/features/pairing/phone_identity.dart';
 import 'package:zappit/features/purchase/purchase_service.dart';
+import 'package:zappit/protocol/messages.dart';
 import 'package:zappit/shared/providers/activity_indicator_provider.dart';
 
 part 'pairing_service.g.dart';
@@ -65,6 +69,13 @@ class PairingService {
   bool _busy = false;
   bool _leaving = false;
 
+  /// The browser the last QR scan connected, until [_pendingUntil]: the
+  /// remote switches to it once it is online on this account (it may still
+  /// be moving here). Other browsers' auto-select would otherwise keep the
+  /// one the remote had.
+  String? _pendingBrowser;
+  DateTime? _pendingUntil;
+
   Future<PairResult> claim(String code) async {
     if (_busy) return PairResult.failed;
     _busy = true;
@@ -87,6 +98,12 @@ class PairingService {
         await purchases.syncPurchases();
       }
       final label = result.data['label'];
+      final instanceId = result.data['instanceId'];
+      if (instanceId is String && instanceId.isNotEmpty) {
+        _pendingBrowser = instanceId;
+        _pendingUntil = DateTime.now().add(const Duration(minutes: 2));
+        selectPendingBrowser(_ref.read(browserPresenceProvider));
+      }
       unawaited(Analytics.event('pair_connected', {'joined': token is String}));
       AppNotice.top(title: getIt<S>().connectedTo(label is String ? label : ''), icon: Icons.check_circle_rounded, error: false);
       return PairResult.connected;
@@ -112,15 +129,16 @@ class PairingService {
     }
   }
 
-  /// Claims with the busy overlay and says what went wrong.
-  Future<PairResult> claimWithFeedback(String code) async {
+  /// Claims with the busy overlay and says what went wrong. [overlay] false:
+  /// the caller shows its own busy state (the scanner's camera view).
+  Future<PairResult> claimWithFeedback(String code, {bool overlay = true}) async {
     final indicator = _ref.read(activityIndicatorProvider.notifier);
-    indicator.show(null);
+    if (overlay) indicator.show(null);
     final PairResult result;
     try {
       result = await claim(code);
     } finally {
-      indicator.hide();
+      if (overlay) indicator.hide();
     }
     final s = getIt<S>();
     final message = switch (result) {
@@ -133,6 +151,41 @@ class PairingService {
     };
     if (message != null) AppNotice.top(title: message);
     return result;
+  }
+
+  /// Selects the browser the last scan connected once [browsers] (online on
+  /// this account) has it. `PairingWatcher` calls it on every presence change.
+  void selectPendingBrowser(List<BrowserInstance> browsers) {
+    final id = _pendingBrowser;
+    if (id == null) return;
+    if (_pendingUntil == null || DateTime.now().isAfter(_pendingUntil!)) {
+      _pendingBrowser = null;
+      return;
+    }
+    if (!browsers.any((b) => b.instanceId == id)) return;
+    _pendingBrowser = null;
+    unawaited(_ref.read(sessionRepositoryProvider).select(id).catchError((Object e) => debugPrint('select after pairing failed: $e')));
+  }
+
+  /// More > Phone name: saved on the phone (used by the next pairing too) and,
+  /// while paired, in this phone's entry, which the extension lists.
+  Future<String?> rename(String name) async {
+    final phone = await PhoneIdentity.rename(name);
+    if (phone == null) return null;
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null && _ref.read(phonePairedProvider).value == true) {
+      try {
+        await FirebaseFirestore.instance
+            .collection(FirebasePaths.users)
+            .doc(uid)
+            .collection(FirebasePaths.phones)
+            .doc(phone.phoneId)
+            .update({'name': phone.name});
+      } catch (e) {
+        debugPrint('phone rename failed: $e');
+      }
+    }
+    return phone.name;
   }
 
   /// More > Disconnect this phone: off the account's phone list, then a new,
@@ -179,19 +232,25 @@ class PairingService {
 class PairingWatcher extends _$PairingWatcher {
   @override
   void build() {
-    String? pairedUid;
+    // The account this phone was last paired in, kept across launches: the
+    // phone may have been removed while the app was closed.
+    final prefs = ref.read(preferencesProvider).instance;
     ref.listen(phonePairedProvider, (previous, next) {
       final uid = ref.read(currentUidProvider);
       final paired = next.value;
-      if (paired == true) {
-        pairedUid = uid;
-      } else if (paired == false && uid != null && pairedUid == uid) {
-        pairedUid = null;
-        unawaited(ref.read(pairingServiceProvider).onRemoved(uid));
+      if (uid == null || paired == null) return;
+      final pairedUid = prefs.getString(_pairedUidKey);
+      if (paired) {
+        if (pairedUid != uid) unawaited(prefs.setString(_pairedUidKey, uid));
+      } else if (pairedUid == uid) {
+        unawaited(_leaveIfRemoved(uid));
       }
-    });
+    }, fireImmediately: true);
 
     ref.listen(currentUidProvider, (previous, uid) => _watchNotices(uid), fireImmediately: true);
+
+    // The browser a scan just connected: the remote moves to it.
+    ref.listen(browserPresenceProvider, (previous, browsers) => ref.read(pairingServiceProvider).selectPendingBrowser(browsers));
 
     final links = AppLinks().uriLinkStream.listen((uri) {
       final code = pairingCodeFrom(uri.toString());
@@ -199,6 +258,30 @@ class PairingWatcher extends _$PairingWatcher {
     }, onError: (Object e) => debugPrint('app link failed: $e'));
     ref.onDispose(links.cancel);
     ref.onDispose(() => _notices?.cancel());
+  }
+
+  static const _pairedUidKey = 'pairedUid';
+
+  /// Leaves [uid] once the server (not the local cache) says this phone is
+  /// off its list. Offline: tried again on the next launch.
+  Future<void> _leaveIfRemoved(String uid) async {
+    final phone = await PhoneIdentity.load();
+    if (phone == null) return;
+    try {
+      final doc = await FirebaseFirestore.instance
+          .collection(FirebasePaths.users)
+          .doc(uid)
+          .collection(FirebasePaths.phones)
+          .doc(phone.phoneId)
+          .get(const GetOptions(source: Source.server));
+      if (doc.exists) return;
+    } catch (e) {
+      debugPrint('phone check failed: $e');
+      return;
+    }
+    final prefs = ref.read(preferencesProvider).instance;
+    if (prefs.getString(_pairedUidKey) == uid) await prefs.remove(_pairedUidKey);
+    await ref.read(pairingServiceProvider).onRemoved(uid);
   }
 
   StreamSubscription<DocumentSnapshot<Map<String, dynamic>>>? _notices;
@@ -213,8 +296,16 @@ class PairingWatcher extends _$PairingWatcher {
     _notices = doc.snapshots().listen((snapshot) {
       final raw = snapshot.data()?['disconnectedBrowsers'];
       if (raw is! List || raw.isEmpty) return;
+      final context = rootNavigatorKey.currentContext;
+      if (context == null || !context.mounted) return; // kept for the next start
       final names = raw.whereType<String>().toSet().join(', ');
-      AppNotice.top(title: getIt<S>().browsersDisconnected(names), icon: Icons.link_off_rounded);
+      // A dialog closed only with OK: a short banner is easy to miss.
+      unawaited(showOkAlertDialog(
+        context: context,
+        title: S.of(context).browsersDisconnected(names),
+        message: S.of(context).browsersDisconnectedBody,
+        barrierDismissible: false,
+      ));
       unawaited(doc.update({'disconnectedBrowsers': FieldValue.delete()}).catchError((Object e) => debugPrint('notice clear failed: $e')));
     }, onError: (Object e) => debugPrint('notice listen failed: $e'));
   }

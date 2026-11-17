@@ -64,6 +64,17 @@ class _DisconnectedCard extends ConsumerWidget {
             ? S.of(context).offlineMessage
             : S.of(context).noBrowserMessage,
         children: [
+          // A browser that left (its Disconnect) or a new one: scan its QR here.
+          if (!offline) ...[
+            ZpButton(
+              label: S.of(context).scanQrCode,
+              icon: const Icon(Icons.qr_code_scanner_rounded),
+              style: ZpButtonStyle.accent,
+              height: AppTokens.targetMin,
+              onPressed: () => context.push(AppRoutes.scan),
+            ),
+            const SizedBox(height: AppTokens.space3),
+          ],
           ZpButton(
             label: S.of(context).howToConnect,
             height: AppTokens.targetMin,

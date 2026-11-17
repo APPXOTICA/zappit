@@ -6,6 +6,7 @@ import 'package:zappit/core/routes/app_routes.dart';
 import 'package:zappit/core/firebase/session_repository.dart';
 import 'package:zappit/features/pairing/pairing_service.dart';
 import 'package:zappit/features/pairing/presentation/pair_page.dart';
+import 'package:zappit/features/pairing/presentation/scan_page.dart';
 import 'package:zappit/features/loading/presentation/pages/loading_page.dart';
 import 'package:zappit/features/onboarding/presentation/pages/how_to_connect_page.dart';
 import 'package:zappit/features/purchase/presentation/pages/pro_page.dart';
@@ -61,6 +62,11 @@ GoRouter router(Ref ref) {
         path: AppRoutes.howToConnect,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) => _push(state, const HowToConnectPage()),
+      ),
+      GoRoute(
+        path: AppRoutes.scan,
+        parentNavigatorKey: rootNavigatorKey,
+        pageBuilder: (context, state) => _modal(state, const ScanPage()),
       ),
       GoRoute(
         path: AppRoutes.supportedSites,

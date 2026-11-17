@@ -1963,6 +1963,26 @@ class S {
     );
   }
 
+  /// `Connect a browser`
+  String get connectBrowser {
+    return Intl.message(
+      'Connect a browser',
+      name: 'connectBrowser',
+      desc: 'More tab row: opens the camera to scan the QR code in a browser\'s Zappit popup (adds that browser; the remote switches to it).',
+      args: [],
+    );
+  }
+
+  /// `Scan QR code`
+  String get scanQrCode {
+    return Intl.message(
+      'Scan QR code',
+      name: 'scanQrCode',
+      desc: 'Button on "Can\'t reach a browser": opens the camera to scan the QR code in the extension\'s popup.',
+      args: [],
+    );
+  }
+
   /// `Check your internet connection. Zappit reconnects on its own.`
   String get offlineMessage {
     return Intl.message(
@@ -3300,13 +3320,63 @@ class S {
     );
   }
 
-  /// `Disconnected from {browsers}. To use it again, scan the QR code on that computer.`
+  /// `Disconnected from {browsers}`
   String browsersDisconnected(String browsers) {
     return Intl.message(
-      'Disconnected from $browsers. To use it again, scan the QR code on that computer.',
+      'Disconnected from $browsers',
       name: 'browsersDisconnected',
-      desc: 'Top notice, once: another phone scanned the QR of a browser this phone used. browsers: browser names joined by commas.',
+      desc: 'Dialog title, once: another phone scanned the QR of a browser this phone used. browsers: browser names joined by commas.',
       args: [browsers],
+    );
+  }
+
+  /// `Another phone connected to it. To use it again, scan the QR code on that computer.`
+  String get browsersDisconnectedBody {
+    return Intl.message(
+      'Another phone connected to it. To use it again, scan the QR code on that computer.',
+      name: 'browsersDisconnectedBody',
+      desc: 'Dialog message under browsersDisconnected: why it happened and how to get it back.',
+      args: [],
+    );
+  }
+
+  /// `Phone name`
+  String get phoneName {
+    return Intl.message(
+      'Phone name',
+      name: 'phoneName',
+      desc: 'More tab row and dialog title: this phone\'s name as the browser extension shows it.',
+      args: [],
+    );
+  }
+
+  /// `Shown in the Zappit extension on your computer.`
+  String get phoneNameMessage {
+    return Intl.message(
+      'Shown in the Zappit extension on your computer.',
+      name: 'phoneNameMessage',
+      desc: 'Message in the Phone name dialog.',
+      args: [],
+    );
+  }
+
+  /// `Enter a name.`
+  String get phoneNameEmpty {
+    return Intl.message(
+      'Enter a name.',
+      name: 'phoneNameEmpty',
+      desc: 'Phone name dialog: error when the field is empty.',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: 'Button: save a change.',
+      args: [],
     );
   }
 }

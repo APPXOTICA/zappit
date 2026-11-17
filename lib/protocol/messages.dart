@@ -548,6 +548,12 @@ final class BrowserInstance {
   /// `Chrome · Mac`
   String get label => [browserName, os].where((s) => s.isNotEmpty).join(' · ');
 
+  /// The name the user gave it in the extension, else [label].
+  String get displayName {
+    final name = deviceName?.trim();
+    return name == null || name.isEmpty ? label : name;
+  }
+
   static BrowserInstance? fromPresence(Object? raw) {
     final json = asJsonMap(raw);
     if (asString(json['device']) != Protocol.deviceBrowser) return null;

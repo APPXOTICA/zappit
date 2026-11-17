@@ -3,6 +3,8 @@ abstract final class AppRoutes {
   static const loading = '/loading';
   /// First screen until this phone is paired: scan the extension's QR.
   static const pair = '/pair';
+  /// Scan QR code while paired (remote's "Can't reach a browser").
+  static const scan = '/scan';
   static const remote = '/remote';
   static const tabs = '/tabs';
   static const more = '/more';

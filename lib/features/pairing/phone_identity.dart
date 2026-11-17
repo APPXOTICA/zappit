@@ -19,6 +19,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// builds) still connects with a random one kept in the app's storage
 /// ([fallback]). A reinstall would make a new one, so the server never gives
 /// such a phone the Pro preview.
+///
+/// [name]: shown in the extension's phone list. The model name at first
+/// launch, kept in the app's storage; the user can change it (More).
 @immutable
 class PhoneIdentity {
   const PhoneIdentity({required this.marker, required this.name, required this.platform, this.fallback = false});
@@ -37,6 +40,8 @@ class PhoneIdentity {
 
   static const _channel = MethodChannel('tv.zappit/device');
   static const _fallbackKey = 'phoneFallbackMarker';
+  static const _nameKey = 'phoneName';
+  static const maxNameLength = 40;
   static PhoneIdentity? _cached;
 
   /// Same rule as the server's `validMarker` (functions/device.js).
@@ -61,23 +66,48 @@ class PhoneIdentity {
         await prefs.setString(_fallbackKey, marker);
       }
     }
-    final info = DeviceInfoPlugin();
-    String name;
-    if (Platform.isIOS) {
-      final ios = await info.iosInfo;
-      name = ios.modelName.isNotEmpty ? ios.modelName : ios.model;
-    } else {
-      final android = await info.androidInfo;
-      name = android.model;
+    final prefs = await SharedPreferences.getInstance();
+    var name = prefs.getString(_nameKey);
+    if (name == null || name.trim().isEmpty) {
+      name = await _modelName();
+      await prefs.setString(_nameKey, name);
     }
     return _cached = PhoneIdentity(marker: marker, name: name, platform: Platform.isIOS ? 'ios' : 'android', fallback: fallback);
+  }
+
+  static Future<String> _modelName() async {
+    final info = DeviceInfoPlugin();
+    if (Platform.isIOS) {
+      final ios = await info.iosInfo;
+      return ios.modelName.isNotEmpty ? ios.modelName : ios.model;
+    }
+    return (await info.androidInfo).model;
+  }
+
+  /// Saves [name] (trimmed, at most [maxNameLength]) as this phone's name.
+  static Future<PhoneIdentity?> rename(String name) async {
+    final phone = await load();
+    final clean = name.trim();
+    if (phone == null || clean.isEmpty) return phone;
+    final value = clean.length > maxNameLength ? clean.substring(0, maxNameLength) : clean;
+    await (await SharedPreferences.getInstance()).setString(_nameKey, value);
+    return _cached = PhoneIdentity(marker: phone.marker, name: value, platform: phone.platform, fallback: phone.fallback);
   }
 
   /// iOS: a DeviceCheck token (null on the simulator).
   static Future<String?> deviceCheckToken() async {
     if (!Platform.isIOS) return null;
     try {
-      return await _channel.invokeMethod<String>('deviceCheckToken');
+      final token = await _channel.invokeMethod<String>('deviceCheckToken');
+      // Debug builds: for zappit_firebase/tools/devicecheck-bits.js (testing the preview again).
+      // In pieces: the iOS console cuts a line at about 1 KB and the token is longer.
+      if (kDebugMode && token != null) {
+        final parts = [for (var i = 0; i < token.length; i += 300) token.substring(i, min(i + 300, token.length))];
+        for (var i = 0; i < parts.length; i++) {
+          debugPrint('[zappit-devicecheck ${i + 1}/${parts.length}] ${parts[i]}');
+        }
+      }
+      return token;
     } catch (e) {
       debugPrint('DeviceCheck token failed: $e');
       return null;

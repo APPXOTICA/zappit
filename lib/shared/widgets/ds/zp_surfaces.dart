@@ -104,7 +104,7 @@ class ZpUpgradeBanner extends StatelessWidget {
                 children: [
                   Text(title, style: AppText.body.copyWith(fontSize: 17, color: t.ink)),
                   const SizedBox(height: 2),
-                  Text(subtitle, style: AppText.body.copyWith(color: t.inkMuted)),
+                  Text(subtitle, style: AppText.body.copyWith(color: t.accentText)),
                 ],
               ),
             ),

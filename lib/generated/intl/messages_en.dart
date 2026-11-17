@@ -27,8 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m2(browser) =>
       "${browser} didn\'t answer. Check that it\'s open.";
 
-  static String m3(browsers) =>
-      "Disconnected from ${browsers}. To use it again, scan the QR code on that computer.";
+  static String m3(browsers) => "Disconnected from ${browsers}";
 
   static String m4(name) => "Channel: ${name}";
 
@@ -147,6 +146,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "browsers": MessageLookupByLibrary.simpleMessage("Browsers"),
     "browsersDisconnected": m3,
+    "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
+      "Another phone connected to it. To use it again, scan the QR code on that computer.",
+    ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "Allow camera access in Settings to scan the code.",
     ),
@@ -192,6 +194,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "clear": MessageLookupByLibrary.simpleMessage("Clear"),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
+    "connectBrowser": MessageLookupByLibrary.simpleMessage("Connect a browser"),
     "connectBrowserFirst": MessageLookupByLibrary.simpleMessage(
       "Connect to a browser first",
     ),
@@ -455,6 +458,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
       "Pro turns on as soon as the store confirms your payment.",
     ),
+    "phoneName": MessageLookupByLibrary.simpleMessage("Phone name"),
+    "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("Enter a name."),
+    "phoneNameMessage": MessageLookupByLibrary.simpleMessage(
+      "Shown in the Zappit extension on your computer.",
+    ),
     "pickATab": MessageLookupByLibrary.simpleMessage("Pick a tab"),
     "pickBrowserForTabs": MessageLookupByLibrary.simpleMessage(
       "Pick the browser this remote should control to see its tabs.",
@@ -561,7 +569,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Restore purchases",
     ),
     "right": MessageLookupByLibrary.simpleMessage("Right"),
+    "save": MessageLookupByLibrary.simpleMessage("Save"),
     "savePercent": m30,
+    "scanQrCode": MessageLookupByLibrary.simpleMessage("Scan QR code"),
     "searchCategories": MessageLookupByLibrary.simpleMessage(
       "Search categories",
     ),

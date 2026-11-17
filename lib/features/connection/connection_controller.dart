@@ -30,7 +30,7 @@ class ConnectionStatus {
 
   bool get isGreen => phase == ConnectionPhase.connected || phase == ConnectionPhase.notSelected;
   bool get canSendCommands => phase == ConnectionPhase.connected && selected != null;
-  String? get selectedLabel => selected?.label;
+  String? get selectedLabel => selected?.displayName;
 }
 
 /// Combines the app's Ably connection, browser presence and the selected
