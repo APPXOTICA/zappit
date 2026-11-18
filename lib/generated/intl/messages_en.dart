@@ -683,6 +683,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "voiceBoostOn": MessageLookupByLibrary.simpleMessage("Voice Boost on"),
     "voiceBoostTrialLeft": m41,
     "voiceBoostTrialOver": m42,
+    "voiceBoostTurnedOn": MessageLookupByLibrary.simpleMessage(
+      "Voice Boost on: voices are easier to hear",
+    ),
     "voiceBoostUnsupported": MessageLookupByLibrary.simpleMessage(
       "This video doesn\'t support Voice Boost",
     ),

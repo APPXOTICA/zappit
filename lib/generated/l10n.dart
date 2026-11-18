@@ -1913,6 +1913,16 @@ class S {
     );
   }
 
+  /// `Voice Boost on: voices are easier to hear`
+  String get voiceBoostTurnedOn {
+    return Intl.message(
+      'Voice Boost on: voices are easier to hear',
+      name: 'voiceBoostTurnedOn',
+      desc: 'Snackbar when the user turns Voice Boost on. Voice Boost is a feature name.',
+      args: [],
+    );
+  }
+
   /// `Voice Boost off`
   String get voiceBoostOff {
     return Intl.message(

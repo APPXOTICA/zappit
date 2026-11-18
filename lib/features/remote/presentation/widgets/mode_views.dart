@@ -64,7 +64,7 @@ class VideoCardView extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   color: t.surface300,
-                  borderRadius: BorderRadius.circular(AppTokens.radiusSm),
+                  // Square corners, like the thumbnails on the site.
                   border: Border.all(color: t.hairlineStrong),
                 ),
                 child: image,

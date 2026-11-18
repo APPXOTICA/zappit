@@ -917,6 +917,10 @@
   "@voiceBoostOn": {
     "description": "Accessibility label."
   },
+  "voiceBoostTurnedOn": "Voice Boost on: voices are easier to hear",
+  "@voiceBoostTurnedOn": {
+    "description": "Snackbar when the user turns Voice Boost on. Voice Boost is a feature name."
+  },
   "voiceBoostOff": "Voice Boost off",
   "@voiceBoostOff": {
     "description": "Accessibility label."

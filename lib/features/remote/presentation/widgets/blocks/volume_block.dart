@@ -107,7 +107,14 @@ class _VolumeBlockState extends ConsumerState<VolumeBlock> {
                             semanticLabel: trialLeft != null
                                 ? S.of(context).voiceBoostTrialLeft(trialLeft)
                                 : (voiceBoostOn ? S.of(context).voiceBoostOn : S.of(context).voiceBoostOff),
-                            onPressed: voiceBoostAvailable ? controller.toggleVoiceBoost : null,
+                            onPressed: voiceBoostAvailable
+                                ? () {
+                                    // Say what the animated icon means; turning it off needs no notice.
+                                    final turningOn = !voiceBoostOn && trialLeft == null;
+                                    controller.toggleVoiceBoost();
+                                    if (turningOn) AppNotice.snack(S.of(context).voiceBoostTurnedOn);
+                                  }
+                                : null,
                             onDisabledTap: () => AppNotice.snack(
                               view.isAd
                                   ? S.of(context).voiceBoostDuringAd
