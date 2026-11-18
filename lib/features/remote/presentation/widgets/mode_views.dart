@@ -7,6 +7,8 @@ import 'package:zappit/features/purchase/pro_preview.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
 import 'package:zappit/features/remote/controllers/target_controller.dart';
 import 'package:zappit/features/remote/presentation/sheets/categories_sheet.dart';
+import 'package:zappit/features/remote/presentation/sheets/episodes_sheet.dart';
+import 'package:zappit/features/remote/presentation/widgets/youtube_menu.dart';
 import 'package:zappit/features/remote/presentation/widgets/link_panel.dart';
 import 'package:zappit/features/sites/supported_sites.dart';
 import 'package:zappit/protocol/messages.dart';
@@ -110,7 +112,10 @@ class HomePadView extends ConsumerWidget {
     final noCards = ref.watch(siteStateControllerProvider.select((s) => s.noCards));
     final profilePicker = ref.watch(siteStateControllerProvider.select((s) => s.profilePicker));
     // Not before a profile is picked: Netflix would ask for one again.
-    final hasCategories = !profilePicker && ref.watch(targetProvider.select((t) => t?.has(Capability.categories) ?? false));
+    // Netflix title details pop-up: Episodes (series) and Close instead of Categories.
+    final detailsOpen = ref.watch(siteStateControllerProvider.select((s) => s.detailsOpen));
+    final detailsSeries = detailsOpen && ref.watch(siteStateControllerProvider.select((s) => s.isSeries));
+    final hasCategories = !profilePicker && !detailsOpen && ref.watch(targetProvider.select((t) => t?.has(Capability.categories) ?? false));
     final controller = ref.read(remoteControllerProvider);
     final muted = AppText.body.copyWith(color: context.tokens.inkMuted);
 
@@ -148,6 +153,32 @@ class HomePadView extends ConsumerWidget {
                     height: 56,
                     radius: AppTokens.radiusMd,
                     onPressed: () => showCategoriesSheet(context),
+                  ),
+                  const SizedBox(height: AppTokens.space3),
+                ],
+                // Close sits over the right d-pad column; Episodes takes the rest.
+                if (detailsOpen) ...[
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: detailsSeries
+                            ? ZpButton(
+                                label: S.of(context).episodes,
+                                icon: const Icon(Icons.video_library_rounded),
+                                textStyle: AppText.bodyStrong.copyWith(fontSize: 16),
+                                height: 60,
+                                onPressed: () => showEpisodesSheet(context, ref),
+                              )
+                            : const SizedBox(height: 60),
+                      ),
+                      const SizedBox(width: AppTokens.space2),
+                      TopMenuItem(
+                        label: S.of(context).close,
+                        icon: const Icon(Icons.close_rounded, size: 28),
+                        onTap: controller.closeDetails,
+                      ),
+                    ],
                   ),
                   const SizedBox(height: AppTokens.space3),
                 ],
@@ -219,7 +250,7 @@ class NothingPlayingView extends ConsumerWidget {
             child: ZpEmptyState(
               icon: Icons.graphic_eq_rounded,
               title: browsing ? S.of(context).selectVideoInBrowser : S.of(context).nothingPlaying,
-              message: browsing ? null : S.of(context).nothingPlayingMessage,
+              message: browsing ? S.of(context).selectVideoInBrowserMessage : S.of(context).nothingPlayingMessage,
               actions: [
                 if (upsell)
                   ZpButton(
@@ -230,7 +261,7 @@ class NothingPlayingView extends ConsumerWidget {
                     icon: const Icon(Icons.auto_awesome_rounded),
                     onPressed: ref.read(remoteControllerProvider).openPro,
                   )
-                else ...[
+                else if (!browsing) ...[
                   ZpButton(label: S.of(context).pickATab, expand: false, height: AppTokens.controlMd, icon: const ZpImageIcon('assets/images/ic_tabs.svg'), onPressed: () => context.go(AppRoutes.tabs)),
                   ZpButton(label: S.of(context).pasteALink, expand: false, height: AppTokens.controlMd, icon: const ZpImageIcon('assets/images/export.svg'), onPressed: () => showLinkPanel(context, ref)),
                 ],

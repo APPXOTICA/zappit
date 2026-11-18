@@ -19,6 +19,7 @@ class UserSettings {
     this.holdSpeed = freeHoldSpeed,
     this.favoriteSites = defaultFavorites,
     this.favoritesSaved = false,
+    this.favoriteCategories = const [],
   });
 
   static const seekIntervals = [3, 5, 10, 15, 20, 30];
@@ -53,6 +54,10 @@ class UserSettings {
   /// defaults later still reaches this user.
   final bool favoritesSaved;
 
+  /// Netflix Categories → Favorites: genre codes in the user's order. None
+  /// until the user stars some.
+  final List<int> favoriteCategories;
+
   factory UserSettings.fromJson(Map<String, dynamic> json) {
     final seek = asInt(json['seekInterval']) ?? 10;
     final ab = asInt(json['abLoopCount']);
@@ -67,6 +72,7 @@ class UserSettings {
       holdSpeed: holdSpeeds.contains(hold) ? hold! : freeHoldSpeed,
       favoriteSites: _favorites(json) ?? defaultFavorites,
       favoritesSaved: _favorites(json) != null,
+      favoriteCategories: List.unmodifiable({for (final e in json['favoriteCategories'] is List ? json['favoriteCategories'] as List : const []) asInt(e)}.whereType<int>()),
     );
   }
 
@@ -86,6 +92,7 @@ class UserSettings {
     'subtitleSize': subtitleSize,
     'holdSpeed': holdSpeed,
     if (favoritesSaved) 'favoriteSites': [for (final s in favoriteSites) s.name],
+    'favoriteCategories': favoriteCategories,
   };
 
   UserSettings copyWith({
@@ -95,6 +102,7 @@ class UserSettings {
     int? subtitleSize,
     double? holdSpeed,
     List<Site>? favoriteSites,
+    List<int>? favoriteCategories,
   }) => UserSettings(
     seekInterval: seekInterval ?? this.seekInterval,
     abLoopCount: abLoopCount != null ? abLoopCount() : this.abLoopCount,
@@ -103,6 +111,7 @@ class UserSettings {
     holdSpeed: holdSpeed ?? this.holdSpeed,
     favoriteSites: favoriteSites ?? this.favoriteSites,
     favoritesSaved: favoriteSites != null || favoritesSaved,
+    favoriteCategories: favoriteCategories ?? this.favoriteCategories,
   );
 }
 
@@ -150,4 +159,6 @@ class UserSettingsController extends _$UserSettingsController {
   Future<void> setHoldSpeed(double rate) => update(state.copyWith(holdSpeed: rate));
 
   Future<void> setFavoriteSites(List<Site> sites) => update(state.copyWith(favoriteSites: List.unmodifiable(sites)));
+
+  Future<void> setFavoriteCategories(List<int> codes) => update(state.copyWith(favoriteCategories: List.unmodifiable(codes)));
 }

@@ -38,8 +38,8 @@ class YouTubeMenuBar extends ConsumerWidget {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _MenuItem(label: S.of(context).home, icon: const Icon(Icons.home_rounded, size: 28), onTap: controller.goHome, width: width),
-              _MenuItem(
+              TopMenuItem(label: S.of(context).home, icon: const Icon(Icons.home_rounded, size: 28), onTap: controller.goHome, width: width),
+              TopMenuItem(
                 label: S.of(context).back,
                 icon: const Icon(Icons.arrow_back_rounded, size: 28),
                 onTap: canGoBack ? controller.goBack : null,
@@ -54,32 +54,32 @@ class YouTubeMenuBar extends ConsumerWidget {
 
     return Row(
       children: [
-        _MenuItem(
+        TopMenuItem(
           label: S.of(context).home,
           icon: const Icon(Icons.home_rounded, size: 28),
           onTap: controller.goHome,
         ),
-        _MenuItem(
+        TopMenuItem(
           label: S.of(context).ytShorts,
           icon: Image.asset('assets/images/shorts_white.png', width: 26, height: 26),
           onTap: () => controller.goPage(YtPage.shorts),
         ),
-        _MenuItem(
+        TopMenuItem(
           label: S.of(context).ytSubscriptions,
           icon: const Icon(Icons.notifications, size: 28),
           onTap: () => controller.goPage(YtPage.subscriptions),
         ),
-        _MenuItem(
+        TopMenuItem(
           label: S.of(context).ytYou,
           icon: const Icon(Icons.person, size: 28),
           onTap: () => _showPagesSheet(context, ref, title: S.of(context).ytYou, entries: _youPages),
         ),
-        _MenuItem(
+        TopMenuItem(
           label: S.of(context).ytExplore,
           icon: const Icon(Icons.search, size: 28),
           onTap: () => _showPagesSheet(context, ref, title: S.of(context).ytExplore, entries: _explorePages),
         ),
-        _MenuItem(
+        TopMenuItem(
           label: S.of(context).back,
           icon: const Icon(Icons.arrow_back_rounded, size: 28),
           onTap: canGoBack ? controller.goBack : null,
@@ -90,8 +90,9 @@ class YouTubeMenuBar extends ConsumerWidget {
   }
 }
 
-class _MenuItem extends StatelessWidget {
-  const _MenuItem({required this.label, required this.icon, required this.onTap, this.onDisabledTap, this.width});
+/// Icon over a small label (site menu bars, Netflix details Close).
+class TopMenuItem extends StatelessWidget {
+  const TopMenuItem({super.key, required this.label, required this.icon, required this.onTap, this.onDisabledTap, this.width});
 
   final String label;
   final Widget icon;

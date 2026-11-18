@@ -61,14 +61,22 @@ Future<List<NetflixCategoryGroup>> netflixCategories(Ref ref) async {
   ];
 }
 
-/// Genres whose name in [lang] or in English contains [query] (case
-/// insensitive), each once, groups' own genres included.
-List<NetflixCategory> searchNetflixCategories(List<NetflixCategoryGroup> groups, String query, String lang) {
-  final q = query.trim().toLowerCase();
+/// Every genre once (groups' own genres included), A → Z by its name in [lang].
+List<NetflixCategory> allNetflixCategories(List<NetflixCategoryGroup> groups, String lang) {
   final seen = <int>{};
   return [
     for (final g in groups)
       for (final c in [g.genre, ...g.items])
-        if (seen.add(c.code) && (c.nameIn(lang).toLowerCase().contains(q) || c.english.toLowerCase().contains(q))) c,
+        if (seen.add(c.code)) c,
+  ]..sort((a, b) => a.nameIn(lang).toLowerCase().compareTo(b.nameIn(lang).toLowerCase()));
+}
+
+/// Genres whose name in [lang] or in English contains [query] (case
+/// insensitive), each once, A → Z.
+List<NetflixCategory> searchNetflixCategories(List<NetflixCategoryGroup> groups, String query, String lang) {
+  final q = query.trim().toLowerCase();
+  return [
+    for (final c in allNetflixCategories(groups, lang))
+      if (c.nameIn(lang).toLowerCase().contains(q) || c.english.toLowerCase().contains(q)) c,
   ];
 }

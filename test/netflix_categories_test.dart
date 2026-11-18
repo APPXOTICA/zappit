@@ -28,4 +28,8 @@ void main() {
     expect(searchNetflixCategories(groups, 'adventure', 'ko').map((c) => c.code), [1365]);
     expect(searchNetflixCategories(groups, 'COMEDY', 'ko').map((c) => c.code), [43040, 6548]);
   });
+
+  test('all genres once, A to Z by the shown name', () {
+    expect(allNetflixCategories(groups, 'en').map((c) => c.code), [1365, 43040, 6548]);
+  });
 }

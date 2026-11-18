@@ -456,6 +456,12 @@ class RemoteController {
     _bus.fire(const RemoteCommand.navSelect());
   }
 
+  /// Netflix: closes the title's details pop-up (the d-pad goes back to the rows).
+  void closeDetails() {
+    _tap();
+    _bus.fire(const RemoteCommand.closeDetails());
+  }
+
   void endScreenPlayNow() {
     _tap();
     _bus.fire(const RemoteCommand.endScreenPlayNow());

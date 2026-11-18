@@ -237,6 +237,7 @@ final class SiteState {
     this.noCards = false,
     this.canGoBack = false,
     this.profilePicker = false,
+    this.detailsOpen = false,
     this.channel,
     this.fullscreen = false,
     this.playlist = const PlaylistState(),
@@ -271,6 +272,10 @@ final class SiteState {
 
   /// Netflix "Who's watching?": the d-pad picks a profile, not a title.
   final bool profilePicker;
+
+  /// Netflix home: a title's details pop-up is open and the d-pad moves in it
+  /// ([isSeries]: it lists episodes).
+  final bool detailsOpen;
 
   /// The YouTube video's channel (watch page).
   final ChannelInfo? channel;
@@ -311,6 +316,7 @@ final class SiteState {
       noCards: asBool(json['noCards']),
       canGoBack: asBool(json['canGoBack']),
       profilePicker: asBool(json['profilePicker']),
+      detailsOpen: asBool(json['detailsOpen']),
       channel: ChannelInfo.fromJson(json['channel']),
       fullscreen: asBool(json['fullscreen']),
       playlist: PlaylistState.fromJson(json['playlist']),

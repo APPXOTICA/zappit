@@ -3,12 +3,12 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:zappit/core/routes/router_provider.dart';
 import 'package:zappit/core/theme/app_tokens.dart';
 import 'package:zappit/core/utils/haptic_utils.dart';
-import 'package:zappit/core/utils/ui_helper.dart';
 
 /// App-wide notices.
 ///
 /// [top] is for status notices such as "Browser not responding" (design
-/// `TopSnack`). [snack] is the regular bottom snackbar for short feedback.
+/// `TopSnack`). [snack] is short feedback. Both show at the top: a bottom
+/// snackbar covered the remote's controls.
 abstract final class AppNotice {
   static OverlayState? get _overlay => rootNavigatorKey.currentState?.overlay;
 
@@ -34,23 +34,70 @@ abstract final class AppNotice {
   /// Every snack comes with a haptic: a warning buzz for errors, a light tap otherwise.
   /// [actionLabel] / [onAction]: a button on the right (e.g. Undo); the bar stays longer.
   static void snack(String message, {bool error = false, String? actionLabel, VoidCallback? onAction}) {
-    final messenger = scaffoldKey.currentState;
-    if (messenger == null) {
-      top(title: message, error: error);
-      return;
-    }
+    final overlay = _overlay;
+    if (overlay == null) return;
     HapticUtils.hapticFeedback(error ? HapticType.error : HapticType.light);
-    messenger
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text(message, textAlign: onAction == null ? TextAlign.center : TextAlign.start),
-          duration: onAction != null ? const Duration(seconds: 4) : Duration(milliseconds: message.length > 40 ? 2600 : 1800),
-          // A snack bar with an action stays until closed by default; this one times out like the others.
-          persist: false,
-          action: onAction == null ? null : SnackBarAction(label: actionLabel ?? '', textColor: AppTokens.dark.signalAd, onPressed: onAction),
+    // A new one replaces the one showing (top_snackbar_flutter).
+    AnimationController? controller;
+    showTopSnackBar(
+      overlay,
+      _Snack(
+        message: message,
+        actionLabel: onAction == null ? null : actionLabel,
+        onAction: onAction == null
+            ? null
+            : () {
+                onAction();
+                controller?.reverse();
+              },
+      ),
+      displayDuration: onAction != null ? const Duration(seconds: 4) : Duration(milliseconds: message.length > 40 ? 2600 : 1800),
+      onAnimationControllerInit: (c) => controller = c,
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+    );
+  }
+}
+
+/// One line of feedback (with an optional action such as Undo).
+class _Snack extends StatelessWidget {
+  const _Snack({required this.message, this.actionLabel, this.onAction});
+
+  final String message;
+  final String? actionLabel;
+  final VoidCallback? onAction;
+
+  @override
+  Widget build(BuildContext context) {
+    const t = AppTokens.dark;
+    return Material(
+      color: Colors.transparent,
+      child: Container(
+        constraints: const BoxConstraints(minHeight: 48),
+        padding: EdgeInsets.fromLTRB(AppTokens.space4, AppTokens.space2, onAction == null ? AppTokens.space4 : AppTokens.space1, AppTokens.space2),
+        decoration: BoxDecoration(
+          color: t.surface300,
+          borderRadius: BorderRadius.circular(AppTokens.radiusMd),
+          border: Border.all(color: t.hairlineStrong),
+          boxShadow: const [BoxShadow(color: Color(0x80000000), blurRadius: 32, offset: Offset(0, 12))],
         ),
-      );
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                message,
+                textAlign: onAction == null ? TextAlign.center : TextAlign.start,
+                style: AppText.body.copyWith(color: t.ink),
+              ),
+            ),
+            if (onAction != null)
+              TextButton(
+                onPressed: onAction,
+                child: Text(actionLabel ?? '', style: AppText.bodyStrong.copyWith(color: t.signalAd)),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

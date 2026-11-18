@@ -131,6 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "account": MessageLookupByLibrary.simpleMessage("Connection"),
     "adBadge": MessageLookupByLibrary.simpleMessage("AD"),
     "addToFavorites": m0,
+    "allCategories": MessageLookupByLibrary.simpleMessage("All categories"),
     "allSites": MessageLookupByLibrary.simpleMessage("All sites"),
     "alreadySubscribed": MessageLookupByLibrary.simpleMessage(
       "You already own this subscription. Try Restore purchases.",
@@ -176,6 +177,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "captionsOff": MessageLookupByLibrary.simpleMessage("Captions off"),
     "captionsOn": MessageLookupByLibrary.simpleMessage("Captions on"),
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
+    "categoryFavoritesEmptyHint": MessageLookupByLibrary.simpleMessage(
+      "Tap the star on a category to add it here.",
+    ),
     "channelLabel": m4,
     "chapterPosition": m5,
     "chapters": MessageLookupByLibrary.simpleMessage("Chapters"),
@@ -396,9 +400,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Not available for photo posts",
     ),
     "notConnected": MessageLookupByLibrary.simpleMessage("Not connected"),
-    "nothingPlaying": MessageLookupByLibrary.simpleMessage("Nothing playing"),
+    "nothingPlaying": MessageLookupByLibrary.simpleMessage("No video found"),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "No video is playing right now. Pick another tab, or paste a video link.",
+      "This tab has no video. Pick another tab, or paste a video link.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "Nothing to restore",
@@ -579,7 +583,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "seekInterval": MessageLookupByLibrary.simpleMessage("Seek Interval"),
     "select": MessageLookupByLibrary.simpleMessage("Select"),
     "selectVideoInBrowser": MessageLookupByLibrary.simpleMessage(
-      "Select a video in your browser",
+      "Nothing playing",
+    ),
+    "selectVideoInBrowserMessage": MessageLookupByLibrary.simpleMessage(
+      "Click any video on your computer to start watching. The remote will appear here.",
     ),
     "send": MessageLookupByLibrary.simpleMessage("Send"),
     "sendLink": MessageLookupByLibrary.simpleMessage("Send link"),

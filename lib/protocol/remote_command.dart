@@ -96,6 +96,7 @@ final class RemoteCommand {
   RemoteCommand.goChannel(ChannelTab tab) : this._('go_channel', {'tab': tab.wire});
   RemoteCommand.nav(NavDirection direction) : this._('nav', {'direction': direction.name});
   const RemoteCommand.navSelect() : this._('nav_select');
+  const RemoteCommand.closeDetails() : this._('close_details');
   const RemoteCommand.endScreenPlayNow() : this._('end_screen_play_now');
   const RemoteCommand.endScreenCancel() : this._('end_screen_cancel');
   const RemoteCommand.endScreenDismiss() : this._('end_screen_dismiss');
@@ -121,7 +122,7 @@ final class RemoteCommand {
     'toggle_cc', 'set_subtitle_track', 'set_subtitle_size',
     'skip_ad', 'skip_intro', 'next_episode', 'next_video', 'prev_video',
     'get_tracks', 'get_episodes', 'play_episode', 'get_quality', 'set_quality', 'get_media_url',
-    'open_url', 'go_home', 'go_page', 'go_genre', 'go_channel', 'go_back', 'nav', 'nav_select',
+    'open_url', 'go_home', 'go_page', 'go_genre', 'go_channel', 'go_back', 'nav', 'nav_select', 'close_details',
     'get_playlist', 'play_playlist_item', 'set_shuffle', 'set_playlist_loop',
     'end_screen_play_now', 'end_screen_cancel', 'end_screen_dismiss',
     'watch_tabs', 'unwatch_tabs', 'activate_tab', 'switch_tab', 'reload_tab', 'ping',

@@ -1042,17 +1042,21 @@
   "@select": {
     "description": "D-pad button on the Netflix profile picker."
   },
-  "selectVideoInBrowser": "Select a video in your browser",
+  "selectVideoInBrowser": "Nothing playing",
   "@selectVideoInBrowser": {
-    "description": "Remote screen on a browse page with nothing playing."
+    "description": "Remote screen title on a YouTube / Netflix page that has videos but none is playing (the message below says to pick one)."
   },
-  "nothingPlaying": "Nothing playing",
+  "selectVideoInBrowserMessage": "Click any video on your computer to start watching. The remote will appear here.",
+  "@selectVideoInBrowserMessage": {
+    "description": "Under \"Select a video in your browser\": what to do next."
+  },
+  "nothingPlaying": "No video found",
   "@nothingPlaying": {
-    "description": "Remote screen title when no video is playing."
+    "description": "Remote screen title when the browser tab has no video at all (not a paused one)."
   },
-  "nothingPlayingMessage": "No video is playing right now. Pick another tab, or paste a video link.",
+  "nothingPlayingMessage": "This tab has no video. Pick another tab, or paste a video link.",
   "@nothingPlayingMessage": {
-    "description": "Remote screen message when no video is playing."
+    "description": "Remote screen message when the browser tab has no video at all."
   },
   "pickVideosWithPro": "Pick videos from your phone with Pro",
   "@pickVideosWithPro": {
@@ -1445,6 +1449,14 @@
   "allSites": "All sites",
   "@allSites": {
     "description": "Supported sites: section listing every supported site, A to Z."
+  },
+  "allCategories": "All categories",
+  "@allCategories": {
+    "description": "Netflix Categories sheet: section title of every category, A to Z."
+  },
+  "categoryFavoritesEmptyHint": "Tap the star on a category to add it here.",
+  "@categoryFavoritesEmptyHint": {
+    "description": "Netflix Categories sheet: Favorites is empty."
   },
   "favoritesEmptyHint": "Tap the star on a site to add it here.",
   "@favoritesEmptyHint": {

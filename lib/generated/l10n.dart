@@ -2213,32 +2213,42 @@ class S {
     );
   }
 
-  /// `Select a video in your browser`
+  /// `Nothing playing`
   String get selectVideoInBrowser {
     return Intl.message(
-      'Select a video in your browser',
+      'Nothing playing',
       name: 'selectVideoInBrowser',
-      desc: 'Remote screen on a browse page with nothing playing.',
+      desc: 'Remote screen title on a YouTube / Netflix page that has videos but none is playing (the message below says to pick one).',
       args: [],
     );
   }
 
-  /// `Nothing playing`
+  /// `Click any video on your computer to start watching. The remote will appear here.`
+  String get selectVideoInBrowserMessage {
+    return Intl.message(
+      'Click any video on your computer to start watching. The remote will appear here.',
+      name: 'selectVideoInBrowserMessage',
+      desc: 'Under "Select a video in your browser": what to do next.',
+      args: [],
+    );
+  }
+
+  /// `No video found`
   String get nothingPlaying {
     return Intl.message(
-      'Nothing playing',
+      'No video found',
       name: 'nothingPlaying',
-      desc: 'Remote screen title when no video is playing.',
+      desc: 'Remote screen title when the browser tab has no video at all (not a paused one).',
       args: [],
     );
   }
 
-  /// `No video is playing right now. Pick another tab, or paste a video link.`
+  /// `This tab has no video. Pick another tab, or paste a video link.`
   String get nothingPlayingMessage {
     return Intl.message(
-      'No video is playing right now. Pick another tab, or paste a video link.',
+      'This tab has no video. Pick another tab, or paste a video link.',
       name: 'nothingPlayingMessage',
-      desc: 'Remote screen message when no video is playing.',
+      desc: 'Remote screen message when the browser tab has no video at all.',
       args: [],
     );
   }
@@ -3116,6 +3126,27 @@ class S {
       'All sites',
       name: 'allSites',
       desc: 'Supported sites: section listing every supported site, A to Z.',
+      args: [],
+    );
+  }
+
+  /// `All categories`
+  String get allCategories {
+    return Intl.message(
+      'All categories',
+      name: 'allCategories',
+      desc:
+          'Netflix Categories sheet: section title of every category, A to Z.',
+      args: [],
+    );
+  }
+
+  /// `Tap the star on a category to add it here.`
+  String get categoryFavoritesEmptyHint {
+    return Intl.message(
+      'Tap the star on a category to add it here.',
+      name: 'categoryFavoritesEmptyHint',
+      desc: 'Netflix Categories sheet: Favorites is empty.',
       args: [],
     );
   }
