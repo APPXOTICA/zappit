@@ -154,6 +154,7 @@ class ZpDialogCard extends StatelessWidget {
     required this.title,
     required this.message,
     this.iconColor,
+    this.messageAlign = TextAlign.center,
     this.children = const [],
   });
 
@@ -161,6 +162,9 @@ class ZpDialogCard extends StatelessWidget {
   final String title;
   final String message;
   final Color? iconColor;
+
+  /// [TextAlign.start] for numbered steps.
+  final TextAlign messageAlign;
   final List<Widget> children;
 
   @override
@@ -187,7 +191,7 @@ class ZpDialogCard extends StatelessWidget {
           const SizedBox(height: AppTokens.space4),
           Text(title, textAlign: TextAlign.center, style: AppText.heading.copyWith(fontSize: 18, color: t.ink)),
           const SizedBox(height: AppTokens.space3),
-          Text(message, textAlign: TextAlign.center, style: AppText.body.copyWith(color: t.inkMuted)),
+          Text(message, textAlign: messageAlign, style: AppText.body.copyWith(color: t.inkMuted)),
           if (children.isNotEmpty) ...[
             const SizedBox(height: AppTokens.space4),
             ...children,

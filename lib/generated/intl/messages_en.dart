@@ -350,7 +350,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "No browser is connected. Open your browser with the Zappit extension and try again.",
     ),
     "noBrowserMessage": MessageLookupByLibrary.simpleMessage(
-      "Open Chrome or Safari on your computer. If nothing shows up, click the Zappit icon in the browser toolbar.",
+      "1. Open your connected browser on your computer.\n2. If it doesn\'t connect, click the Zappit icon in the top toolbar of your browser.",
     ),
     "noBrowserOnline": MessageLookupByLibrary.simpleMessage(
       "No browser is online.",
@@ -443,7 +443,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "How to install the extension",
     ),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "This computer already has 3 phones connected. To connect this phone, disconnect a phone you don\'t use in the Zappit extension on the computer.",
+      "This computer already has 3 phones connected. To connect this phone, open Zappit on a phone you don\'t use and tap Disconnect this phone in More. If you no longer have that phone, use Reset in the Zappit extension on the computer.",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage(
       "Connect to your computer",
@@ -571,7 +571,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "right": MessageLookupByLibrary.simpleMessage("Right"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "savePercent": m30,
-    "scanQrCode": MessageLookupByLibrary.simpleMessage("Scan QR code"),
     "searchCategories": MessageLookupByLibrary.simpleMessage(
       "Search categories",
     ),

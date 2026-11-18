@@ -1,7 +1,5 @@
-import 'package:go_router/go_router.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
-import 'package:zappit/core/routes/app_routes.dart';
 import 'package:zappit/features/connection/connection_controller.dart';
 import 'package:zappit/features/connection/presentation/browser_picker.dart';
 import 'package:zappit/features/remote/controllers/remote_controller.dart';
@@ -60,27 +58,10 @@ class _DisconnectedCard extends ConsumerWidget {
         icon: Icons.link_off_rounded,
         iconColor: context.tokens.signalOff,
         title: offline ? S.of(context).youreOffline : S.of(context).cantReachBrowser,
-        message: offline
-            ? S.of(context).offlineMessage
-            : S.of(context).noBrowserMessage,
-        children: [
-          // A browser that left (its Disconnect) or a new one: scan its QR here.
-          if (!offline) ...[
-            ZpButton(
-              label: S.of(context).scanQrCode,
-              icon: const Icon(Icons.qr_code_scanner_rounded),
-              style: ZpButtonStyle.accent,
-              height: AppTokens.targetMin,
-              onPressed: () => context.push(AppRoutes.scan),
-            ),
-            const SizedBox(height: AppTokens.space3),
-          ],
-          ZpButton(
-            label: S.of(context).howToConnect,
-            height: AppTokens.targetMin,
-            onPressed: () => context.push(AppRoutes.howToConnect),
-          ),
-        ],
+        // Already-connected browsers that are closed or asleep: the fix is on
+        // the computer, so no buttons (a new browser: More > Connect a browser).
+        message: offline ? S.of(context).offlineMessage : S.of(context).noBrowserMessage,
+        messageAlign: offline ? TextAlign.center : TextAlign.start,
       ),
     );
   }

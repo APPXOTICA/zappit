@@ -1973,16 +1973,6 @@ class S {
     );
   }
 
-  /// `Scan QR code`
-  String get scanQrCode {
-    return Intl.message(
-      'Scan QR code',
-      name: 'scanQrCode',
-      desc: 'Button on "Can\'t reach a browser": opens the camera to scan the QR code in the extension\'s popup.',
-      args: [],
-    );
-  }
-
   /// `Check your internet connection. Zappit reconnects on its own.`
   String get offlineMessage {
     return Intl.message(
@@ -1993,12 +1983,12 @@ class S {
     );
   }
 
-  /// `Open Chrome or Safari on your computer. If nothing shows up, click the Zappit icon in the browser toolbar.`
+  /// `1. Open your connected browser on your computer.\n2. If it doesn't connect, click the Zappit icon in the top toolbar of your browser.`
   String get noBrowserMessage {
     return Intl.message(
-      'Open Chrome or Safari on your computer. If nothing shows up, click the Zappit icon in the browser toolbar.',
+      '1. Open your connected browser on your computer.\n2. If it doesn\'t connect, click the Zappit icon in the top toolbar of your browser.',
       name: 'noBrowserMessage',
-      desc: 'Remote overlay message when no browser is connected. Clicking the icon also wakes a browser that rested after 60 days without the app.',
+      desc: 'Remote overlay message (two numbered steps, one per line) when none of this phone\'s connected browsers is online (closed or asleep). Clicking the icon also wakes a browser that rested after 60 days without the app.',
       args: [],
     );
   }
@@ -3260,10 +3250,10 @@ class S {
     );
   }
 
-  /// `This computer already has 3 phones connected. To connect this phone, disconnect a phone you don't use in the Zappit extension on the computer.`
+  /// `This computer already has 3 phones connected. To connect this phone, open Zappit on a phone you don't use and tap Disconnect this phone in More. If you no longer have that phone, use Reset in the Zappit extension on the computer.`
   String get pairPhoneLimit {
     return Intl.message(
-      'This computer already has 3 phones connected. To connect this phone, disconnect a phone you don\'t use in the Zappit extension on the computer.',
+      'This computer already has 3 phones connected. To connect this phone, open Zappit on a phone you don\'t use and tap Disconnect this phone in More. If you no longer have that phone, use Reset in the Zappit extension on the computer.',
       name: 'pairPhoneLimit',
       desc: 'Top notice: the account already has the maximum number of phones.',
       args: [],

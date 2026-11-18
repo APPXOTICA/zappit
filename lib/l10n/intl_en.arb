@@ -941,17 +941,13 @@
   "@connectBrowser": {
     "description": "More tab row: opens the camera to scan the QR code in a browser's Zappit popup (adds that browser; the remote switches to it)."
   },
-  "scanQrCode": "Scan QR code",
-  "@scanQrCode": {
-    "description": "Button on \"Can't reach a browser\": opens the camera to scan the QR code in the extension's popup."
-  },
   "offlineMessage": "Check your internet connection. Zappit reconnects on its own.",
   "@offlineMessage": {
     "description": "Remote overlay message when offline."
   },
-  "noBrowserMessage": "Open Chrome or Safari on your computer. If nothing shows up, click the Zappit icon in the browser toolbar.",
+  "noBrowserMessage": "1. Open your connected browser on your computer.\n2. If it doesn't connect, click the Zappit icon in the top toolbar of your browser.",
   "@noBrowserMessage": {
-    "description": "Remote overlay message when no browser is connected. Clicking the icon also wakes a browser that rested after 60 days without the app."
+    "description": "Remote overlay message (two numbered steps, one per line) when none of this phone's connected browsers is online (closed or asleep). Clicking the icon also wakes a browser that rested after 60 days without the app."
   },
   "chooseBrowser": "Choose a browser",
   "@chooseBrowser": {
@@ -1517,7 +1513,7 @@
   "@pairCodeInvalid": {
     "description": "Top notice: the scanned QR code is unknown (e.g. replaced by a newer one)."
   },
-  "pairPhoneLimit": "This computer already has 3 phones connected. To connect this phone, disconnect a phone you don't use in the Zappit extension on the computer.",
+  "pairPhoneLimit": "This computer already has 3 phones connected. To connect this phone, open Zappit on a phone you don't use and tap Disconnect this phone in More. If you no longer have that phone, use Reset in the Zappit extension on the computer.",
   "@pairPhoneLimit": {
     "description": "Top notice: the account already has the maximum number of phones."
   },

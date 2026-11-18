@@ -244,7 +244,9 @@ class PairingWatcher extends _$PairingWatcher {
         if (pairedUid != uid) unawaited(prefs.setString(_pairedUidKey, uid));
       } else if (pairedUid == uid) {
         unawaited(_leaveIfRemoved(uid));
+        return; // the notice shows on the account it moves to
       }
+      unawaited(_showPendingNotice());
     }, fireImmediately: true);
 
     ref.listen(currentUidProvider, (previous, uid) => _watchNotices(uid), fireImmediately: true);
@@ -261,6 +263,10 @@ class PairingWatcher extends _$PairingWatcher {
   }
 
   static const _pairedUidKey = 'pairedUid';
+
+  /// Browser names of a "Disconnected from …" notice not shown yet: it
+  /// outlives the move to a new account (the phone was taken off its old one).
+  static const _pendingNoticeKey = 'pendingDisconnectNotice';
 
   /// Leaves [uid] once the server (not the local cache) says this phone is
   /// off its list. Offline: tried again on the next launch.
@@ -279,9 +285,43 @@ class PairingWatcher extends _$PairingWatcher {
       debugPrint('phone check failed: $e');
       return;
     }
+    // Taken off because another phone took its last browser: keep the notice.
+    try {
+      final user = await FirebaseFirestore.instance.collection(FirebasePaths.users).doc(uid).get(const GetOptions(source: Source.server));
+      await _keepNotice(user.data()?['disconnectedBrowsers']);
+    } catch (e) {
+      debugPrint('notice read failed: $e');
+    }
     final prefs = ref.read(preferencesProvider).instance;
     if (prefs.getString(_pairedUidKey) == uid) await prefs.remove(_pairedUidKey);
     await ref.read(pairingServiceProvider).onRemoved(uid);
+  }
+
+  Future<void> _keepNotice(Object? raw) async {
+    if (raw is! List || raw.isEmpty) return;
+    final prefs = ref.read(preferencesProvider).instance;
+    final names = {...?prefs.getStringList(_pendingNoticeKey), ...raw.whereType<String>()};
+    await prefs.setStringList(_pendingNoticeKey, names.toList());
+  }
+
+  /// Shows the kept notice once the screen has settled (after a move to a new
+  /// account the pairing screen replaces the remote, which would close it).
+  Future<void> _showPendingNotice() async {
+    final prefs = ref.read(preferencesProvider).instance;
+    if (prefs.getStringList(_pendingNoticeKey)?.isNotEmpty != true) return;
+    await WidgetsBinding.instance.endOfFrame;
+    final names = prefs.getStringList(_pendingNoticeKey);
+    final context = rootNavigatorKey.currentContext;
+    if (names == null || names.isEmpty || context == null || !context.mounted) return; // kept for the next start
+    await prefs.remove(_pendingNoticeKey);
+    if (!context.mounted) return;
+    // A dialog closed only with OK: a short banner is easy to miss.
+    unawaited(showOkAlertDialog(
+      context: context,
+      title: S.of(context).browsersDisconnected(names.join(', ')),
+      message: S.of(context).browsersDisconnectedBody,
+      barrierDismissible: false,
+    ));
   }
 
   StreamSubscription<DocumentSnapshot<Map<String, dynamic>>>? _notices;
@@ -293,20 +333,33 @@ class PairingWatcher extends _$PairingWatcher {
     _notices = null;
     if (uid == null) return;
     final doc = FirebaseFirestore.instance.collection(FirebasePaths.users).doc(uid);
-    _notices = doc.snapshots().listen((snapshot) {
+    _notices = doc.snapshots().listen((snapshot) async {
       final raw = snapshot.data()?['disconnectedBrowsers'];
       if (raw is! List || raw.isEmpty) return;
-      final context = rootNavigatorKey.currentContext;
-      if (context == null || !context.mounted) return; // kept for the next start
-      final names = raw.whereType<String>().toSet().join(', ');
-      // A dialog closed only with OK: a short banner is easy to miss.
-      unawaited(showOkAlertDialog(
-        context: context,
-        title: S.of(context).browsersDisconnected(names),
-        message: S.of(context).browsersDisconnectedBody,
-        barrierDismissible: false,
-      ));
+      // The same write may have taken this phone off (its last browser went):
+      // `_leaveIfRemoved` keeps the notice and shows it after the move.
+      if (!await _stillPaired(uid)) return;
+      await _keepNotice(raw);
       unawaited(doc.update({'disconnectedBrowsers': FieldValue.delete()}).catchError((Object e) => debugPrint('notice clear failed: $e')));
+      await _showPendingNotice();
     }, onError: (Object e) => debugPrint('notice listen failed: $e'));
+  }
+
+  /// This phone is on [uid]'s list per the server; true when it can't tell.
+  Future<bool> _stillPaired(String uid) async {
+    final phone = await PhoneIdentity.load();
+    if (phone == null) return true;
+    try {
+      final doc = await FirebaseFirestore.instance
+          .collection(FirebasePaths.users)
+          .doc(uid)
+          .collection(FirebasePaths.phones)
+          .doc(phone.phoneId)
+          .get(const GetOptions(source: Source.server));
+      return doc.exists;
+    } catch (e) {
+      debugPrint('phone check failed: $e');
+      return true;
+    }
   }
 }

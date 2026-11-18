@@ -3,9 +3,9 @@ import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
 import 'package:zappit/features/pairing/presentation/qr_scan_box.dart';
 
-/// Scan QR code while this phone is paired (remote's "Can't reach a browser"):
-/// connects a browser that left, or another one, without the phone's camera
-/// app. Closes once connected.
+/// Scan QR code while this phone is paired (More > Connect a browser):
+/// connects another browser without the phone's camera app. Closes once
+/// connected.
 class ScanPage extends StatelessWidget {
   const ScanPage({super.key});
 
