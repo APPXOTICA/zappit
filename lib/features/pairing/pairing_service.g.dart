@@ -132,7 +132,7 @@ final class PairingWatcherProvider
   }
 }
 
-String _$pairingWatcherHash() => r'd583e3509e9aeebd914e9fe22a158a6edf27ac80';
+String _$pairingWatcherHash() => r'080eb1ad7172a61ce0f89d39fd51940014dcdf09';
 
 /// App-wide: watches this phone's entry (leaves when it is removed), shows the
 /// "disconnected from …" notice once, and claims codes from QR links opened

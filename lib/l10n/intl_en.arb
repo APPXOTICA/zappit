@@ -120,60 +120,6 @@
   "@browsers": {
     "description": "Title of the browser picker sheet."
   },
-  "howToConnect": "How to connect",
-  "@howToConnect": {
-    "description": "Title of the connection guide page and its button."
-  },
-  "connectStep1Title": "Install the extension on your computer",
-  "@connectStep1Title": {
-    "description": "Connection guide, step 1 title."
-  },
-  "connectStep1Body": "On your computer, open Chrome or Safari and go to {host}.",
-  "@connectStep1Body": {
-    "description": "Connection guide, step 1. host: a web address like \"zappit.tv/get\".",
-    "placeholders": {
-      "host": {
-        "type": "String"
-      }
-    }
-  },
-  "sendLink": "Send link",
-  "@sendLink": {
-    "description": "Button: share the extension install link."
-  },
-  "installExtensionShare": "Install the Zappit extension: {url}",
-  "@installExtensionShare": {
-    "description": "Text shared by the \"Send link\" button.",
-    "placeholders": {
-      "url": {
-        "type": "String"
-      }
-    }
-  },
-  "copyLink": "Copy link",
-  "@copyLink": {
-    "description": "Button: copy the extension install link."
-  },
-  "linkCopied": "Link copied",
-  "@linkCopied": {
-    "description": "Snackbar after copying a link."
-  },
-  "connectStep2Title": "Scan the QR code",
-  "@connectStep2Title": {
-    "description": "Connection guide, step 2 title."
-  },
-  "connectStep2Body": "Click the Zappit icon in the browser toolbar and scan the QR code with this app.",
-  "@connectStep2Body": {
-    "description": "Connection guide, step 2."
-  },
-  "connectStep3Title": "Play a video",
-  "@connectStep3Title": {
-    "description": "Connection guide, step 3 title."
-  },
-  "connectStep3Body": "Keep the browser open. The remote connects on its own and turns green.",
-  "@connectStep3Body": {
-    "description": "Connection guide, step 3."
-  },
   "proFeatureDedicatedControllers": "Unlock dedicated controllers",
   "@proFeatureDedicatedControllers": {
     "description": "Pro page feature list."
@@ -1070,10 +1016,6 @@
   "@pasteALink": {
     "description": "Button: open the link panel."
   },
-  "openOneToStart": "Open one of these to start",
-  "@openOneToStart": {
-    "description": "Title over the site shortcuts."
-  },
   "openSite": "Open {site}",
   "@openSite": {
     "description": "Accessibility label of a site shortcut. site: e.g. \"YouTube\".",
@@ -1087,9 +1029,9 @@
   "@remoteSettings": {
     "description": "Accessibility label."
   },
-  "playInApp": "Play in app",
+  "playInApp": "Continue on phone",
   "@playInApp": {
-    "description": "Accessibility label: open the video in the phone app."
+    "description": "Accessibility label (icon-only button): pause the browser and continue the video in its app on the phone."
   },
   "connectBrowserFirst": "Connect to a browser first",
   "@connectBrowserFirst": {
@@ -1444,7 +1386,7 @@
   },
   "favorites": "Favorites",
   "@favorites": {
-    "description": "Supported sites: section of the user's favorite sites (shown in \"Open one of these to start\")."
+    "description": "The user's favorite sites: section title in Supported sites and Categories, and the title over the site shortcuts (Nothing playing, Tabs)."
   },
   "allSites": "All sites",
   "@allSites": {
@@ -1500,10 +1442,6 @@
   "pairTitle": "Connect to your computer",
   "@pairTitle": {
     "description": "QR pairing screen title (first screen of the app until a computer is connected)."
-  },
-  "pairBody": "Click the Zappit icon in your computer's browser and point the camera at the QR code.",
-  "@pairBody": {
-    "description": "QR pairing screen: what to do."
   },
   "pairHowToInstall": "How to install the extension",
   "@pairHowToInstall": {
@@ -1588,5 +1526,129 @@
   "save": "Save",
   "@save": {
     "description": "Button: save a change."
+  },
+  "faq": "FAQ",
+  "@faq": {
+    "description": "More tab row (opens the FAQ web page) and its page title."
+  },
+  "onboardingStepCount": "{current} / {total}",
+  "@onboardingStepCount": {
+    "description": "Onboarding: step counter at the top right, e.g. \"1 / 2\".",
+    "placeholders": {
+      "current": {
+        "type": "String",
+        "example": "1"
+      },
+      "total": {
+        "type": "String",
+        "example": "2"
+      }
+    }
+  },
+  "onboardingStepLabel": "Step {current} of {total}",
+  "@onboardingStepLabel": {
+    "description": "Onboarding: accessibility label of the step progress bar.",
+    "placeholders": {
+      "current": {
+        "type": "String",
+        "example": "1"
+      },
+      "total": {
+        "type": "String",
+        "example": "2"
+      }
+    }
+  },
+  "onboardingNext": "Next",
+  "@onboardingNext": {
+    "description": "Onboarding step 1: button to the next step."
+  },
+  "onboardingDone": "Done",
+  "@onboardingDone": {
+    "description": "Onboarding step 2: button that finishes onboarding and opens the QR scanner."
+  },
+  "onboarding1Title": "First, add Zappit to your browser",
+  "@onboarding1Title": {
+    "description": "Onboarding step 1 title."
+  },
+  "onboarding1Body": "Open {url} in your computer's browser to install the free extension.",
+  "@onboarding1Body": {
+    "description": "Onboarding step 1 text. {url} is shown in bold.",
+    "placeholders": {
+      "url": {
+        "type": "String",
+        "example": "zappit.tv/get"
+      }
+    }
+  },
+  "onboardingShareLink": "Share link",
+  "@onboardingShareLink": {
+    "description": "Onboarding step 1: button that opens the share sheet with the extension link."
+  },
+  "onboarding2Title": "Scan the QR code",
+  "@onboarding2Title": {
+    "description": "Onboarding step 2 title."
+  },
+  "onboarding2Body": "Click the Zappit icon in your browser toolbar, then point your camera at the QR code.",
+  "@onboarding2Body": {
+    "description": "Onboarding step 2 text; also the text of the QR scan screen (kept the same on purpose)."
+  },
+  "onboardingIconHelp": "Don't see the Zappit icon?",
+  "@onboardingIconHelp": {
+    "description": "Onboarding step 2: row under the animation; opens the FAQ answer (how to show the Zappit icon in Chrome and Safari)."
+  },
+  "onboarding1AnimLabel": "Typing zappit.tv/get in the browser and adding the Zappit extension",
+  "@onboarding1AnimLabel": {
+    "description": "Onboarding step 1: accessibility label of the animation."
+  },
+  "onboarding2AnimLabel": "Click the Zappit icon in the browser, then scan the QR code with the phone",
+  "@onboarding2AnimLabel": {
+    "description": "Onboarding step 2: accessibility label of the animation."
+  },
+  "obAnimTagline": "Kill the mouse.",
+  "@obAnimTagline": {
+    "description": "Onboarding animation: tagline on the drawn zappit.tv/get page."
+  },
+  "obAnimAddExtension": "Add extension",
+  "@obAnimAddExtension": {
+    "description": "Onboarding animation: button on the drawn zappit.tv/get page."
+  },
+  "obAnimAdded": "Added",
+  "@obAnimAdded": {
+    "description": "Onboarding animation: the same button after the extension is added."
+  },
+  "obAnimConnectPhone": "Connect your phone",
+  "@obAnimConnectPhone": {
+    "description": "Onboarding animation: title of the drawn extension popup."
+  },
+  "obAnimScanCode": "Scan this code with the Zappit app on your phone.",
+  "@obAnimScanCode": {
+    "description": "Onboarding animation: text of the drawn extension popup."
+  },
+  "obAnimNewCode": "New code in {time}",
+  "@obAnimNewCode": {
+    "description": "Onboarding animation: QR timer in the drawn extension popup.",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "4:32"
+      }
+    }
+  },
+  "obAnimRemoteConnected": "Remote connected",
+  "@obAnimRemoteConnected": {
+    "description": "Onboarding animation: status in the drawn extension popup after scanning."
+  },
+  "obAnimYourPhones": "Your phones",
+  "@obAnimYourPhones": {
+    "description": "Onboarding animation: list caption in the drawn extension popup."
+  },
+  "obAnimConnectComputer": "Connect to your computer",
+  "@obAnimConnectComputer": {
+    "description": "Onboarding animation: title of the drawn phone scanner."
+  },
+  "onboardingIconHelpLabel": "Don't see the Zappit icon? Opens the answer in the FAQ",
+  "@onboardingIconHelpLabel": {
+    "description": "Onboarding step 2: accessibility label of the help row."
   }
 }

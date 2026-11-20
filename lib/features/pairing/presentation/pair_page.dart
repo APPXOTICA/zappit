@@ -42,14 +42,14 @@ class _PairPageState extends ConsumerState<PairPage> {
                   const SizedBox(height: AppTokens.space4),
                   Text(s.pairTitle, textAlign: TextAlign.center, style: AppText.bigTitle.copyWith(fontSize: 26, color: t.ink)),
                   const SizedBox(height: AppTokens.space3),
-                  Text(s.pairBody, textAlign: TextAlign.center, style: AppText.body.copyWith(fontSize: 16, color: t.inkMuted)),
+                  Text(s.onboarding2Body, textAlign: TextAlign.center, style: AppText.body.copyWith(fontSize: 16, color: t.inkMuted)),
                   const SizedBox(height: AppTokens.space6),
                   const Expanded(child: Center(child: QrScanBox())),
                   const SizedBox(height: AppTokens.space6),
                   ZpButton(
                     label: s.pairHowToInstall,
                     icon: const Icon(Icons.extension_rounded),
-                    onPressed: () => context.push(AppRoutes.howToConnect),
+                    onPressed: () => context.push(AppRoutes.onboarding),
                   ),
                   const SizedBox(height: AppTokens.space4),
                   Text.rich(

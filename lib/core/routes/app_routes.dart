@@ -11,6 +11,10 @@ abstract final class AppRoutes {
   static const pro = '/pro';
   static const remoteSettings = '/remote-settings';
   static const webView = '/web';
-  static const howToConnect = '/how-to-connect';
+  /// The same web view pushed from the right with a back button.
+  static const webPage = '/web-page';
+  /// First run, before the QR screen: install the extension, then scan.
+  /// The QR screen's "How to install" button opens it again.
+  static const onboarding = '/onboarding';
   static const supportedSites = '/supported-sites';
 }

@@ -345,117 +345,6 @@ class S {
     );
   }
 
-  /// `How to connect`
-  String get howToConnect {
-    return Intl.message(
-      'How to connect',
-      name: 'howToConnect',
-      desc: 'Title of the connection guide page and its button.',
-      args: [],
-    );
-  }
-
-  /// `Install the extension on your computer`
-  String get connectStep1Title {
-    return Intl.message(
-      'Install the extension on your computer',
-      name: 'connectStep1Title',
-      desc: 'Connection guide, step 1 title.',
-      args: [],
-    );
-  }
-
-  /// `On your computer, open Chrome or Safari and go to {host}.`
-  String connectStep1Body(String host) {
-    return Intl.message(
-      'On your computer, open Chrome or Safari and go to $host.',
-      name: 'connectStep1Body',
-      desc:
-          'Connection guide, step 1. host: a web address like "zappit.tv/get".',
-      args: [host],
-    );
-  }
-
-  /// `Send link`
-  String get sendLink {
-    return Intl.message(
-      'Send link',
-      name: 'sendLink',
-      desc: 'Button: share the extension install link.',
-      args: [],
-    );
-  }
-
-  /// `Install the Zappit extension: {url}`
-  String installExtensionShare(String url) {
-    return Intl.message(
-      'Install the Zappit extension: $url',
-      name: 'installExtensionShare',
-      desc: 'Text shared by the "Send link" button.',
-      args: [url],
-    );
-  }
-
-  /// `Copy link`
-  String get copyLink {
-    return Intl.message(
-      'Copy link',
-      name: 'copyLink',
-      desc: 'Button: copy the extension install link.',
-      args: [],
-    );
-  }
-
-  /// `Link copied`
-  String get linkCopied {
-    return Intl.message(
-      'Link copied',
-      name: 'linkCopied',
-      desc: 'Snackbar after copying a link.',
-      args: [],
-    );
-  }
-
-  /// `Scan the QR code`
-  String get connectStep2Title {
-    return Intl.message(
-      'Scan the QR code',
-      name: 'connectStep2Title',
-      desc: 'Connection guide, step 2 title.',
-      args: [],
-    );
-  }
-
-  /// `Click the Zappit icon in the browser toolbar and scan the QR code with this app.`
-  String get connectStep2Body {
-    return Intl.message(
-      'Click the Zappit icon in the browser toolbar and scan the QR code with this app.',
-      name: 'connectStep2Body',
-      desc: 'Connection guide, step 2.',
-      args: [],
-    );
-  }
-
-  /// `Play a video`
-  String get connectStep3Title {
-    return Intl.message(
-      'Play a video',
-      name: 'connectStep3Title',
-      desc: 'Connection guide, step 3 title.',
-      args: [],
-    );
-  }
-
-  /// `Keep the browser open. The remote connects on its own and turns green.`
-  String get connectStep3Body {
-    return Intl.message(
-      'Keep the browser open. The remote connects on its own and turns green.',
-      name: 'connectStep3Body',
-      desc: 'Connection guide, step 3.',
-      args: [],
-    );
-  }
-
   /// `Unlock dedicated controllers`
   String get proFeatureDedicatedControllers {
     return Intl.message(
@@ -2283,16 +2172,6 @@ class S {
     );
   }
 
-  /// `Open one of these to start`
-  String get openOneToStart {
-    return Intl.message(
-      'Open one of these to start',
-      name: 'openOneToStart',
-      desc: 'Title over the site shortcuts.',
-      args: [],
-    );
-  }
-
   /// `Open {site}`
   String openSite(String site) {
     return Intl.message(
@@ -2313,12 +2192,12 @@ class S {
     );
   }
 
-  /// `Play in app`
+  /// `Continue on phone`
   String get playInApp {
     return Intl.message(
-      'Play in app',
+      'Continue on phone',
       name: 'playInApp',
-      desc: 'Accessibility label: open the video in the phone app.',
+      desc: 'Accessibility label (icon-only button): pause the browser and continue the video in its app on the phone.',
       args: [],
     );
   }
@@ -3115,7 +2994,7 @@ class S {
     return Intl.message(
       'Favorites',
       name: 'favorites',
-      desc: 'Supported sites: section of the user\'s favorite sites (shown in "Open one of these to start").',
+      desc: 'The user\'s favorite sites: section title in Supported sites and Categories, and the title over the site shortcuts (Nothing playing, Tabs).',
       args: [],
     );
   }
@@ -3217,16 +3096,6 @@ class S {
       'Connect to your computer',
       name: 'pairTitle',
       desc: 'QR pairing screen title (first screen of the app until a computer is connected).',
-      args: [],
-    );
-  }
-
-  /// `Click the Zappit icon in your computer's browser and point the camera at the QR code.`
-  String get pairBody {
-    return Intl.message(
-      'Click the Zappit icon in your computer\'s browser and point the camera at the QR code.',
-      name: 'pairBody',
-      desc: 'QR pairing screen: what to do.',
       args: [],
     );
   }
@@ -3407,6 +3276,237 @@ class S {
       'Save',
       name: 'save',
       desc: 'Button: save a change.',
+      args: [],
+    );
+  }
+
+  /// `FAQ`
+  String get faq {
+    return Intl.message(
+      'FAQ',
+      name: 'faq',
+      desc: 'More tab row (opens the FAQ web page) and its page title.',
+      args: [],
+    );
+  }
+
+  /// `{current} / {total}`
+  String onboardingStepCount(String current, String total) {
+    return Intl.message(
+      '$current / $total',
+      name: 'onboardingStepCount',
+      desc: 'Onboarding: step counter at the top right, e.g. "1 / 2".',
+      args: [current, total],
+    );
+  }
+
+  /// `Step {current} of {total}`
+  String onboardingStepLabel(String current, String total) {
+    return Intl.message(
+      'Step $current of $total',
+      name: 'onboardingStepLabel',
+      desc: 'Onboarding: accessibility label of the step progress bar.',
+      args: [current, total],
+    );
+  }
+
+  /// `Next`
+  String get onboardingNext {
+    return Intl.message(
+      'Next',
+      name: 'onboardingNext',
+      desc: 'Onboarding step 1: button to the next step.',
+      args: [],
+    );
+  }
+
+  /// `Done`
+  String get onboardingDone {
+    return Intl.message(
+      'Done',
+      name: 'onboardingDone',
+      desc: 'Onboarding step 2: button that finishes onboarding and opens the QR scanner.',
+      args: [],
+    );
+  }
+
+  /// `First, add Zappit to your browser`
+  String get onboarding1Title {
+    return Intl.message(
+      'First, add Zappit to your browser',
+      name: 'onboarding1Title',
+      desc: 'Onboarding step 1 title.',
+      args: [],
+    );
+  }
+
+  /// `Open {url} in your computer's browser to install the free extension.`
+  String onboarding1Body(String url) {
+    return Intl.message(
+      'Open $url in your computer\'s browser to install the free extension.',
+      name: 'onboarding1Body',
+      desc: 'Onboarding step 1 text. {url} is shown in bold.',
+      args: [url],
+    );
+  }
+
+  /// `Share link`
+  String get onboardingShareLink {
+    return Intl.message(
+      'Share link',
+      name: 'onboardingShareLink',
+      desc: 'Onboarding step 1: button that opens the share sheet with the extension link.',
+      args: [],
+    );
+  }
+
+  /// `Scan the QR code`
+  String get onboarding2Title {
+    return Intl.message(
+      'Scan the QR code',
+      name: 'onboarding2Title',
+      desc: 'Onboarding step 2 title.',
+      args: [],
+    );
+  }
+
+  /// `Click the Zappit icon in your browser toolbar, then point your camera at the QR code.`
+  String get onboarding2Body {
+    return Intl.message(
+      'Click the Zappit icon in your browser toolbar, then point your camera at the QR code.',
+      name: 'onboarding2Body',
+      desc: 'Onboarding step 2 text; also the text of the QR scan screen (kept the same on purpose).',
+      args: [],
+    );
+  }
+
+  /// `Don't see the Zappit icon?`
+  String get onboardingIconHelp {
+    return Intl.message(
+      'Don\'t see the Zappit icon?',
+      name: 'onboardingIconHelp',
+      desc: 'Onboarding step 2: row under the animation; opens the FAQ answer (how to show the Zappit icon in Chrome and Safari).',
+      args: [],
+    );
+  }
+
+  /// `Typing zappit.tv/get in the browser and adding the Zappit extension`
+  String get onboarding1AnimLabel {
+    return Intl.message(
+      'Typing zappit.tv/get in the browser and adding the Zappit extension',
+      name: 'onboarding1AnimLabel',
+      desc: 'Onboarding step 1: accessibility label of the animation.',
+      args: [],
+    );
+  }
+
+  /// `Click the Zappit icon in the browser, then scan the QR code with the phone`
+  String get onboarding2AnimLabel {
+    return Intl.message(
+      'Click the Zappit icon in the browser, then scan the QR code with the phone',
+      name: 'onboarding2AnimLabel',
+      desc: 'Onboarding step 2: accessibility label of the animation.',
+      args: [],
+    );
+  }
+
+  /// `Kill the mouse.`
+  String get obAnimTagline {
+    return Intl.message(
+      'Kill the mouse.',
+      name: 'obAnimTagline',
+      desc: 'Onboarding animation: tagline on the drawn zappit.tv/get page.',
+      args: [],
+    );
+  }
+
+  /// `Add extension`
+  String get obAnimAddExtension {
+    return Intl.message(
+      'Add extension',
+      name: 'obAnimAddExtension',
+      desc: 'Onboarding animation: button on the drawn zappit.tv/get page.',
+      args: [],
+    );
+  }
+
+  /// `Added`
+  String get obAnimAdded {
+    return Intl.message(
+      'Added',
+      name: 'obAnimAdded',
+      desc:
+          'Onboarding animation: the same button after the extension is added.',
+      args: [],
+    );
+  }
+
+  /// `Connect your phone`
+  String get obAnimConnectPhone {
+    return Intl.message(
+      'Connect your phone',
+      name: 'obAnimConnectPhone',
+      desc: 'Onboarding animation: title of the drawn extension popup.',
+      args: [],
+    );
+  }
+
+  /// `Scan this code with the Zappit app on your phone.`
+  String get obAnimScanCode {
+    return Intl.message(
+      'Scan this code with the Zappit app on your phone.',
+      name: 'obAnimScanCode',
+      desc: 'Onboarding animation: text of the drawn extension popup.',
+      args: [],
+    );
+  }
+
+  /// `New code in {time}`
+  String obAnimNewCode(String time) {
+    return Intl.message(
+      'New code in $time',
+      name: 'obAnimNewCode',
+      desc: 'Onboarding animation: QR timer in the drawn extension popup.',
+      args: [time],
+    );
+  }
+
+  /// `Remote connected`
+  String get obAnimRemoteConnected {
+    return Intl.message(
+      'Remote connected',
+      name: 'obAnimRemoteConnected',
+      desc: 'Onboarding animation: status in the drawn extension popup after scanning.',
+      args: [],
+    );
+  }
+
+  /// `Your phones`
+  String get obAnimYourPhones {
+    return Intl.message(
+      'Your phones',
+      name: 'obAnimYourPhones',
+      desc: 'Onboarding animation: list caption in the drawn extension popup.',
+      args: [],
+    );
+  }
+
+  /// `Connect to your computer`
+  String get obAnimConnectComputer {
+    return Intl.message(
+      'Connect to your computer',
+      name: 'obAnimConnectComputer',
+      desc: 'Onboarding animation: title of the drawn phone scanner.',
+      args: [],
+    );
+  }
+
+  /// `Don't see the Zappit icon? Opens the answer in the FAQ`
+  String get onboardingIconHelpLabel {
+    return Intl.message(
+      'Don\'t see the Zappit icon? Opens the answer in the FAQ',
+      name: 'onboardingIconHelpLabel',
+      desc: 'Onboarding step 2: accessibility label of the help row.',
       args: [],
     );
   }

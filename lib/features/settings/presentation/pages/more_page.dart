@@ -71,7 +71,13 @@ class MorePage extends ConsumerWidget {
                 ZpGroup(children: [
                   ZpListRow(
                     title: S.of(context).tutorial,
+                    showChevron: true,
                     onTap: () => _openWeb(context, S.of(context).tutorial, tutorialUrl),
+                  ),
+                  ZpListRow(
+                    title: S.of(context).faq,
+                    showChevron: true,
+                    onTap: () => _openWeb(context, S.of(context).faq, faqUrl),
                   ),
                   ZpListRow(title: S.of(context).contactUs, onTap: () => _contactUs(ref)),
                   ZpListRow(title: S.of(context).tellAFriend, onTap: () => _tellAFriend(context)),
@@ -98,8 +104,9 @@ class MorePage extends ConsumerWidget {
     );
   }
 
+  /// Tutorial and FAQ: pushed from the right, back button in the app bar.
   void _openWeb(BuildContext context, String title, String url) {
-    context.push(AppRoutes.webView, extra: WebViewArgs(title: title, url: url));
+    context.push(AppRoutes.webPage, extra: WebViewArgs(title: title, url: url));
   }
 
   /// Same as sssurf: mail client with app version and device in the body.

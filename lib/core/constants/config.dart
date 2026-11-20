@@ -1,13 +1,18 @@
-// Web (zappit.tv). Pages other than terms/privacy are placeholders until
-// zappit_web is built; keep the paths when implementing them (CLAUDE.md URLs).
+// Web (zappit.tv). Keep the paths (CLAUDE.md URLs). `?embed=1` = the in-app
+// web view layout (no site header or footer).
 const termsOfServiceUrl = 'https://zappit.tv/terms';
 const privacyPolicyUrl = 'https://zappit.tv/privacy';
 const getExtensionUrl = 'https://zappit.tv/get';
-const tutorialUrl = 'https://zappit.tv/tutorial';
+const tutorialUrl = 'https://zappit.tv/guide?embed=1';
+const faqUrl = 'https://zappit.tv/faq?embed=1';
 const voiceControlHelpUrl = 'https://zappit.tv/voice-control';
 
-/// Q&A entry: why a site plays without sound (Chrome's autoplay policy).
-const soundBlockedHelpUrl = 'https://zappit.tv/faq#sound-blocked';
+/// FAQ entry opened by an in-app notice: `faqEntryUrl('site-access')`. The
+/// page opens that entry and scrolls to it. Anchor ids are fixed on the site.
+String faqEntryUrl(String id) => '$faqUrl#$id';
+
+/// FAQ entry: why a site plays without sound (Chrome's autoplay policy).
+final soundBlockedHelpUrl = faqEntryUrl('sound-blocked');
 
 // Sharing and store
 const shareAppUrl = 'https://onelink.to/ngsjzu';

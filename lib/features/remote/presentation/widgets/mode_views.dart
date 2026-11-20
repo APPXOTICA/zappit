@@ -275,7 +275,7 @@ class NothingPlayingView extends ConsumerWidget {
   }
 }
 
-/// "Open one of these to start" (`.za-sites`): the user's favorite sites in
+/// "Favorites" (`.za-sites`): the user's favorite sites in
 /// their order, scrolling sideways; nothing when there are none. A tap opens the site in the browser.
 /// Also at the top of the Tabs tab.
 class SiteStrip extends ConsumerWidget {
@@ -296,7 +296,7 @@ class SiteStrip extends ConsumerWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: side),
             child: Text(
-              S.of(context).openOneToStart,
+              S.of(context).favorites,
               textAlign: TextAlign.center,
               style: AppText.label.copyWith(fontSize: 14, color: t.inkMuted),
             ),

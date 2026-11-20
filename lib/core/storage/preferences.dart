@@ -13,6 +13,7 @@ class Preferences {
   static const _email = 'email';
   static const _launchCountKey = 'launchCount';
   static const _debugProKey = 'debugPro';
+  static const _onboardingDoneKey = 'onboardingDone';
 
   final SharedPreferences instance;
 
@@ -29,6 +30,11 @@ class Preferences {
 
   String? get email => instance.getString(_email);
   void setEmail(String email) => instance.setString(_email, email);
+
+  /// First-run onboarding (before the QR screen) was finished, or this phone
+  /// has been connected once.
+  bool get onboardingDone => instance.getBool(_onboardingDoneKey) ?? false;
+  void setOnboardingDone() => instance.setBool(_onboardingDoneKey, true);
 
   bool get debugPro => instance.getBool(_debugProKey) ?? false;
   void setDebugPro(bool on) => instance.setBool(_debugProKey, on);

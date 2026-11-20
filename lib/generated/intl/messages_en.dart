@@ -33,94 +33,98 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m5(current, total) => "Chapter ${current}/${total}";
 
-  static String m6(host) =>
-      "On your computer, open Chrome or Safari and go to ${host}.";
+  static String m6(browser) => "Connected to ${browser}";
 
-  static String m7(browser) => "Connected to ${browser}";
+  static String m7(count) => "Forward ${count} seconds";
 
-  static String m8(count) => "Forward ${count} seconds";
+  static String m8(count) => "${count}-day free trial";
 
-  static String m9(count) => "${count}-day free trial";
+  static String m9(count) => "${count}-month free trial";
 
-  static String m10(count) => "${count}-month free trial";
+  static String m10(count) => "${count}-week free trial";
 
-  static String m11(count) => "${count}-week free trial";
+  static String m11(count) => "${count}-year free trial";
 
-  static String m12(count) => "${count}-year free trial";
+  static String m12(price) => "Just ${price}/mo";
 
-  static String m13(url) => "Install the Zappit extension: ${url}";
-
-  static String m14(price) => "Just ${price}/mo";
-
-  static String m15(count) =>
+  static String m13(count) =>
       "${Intl.plural(count, one: '1 minute', other: '${count} minutes')}";
 
-  static String m16(count) => "${count} min";
+  static String m14(count) => "${count} min";
 
-  static String m17(site) => "Open ${site}";
+  static String m15(time) => "New code in ${time}";
 
-  static String m18(browser) => "Opened in ${browser}";
+  static String m16(url) =>
+      "Open ${url} in your computer\'s browser to install the free extension.";
 
-  static String m19(browser) => "Opening in ${browser}…";
+  static String m17(current, total) => "${current} / ${total}";
 
-  static String m20(price) => "${price} / month";
+  static String m18(current, total) => "Step ${current} of ${total}";
 
-  static String m21(price) => "${price} / year";
+  static String m19(site) => "Open ${site}";
 
-  static String m22(date) =>
+  static String m20(browser) => "Opened in ${browser}";
+
+  static String m21(browser) => "Opening in ${browser}…";
+
+  static String m22(price) => "${price} / month";
+
+  static String m23(price) => "${price} / year";
+
+  static String m24(date) =>
       "Your free Pro preview is active until ${date}. Subscribe before it ends to seamlessly keep all Pro features.";
 
-  static String m23(proName) =>
+  static String m25(proName) =>
       "Your Pro preview has ended. Keep every Pro feature with ${proName}.";
 
-  static String m24(days) =>
+  static String m26(days) =>
       "Enjoy all Zappit Pro features free for ${days} days. No credit card required, no auto-charge.";
 
-  static String m25(date) => "Pro preview until ${date}";
+  static String m27(date) => "Pro preview until ${date}";
 
-  static String m26(proName) => "${proName} restored";
+  static String m28(proName) => "${proName} restored";
 
-  static String m27(site) => "Remove ${site} from Favorites";
+  static String m29(site) => "Remove ${site} from Favorites";
 
-  static String m28(site) => "${site} removed from Favorites";
+  static String m30(site) => "${site} removed from Favorites";
 
-  static String m29(site) => "Reorder ${site}";
+  static String m31(site) => "Reorder ${site}";
 
-  static String m30(percent) => "Save ${percent}%";
+  static String m32(percent) => "Save ${percent}%";
 
-  static String m31(number) => "Season ${number}";
+  static String m33(number) => "Season ${number}";
 
-  static String m32(count) => "${count}s";
+  static String m34(count) => "${count}s";
 
-  static String m33(site) => "${site} Settings";
+  static String m35(site) => "${site} Settings";
 
-  static String m34(count) =>
+  static String m36(count) =>
       "Back to 1x. Free users can use this speed for ${count} seconds.";
 
-  static String m35(price, date) =>
+  static String m37(price, date) =>
       "Your free trial ends tomorrow. You\'ll be charged ${price} on ${date}. If you don\'t want to continue, cancel your subscription before then.";
 
-  static String m36(price) => "Starts with a free trial, then ${price}/year.";
-
-  static String m37(count, price) =>
-      "Starts with a ${count}-day free trial, then ${price}/year.";
-
-  static String m38(count, price) =>
-      "Starts with a ${count}-month free trial, then ${price}/year.";
+  static String m38(price) => "Starts with a free trial, then ${price}/year.";
 
   static String m39(count, price) =>
+      "Starts with a ${count}-day free trial, then ${price}/year.";
+
+  static String m40(count, price) =>
+      "Starts with a ${count}-month free trial, then ${price}/year.";
+
+  static String m41(count, price) =>
       "Starts with a ${count}-year free trial, then ${price}/year.";
 
-  static String m40(count) => "Up next · plays in ${count} s";
+  static String m42(count) => "Up next · plays in ${count} s";
 
-  static String m41(count) => "Voice Boost trial, ${count} seconds left";
+  static String m43(count) => "Voice Boost trial, ${count} seconds left";
 
-  static String m42(count) =>
+  static String m44(count) =>
       "Voice Boost is off. Free users can use Voice Boost for ${count} seconds.";
 
-  static String m43(proName) => "Welcome to ${proName}";
+  static String m45(proName) => "Welcome to ${proName}";
 
-  static String m44(number) => "Window ${number}";
+  static String m46(number) => "Window ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -202,27 +206,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "connectBrowserFirst": MessageLookupByLibrary.simpleMessage(
       "Connect to a browser first",
     ),
-    "connectStep1Body": m6,
-    "connectStep1Title": MessageLookupByLibrary.simpleMessage(
-      "Install the extension on your computer",
-    ),
-    "connectStep2Body": MessageLookupByLibrary.simpleMessage(
-      "Click the Zappit icon in the browser toolbar and scan the QR code with this app.",
-    ),
-    "connectStep2Title": MessageLookupByLibrary.simpleMessage(
-      "Scan the QR code",
-    ),
-    "connectStep3Body": MessageLookupByLibrary.simpleMessage(
-      "Keep the browser open. The remote connects on its own and turns green.",
-    ),
-    "connectStep3Title": MessageLookupByLibrary.simpleMessage("Play a video"),
     "connected": MessageLookupByLibrary.simpleMessage("Connected"),
-    "connectedTo": m7,
+    "connectedTo": m6,
     "contactUs": MessageLookupByLibrary.simpleMessage("Contact us"),
     "contactUsKeepInfo": MessageLookupByLibrary.simpleMessage(
       "Please don\'t delete the info below.",
     ),
-    "copyLink": MessageLookupByLibrary.simpleMessage("Copy link"),
     "couldNotGetVideoLink": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t get the video link",
     ),
@@ -288,17 +277,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
       "The Zappit extension was updated. Reload this page to keep using all controls.",
     ),
+    "faq": MessageLookupByLibrary.simpleMessage("FAQ"),
     "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
     "favoritesEmptyHint": MessageLookupByLibrary.simpleMessage(
       "Tap the star on a site to add it here.",
     ),
-    "forwardSeconds": m8,
+    "forwardSeconds": m7,
     "frameByFrame": MessageLookupByLibrary.simpleMessage("Frame by frame"),
     "freeTrial": MessageLookupByLibrary.simpleMessage("Free trial"),
-    "freeTrialDays": m9,
-    "freeTrialMonths": m10,
-    "freeTrialWeeks": m11,
-    "freeTrialYears": m12,
+    "freeTrialDays": m8,
+    "freeTrialMonths": m9,
+    "freeTrialWeeks": m10,
+    "freeTrialYears": m11,
     "fullPowerUnlocked": MessageLookupByLibrary.simpleMessage(
       "Full power unlocked",
     ),
@@ -307,16 +297,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "gotIt": MessageLookupByLibrary.simpleMessage("Got it"),
     "hideChat": MessageLookupByLibrary.simpleMessage("Hide chat"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
-    "howToConnect": MessageLookupByLibrary.simpleMessage("How to connect"),
-    "installExtensionShare": m13,
-    "justPerMonth": m14,
+    "justPerMonth": m12,
     "largerCaptions": MessageLookupByLibrary.simpleMessage("Larger captions"),
     "lastVideoInPlaylist": MessageLookupByLibrary.simpleMessage(
       "This is the last video in the playlist",
     ),
     "learnMore": MessageLookupByLibrary.simpleMessage("Learn More"),
     "left": MessageLookupByLibrary.simpleMessage("Left"),
-    "linkCopied": MessageLookupByLibrary.simpleMessage("Link copied"),
     "linkPanelHint": MessageLookupByLibrary.simpleMessage(
       "Paste a video link and tap Send. It opens in a new tab in your browser.",
     ),
@@ -332,8 +319,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "manageSubscription": MessageLookupByLibrary.simpleMessage(
       "Manage subscription",
     ),
-    "minutesCount": m15,
-    "minutesShort": m16,
+    "minutesCount": m13,
+    "minutesShort": m14,
     "mixCantRepeat": MessageLookupByLibrary.simpleMessage(
       "This playlist keeps playing new videos endlessly, so it can\'t be repeated",
     ),
@@ -410,11 +397,55 @@ class MessageLookup extends MessageLookupByLibrary {
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
       "No active Zappit Pro subscription was found for this store account.",
     ),
+    "obAnimAddExtension": MessageLookupByLibrary.simpleMessage("Add extension"),
+    "obAnimAdded": MessageLookupByLibrary.simpleMessage("Added"),
+    "obAnimConnectComputer": MessageLookupByLibrary.simpleMessage(
+      "Connect to your computer",
+    ),
+    "obAnimConnectPhone": MessageLookupByLibrary.simpleMessage(
+      "Connect your phone",
+    ),
+    "obAnimNewCode": m15,
+    "obAnimRemoteConnected": MessageLookupByLibrary.simpleMessage(
+      "Remote connected",
+    ),
+    "obAnimScanCode": MessageLookupByLibrary.simpleMessage(
+      "Scan this code with the Zappit app on your phone.",
+    ),
+    "obAnimTagline": MessageLookupByLibrary.simpleMessage("Kill the mouse."),
+    "obAnimYourPhones": MessageLookupByLibrary.simpleMessage("Your phones"),
     "off": MessageLookupByLibrary.simpleMessage("Off"),
     "offline": MessageLookupByLibrary.simpleMessage("Offline"),
     "offlineMessage": MessageLookupByLibrary.simpleMessage(
       "Check your internet connection. Zappit reconnects on its own.",
     ),
+    "onboarding1AnimLabel": MessageLookupByLibrary.simpleMessage(
+      "Typing zappit.tv/get in the browser and adding the Zappit extension",
+    ),
+    "onboarding1Body": m16,
+    "onboarding1Title": MessageLookupByLibrary.simpleMessage(
+      "First, add Zappit to your browser",
+    ),
+    "onboarding2AnimLabel": MessageLookupByLibrary.simpleMessage(
+      "Click the Zappit icon in the browser, then scan the QR code with the phone",
+    ),
+    "onboarding2Body": MessageLookupByLibrary.simpleMessage(
+      "Click the Zappit icon in your browser toolbar, then point your camera at the QR code.",
+    ),
+    "onboarding2Title": MessageLookupByLibrary.simpleMessage(
+      "Scan the QR code",
+    ),
+    "onboardingDone": MessageLookupByLibrary.simpleMessage("Done"),
+    "onboardingIconHelp": MessageLookupByLibrary.simpleMessage(
+      "Don\'t see the Zappit icon?",
+    ),
+    "onboardingIconHelpLabel": MessageLookupByLibrary.simpleMessage(
+      "Don\'t see the Zappit icon? Opens the answer in the FAQ",
+    ),
+    "onboardingNext": MessageLookupByLibrary.simpleMessage("Next"),
+    "onboardingShareLink": MessageLookupByLibrary.simpleMessage("Share link"),
+    "onboardingStepCount": m17,
+    "onboardingStepLabel": m18,
     "openALink": MessageLookupByLibrary.simpleMessage("Open a link"),
     "openBrowserForTabs": MessageLookupByLibrary.simpleMessage(
       "Open your browser with the Zappit extension to see its tabs.",
@@ -422,15 +453,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "openLinkInBrowser": MessageLookupByLibrary.simpleMessage(
       "Open a link in the browser",
     ),
-    "openOneToStart": MessageLookupByLibrary.simpleMessage(
-      "Open one of these to start",
-    ),
-    "openSite": m17,
-    "openedIn": m18,
-    "openingIn": m19,
-    "pairBody": MessageLookupByLibrary.simpleMessage(
-      "Click the Zappit icon in your computer\'s browser and point the camera at the QR code.",
-    ),
+    "openSite": m19,
+    "openedIn": m20,
+    "openingIn": m21,
     "pairCodeExpired": MessageLookupByLibrary.simpleMessage(
       "This code has expired. Scan the new code on your computer.",
     ),
@@ -475,7 +500,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Pick videos from your phone with Pro",
     ),
     "play": MessageLookupByLibrary.simpleMessage("Play"),
-    "playInApp": MessageLookupByLibrary.simpleMessage("Play in app"),
+    "playInApp": MessageLookupByLibrary.simpleMessage("Continue on phone"),
     "playNow": MessageLookupByLibrary.simpleMessage("Play now"),
     "playVideoFirst": MessageLookupByLibrary.simpleMessage(
       "Play a video in the browser first",
@@ -491,8 +516,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "previousChapter": MessageLookupByLibrary.simpleMessage("Previous chapter"),
     "previousTab": MessageLookupByLibrary.simpleMessage("Previous tab"),
     "previousVideo": MessageLookupByLibrary.simpleMessage("Previous video"),
-    "pricePerMonth": m20,
-    "pricePerYear": m21,
+    "pricePerMonth": m22,
+    "pricePerYear": m23,
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
     "proBannerSubtitle": MessageLookupByLibrary.simpleMessage(
       "Unleash the full power of your remote",
@@ -512,20 +537,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "proFeatureVoiceBoost": MessageLookupByLibrary.simpleMessage(
       "Unlimited Voice Boost",
     ),
-    "proPreviewActiveBanner": m22,
+    "proPreviewActiveBanner": m24,
     "proPreviewEndedMessage": MessageLookupByLibrary.simpleMessage(
       "Thanks for trying Zappit Pro! Subscribe to keep enjoying every Pro feature seamlessly.",
     ),
-    "proPreviewEndedSubtitle": m23,
+    "proPreviewEndedSubtitle": m25,
     "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
       "Your Pro preview has ended",
     ),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
       "Pro preview ends tomorrow",
     ),
-    "proPreviewStarted": m24,
-    "proPreviewUntil": m25,
-    "proRestored": m26,
+    "proPreviewStarted": m26,
+    "proPreviewUntil": m27,
+    "proRestored": m28,
     "proSubscriptionEnded": MessageLookupByLibrary.simpleMessage(
       "Your Pro subscription has ended",
     ),
@@ -555,12 +580,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "reload": MessageLookupByLibrary.simpleMessage("Reload"),
     "remindMe": MessageLookupByLibrary.simpleMessage("Remind me"),
     "remoteSettings": MessageLookupByLibrary.simpleMessage("Remote settings"),
-    "removeFromFavorites": m27,
-    "removedFromFavorites": m28,
+    "removeFromFavorites": m29,
+    "removedFromFavorites": m30,
     "reorderHint": MessageLookupByLibrary.simpleMessage(
       "Touch and hold an item, then drag to reorder",
     ),
-    "reorderSite": m29,
+    "reorderSite": m31,
     "repeatOff": MessageLookupByLibrary.simpleMessage("Repeat off"),
     "repeatOffNotice": MessageLookupByLibrary.simpleMessage("Repeat off"),
     "repeatOn": MessageLookupByLibrary.simpleMessage("Repeat on"),
@@ -574,12 +599,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "right": MessageLookupByLibrary.simpleMessage("Right"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
-    "savePercent": m30,
+    "savePercent": m32,
     "searchCategories": MessageLookupByLibrary.simpleMessage(
       "Search categories",
     ),
-    "seasonNumber": m31,
-    "secondsShort": m32,
+    "seasonNumber": m33,
+    "secondsShort": m34,
     "seekInterval": MessageLookupByLibrary.simpleMessage("Seek Interval"),
     "select": MessageLookupByLibrary.simpleMessage("Select"),
     "selectVideoInBrowser": MessageLookupByLibrary.simpleMessage(
@@ -589,7 +614,6 @@ class MessageLookup extends MessageLookupByLibrary {
       "Click any video on your computer to start watching. The remote will appear here.",
     ),
     "send": MessageLookupByLibrary.simpleMessage("Send"),
-    "sendLink": MessageLookupByLibrary.simpleMessage("Send link"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "shareContent": MessageLookupByLibrary.simpleMessage(
       "Control your computer\'s video without leaving your bed.",
@@ -601,7 +625,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "shufflingPlaylist": MessageLookupByLibrary.simpleMessage(
       "Shuffling this playlist",
     ),
-    "siteSettings": m33,
+    "siteSettings": m35,
     "siteWeb": MessageLookupByLibrary.simpleMessage("Web"),
     "skipAd": MessageLookupByLibrary.simpleMessage("Skip Ad"),
     "skipIntro": MessageLookupByLibrary.simpleMessage("Skip Intro"),
@@ -621,7 +645,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Why can\'t I hear anything?",
     ),
     "soundHelpTitle": MessageLookupByLibrary.simpleMessage("Sound"),
-    "speedTrialOver": m34,
+    "speedTrialOver": m36,
     "startFreeTrial": MessageLookupByLibrary.simpleMessage("Start free trial"),
     "storeProblem": MessageLookupByLibrary.simpleMessage(
       "The store had a problem. Please try again in a moment.",
@@ -645,7 +669,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "tellAFriend": MessageLookupByLibrary.simpleMessage("Tell a friend"),
     "termsOfService": MessageLookupByLibrary.simpleMessage("Terms of Service"),
     "theaterMode": MessageLookupByLibrary.simpleMessage("Theater mode"),
-    "trialReminderBody": m35,
+    "trialReminderBody": m37,
     "trialReminderChannel": MessageLookupByLibrary.simpleMessage(
       "Free trial reminder",
     ),
@@ -661,10 +685,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "trialReminderTitle": MessageLookupByLibrary.simpleMessage(
       "Trial reminder",
     ),
-    "trialTerms": m36,
-    "trialTermsDays": m37,
-    "trialTermsMonths": m38,
-    "trialTermsYears": m39,
+    "trialTerms": m38,
+    "trialTermsDays": m39,
+    "trialTermsMonths": m40,
+    "trialTermsYears": m41,
     "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
     "turnOffAbFirst": MessageLookupByLibrary.simpleMessage(
       "Turn off the A-B loop first",
@@ -676,7 +700,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "untitled": MessageLookupByLibrary.simpleMessage("Untitled"),
     "up": MessageLookupByLibrary.simpleMessage("Up"),
     "upNext": MessageLookupByLibrary.simpleMessage("Up next"),
-    "upNextCountdown": m40,
+    "upNextCountdown": m42,
     "upgrade": MessageLookupByLibrary.simpleMessage("Upgrade"),
     "videoLengthUnknown": MessageLookupByLibrary.simpleMessage(
       "This video\'s length is unknown",
@@ -688,8 +712,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "voiceBoostOff": MessageLookupByLibrary.simpleMessage("Voice Boost off"),
     "voiceBoostOn": MessageLookupByLibrary.simpleMessage("Voice Boost on"),
-    "voiceBoostTrialLeft": m41,
-    "voiceBoostTrialOver": m42,
+    "voiceBoostTrialLeft": m43,
+    "voiceBoostTrialOver": m44,
     "voiceBoostTurnedOn": MessageLookupByLibrary.simpleMessage(
       "Voice Boost on: voices are easier to hear",
     ),
@@ -703,8 +727,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "watchAgain": MessageLookupByLibrary.simpleMessage("Watch again"),
     "watching": MessageLookupByLibrary.simpleMessage("Watching"),
-    "welcomeToPro": m43,
-    "windowNumber": m44,
+    "welcomeToPro": m45,
+    "windowNumber": m46,
     "yearly": MessageLookupByLibrary.simpleMessage("Yearly"),
     "yourBrowser": MessageLookupByLibrary.simpleMessage("your browser"),
     "youreConnected": MessageLookupByLibrary.simpleMessage(

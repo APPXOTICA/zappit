@@ -22,6 +22,7 @@ import 'package:zappit/core/routes/router_provider.dart';
 import 'package:zappit/core/storage/preferences.dart';
 import 'package:zappit/core/theme/theme.dart';
 import 'package:zappit/core/utils/ui_helper.dart';
+import 'package:zappit/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:zappit/features/pairing/presentation/pair_page.dart';
 import 'package:zappit/features/connection/connection_controller.dart';
 import 'package:zappit/features/purchase/presentation/pages/pro_page.dart';
@@ -180,6 +181,7 @@ Future<void> main() async {
     'settings' => AppRoutes.remoteSettings,
     'pro' => AppRoutes.pro,
     'pair' => AppRoutes.pair,
+    'onboarding' => AppRoutes.onboarding,
     'tabs' => AppRoutes.tabs,
     'sites' => AppRoutes.supportedSites,
     _ => AppRoutes.remote,
@@ -190,6 +192,7 @@ Future<void> main() async {
     initialLocation: initial,
     routes: [
       GoRoute(path: AppRoutes.pair, builder: (_, _) => const PairPage()),
+      GoRoute(path: AppRoutes.onboarding, builder: (_, _) => const OnboardingPage()),
       GoRoute(path: AppRoutes.pro, builder: (_, _) => const ProPage()),
       GoRoute(path: AppRoutes.remoteSettings, builder: (_, _) => const RemoteSettingsPage()),
       GoRoute(path: AppRoutes.supportedSites, builder: (_, _) => const SupportedSitesPage()),

@@ -4,11 +4,12 @@ import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/routes/app_routes.dart';
 import 'package:zappit/core/firebase/session_repository.dart';
+import 'package:zappit/core/storage/preferences.dart';
 import 'package:zappit/features/pairing/pairing_service.dart';
 import 'package:zappit/features/pairing/presentation/pair_page.dart';
 import 'package:zappit/features/pairing/presentation/scan_page.dart';
 import 'package:zappit/features/loading/presentation/pages/loading_page.dart';
-import 'package:zappit/features/onboarding/presentation/pages/how_to_connect_page.dart';
+import 'package:zappit/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:zappit/features/purchase/presentation/pages/pro_page.dart';
 import 'package:zappit/features/remote/presentation/pages/remote_page.dart';
 import 'package:zappit/features/settings/presentation/pages/more_page.dart';
@@ -33,6 +34,8 @@ GoRouter router(Ref ref) {
     redirect: notifier.redirect,
     routes: [
       GoRoute(path: AppRoutes.loading, builder: (context, state) => const LoadingPage()),
+      // First run, or pushed from the QR screen's "How to install" button.
+      GoRoute(path: AppRoutes.onboarding, pageBuilder: (context, state) => _push(state, const OnboardingPage())),
       GoRoute(path: AppRoutes.pair, builder: (context, state) => const PairPage()),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => AppShell(shell: shell),
@@ -59,11 +62,6 @@ GoRouter router(Ref ref) {
         pageBuilder: (context, state) => _modal(state, const RemoteSettingsPage()),
       ),
       GoRoute(
-        path: AppRoutes.howToConnect,
-        parentNavigatorKey: rootNavigatorKey,
-        pageBuilder: (context, state) => _push(state, const HowToConnectPage()),
-      ),
-      GoRoute(
         path: AppRoutes.scan,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) => _modal(state, const ScanPage()),
@@ -87,6 +85,14 @@ GoRouter router(Ref ref) {
           );
         },
       ),
+      GoRoute(
+        path: AppRoutes.webPage,
+        parentNavigatorKey: rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final args = state.extra is WebViewArgs ? state.extra! as WebViewArgs : null;
+          return _push(state, WebViewPage(title: args?.title ?? '', url: args?.url ?? '', modal: false));
+        },
+      ),
     ],
   );
 }
@@ -102,7 +108,12 @@ Page<void> _modal(GoRouterState state, Widget child) =>
 class _RouteNotifier extends ChangeNotifier {
   _RouteNotifier(this.ref) {
     final uidSub = ref.listen(currentUidProvider, (_, _) => notifyListeners());
-    final pairedSub = ref.listen(phonePairedProvider, (_, _) => notifyListeners());
+    final pairedSub = ref.listen(phonePairedProvider, (_, next) {
+      // Connected once (onboarding skipped by opening the QR link with the
+      // camera app, or a phone from before onboarding): never show it again.
+      if (next.value == true) ref.read(preferencesProvider).setOnboardingDone();
+      notifyListeners();
+    });
     ref.onDispose(uidSub.close);
     ref.onDispose(pairedSub.close);
   }
@@ -114,17 +125,18 @@ class _RouteNotifier extends ChangeNotifier {
     // Null until the anonymous account and this phone's entry are known.
     final paired = ref.read(currentUidProvider) == null ? null : ref.read(phonePairedProvider).value;
 
+    final unpairedHome = ref.read(preferencesProvider).onboardingDone ? AppRoutes.pair : AppRoutes.onboarding;
     if (location == AppRoutes.loading) {
       return switch (paired) {
         null => null,
         true => AppRoutes.remote,
-        false => AppRoutes.pair,
+        false => unpairedHome,
       };
     }
-    // Not paired: the QR screen, and the pages it opens.
-    const unpairedPages = {AppRoutes.pair, AppRoutes.webView, AppRoutes.howToConnect};
-    if (paired == false && !unpairedPages.contains(location)) return AppRoutes.pair;
-    if (paired == true && location == AppRoutes.pair) return AppRoutes.remote;
+    // Not paired: onboarding (first run), the QR screen, and the pages they open.
+    const unpairedPages = {AppRoutes.onboarding, AppRoutes.pair, AppRoutes.webView};
+    if (paired == false && !unpairedPages.contains(location)) return unpairedHome;
+    if (paired == true && (location == AppRoutes.pair || location == AppRoutes.onboarding)) return AppRoutes.remote;
     return null;
   }
 }

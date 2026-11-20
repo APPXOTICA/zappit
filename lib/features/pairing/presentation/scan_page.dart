@@ -39,7 +39,7 @@ class ScanPage extends StatelessWidget {
                       children: [
                         Text(s.pairTitle, textAlign: TextAlign.center, style: AppText.bigTitle.copyWith(fontSize: 26, color: t.ink)),
                         const SizedBox(height: AppTokens.space3),
-                        Text(s.pairBody, textAlign: TextAlign.center, style: AppText.body.copyWith(fontSize: 16, color: t.inkMuted)),
+                        Text(s.onboarding2Body, textAlign: TextAlign.center, style: AppText.body.copyWith(fontSize: 16, color: t.inkMuted)),
                         const SizedBox(height: AppTokens.space6),
                         Expanded(
                           child: Center(

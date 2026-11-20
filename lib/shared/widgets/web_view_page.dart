@@ -10,12 +10,16 @@ class WebViewArgs {
   final String url;
 }
 
-/// In-app web page (Tutorial, Supported sites, Voice Control help).
+/// In-app web page (Tutorial, FAQ, terms, help links).
 class WebViewPage extends StatefulWidget {
-  const WebViewPage({super.key, required this.title, required this.url});
+  const WebViewPage({super.key, required this.title, required this.url, this.modal = true});
 
   final String title;
   final String url;
+
+  /// Rises from the bottom with a close button; false = pushed from the
+  /// right with a back button (More → Tutorial, FAQ).
+  final bool modal;
 
   @override
   State<WebViewPage> createState() => _WebViewPageState();
@@ -50,10 +54,12 @@ class _WebViewPageState extends State<WebViewPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        leading: IconButton(
-          icon: const Icon(Icons.close_rounded),
-          onPressed: () => Navigator.of(context).maybePop(),
-        ),
+        leading: widget.modal
+            ? IconButton(
+                icon: const Icon(Icons.close_rounded),
+                onPressed: () => Navigator.of(context).maybePop(),
+              )
+            : null,
         bottom: _progress < 100 && !_failed
             ? PreferredSize(
                 preferredSize: const Size.fromHeight(2),

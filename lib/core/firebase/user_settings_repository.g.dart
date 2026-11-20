@@ -45,7 +45,7 @@ final class UserSettingsControllerProvider
 }
 
 String _$userSettingsControllerHash() =>
-    r'2f36dbd72a1b5a658ae7363c1dbb11f755cd6ce3';
+    r'e28b6c1553e219e22036d3336a84ce753d018134';
 
 /// Live settings with optimistic local updates.
 
