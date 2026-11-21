@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zappit/shared/l10n/app_locale.dart';
 import 'package:zappit/core/realtime/zappit_channel.dart';
 import 'package:zappit/features/purchase/pro_preview.dart';
 import 'package:zappit/core/analytics/analytics.dart';
@@ -86,6 +87,7 @@ class Zappit extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
+      localeListResolutionCallback: resolveAppLocale,
       builder: (context, child) => Stack(
         children: [
           _EagerInitialization(child: child ?? const SizedBox.shrink()),

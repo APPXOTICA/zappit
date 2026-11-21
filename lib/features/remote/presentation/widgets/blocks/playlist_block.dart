@@ -21,6 +21,7 @@ class PlaylistBlock extends ConsumerWidget {
     final title = playlist.title?.isNotEmpty == true ? playlist.title! : S.of(context).playlist;
 
     final box = ZpCluster(
+      growOnTablet: true,
       padding: const EdgeInsets.fromLTRB(12, 3, 12, 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

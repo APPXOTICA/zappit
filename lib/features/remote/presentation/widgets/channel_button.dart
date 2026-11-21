@@ -34,8 +34,8 @@ class ChannelButton extends ConsumerWidget {
           onTap: direct ? () => ref.read(remoteControllerProvider).goChannel(ChannelTab.home) : () => _showChannelSheet(context, ref, channel),
           semanticLabel: S.of(context).channelLabel(channel.name),
           builder: (context, pressed) => Container(
-            height: 52,
-            constraints: const BoxConstraints(maxWidth: 320),
+            // Min, not fixed: larger system text (iPad) needs a little more.
+            constraints: const BoxConstraints(minHeight: 52, maxWidth: 320),
             padding: EdgeInsets.fromLTRB(6, 6, direct ? 18 : 14, 6),
             decoration: BoxDecoration(
               color: pressed ? t.surface200 : t.surface100,

@@ -32,7 +32,7 @@ flutter run
 flutter run -t lib/dev/preview_main.dart --dart-define=SCENARIO=main   # 가짜 데이터로 화면 미리보기
 ```
 - 코드 생성 대상: `@riverpod`/`@Riverpod` provider, freezed 모델, json_serializable. 생성 파일은 커밋한다.
-- 다국어: `flutter_intl`. `lib/l10n/intl_en.arb`를 고친 뒤 `dart run intl_utils:generate`(또는 Flutter Intl IDE 플러그인)로 `lib/generated/`를 다시 만든다. `lib/generated/`는 손으로 고치지 않는다. 화면에 보이는 문구(접근성 라벨·스낵바·알림 포함)는 하드코딩하지 않고 모두 arb에 키(설명 `description` 포함)로 넣는다. 위젯에서는 `S.of(context)`, 컨텍스트가 없는 곳은 `getIt<S>()`. 숫자·이름이 들어가는 문장은 문장 통째로 placeholder를 쓴다(조각을 이어 붙이지 않음). 브랜드·사이트 이름(Zappit, YouTube, Netflix…)은 번역하지 않고, 일반 사이트 "Web"만 `Site.label(s)`(`shared/l10n/site_label.dart`). 로그·디버그 전용 문구는 제외. `lib/generated/`는 분석에서 제외(`analysis_options.yaml`).
+- 다국어: `flutter_intl`. 원본은 `lib/l10n/intl_en.arb`, 번역은 같은 폴더 `intl_<언어>.arb` 21개(문구를 추가·수정하면 모든 언어 파일에 같이 반영한다. 말투·용어는 웹 번역 `zappit_web/src/lib/i18n/messages/`와 맞춘다: 웹이 앱 메뉴 이름을 인용하므로 두 곳이 같아야 한다). 기기 언어 선택은 `shared/l10n/app_locale.dart`(`zh_TW`·`zh_HK`처럼 문자 체계가 없는 중국어는 번체로, 없는 언어는 영어). iOS는 `Info.plist`의 `CFBundleLocalizations`에도 언어가 있어야 한다. arb를 고친 뒤 `dart run intl_utils:generate`(또는 Flutter Intl IDE 플러그인)로 `lib/generated/`를 다시 만든다. `lib/generated/`는 손으로 고치지 않는다. 화면에 보이는 문구(접근성 라벨·스낵바·알림 포함)는 하드코딩하지 않고 모두 arb에 키(설명 `description` 포함)로 넣는다. 위젯에서는 `S.of(context)`, 컨텍스트가 없는 곳은 `getIt<S>()`. 숫자·이름이 들어가는 문장은 문장 통째로 placeholder를 쓴다(조각을 이어 붙이지 않음). 브랜드·사이트 이름(Zappit, YouTube, Netflix…)은 번역하지 않고, 일반 사이트 "Web"만 `Site.label(s)`(`shared/l10n/site_label.dart`). 로그·디버그 전용 문구는 제외. `lib/generated/`는 분석에서 제외(`analysis_options.yaml`).
 - 테스트: `test/protocol_fixtures_test.dart`가 `../zappit_assets/protocol/fixtures`를 읽는다(앱과 확장이 같은 파일로 메시지 규격을 검증).
 - 화면 미리보기: `lib/dev/preview_main.dart`는 실제 앱에 포함되지 않는 개발용 진입점이다. 시나리오(main, ad, live, ab, upnext, pick, home, playlist, netflix, shorts, photo, web, disconnected, nobrowser, nothing, more, sites, settings, pro, pair, tabs, sleep, episodes)별로 provider를 가짜 데이터로 덮어써서 디자인 PNG와 비교한다. 시뮬레이터에 한 번 빌드해 두면 앱 컨테이너의 `tmp/scenario.txt`에 시나리오 이름을 쓰고 다시 실행해 바꿀 수 있다.
 
@@ -61,7 +61,7 @@ Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이�
   - `lib/core/firebase/`: RTDB `session`·`playback` 스트림과 선택(`session_repository.dart`), Firestore 설정(`user_settings_repository.dart`), 탭 목록(`browser_tabs_repository.dart`).
   - `lib/core/theme/app_tokens.dart`: 디자인 토큰(`context.tokens`)과 글자 스타일(`AppText`). 다크 테마만 있다.
   - `lib/shared/widgets/ds/`: DS 컴포넌트 위젯(`Zp*`). `ds.dart` 하나로 import.
-  - `lib/features/`: `auth`, `shell`(하단 탭 Remote·Tabs·More), `connection`(연결 상태, 브라우저 선택), `remote`(리모컨 화면·블록·시트·컨트롤러), `tabs`, `settings`(More, 리모컨 설정 모달), `sites`(Supported sites 화면: 위 Favorites(순서 변경, 별로 해제·Undo), 아래 전체 사이트 A→Z(별로 추가). 즐겨찾기 `users/{uid}.settings.favoriteSites`는 사용자가 바꿨을 때만 저장(없으면 `UserSettings.defaultFavorites`, 예전 `siteOrder`가 있으면 그 순서). 사이트 띠(`SiteStrip`, Nothing Playing·Tabs, 제목 "Favorites")는 즐겨찾기만 그 순서로, 없으면 숨김. 사이트 홈 URL), `purchase`(Pro 화면과 `isPro`), `onboarding`(첫 실행 온보딩 2단계(`onboarding_page.dart`, 디자인 OB-1·OB-2): QR 화면 직전, 완료하거나 폰이 한 번 연결되면 다시 안 보임(`Preferences.onboardingDone`). QR 화면의 "How to install the extension" 버튼도 이 온보딩을 연다(1단계에 뒤로 버튼). QR 화면 설명 문구는 온보딩 2단계와 같은 키(`onboarding2Body`). 애니메이션은 `widgets/ob*_animation.dart`가 디자인 CSS keyframes(`docs/design/onboarding-animations.md`)를 `kf()`로 옮긴 것), `share_intent`, `voice`(인터페이스만).
+  - `lib/features/`: `auth`, `shell`(하단 탭 Remote·Tabs·More), `connection`(연결 상태, 브라우저 선택), `remote`(리모컨 화면·블록·시트·컨트롤러), `tabs`, `settings`(More, 리모컨 설정 모달), `sites`(Supported sites 화면: 위 Favorites(순서 변경, 별로 해제·Undo), 아래 전체 사이트 A→Z(별로 추가). 즐겨찾기 `users/{uid}.settings.favoriteSites`는 사용자가 바꿨을 때만 저장(없으면 `UserSettings.defaultFavorites`, 예전 `siteOrder`가 있으면 그 순서). 사이트 띠(`SiteStrip`, Nothing Playing·Tabs, 제목 "Favorites")는 즐겨찾기만 그 순서로, 없으면 숨김. 사이트 홈 URL), `purchase`(Pro 화면과 `isPro`), `onboarding`(첫 실행 온보딩(`onboarding_page.dart`, 디자인 OB-0·OB-1·OB-2): Welcome → 1단계 → 2단계, QR 화면 직전, 완료하거나 폰이 한 번 연결되면 다시 안 보임(`Preferences.onboardingDone`). QR 화면의 "How to install the extension" 버튼도 이 온보딩을 연다(Welcome 없이 1단계부터, 1단계에 뒤로 버튼). QR 화면 설명 문구는 온보딩 2단계와 같은 키(`onboarding2Body`). 애니메이션은 `widgets/ob*_animation.dart`(Welcome은 `ob0_animation.dart`, 화면 폭 전체·카드 없음)가 디자인 CSS keyframes(`docs/design/onboarding-animations.md`)를 `kf()`로 옮긴 것), `share_intent`, `voice`(인터페이스만).
 - 명령은 모두 `RemoteController`(`features/remote/controllers/remote_controller.dart`)의 메서드 → `RemoteCommand` → `CommandBus`로 보낸다. CommandBus가 `requestId`·`targetInstanceId`·`schema_version`·`timestamp`를 붙이고 'ack'를 기다린다. 4초 안에 응답이 없으면 상단 스낵바("Browser not responding"), 실패 ack는 스낵바. 스낵바(`AppNotice.snack`)도 모두 화면 위에 띄운다(아래는 리모컨 버튼을 가림).
 - 화면 상태는 `remoteModeProvider` 하나가 계산한다(disconnected · chooseBrowser · waiting · nothing · home · playing). YouTube 종료 화면은 `endScreenModeProvider`. glass 뷰 4개는 `glass_overlays.dart`.
 - 블록은 사이트 이름이 아니라 'target' 이벤트의 capability로 보여줄지 정한다(`remote_page.dart`의 `_PlayingBlocks`).
@@ -82,7 +82,7 @@ Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이�
   - Netflix 프로필 선택 화면은 state `profilePicker`: 앱 D-pad 버튼이 "Select", Categories 숨김.
 - Pro preview(리버스 트라이얼): 앱과 확장이 처음 연결되면(`ConnectionPhase.connected`) 7일 동안 결제 없이 모든 Pro 기능을 연다. 시작은 Cloud Function `pro_preview_start`(App Check 필수)가 한다: `users/{uid}.proPreviewStartedAt`(서버 시각, 클라이언트는 쓸 수 없음)을 기록한다. 맛보기는 폰당 한 번: iOS DeviceCheck bit0 / Android Play Integrity device recall bitFirst(재설치·초기화로 안 지워짐), 그리고 폰 표식(iOS Keychain 임의 값, Android ANDROID_ID) 해시 `proPreviewClaims/{hash}`. 둘 중 하나라도 걸리면 처음 시작 시각을 물려받거나 이미 끝난 맛보기가 된다. OS가 표식을 주지 않는 폰(드문 비정상 Android 등)은 앱이 만든 임의 값(SharedPreferences, 재설치하면 바뀜)으로 연결은 되지만 `markerFallback`으로 알려 맛보기는 처음부터 끝난 상태다(종료 팝업도 띄우지 않음). 앱은 `PhoneIdentity`(`features/pairing/phone_identity.dart`, 네이티브 채널 `tv.zappit/device`)로 표식·토큰을 보낸다. 끝나는 시각은 RTDB `.info/serverTimeOffset`으로 보정한 서버 시각 기준. 처음 시작할 때만 "You're connected!" 다이얼로그. 구독 중이면 시작하지 않는다. 맛보기 중에도 구매는 막지 않고 Pro 화면에 종료 시각을 보여준다. 넛지(이 폰·계정당 한 번, 연결 중·미구독일 때): 마지막 24시간에 상단 알림 "Pro preview ends tomorrow"(탭하면 Pro 화면), 끝나면(연결 여부와 무관) 팝업 "Your Pro preview has ended"(버튼으로만 닫힘, Learn More → Pro 화면, Close). 앱이 꺼져 있었으면 다음에 앱을 열 때(로딩·QR 화면이 지난 뒤). RevenueCat을 한 번 새로 읽어 구독자에게는 띄우지 않는다. 열려 있던 Pro 시트는 닫히고 별도 알림은 없다.
 - 결제는 `features/purchase/purchase_service.dart`. RevenueCat App User ID는 Firebase UID다(시작 시 configure, uid가 바뀌면 `syncUser`). QR 연결로 다른 계정에 합류하면 `syncPurchases`(스토어 로그인 창 없음)로 영수증을 그 계정으로 옮긴다. `restorePurchases`는 사용자가 누르는 Restore 버튼에만. Pro 화면은 디자인 시안대로 직접 만든 화면이고 현재 offering의 연간 패키지(`yearly`)를 판다. Pro 사용자의 구독 관리는 RevenueCat Customer Center.
-- 다크 테마만 지원한다. 다국어는 나중에(지금은 영어만).
+- 다크 테마만 지원한다. 다국어는 영어 포함 22개 언어(웹과 같은 목록: ar cs de es fr hi hu id it ja ko pl pt(브라질) ro ru th tr uk vi zh_Hans zh_Hant).
 - 상태 관리는 Riverpod 3 + `riverpod_generator`. 전역 접근이 필요한 것(`S` 로컬라이제이션, `Logger`)만 GetIt(`core/services/service_locator.dart`의 `getIt`)에 등록한다. 컨텍스트 없이 문자열이 필요하면 `getIt<S>()`. Riverpod 3에는 StreamProvider의 `.stream`이 없으므로, 모든 이벤트가 필요하면 `ChannelEventBus`처럼 스트림을 객체로 감싸 제공한다.
 - import는 barrel 파일을 쓴다: `core/barrel_files/riverpod_core.dart`, `ui_core.dart`, `localization.dart`, `logging.dart`.
 - 시작 흐름: `main.dart`에서 Firebase 초기화 → `registerSingletons()` → `SharedPreferences` override → `initializerProvider`(Remote Config + Ably 초기화) 동안 `LoadingPage` → `_AppServices`(공유 링크 수신, PostHog identify, Voice Control 시작/중지).
@@ -191,16 +191,7 @@ https://app.notion.com/p/Dev-Strategies-3eb30e346279803992f7fe674ffc93d3?source=
 
 - Contact us : 이메일 클라이언트를 띄운다. sssurf와 동일. 이메일 주소는 Remote Config에서 받아온다. Key = support_email_address
 
-- Tell a friend : 아래 코드 이용해서 텍스트 공유
-onelink 공유 URL : https://onelink.to/ngsjzu
-
-<code>
-	"shareContent": "Control your computer's video without leaving your bed."
-
-	final text = "Zappit\n${getIt<S>().shareContent}\n\n${Constant.shareAppUrl}";
-
-	SharePlus.instance.share...
-</code>
+- Tell a friend : 온보딩 1단계 "Send install link"와 같다. `getExtensionUrl`(`https://zappit.tv/get`) 링크만 공유한다(`ShareParams(uri:)`, 미리보기는 그 페이지의 OG 태그). 받은 사람이 폰에서 열면 그 폰의 앱 스토어로, 컴퓨터에서 열면 확장 스토어로 간다.
 
 - Rate Zappit : 아래 코드처럼 리뷰페이지 여는 함수 호출, appStoreId = 6823437118
 <code>
@@ -217,10 +208,10 @@ const termsOfServiceUrl = 'https://zappit.tv/terms';
 const privacyPolicyUrl = 'https://zappit.tv/privacy';
 
 랜딩·가이드(`/guide`, 옛 `/tutorial`)·FAQ(`/faq`, 옛 `/qna`)·`/get`은 구현했다. 앱 웹뷰는 `?embed=1`을 붙인다(사이트 헤더·푸터 숨김). 아래 나머지는 아직 404. 개발 중 웹 URL이 필요하면 아래 가상 URL을 쓰고, 나중에 웹을 구현할 때 이 경로 그대로 만든다. 새 URL을 만들면 이 목록에 추가한다.
-- `https://zappit.tv/get`: 설치 안내(온보딩, 구현됨). 확장(컴퓨터)과 앱(폰)을 카드 두 개로 나눠 보여 준다. Chrome·Safari(Mac)는 스토어 주소가 있으면 그 스토어로 바로 보내고(`zappit_web/src/lib/stores.ts`, 아직 비어 있어 출시일 표시), Edge·Firefox 등은 "지금은 Chrome·Safari" 안내, 폰은 "컴퓨터에서 zappit.tv/get을 여세요"와 앱 다운로드(OneLink)
+- `https://zappit.tv/get`: 설치 안내(온보딩, 구현됨). 확장(컴퓨터)과 앱(폰)을 카드 두 개로 나눠 보여 준다. Chrome·Safari(Mac)는 스토어 주소가 있으면 그 스토어로 바로 보내고(`zappit_web/src/lib/stores.ts`, 아직 비어 있어 출시일 표시), Edge·Firefox 등은 "지금은 Chrome·Safari" 안내, 폰은 User-Agent로 iOS(iPhone·iPad)는 App Store, Android는 Google Play로 바로 보낸다(`location.replace`). 판별이 안 되는 폰만 페이지에 남아 "컴퓨터에서 zappit.tv/get을 여세요"와 앱 다운로드 버튼(zappit.tv 메인으로). OneLink는 쓰지 않는다
 - `https://zappit.tv/voice-control`: Voice Control 사용법 웹뷰
 - `https://zappit.tv/faq?embed=1#<id>`: FAQ 항목을 펼치고 그 위치로 스크롤. `#sound-blocked`는 FAQ 중 "소리가 안 나는 이유"(Chrome 자동 재생 정책) 항목. 앱의 `sound_blocked` 상단 스낵바를 탭하면 웹뷰로 연다
-- `https://zappit.tv/p/<코드>`: 확장 QR 연결 링크. 앱이 있으면 앱이 열리고(`.well-known/apple-app-site-association`, `assetlinks.json`), 없으면 Render가 OneLink로 보낸다
+- `https://zappit.tv/p/<코드>`: 확장 QR 연결 링크. 앱이 있으면 앱이 열리고(`.well-known/apple-app-site-association`, `assetlinks.json`), 없으면 Render가 `/get`으로 보낸다(그 폰의 스토어로 이어짐, `zappit_web/render.yaml`)
 
 
 ## Keys

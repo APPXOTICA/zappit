@@ -101,15 +101,43 @@ class VideoCardView extends StatelessWidget {
   }
 }
 
-/// YouTube / Netflix home: the focused card and a d-pad. Left / right run full
-/// height, up / down split the middle; Play below.
-class HomePadView extends ConsumerWidget {
-  const HomePadView({super.key});
+/// YouTube / Netflix home, top: the focused card. [HomePadControls] sits
+/// at the bottom, at the same distance from the tab bar as the other remotes.
+class HomePadCard extends ConsumerWidget {
+  const HomePadCard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final card = ref.watch(siteStateControllerProvider.select((s) => s.focusCard));
     final noCards = ref.watch(siteStateControllerProvider.select((s) => s.noCards));
+    final muted = AppText.body.copyWith(color: context.tokens.inkMuted);
+
+    // Same height with or without a card: the d-pad never jumps. No card
+    // yet: the page is still loading, so the card shimmers.
+    final cardView = VideoCardView(card: card, maxThumbnailHeight: 196, reserveSpace: true);
+
+    // An empty page (no downloads, empty playlist): no card box, just
+    // the message, in the card's space.
+    if (card == null && noCards) {
+      return Stack(
+        alignment: Alignment.center,
+        children: [
+          Visibility(visible: false, maintainSize: true, maintainAnimation: true, maintainState: true, child: cardView),
+          Text(S.of(context).noVideosOnPage, textAlign: TextAlign.center, style: muted),
+        ],
+      );
+    }
+    return cardView;
+  }
+}
+
+/// YouTube / Netflix home, bottom: the d-pad. Left / right run full height,
+/// up / down split the middle; Play below.
+class HomePadControls extends ConsumerWidget {
+  const HomePadControls({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     final profilePicker = ref.watch(siteStateControllerProvider.select((s) => s.profilePicker));
     // Not before a profile is picked: Netflix would ask for one again.
     // Netflix title details pop-up: Episodes (series) and Close instead of Categories.
@@ -117,32 +145,16 @@ class HomePadView extends ConsumerWidget {
     final detailsSeries = detailsOpen && ref.watch(siteStateControllerProvider.select((s) => s.isSeries));
     final hasCategories = !profilePicker && !detailsOpen && ref.watch(targetProvider.select((t) => t?.has(Capability.categories) ?? false));
     final controller = ref.read(remoteControllerProvider);
-    final muted = AppText.body.copyWith(color: context.tokens.inkMuted);
-
-    // Same height with or without a card: the d-pad never jumps. No card
-    // yet: the page is still loading, so the card shimmers.
-    final cardView = VideoCardView(card: card, maxThumbnailHeight: 196, reserveSpace: true);
+    // Tablets: the d-pad as large as the content width allows.
+    final scale = context.isTablet ? 1.5 : 1.0;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // An empty page (no downloads, empty playlist): no card box, just
-        // the message, in the card's space.
-        if (card == null && noCards)
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Visibility(visible: false, maintainSize: true, maintainAnimation: true, maintainState: true, child: cardView),
-              Text(S.of(context).noVideosOnPage, textAlign: TextAlign.center, style: muted),
-            ],
-          )
-        else
-          cardView,
-        const SizedBox(height: AppTokens.space6),
         Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 312),
+            constraints: BoxConstraints(maxWidth: 312 * scale),
             child: Column(
               children: [
                 // Netflix: its genre pages (the site has no list of them).
@@ -150,7 +162,7 @@ class HomePadView extends ConsumerWidget {
                   ZpButton(
                     label: S.of(context).categories,
                     style: ZpButtonStyle.accent,
-                    height: 56,
+                    height: 56 * scale,
                     radius: AppTokens.radiusMd,
                     onPressed: () => showCategoriesSheet(context),
                   ),
@@ -167,10 +179,10 @@ class HomePadView extends ConsumerWidget {
                                 label: S.of(context).episodes,
                                 icon: const Icon(Icons.video_library_rounded),
                                 textStyle: AppText.bodyStrong.copyWith(fontSize: 16),
-                                height: 60,
+                                height: 60 * scale,
                                 onPressed: () => showEpisodesSheet(context, ref),
                               )
-                            : const SizedBox(height: 60),
+                            : SizedBox(height: 60 * scale),
                       ),
                       const SizedBox(width: AppTokens.space2),
                       TopMenuItem(
@@ -183,7 +195,7 @@ class HomePadView extends ConsumerWidget {
                   const SizedBox(height: AppTokens.space3),
                 ],
                 SizedBox(
-                  height: 152,
+                  height: 152 * scale,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -213,7 +225,7 @@ class HomePadView extends ConsumerWidget {
                 ),
                 const SizedBox(height: AppTokens.space3),
                 SizedBox(
-                  height: 60,
+                  height: 60 * scale,
                   width: double.infinity,
                   child: ZpDirButton(label: profilePicker ? S.of(context).select : S.of(context).play, filled: true, onPressed: controller.navSelect),
                 ),

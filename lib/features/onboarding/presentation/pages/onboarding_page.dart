@@ -7,15 +7,17 @@ import 'package:zappit/core/barrel_files/ui_core.dart';
 import 'package:zappit/core/constants/config.dart';
 import 'package:zappit/core/routes/app_routes.dart';
 import 'package:zappit/core/storage/preferences.dart';
+import 'package:zappit/features/onboarding/presentation/widgets/ob0_animation.dart';
 import 'package:zappit/features/onboarding/presentation/widgets/ob1_animation.dart';
 import 'package:zappit/features/onboarding/presentation/widgets/ob2_animation.dart';
 import 'package:zappit/shared/widgets/ds/ds.dart';
 import 'package:zappit/shared/widgets/web_view_page.dart';
 
-/// First run, before the QR screen (design: OB-1, OB-2): 1. add the extension
-/// on the computer, 2. how to scan its QR code. Done → the QR screen; it is
-/// not shown again on its own (also skipped once this phone has been
-/// connected). The QR screen's "How to install" button opens it again.
+/// First run, before the QR screen (design: OB-0, OB-1, OB-2): welcome,
+/// 1. add the extension on the computer, 2. how to scan its QR code. Done →
+/// the QR screen; it is not shown again on its own (also skipped once this
+/// phone has been connected). The QR screen's "How to install" button opens
+/// it again at step 1 (no welcome).
 class OnboardingPage extends ConsumerStatefulWidget {
   const OnboardingPage({super.key});
 
@@ -24,24 +26,31 @@ class OnboardingPage extends ConsumerStatefulWidget {
 }
 
 class _OnboardingPageState extends ConsumerState<OnboardingPage> {
-  static const _steps = 2;
-  int _step = 0;
+  static const _welcome = 0;
+  static const _step1 = 1;
+  static const _step2 = 2;
+
+  /// First page shown: the welcome on first run, step 1 from the QR screen.
+  late final int _start = context.canPop() ? _step1 : _welcome;
+  late int _page = _start;
 
   void _done() {
     ref.read(preferencesProvider).setOnboardingDone();
     context.go(AppRoutes.pair);
   }
 
+  void _back() => setState(() => _page--);
+
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    final first = _step == 0;
+    final first = _page == _start;
 
     return PopScope(
-      // System back on step 2 returns to step 1.
+      // System back goes to the previous page.
       canPop: first,
       onPopInvokedWithResult: (didPop, _) {
-        if (!didPop) setState(() => _step = 0);
+        if (!didPop) _back();
       },
       child: Scaffold(
         backgroundColor: ZpAppIcon.background,
@@ -53,12 +62,16 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                 padding: const EdgeInsets.fromLTRB(AppTokens.space6, AppTokens.space2, AppTokens.space6, AppTokens.space4),
                 child: Column(
                   children: [
-                    _TopBar(
-                      step: _step,
-                      steps: _steps,
-                      // Step 1 has a back button only when opened from the QR screen.
-                      onBack: first ? (context.canPop() ? () => context.pop() : null) : () => setState(() => _step = 0),
-                    ),
+                    if (_page == _welcome)
+                      // No progress on the welcome: the empty row keeps the title where it is on the steps.
+                      const SizedBox(height: 44)
+                    else
+                      _TopBar(
+                        step: _page - 1,
+                        steps: 2,
+                        // Step 1 has a back button only when opened from the QR screen.
+                        onBack: _page == _step2 ? _back : (context.canPop() ? () => context.pop() : null),
+                      ),
                     Expanded(
                       child: AnimatedSwitcher(
                         duration: const Duration(milliseconds: 220),
@@ -67,18 +80,24 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                           children: [...previous, ?current],
                         ),
                         child: KeyedSubtree(
-                          key: ValueKey(_step),
-                          child: SingleChildScrollView(
-                            child: first ? const _Step1() : const _Step2(),
-                          ),
+                          key: ValueKey(_page),
+                          child: switch (_page) {
+                            _welcome => const _Welcome(),
+                            _step1 => const _Centered(child: _Step1()),
+                            _ => const _Centered(child: _Step2()),
+                          },
                         ),
                       ),
                     ),
                     const SizedBox(height: AppTokens.space4),
                     ZpButton(
-                      label: first ? s.onboardingNext : s.onboardingDone,
+                      label: switch (_page) {
+                        _welcome => s.onboardingGetStarted,
+                        _step1 => s.onboardingNext,
+                        _ => s.onboardingOpenQrScanner,
+                      },
                       style: ZpButtonStyle.accent,
-                      onPressed: first ? () => setState(() => _step = 1) : _done,
+                      onPressed: _page == _step2 ? _done : () => setState(() => _page++),
                     ),
                   ],
                 ),
@@ -91,7 +110,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   }
 }
 
-/// Back button (step 2 only), progress segments, "1 / 2".
+/// Back button, progress segments, "1 / 2".
 class _TopBar extends StatelessWidget {
   const _TopBar({required this.step, required this.steps, required this.onBack});
 
@@ -177,7 +196,6 @@ class _Header extends StatelessWidget {
     final t = context.tokens;
     return Column(
       children: [
-        const SizedBox(height: 28),
         Semantics(
           header: true,
           child: Text(
@@ -209,6 +227,132 @@ class _Header extends StatelessWidget {
   }
 }
 
+/// A step's content, centred vertically between the progress bar and the
+/// bottom button (tablets, short text); scrolls when it does not fit.
+class _Centered extends StatelessWidget {
+  const _Centered({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, box) {
+      return SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: box.maxHeight),
+          child: Center(
+            child: Padding(padding: const EdgeInsets.symmetric(vertical: AppTokens.space6), child: child),
+          ),
+        ),
+      );
+    });
+  }
+}
+
+/// Welcome (OB-0): title on balanced lines, the play/pause animation across
+/// the full screen width, centred in the space left above the button.
+class _Welcome extends StatelessWidget {
+  const _Welcome();
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final s = S.of(context);
+    return LayoutBuilder(builder: (context, box) {
+      // The stage reaches past the 24pt side margins to the screen edges.
+      final width = box.maxWidth + 2 * AppTokens.space6;
+      return CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Column(
+              children: [
+                const SizedBox(height: 28),
+                Semantics(
+                  header: true,
+                  child: _BalancedText(
+                    s.onboardingWelcomeTitle,
+                    maxWidth: box.maxWidth,
+                    style: TextStyle(fontSize: 26, height: 32 / 26, fontWeight: FontWeight.w700, letterSpacing: -0.52, color: t.ink),
+                  ),
+                ),
+                const SizedBox(height: AppTokens.space3),
+                Text(
+                  s.onboardingWelcomeBody,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16, height: 24 / 16, color: t.inkMuted),
+                ),
+                const SizedBox(height: AppTokens.space6),
+                Expanded(
+                  child: Center(
+                    child: SizedBox(
+                      height: width * 0.84,
+                      child: OverflowBox(minWidth: width, maxWidth: width, child: const Ob0Animation()),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    });
+  }
+}
+
+/// Centred text whose lines are about the same length (CSS
+/// `text-wrap: balance`): the narrowest width up to [maxWidth] that keeps
+/// the line count. Measured here, not in a LayoutBuilder, so the scroll view
+/// around it can ask for its height.
+class _BalancedText extends StatelessWidget {
+  const _BalancedText(this.text, {required this.style, required this.maxWidth});
+
+  final String text;
+  final TextStyle style;
+  final double maxWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    {
+      // Measured with the same style the Text below resolves to.
+      final painter = TextPainter(
+        text: TextSpan(text: text, style: DefaultTextStyle.of(context).style.merge(style)),
+        textAlign: TextAlign.center,
+        textDirection: Directionality.of(context),
+        textScaler: MediaQuery.textScalerOf(context),
+      );
+      int lines(double w) {
+        painter.layout(maxWidth: w);
+        return painter.computeLineMetrics().length;
+      }
+
+      final max = maxWidth;
+      final count = lines(max);
+      var width = max;
+      if (count > 1) {
+        var lo = 0.0;
+        var hi = max;
+        while (hi - lo > 1) {
+          final mid = (lo + hi) / 2;
+          if (lines(mid) > count) {
+            lo = mid;
+          } else {
+            hi = mid;
+          }
+        }
+        width = hi.ceilToDouble();
+      }
+      painter.dispose();
+      return Center(
+        child: SizedBox(
+          width: width,
+          child: Text(text, textAlign: TextAlign.center, style: style),
+        ),
+      );
+    }
+  }
+}
+
 /// Step 1: open zappit.tv/get on the computer, or send the link there.
 class _Step1 extends StatelessWidget {
   const _Step1();
@@ -232,7 +376,7 @@ class _Step1 extends StatelessWidget {
       children: [
         _Header(title: s.onboarding1Title, body: s.onboarding1Body(_host), bold: _host),
         const Ob1Animation(),
-        const SizedBox(height: 20),
+        const SizedBox(height: 40),
         Builder(
           builder: (context) => ZpButton(
             label: s.onboardingShareLink,
@@ -255,46 +399,21 @@ class _Step2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context.tokens;
     final s = S.of(context);
     return Column(
       children: [
         _Header(title: s.onboarding2Title, body: s.onboarding2Body),
         const Ob2Animation(),
-        const SizedBox(height: 20),
-        // The Chrome / Safari fix lives in the FAQ (web view, rises from the bottom).
+        const SizedBox(height: 40),
+        // Same button as step 1's "Share link". The Chrome / Safari fix lives in
+        // the FAQ (web view, rises from the bottom).
         Semantics(
-          button: true,
           label: s.onboardingIconHelpLabel,
           excludeSemantics: true,
-          child: Material(
-            color: t.surface100,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16), side: BorderSide(color: t.hairline)),
-            clipBehavior: Clip.antiAlias,
-            child: InkWell(
-              highlightColor: t.surface200,
-              onTap: () => context.push(AppRoutes.webView, extra: WebViewArgs(title: s.faq, url: faqEntryUrl('toolbar-icon'))),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(minHeight: 64),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
-                  child: Row(
-                    spacing: AppTokens.space3,
-                    children: [
-                      Container(
-                        width: 36,
-                        height: 36,
-                        decoration: BoxDecoration(color: t.surface200, shape: BoxShape.circle),
-                        child: Icon(Icons.extension, size: 20, color: t.inkMuted),
-                      ),
-                      Expanded(
-                        child: Text(s.onboardingIconHelp, style: TextStyle(fontSize: 15, height: 20 / 15, fontWeight: FontWeight.w500, color: t.ink)),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+          child: ZpButton(
+            label: s.onboardingIconHelp,
+            icon: const Icon(Icons.extension),
+            onPressed: () => context.push(AppRoutes.webView, extra: WebViewArgs(title: s.faq, url: faqEntryUrl('toolbar-icon'))),
           ),
         ),
       ],

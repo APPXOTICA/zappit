@@ -55,7 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m15(time) => "New code in ${time}";
 
   static String m16(url) =>
-      "Open ${url} in your computer\'s browser to install the free extension.";
+      "Open ${url} in your computer\'s browser to install the Zappit extension.";
 
   static String m17(current, total) => "${current} / ${total}";
 
@@ -419,12 +419,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "offlineMessage": MessageLookupByLibrary.simpleMessage(
       "Check your internet connection. Zappit reconnects on its own.",
     ),
+    "onboarding0AnimLabel": MessageLookupByLibrary.simpleMessage(
+      "Tapping the play/pause button in the Zappit app pauses and resumes the video on the laptop",
+    ),
     "onboarding1AnimLabel": MessageLookupByLibrary.simpleMessage(
       "Typing zappit.tv/get in the browser and adding the Zappit extension",
     ),
     "onboarding1Body": m16,
     "onboarding1Title": MessageLookupByLibrary.simpleMessage(
-      "First, add Zappit to your browser",
+      "First, add the Zappit extension to your browser",
     ),
     "onboarding2AnimLabel": MessageLookupByLibrary.simpleMessage(
       "Click the Zappit icon in the browser, then scan the QR code with the phone",
@@ -435,7 +438,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboarding2Title": MessageLookupByLibrary.simpleMessage(
       "Scan the QR code",
     ),
-    "onboardingDone": MessageLookupByLibrary.simpleMessage("Done"),
+    "onboardingGetStarted": MessageLookupByLibrary.simpleMessage("Get started"),
     "onboardingIconHelp": MessageLookupByLibrary.simpleMessage(
       "Don\'t see the Zappit icon?",
     ),
@@ -443,9 +446,20 @@ class MessageLookup extends MessageLookupByLibrary {
       "Don\'t see the Zappit icon? Opens the answer in the FAQ",
     ),
     "onboardingNext": MessageLookupByLibrary.simpleMessage("Next"),
-    "onboardingShareLink": MessageLookupByLibrary.simpleMessage("Share link"),
+    "onboardingOpenQrScanner": MessageLookupByLibrary.simpleMessage(
+      "Open QR scanner",
+    ),
+    "onboardingShareLink": MessageLookupByLibrary.simpleMessage(
+      "Send install link",
+    ),
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
+    "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
+      "Control any video on your computer. Setup takes just two quick steps.",
+    ),
+    "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
+      "Your phone is now your remote",
+    ),
     "openALink": MessageLookupByLibrary.simpleMessage("Open a link"),
     "openBrowserForTabs": MessageLookupByLibrary.simpleMessage(
       "Open your browser with the Zappit extension to see its tabs.",
@@ -472,10 +486,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "How to install the extension",
     ),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "This computer already has 3 phones connected. To connect this phone, open Zappit on a phone you don\'t use and tap Disconnect this phone in More. If you no longer have that phone, use Reset in the Zappit extension on the computer.",
+      "This computer already has 3 phones connected. Open Zappit on one of your other connected phones and tap \'Disconnect this phone\' in \'More\'. If you no longer have that phone, use \'Reset\' in the Zappit extension on your computer.",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage(
-      "Connect to your computer",
+      "Connect to the browser extension",
     ),
     "paste": MessageLookupByLibrary.simpleMessage("Paste"),
     "pasteALink": MessageLookupByLibrary.simpleMessage("Paste a link"),
@@ -615,9 +629,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "send": MessageLookupByLibrary.simpleMessage("Send"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
-    "shareContent": MessageLookupByLibrary.simpleMessage(
-      "Control your computer\'s video without leaving your bed.",
-    ),
     "showChat": MessageLookupByLibrary.simpleMessage("Show chat"),
     "shuffleOff": MessageLookupByLibrary.simpleMessage("Shuffle off"),
     "shuffleOffNotice": MessageLookupByLibrary.simpleMessage("Shuffle off"),

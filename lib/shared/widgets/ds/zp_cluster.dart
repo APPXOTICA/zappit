@@ -10,17 +10,23 @@ class ZpCluster extends StatelessWidget {
     required this.child,
     this.padding = const EdgeInsets.all(AppTokens.space4),
     this.radius = AppTokens.radiusMd,
+    this.growOnTablet = false,
   });
 
   final Widget child;
   final EdgeInsetsGeometry padding;
   final double radius;
 
+  /// Remote blocks: taller on tablets, to fill the larger screen.
+  final bool growOnTablet;
+
+  static const tabletExtra = 8.0;
+
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
     return Container(
-      padding: padding,
+      padding: growOnTablet && context.isTablet ? padding.add(const EdgeInsets.symmetric(vertical: tabletExtra)) : padding,
       decoration: BoxDecoration(
         color: t.surface100,
         borderRadius: BorderRadius.circular(radius),

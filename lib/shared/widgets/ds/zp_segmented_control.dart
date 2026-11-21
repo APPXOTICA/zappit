@@ -32,6 +32,7 @@ class ZpSegmentedControl<T> extends StatelessWidget {
     required this.onChanged,
     this.radius = AppTokens.radiusMd,
     this.segmentRadius = AppTokens.radiusSm,
+    this.height = AppTokens.targetMin,
   });
 
   final List<ZpSegment<T>> segments;
@@ -40,6 +41,9 @@ class ZpSegmentedControl<T> extends StatelessWidget {
   final double radius;
   final double segmentRadius;
 
+  /// Height of one segment.
+  final double height;
+
   static const _duration = Duration(milliseconds: 200);
 
   @override
@@ -47,7 +51,6 @@ class ZpSegmentedControl<T> extends StatelessWidget {
     final t = context.tokens;
     final hasCaption = segments.any((s) => s.caption != null);
     const pad = 4.0;
-    const height = AppTokens.targetMin;
     final outerHeight = height + pad * 2 + (hasCaption ? 13 : 0);
 
     return AnimatedContainer(

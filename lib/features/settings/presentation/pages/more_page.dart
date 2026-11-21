@@ -125,11 +125,13 @@ class MorePage extends ConsumerWidget {
     }
   }
 
+  /// Same as onboarding's "Send install link": the zappit.tv/get link alone
+  /// (its page preview introduces Zappit; on a phone it offers the app, on a
+  /// computer the extension).
   Future<void> _tellAFriend(BuildContext context) async {
-    final text = '${Strings.appTitle}\n${getIt<S>().shareContent}\n\n$shareAppUrl';
     final box = context.findRenderObject() as RenderBox?;
     await SharePlus.instance.share(ShareParams(
-      text: text,
+      uri: Uri.parse(getExtensionUrl),
       sharePositionOrigin: box == null ? null : box.localToGlobal(Offset.zero) & box.size,
     ));
   }

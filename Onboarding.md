@@ -5,10 +5,16 @@
 `docs/design/onboarding-animations.md`와 `screens/onboarding-frames/`를 기준으로 온보딩 애니메이션을 구현하고, `docs/design/web/HANDOFF.md`의 FAQ 절도 다시 읽어.
 
 ### 1. Onboarding 구현 (모바일 앱 네이티브)
-- **디자인:** `docs/design/boards/OB-1.dc.html`, `OB-2.dc.html`, 정지 화면 `docs/design/screens/45-OB-1.png`, `46-OB-2.png`. 화면 설명은 `docs/design/HANDOFF.md`의 "화면 목록 → 온보딩"에 있다.
-- **노출 조건:** 현재 앱을 처음 실행하면 바로 QR 스캔 화면이 나오는데, 최초 실행 시(온보딩 미완료 상태) QR 스캔 화면 직전에 2단계 온보딩 화면을 먼저 보여줘. (온보딩 완료 후에는 기존처럼 바로 QR 스캔 화면으로 진입)
-- **공통 레이아웃:** 배경 `#01020A`(QR 스캔 화면과 같음), 위쪽 줄에 2칸 진행 막대와 `1 / 2`, `2 / 2` 표시, 가운데 정렬 제목(26pt)과 설명(16pt), 그 아래 애니메이션 무대(콘텐츠 폭, 16:10), 맨 아래 accent 주 버튼(높이 56pt, pill).
-- **애니메이션:** 두 화면 모두 7초 무한 반복. 시점별 동작, 단위 환산(`cqw` = 무대 폭의 1%), keyframes 값은 `docs/design/onboarding-animations.md`, 프레임별 모습은 `docs/design/screens/onboarding-frames/`(5%마다 20장씩)와 `screens/47-OB-1-anim-frames.png`, `48-OB-2-anim-frames.png`를 기준으로 맞춘다.
+- **디자인:** `docs/design/boards/OB-0.dc.html`, `OB-1.dc.html`, `OB-2.dc.html`, 정지 화면 `docs/design/screens/49-OB-0.png`, `45-OB-1.png`, `46-OB-2.png`. 화면 설명은 `docs/design/HANDOFF.md`의 "화면 목록 → 온보딩"에 있다.
+- **노출 조건:** 현재 앱을 처음 실행하면 바로 QR 스캔 화면이 나오는데, 최초 실행 시(온보딩 미완료 상태) QR 스캔 화면 직전에 온보딩을 먼저 보여줘. 흐름: `Welcome` → (`Get started`) → `Step 1 (1 / 2)` → (`Next`) → `Step 2 (2 / 2)` → (`Done`) → QR 스캔 화면. (온보딩 완료 후에는 기존처럼 바로 QR 스캔 화면으로 진입)
+- **공통 레이아웃:** 배경 `#01020A`(QR 스캔 화면과 같음), 위쪽 줄에 2칸 진행 막대와 `1 / 2`, `2 / 2` 표시(Step 1, Step 2만. Welcome에는 없다), 가운데 정렬 제목(26pt)과 설명(16pt), 그 아래 애니메이션 무대(콘텐츠 폭, 16:10), 맨 아래 accent 주 버튼(높이 56pt, pill).
+- **애니메이션:** 세 화면 모두 7초 무한 반복. 시점별 동작, 단위 환산(`cqw` = 무대 폭의 1%), keyframes 값은 `docs/design/onboarding-animations.md`, 프레임별 모습은 `docs/design/screens/onboarding-frames/`(5%마다 20장씩)와 `screens/50-OB-0-anim-frames.png`, `47-OB-1-anim-frames.png`, `48-OB-2-anim-frames.png`를 기준으로 맞춘다.
+- **Welcome (Step 1 직전):**
+  - 위쪽 진행 막대와 `1 / 2` 표시 없음. 위쪽 44pt는 빈 줄로 두어 제목 높이를 Step 1·2와 맞춘다.
+  - 제목: `Your phone is now your remote` (두 줄로 고르게: "Your phone is / now your remote")
+  - 설명: `Control any video on your computer. Setup takes just two quick steps.`
+  - 애니메이션: 폰 리모컨의 재생/일시정지 버튼을 탭하면 노트북 영상이 멈췄다가 다시 재생되는 7초 반복. 무대는 화면 폭 전체(390pt, 비율 1:0.84)를 쓰고 배경 카드가 없다. 위아래 남는 공간의 가운데에 놓는다. 시점별 동작과 값은 `onboarding-animations.md`의 OB-0 절(`gw-*`).
+  - 하단 버튼: `Get started` (탭하면 Step 1로 이동)
 - **Step 1 (브라우저 익스텐션 설치 안내):**
   - 제목: `First, add Zappit to your browser`
   - 설명: `Open this link in Chrome or Safari on your computer to install the free extension.` (이미 앱을 설치한 상태이므로 앱 설치 안내는 제외)

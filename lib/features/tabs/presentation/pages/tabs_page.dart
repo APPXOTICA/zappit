@@ -159,7 +159,7 @@ class _TabList extends ConsumerWidget {
 
     final windows = snapshot.byWindow.entries.toList();
     return ListView(
-      padding: const EdgeInsets.fromLTRB(AppTokens.space4, AppTokens.space6, AppTokens.space4, AppTokens.space6),
+      padding: EdgeInsets.fromLTRB(AppTokens.space4, AppTokens.space6, AppTokens.space4, context.isTablet ? AppTokens.tabBarGapTablet : AppTokens.space6),
       children: [
         for (var w = 0; w < windows.length; w++) ...[
           if (w > 0) const SizedBox(height: AppTokens.space6),

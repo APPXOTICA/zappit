@@ -83,6 +83,9 @@ class AppTokens extends ThemeExtension<AppTokens> {
   /// Tablet content width.
   static const double contentMaxWidth = 600;
 
+  /// Tablets: space between the last block of a tab and the tab bar.
+  static const double tabBarGapTablet = 32;
+
   static const dark = AppTokens(
     bgBase: Color(0xFF0D0D11),
     bgRaised: Color(0xFF121216),

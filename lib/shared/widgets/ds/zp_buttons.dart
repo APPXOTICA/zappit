@@ -145,7 +145,7 @@ class ZpDirButton extends StatelessWidget {
                 label!,
                 style: AppText.bodyStrong.copyWith(letterSpacing: 0.6, color: t.ink),
               )
-            : Icon(icon, size: 30, color: onPressed == null ? t.inkDisabled : t.ink),
+            : Icon(icon, size: context.isTablet ? 40 : 30, color: onPressed == null ? t.inkDisabled : t.ink),
       ),
     );
   }

@@ -46,12 +46,22 @@ abstract final class ObColors {
 
 /// The 16:10 stage running one 7-second loop. [builder] gets the loop
 /// position `p` (0–100) and `cq`. With reduce motion on, the loop stops at
-/// [stillAt], a frame that shows the result.
+/// [stillAt], a frame that shows the result. Unframed (welcome, `.gw`): no
+/// card, nothing clipped.
 class ObStage extends StatefulWidget {
-  const ObStage({super.key, required this.label, required this.stillAt, required this.builder});
+  const ObStage({
+    super.key,
+    required this.label,
+    required this.stillAt,
+    required this.builder,
+    this.aspectRatio = 16 / 10,
+    this.framed = true,
+  });
 
   final String label;
   final double stillAt;
+  final double aspectRatio;
+  final bool framed;
   final Widget Function(BuildContext context, double p, double cq) builder;
 
   @override
@@ -80,37 +90,37 @@ class _ObStageState extends State<ObStage> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final still = MediaQuery.disableAnimationsOf(context);
+    // A picture: the system text size does not change it.
+    final picture = MediaQuery.withNoTextScaling(
+      child: RepaintBoundary(
+        child: LayoutBuilder(builder: (context, box) {
+          final cq = box.maxWidth / 100;
+          return AnimatedBuilder(
+            animation: _loop,
+            builder: (context, _) => widget.builder(context, still ? widget.stillAt : _loop.value * 100, cq),
+          );
+        }),
+      ),
+    );
     return Semantics(
       image: true,
       label: widget.label,
       excludeSemantics: true,
       child: AspectRatio(
-        aspectRatio: 16 / 10,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: ObColors.stage,
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: ObColors.hairline),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(1),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(23),
-              // A picture: the system text size does not change it.
-              child: MediaQuery.withNoTextScaling(
-                child: RepaintBoundary(
-                  child: LayoutBuilder(builder: (context, box) {
-                    final cq = box.maxWidth / 100;
-                    return AnimatedBuilder(
-                      animation: _loop,
-                      builder: (context, _) => widget.builder(context, still ? widget.stillAt : _loop.value * 100, cq),
-                    );
-                  }),
+        aspectRatio: widget.aspectRatio,
+        child: widget.framed
+            ? DecoratedBox(
+                decoration: BoxDecoration(
+                  color: ObColors.stage,
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: ObColors.hairline),
                 ),
-              ),
-            ),
-          ),
-        ),
+                child: Padding(
+                  padding: const EdgeInsets.all(1),
+                  child: ClipRRect(borderRadius: BorderRadius.circular(23), child: picture),
+                ),
+              )
+            : picture,
       ),
     );
   }

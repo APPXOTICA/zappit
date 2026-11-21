@@ -135,16 +135,6 @@ class S {
     );
   }
 
-  /// `Control your computer's video without leaving your bed.`
-  String get shareContent {
-    return Intl.message(
-      'Control your computer\'s video without leaving your bed.',
-      name: 'shareContent',
-      desc: 'Text shared by Tell a friend, between the app name and the store link.',
-      args: [],
-    );
-  }
-
   /// `Browser not responding`
   String get browserNotResponding {
     return Intl.message(
@@ -3090,10 +3080,10 @@ class S {
     );
   }
 
-  /// `Connect to your computer`
+  /// `Connect to the browser extension`
   String get pairTitle {
     return Intl.message(
-      'Connect to your computer',
+      'Connect to the browser extension',
       name: 'pairTitle',
       desc: 'QR pairing screen title (first screen of the app until a computer is connected).',
       args: [],
@@ -3160,10 +3150,10 @@ class S {
     );
   }
 
-  /// `This computer already has 3 phones connected. To connect this phone, open Zappit on a phone you don't use and tap Disconnect this phone in More. If you no longer have that phone, use Reset in the Zappit extension on the computer.`
+  /// `This computer already has 3 phones connected. Open Zappit on one of your other connected phones and tap 'Disconnect this phone' in 'More'. If you no longer have that phone, use 'Reset' in the Zappit extension on your computer.`
   String get pairPhoneLimit {
     return Intl.message(
-      'This computer already has 3 phones connected. To connect this phone, open Zappit on a phone you don\'t use and tap Disconnect this phone in More. If you no longer have that phone, use Reset in the Zappit extension on the computer.',
+      'This computer already has 3 phones connected. Open Zappit on one of your other connected phones and tap \'Disconnect this phone\' in \'More\'. If you no longer have that phone, use \'Reset\' in the Zappit extension on your computer.',
       name: 'pairPhoneLimit',
       desc: 'Top notice: the account already has the maximum number of phones.',
       args: [],
@@ -3320,40 +3310,40 @@ class S {
     );
   }
 
-  /// `Done`
-  String get onboardingDone {
+  /// `Open QR scanner`
+  String get onboardingOpenQrScanner {
     return Intl.message(
-      'Done',
-      name: 'onboardingDone',
-      desc: 'Onboarding step 2: button that finishes onboarding and opens the QR scanner.',
+      'Open QR scanner',
+      name: 'onboardingOpenQrScanner',
+      desc: 'Onboarding step 2: bottom button; finishes onboarding and opens the QR scanner.',
       args: [],
     );
   }
 
-  /// `First, add Zappit to your browser`
+  /// `First, add the Zappit extension to your browser`
   String get onboarding1Title {
     return Intl.message(
-      'First, add Zappit to your browser',
+      'First, add the Zappit extension to your browser',
       name: 'onboarding1Title',
       desc: 'Onboarding step 1 title.',
       args: [],
     );
   }
 
-  /// `Open {url} in your computer's browser to install the free extension.`
+  /// `Open {url} in your computer's browser to install the Zappit extension.`
   String onboarding1Body(String url) {
     return Intl.message(
-      'Open $url in your computer\'s browser to install the free extension.',
+      'Open $url in your computer\'s browser to install the Zappit extension.',
       name: 'onboarding1Body',
       desc: 'Onboarding step 1 text. {url} is shown in bold.',
       args: [url],
     );
   }
 
-  /// `Share link`
+  /// `Send install link`
   String get onboardingShareLink {
     return Intl.message(
-      'Share link',
+      'Send install link',
       name: 'onboardingShareLink',
       desc: 'Onboarding step 1: button that opens the share sheet with the extension link.',
       args: [],
@@ -3510,13 +3500,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Your phone is now your remote`
+  String get onboardingWelcomeTitle {
+    return Intl.message(
+      'Your phone is now your remote',
+      name: 'onboardingWelcomeTitle',
+      desc: 'Onboarding welcome screen (before step 1): title. Shown on two balanced lines.',
+      args: [],
+    );
+  }
+
+  /// `Control any video on your computer. Setup takes just two quick steps.`
+  String get onboardingWelcomeBody {
+    return Intl.message(
+      'Control any video on your computer. Setup takes just two quick steps.',
+      name: 'onboardingWelcomeBody',
+      desc: 'Onboarding welcome screen: text under the title.',
+      args: [],
+    );
+  }
+
+  /// `Get started`
+  String get onboardingGetStarted {
+    return Intl.message(
+      'Get started',
+      name: 'onboardingGetStarted',
+      desc: 'Onboarding welcome screen: bottom button; goes to step 1.',
+      args: [],
+    );
+  }
+
+  /// `Tapping the play/pause button in the Zappit app pauses and resumes the video on the laptop`
+  String get onboarding0AnimLabel {
+    return Intl.message(
+      'Tapping the play/pause button in the Zappit app pauses and resumes the video on the laptop',
+      name: 'onboarding0AnimLabel',
+      desc: 'Onboarding welcome screen: accessibility label of the animation.',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   const AppLocalizationDelegate();
 
   List<Locale> get supportedLocales {
-    return const <Locale>[Locale.fromSubtags(languageCode: 'en')];
+    return const <Locale>[
+      Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'ar'),
+      Locale.fromSubtags(languageCode: 'cs'),
+      Locale.fromSubtags(languageCode: 'de'),
+      Locale.fromSubtags(languageCode: 'es'),
+      Locale.fromSubtags(languageCode: 'fr'),
+      Locale.fromSubtags(languageCode: 'hi'),
+      Locale.fromSubtags(languageCode: 'hu'),
+      Locale.fromSubtags(languageCode: 'id'),
+      Locale.fromSubtags(languageCode: 'it'),
+      Locale.fromSubtags(languageCode: 'ja'),
+      Locale.fromSubtags(languageCode: 'ko'),
+      Locale.fromSubtags(languageCode: 'pl'),
+      Locale.fromSubtags(languageCode: 'pt'),
+      Locale.fromSubtags(languageCode: 'ro'),
+      Locale.fromSubtags(languageCode: 'ru'),
+      Locale.fromSubtags(languageCode: 'th'),
+      Locale.fromSubtags(languageCode: 'tr'),
+      Locale.fromSubtags(languageCode: 'uk'),
+      Locale.fromSubtags(languageCode: 'vi'),
+      Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+      Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
+    ];
   }
 
   @override

@@ -51,7 +51,7 @@ class _PairPageState extends ConsumerState<PairPage> {
                     icon: const Icon(Icons.extension_rounded),
                     onPressed: () => context.push(AppRoutes.onboarding),
                   ),
-                  const SizedBox(height: AppTokens.space4),
+                  const SizedBox(height: AppTokens.space6),
                   Text.rich(
                     textAlign: TextAlign.center,
                     TextSpan(
@@ -63,6 +63,7 @@ class _PairPageState extends ConsumerState<PairPage> {
                       ],
                     ),
                   ),
+                  const SizedBox(height: AppTokens.space2),
                 ],
               ),
             ),

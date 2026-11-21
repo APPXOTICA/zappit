@@ -15,7 +15,6 @@ String faqEntryUrl(String id) => '$faqUrl#$id';
 final soundBlockedHelpUrl = faqEntryUrl('sound-blocked');
 
 // Sharing and store
-const shareAppUrl = 'https://onelink.to/ngsjzu';
 const appStoreId = '6823437118';
 
 // Analytics

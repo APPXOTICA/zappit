@@ -31,10 +31,6 @@
   "@somethingWrongTryAgain": {
     "description": "Shown when error occurred."
   },
-  "shareContent": "Control your computer's video without leaving your bed.",
-  "@shareContent": {
-    "description": "Text shared by Tell a friend, between the app name and the store link."
-  },
   "browserNotResponding": "Browser not responding",
   "@browserNotResponding": {
     "description": "Top notice title: a command got no answer from the browser."
@@ -1439,7 +1435,7 @@
       }
     }
   },
-  "pairTitle": "Connect to your computer",
+  "pairTitle": "Connect to the browser extension",
   "@pairTitle": {
     "description": "QR pairing screen title (first screen of the app until a computer is connected)."
   },
@@ -1467,7 +1463,7 @@
   "@pairCodeInvalid": {
     "description": "Top notice: the scanned QR code is unknown (e.g. replaced by a newer one)."
   },
-  "pairPhoneLimit": "This computer already has 3 phones connected. To connect this phone, open Zappit on a phone you don't use and tap Disconnect this phone in More. If you no longer have that phone, use Reset in the Zappit extension on the computer.",
+  "pairPhoneLimit": "This computer already has 3 phones connected. Open Zappit on one of your other connected phones and tap 'Disconnect this phone' in 'More'. If you no longer have that phone, use 'Reset' in the Zappit extension on your computer.",
   "@pairPhoneLimit": {
     "description": "Top notice: the account already has the maximum number of phones."
   },
@@ -1563,15 +1559,15 @@
   "@onboardingNext": {
     "description": "Onboarding step 1: button to the next step."
   },
-  "onboardingDone": "Done",
-  "@onboardingDone": {
-    "description": "Onboarding step 2: button that finishes onboarding and opens the QR scanner."
+  "onboardingOpenQrScanner": "Open QR scanner",
+  "@onboardingOpenQrScanner": {
+    "description": "Onboarding step 2: bottom button; finishes onboarding and opens the QR scanner."
   },
-  "onboarding1Title": "First, add Zappit to your browser",
+  "onboarding1Title": "First, add the Zappit extension to your browser",
   "@onboarding1Title": {
     "description": "Onboarding step 1 title."
   },
-  "onboarding1Body": "Open {url} in your computer's browser to install the free extension.",
+  "onboarding1Body": "Open {url} in your computer's browser to install the Zappit extension.",
   "@onboarding1Body": {
     "description": "Onboarding step 1 text. {url} is shown in bold.",
     "placeholders": {
@@ -1581,7 +1577,7 @@
       }
     }
   },
-  "onboardingShareLink": "Share link",
+  "onboardingShareLink": "Send install link",
   "@onboardingShareLink": {
     "description": "Onboarding step 1: button that opens the share sheet with the extension link."
   },
@@ -1650,5 +1646,21 @@
   "onboardingIconHelpLabel": "Don't see the Zappit icon? Opens the answer in the FAQ",
   "@onboardingIconHelpLabel": {
     "description": "Onboarding step 2: accessibility label of the help row."
+  },
+  "onboardingWelcomeTitle": "Your phone is now your remote",
+  "@onboardingWelcomeTitle": {
+    "description": "Onboarding welcome screen (before step 1): title. Shown on two balanced lines."
+  },
+  "onboardingWelcomeBody": "Control any video on your computer. Setup takes just two quick steps.",
+  "@onboardingWelcomeBody": {
+    "description": "Onboarding welcome screen: text under the title."
+  },
+  "onboardingGetStarted": "Get started",
+  "@onboardingGetStarted": {
+    "description": "Onboarding welcome screen: bottom button; goes to step 1."
+  },
+  "onboarding0AnimLabel": "Tapping the play/pause button in the Zappit app pauses and resumes the video on the laptop",
+  "@onboarding0AnimLabel": {
+    "description": "Onboarding welcome screen: accessibility label of the animation."
   }
 }

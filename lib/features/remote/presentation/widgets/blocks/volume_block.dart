@@ -75,6 +75,7 @@ class _VolumeBlockState extends ConsumerState<VolumeBlock> {
     final isPhoto = view.isPhoto;
 
     final cluster = ZpCluster(
+      growOnTablet: true,
       padding: const EdgeInsets.fromLTRB(AppTokens.space4, 4, AppTokens.space4, 6),
       child: Row(
         children: [

@@ -82,6 +82,7 @@ class _SpeedBlockState extends ConsumerState<SpeedBlock> {
     final control = ZpSegmentedControl<double>(
       segments: segments,
       selected: selected,
+      height: context.isTablet ? AppTokens.targetMin + ZpCluster.tabletExtra * 2 : AppTokens.targetMin,
       onChanged: hasData && !isPhoto
           ? (value) {
               if (value == selected && PlaybackMath.matchingPreset(value) == null) return;

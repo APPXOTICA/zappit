@@ -51,6 +51,7 @@ class PlaybackBlock extends ConsumerWidget {
     final forwardIcon = 'assets/images/backward_${seekInterval}s.png';
 
     return ZpCluster(
+      growOnTablet: true,
       padding: const EdgeInsets.fromLTRB(AppTokens.space4, 6, AppTokens.space4, 12),
       child: Column(
         mainAxisSize: MainAxisSize.min,

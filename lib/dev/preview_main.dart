@@ -13,6 +13,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zappit/shared/l10n/app_locale.dart';
 import 'package:zappit/core/barrel_files/riverpod_core.dart';
 import 'package:zappit/core/firebase/browser_tabs_repository.dart';
 import 'package:zappit/core/firebase/session_repository.dart';
@@ -254,6 +255,7 @@ Future<void> main() async {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
+      localeListResolutionCallback: resolveAppLocale,
     ),
   ));
 }

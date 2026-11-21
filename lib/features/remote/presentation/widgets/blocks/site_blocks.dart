@@ -59,6 +59,7 @@ class CaptionsBlock extends ConsumerWidget {
     final size = subtitle.sizePercent;
 
     return ZpCluster(
+      growOnTablet: true,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       child: Row(
         children: [

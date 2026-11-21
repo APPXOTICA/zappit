@@ -33,6 +33,7 @@ class RemotePage extends ConsumerWidget {
     final tablet = context.isTablet;
     final side = tablet ? AppTokens.space8 : AppTokens.space4;
     final nothing = ref.watch(remoteModeProvider.select((m) => m == RemoteMode.nothing));
+    final bottomGap = tablet ? AppTokens.tabBarGapTablet : AppTokens.space2;
 
     return Scaffold(
       backgroundColor: t.bgBase,
@@ -66,9 +67,11 @@ class RemotePage extends ConsumerWidget {
                               )
                             : SingleChildScrollView(
                                 reverse: true,
-                                padding: EdgeInsets.fromLTRB(side, AppTokens.space2, side, AppTokens.space2),
+                                // Tablets: more room above the tab bar.
+                                padding: EdgeInsets.fromLTRB(side, AppTokens.space2, side, bottomGap),
                                 child: ConstrainedBox(
-                                  constraints: BoxConstraints(minHeight: constraints.maxHeight - AppTokens.space4),
+                                  // The scroll padding is not part of the minimum: subtract it.
+                                  constraints: BoxConstraints(minHeight: constraints.maxHeight - AppTokens.space2 - bottomGap),
                                   child: const _RemoteStack(),
                                 ),
                               ),
@@ -218,7 +221,7 @@ class _RemoteStack extends ConsumerWidget {
 
     final content = switch (mode) {
       RemoteMode.playing => const _PlayingBlocks(),
-      RemoteMode.home => const HomePadView(),
+      RemoteMode.home => const HomePadControls(),
       // Laid out by RemotePage: it fills the height.
       RemoteMode.nothing => const SizedBox.shrink(),
       RemoteMode.waiting => const _Waiting(),
@@ -226,12 +229,27 @@ class _RemoteStack extends ConsumerWidget {
       RemoteMode.disconnected || RemoteMode.chooseBrowser => const _PlaceholderBlocks(),
     };
 
+    // Home: the card centered in the space above the d-pad, which stays at the
+    // bottom. The height is bounded by the scroll view's minimum, so Expanded
+    // needs IntrinsicHeight here.
+    if (mode == RemoteMode.home) {
+      return IntrinsicHeight(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Expanded(child: Center(child: HomePadCard())),
+            Padding(padding: const EdgeInsets.only(top: AppTokens.space6), child: content),
+          ],
+        ),
+      );
+    }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (mode == RemoteMode.playing) const ChannelButton(),
-        if (mode != RemoteMode.home) TitleMarquee(title: mode == RemoteMode.playing ? (playbackTitle ?? title) : null),
+        TitleMarquee(title: mode == RemoteMode.playing ? (playbackTitle ?? title) : null),
         Padding(
           padding: const EdgeInsets.only(top: AppTokens.space2),
           child: content,
