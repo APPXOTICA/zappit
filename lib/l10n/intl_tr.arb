@@ -208,7 +208,7 @@
   "selectVideoInBrowser": "Oynatılan bir şey yok",
   "selectVideoInBrowserMessage": "İzlemeye başlamak için bilgisayarınızda herhangi bir videoya tıklayın. Kumanda burada görünecek.",
   "nothingPlaying": "Video bulunamadı",
-  "nothingPlayingMessage": "Bu sekmede video yok. Başka bir sekme seçin veya bir video bağlantısı yapıştırın.",
+  "nothingPlayingMessage": "Bu ekranda video yok. Başka bir sekme seçin veya bir video bağlantısı yapıştırın.",
   "pickVideosWithPro": "Pro ile videoları telefonunuzdan seçin",
   "pickATab": "Sekme seç",
   "pasteALink": "Bağlantı yapıştır",

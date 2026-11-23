@@ -208,7 +208,7 @@
   "selectVideoInBrowser": "没有正在播放的内容",
   "selectVideoInBrowserMessage": "在电脑上点击任意视频开始观看，遥控器会显示在这里。",
   "nothingPlaying": "未找到视频",
-  "nothingPlayingMessage": "此标签页没有视频。请选择其他标签页，或粘贴视频链接。",
+  "nothingPlayingMessage": "此画面中没有视频。请选择其他标签页，或粘贴视频链接。",
   "pickVideosWithPro": "使用 Pro 在手机上选择视频",
   "pickATab": "选择标签页",
   "pasteALink": "粘贴链接",

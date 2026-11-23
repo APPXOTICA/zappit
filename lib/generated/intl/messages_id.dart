@@ -398,7 +398,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Video tidak ditemukan",
     ),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "Tab ini tidak berisi video. Pilih tab lain, atau tempel link video.",
+      "Tidak ada video di layar ini. Pilih tab lain, atau tempel link video.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "Tidak ada yang bisa dipulihkan",

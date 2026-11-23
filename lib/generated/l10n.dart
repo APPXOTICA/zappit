@@ -2122,10 +2122,10 @@ class S {
     );
   }
 
-  /// `This tab has no video. Pick another tab, or paste a video link.`
+  /// `There's no video on this screen. Pick another tab, or paste a video link.`
   String get nothingPlayingMessage {
     return Intl.message(
-      'This tab has no video. Pick another tab, or paste a video link.',
+      'There\'s no video on this screen. Pick another tab, or paste a video link.',
       name: 'nothingPlayingMessage',
       desc: 'Remote screen message when the browser tab has no video at all.',
       args: [],

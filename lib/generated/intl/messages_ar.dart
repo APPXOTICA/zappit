@@ -393,7 +393,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "لم يتم العثور على فيديو",
     ),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "لا يوجد فيديو في علامة التبويب هذه. اختر علامة تبويب أخرى أو الصق رابط فيديو.",
+      "لا يوجد فيديو على هذه الشاشة. اختر علامة تبويب أخرى أو الصق رابط فيديو.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "لا يوجد ما يمكن استعادته",

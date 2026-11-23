@@ -996,7 +996,7 @@
   "@nothingPlaying": {
     "description": "Remote screen title when the browser tab has no video at all (not a paused one)."
   },
-  "nothingPlayingMessage": "This tab has no video. Pick another tab, or paste a video link.",
+  "nothingPlayingMessage": "There's no video on this screen. Pick another tab, or paste a video link.",
   "@nothingPlayingMessage": {
     "description": "Remote screen message when the browser tab has no video at all."
   },

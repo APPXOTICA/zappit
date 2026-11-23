@@ -208,7 +208,7 @@
   "selectVideoInBrowser": "Aucune lecture en cours",
   "selectVideoInBrowserMessage": "Cliquez sur une vidéo sur votre ordinateur pour commencer. La télécommande apparaîtra ici.",
   "nothingPlaying": "Aucune vidéo trouvée",
-  "nothingPlayingMessage": "Cet onglet ne contient pas de vidéo. Choisissez un autre onglet ou collez un lien vidéo.",
+  "nothingPlayingMessage": "Il n’y a pas de vidéo sur cet écran. Choisissez un autre onglet ou collez un lien vidéo.",
   "pickVideosWithPro": "Choisissez vos vidéos depuis le téléphone avec Pro",
   "pickATab": "Choisir un onglet",
   "pasteALink": "Coller un lien",

@@ -410,7 +410,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Nenhum vídeo encontrado",
     ),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "Esta aba não tem vídeo. Escolha outra aba ou cole o link de um vídeo.",
+      "Não há vídeo nesta tela. Escolha outra aba ou cole o link de um vídeo.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "Nada para restaurar",

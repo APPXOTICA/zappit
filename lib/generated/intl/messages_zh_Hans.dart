@@ -285,7 +285,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notConnected": MessageLookupByLibrary.simpleMessage("未连接"),
     "nothingPlaying": MessageLookupByLibrary.simpleMessage("未找到视频"),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "此标签页没有视频。请选择其他标签页，或粘贴视频链接。",
+      "此画面中没有视频。请选择其他标签页，或粘贴视频链接。",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage("没有可恢复的购买"),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(

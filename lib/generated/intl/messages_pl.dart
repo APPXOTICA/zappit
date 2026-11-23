@@ -408,7 +408,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Nie znaleziono wideo",
     ),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "Na tej karcie nie ma wideo. Wybierz inną kartę albo wklej link do wideo.",
+      "Na tym ekranie nie ma wideo. Wybierz inną kartę albo wklej link do wideo.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "Nie ma czego przywracać",

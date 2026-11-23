@@ -410,7 +410,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Niciun videoclip găsit",
     ),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "Această filă nu are niciun videoclip. Alege altă filă sau lipește linkul unui videoclip.",
+      "Pe acest ecran nu există niciun videoclip. Alege altă filă sau lipește linkul unui videoclip.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "Nimic de restabilit",

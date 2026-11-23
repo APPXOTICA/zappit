@@ -389,7 +389,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notConnected": MessageLookupByLibrary.simpleMessage("Not connected"),
     "nothingPlaying": MessageLookupByLibrary.simpleMessage("No video found"),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "This tab has no video. Pick another tab, or paste a video link.",
+      "There\'s no video on this screen. Pick another tab, or paste a video link.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "Nothing to restore",

@@ -25,12 +25,16 @@ import 'package:zappit/shared/l10n/site_label.dart';
 /// subtitle line) so the controls below don't jump, with shimmering lines in
 /// place of the text.
 class VideoCardView extends StatelessWidget {
-  const VideoCardView({super.key, required this.card, this.titleStyle, this.maxThumbnailHeight = double.infinity, this.reserveSpace = false});
+  const VideoCardView({super.key, required this.card, this.titleStyle, this.maxThumbnailHeight = double.infinity, this.reserveSpace = false, this.flexible = false});
 
   final VideoCard? card;
   final TextStyle? titleStyle;
   final double maxThumbnailHeight;
   final bool reserveSpace;
+
+  /// The thumbnail shrinks when the parent's height is short (the parent gives
+  /// a bounded height), so the title and the controls below never get pushed out.
+  final bool flexible;
 
   @override
   Widget build(BuildContext context) {
@@ -53,27 +57,29 @@ class VideoCardView extends StatelessWidget {
           )
         : (card == null ? const ZpShimmer(radius: 0) : null);
 
+    final thumbnailBox = Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: maxThumbnailHeight),
+        child: AspectRatio(
+          aspectRatio: 16 / 9,
+          child: Container(
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              color: t.surface300,
+              // Square corners, like the thumbnails on the site.
+              border: Border.all(color: t.hairlineStrong),
+            ),
+            child: image,
+          ),
+        ),
+      ),
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Center(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: maxThumbnailHeight),
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Container(
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  color: t.surface300,
-                  // Square corners, like the thumbnails on the site.
-                  border: Border.all(color: t.hairlineStrong),
-                ),
-                child: image,
-              ),
-            ),
-          ),
-        ),
+        if (flexible) Flexible(child: thumbnailBox) else thumbnailBox,
         const SizedBox(height: AppTokens.space4),
         SizedBox(
           height: reserveSpace ? lines(title, 2) : null,

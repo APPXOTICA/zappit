@@ -399,7 +399,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Không tìm thấy video",
     ),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "Thẻ này không có video. Hãy chọn thẻ khác hoặc dán liên kết video.",
+      "Không có video trên màn hình này. Hãy chọn thẻ khác hoặc dán liên kết video.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "Không có gì để khôi phục",

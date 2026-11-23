@@ -208,7 +208,7 @@
   "selectVideoInBrowser": "再生中の動画はありません",
   "selectVideoInBrowserMessage": "パソコンで好きな動画をクリックして視聴を始めてください。ここにリモコンが表示されます。",
   "nothingPlaying": "動画が見つかりません",
-  "nothingPlayingMessage": "このタブには動画がありません。別のタブを選ぶか、動画のリンクを貼り付けてください。",
+  "nothingPlayingMessage": "この画面には動画がありません。別のタブを選ぶか、動画のリンクを貼り付けてください。",
   "pickVideosWithPro": "Pro ならスマホで動画を選べます",
   "pickATab": "タブを選ぶ",
   "pasteALink": "リンクを貼り付け",

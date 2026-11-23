@@ -400,7 +400,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Žádné video nenalezeno",
     ),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "Na této kartě není žádné video. Vyberte jinou kartu nebo vložte odkaz na video.",
+      "Na této obrazovce není žádné video. Vyberte jinou kartu nebo vložte odkaz na video.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage("Není co obnovit"),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(

@@ -397,7 +397,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notConnected": MessageLookupByLibrary.simpleMessage("Не подключено"),
     "nothingPlaying": MessageLookupByLibrary.simpleMessage("Видео не найдено"),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "В этой вкладке нет видео. Выберите другую вкладку или вставьте ссылку на видео.",
+      "На этом экране нет видео. Выберите другую вкладку или вставьте ссылку на видео.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "Нечего восстанавливать",

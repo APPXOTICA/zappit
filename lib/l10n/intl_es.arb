@@ -208,7 +208,7 @@
   "selectVideoInBrowser": "No se reproduce nada",
   "selectVideoInBrowserMessage": "Haz clic en cualquier vídeo en tu ordenador para empezar a verlo. El mando aparecerá aquí.",
   "nothingPlaying": "No se ha encontrado ningún vídeo",
-  "nothingPlayingMessage": "Esta pestaña no tiene vídeo. Elige otra pestaña o pega un enlace de vídeo.",
+  "nothingPlayingMessage": "No hay vídeo en esta pantalla. Elige otra pestaña o pega un enlace de vídeo.",
   "pickVideosWithPro": "Elige vídeos desde el móvil con Pro",
   "pickATab": "Elegir pestaña",
   "pasteALink": "Pegar enlace",

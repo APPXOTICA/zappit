@@ -400,7 +400,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Kein Video gefunden",
     ),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "In diesem Tab gibt es kein Video. Wähle einen anderen Tab oder füge einen Videolink ein.",
+      "Auf diesem Bildschirm gibt es kein Video. Wähle einen anderen Tab oder füge einen Videolink ein.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "Nichts wiederherzustellen",

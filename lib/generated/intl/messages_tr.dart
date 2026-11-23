@@ -394,7 +394,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notConnected": MessageLookupByLibrary.simpleMessage("Bağlı değil"),
     "nothingPlaying": MessageLookupByLibrary.simpleMessage("Video bulunamadı"),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "Bu sekmede video yok. Başka bir sekme seçin veya bir video bağlantısı yapıştırın.",
+      "Bu ekranda video yok. Başka bir sekme seçin veya bir video bağlantısı yapıştırın.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "Geri yüklenecek bir şey yok",

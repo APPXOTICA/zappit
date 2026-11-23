@@ -208,7 +208,7 @@
   "selectVideoInBrowser": "沒有正在播放的內容",
   "selectVideoInBrowserMessage": "在電腦上點選任一影片開始觀看，遙控器就會顯示在這裡。",
   "nothingPlaying": "找不到影片",
-  "nothingPlayingMessage": "此分頁沒有影片。請選擇其他分頁，或貼上影片連結。",
+  "nothingPlayingMessage": "此畫面中沒有影片。請選擇其他分頁，或貼上影片連結。",
   "pickVideosWithPro": "使用 Pro 在手機上挑選影片",
   "pickATab": "選擇分頁",
   "pasteALink": "貼上連結",

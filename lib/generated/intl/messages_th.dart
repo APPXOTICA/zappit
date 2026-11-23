@@ -384,7 +384,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notConnected": MessageLookupByLibrary.simpleMessage("ไม่ได้เชื่อมต่อ"),
     "nothingPlaying": MessageLookupByLibrary.simpleMessage("ไม่พบวิดีโอ"),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "แท็บนี้ไม่มีวิดีโอ เลือกแท็บอื่น หรือวางลิงก์วิดีโอ",
+      "ไม่มีวิดีโอในหน้าจอนี้ เลือกแท็บอื่น หรือวางลิงก์วิดีโอ",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "ไม่มีรายการให้กู้คืน",

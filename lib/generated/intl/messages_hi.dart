@@ -399,7 +399,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "कोई वीडियो नहीं मिला",
     ),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "इस टैब में कोई वीडियो नहीं है। कोई दूसरा टैब चुनें या वीडियो लिंक पेस्ट करें।",
+      "इस स्क्रीन पर कोई वीडियो नहीं है। कोई दूसरा टैब चुनें या वीडियो लिंक पेस्ट करें।",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "वापस लाने के लिए कुछ नहीं है",

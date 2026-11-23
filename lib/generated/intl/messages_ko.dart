@@ -341,7 +341,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notConnected": MessageLookupByLibrary.simpleMessage("연결 안 됨"),
     "nothingPlaying": MessageLookupByLibrary.simpleMessage("영상을 찾지 못했어요"),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "이 탭에는 영상이 없어요. 다른 탭을 고르거나 영상 링크를 붙여넣으세요.",
+      "이 화면에는 영상이 없어요. 다른 탭을 고르거나 영상 링크를 붙여넣으세요.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage("복원할 구매가 없어요"),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(

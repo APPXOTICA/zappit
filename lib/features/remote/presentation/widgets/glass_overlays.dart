@@ -102,14 +102,23 @@ class _UpNext extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            const Spacer(),
-            Text(
-              countdown != null ? S.of(context).upNextCountdown(countdown) : S.of(context).upNext,
-              style: AppText.body.copyWith(color: t.accentText),
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      countdown != null ? S.of(context).upNextCountdown(countdown) : S.of(context).upNext,
+                      textAlign: TextAlign.center,
+                      style: AppText.body.copyWith(color: t.accentText),
+                    ),
+                    const SizedBox(height: AppTokens.space4),
+                    Flexible(child: VideoCardView(card: state.endScreenCard, flexible: true, titleStyle: AppText.heading.copyWith(color: t.ink))),
+                  ],
+                ),
+              ),
             ),
-            const SizedBox(height: AppTokens.space4),
-            VideoCardView(card: state.endScreenCard),
-            const Spacer(),
             Row(
               children: [
                 Expanded(
@@ -173,9 +182,10 @@ class _PickNext extends ConsumerWidget {
                 ],
               ),
             ),
-            const Spacer(),
-            VideoCardView(card: card),
-            const Spacer(),
+            // The card takes the space left; its thumbnail shrinks when it is short.
+            Expanded(
+              child: Center(child: VideoCardView(card: card, flexible: true, titleStyle: AppText.heading.copyWith(color: t.ink))),
+            ),
             // Back to YouTube home, or watch the video that just ended again.
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

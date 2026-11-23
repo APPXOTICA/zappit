@@ -397,7 +397,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "nothingPlaying": MessageLookupByLibrary.simpleMessage("Nincs videó"),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "Ezen a lapon nincs videó. Válassz másik lapot, vagy illessz be egy videólinket.",
+      "Ezen a képernyőn nincs videó. Válassz másik lapot, vagy illessz be egy videólinket.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "Nincs mit visszaállítani",

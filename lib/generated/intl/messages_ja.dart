@@ -330,7 +330,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notConnected": MessageLookupByLibrary.simpleMessage("未接続"),
     "nothingPlaying": MessageLookupByLibrary.simpleMessage("動画が見つかりません"),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "このタブには動画がありません。別のタブを選ぶか、動画のリンクを貼り付けてください。",
+      "この画面には動画がありません。別のタブを選ぶか、動画のリンクを貼り付けてください。",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage("復元する購入がありません"),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(

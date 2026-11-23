@@ -208,7 +208,7 @@
   "selectVideoInBrowser": "ไม่มีอะไรกำลังเล่น",
   "selectVideoInBrowserMessage": "คลิกวิดีโอใดก็ได้บนคอมพิวเตอร์เพื่อเริ่มดู รีโมตจะปรากฏที่นี่",
   "nothingPlaying": "ไม่พบวิดีโอ",
-  "nothingPlayingMessage": "แท็บนี้ไม่มีวิดีโอ เลือกแท็บอื่น หรือวางลิงก์วิดีโอ",
+  "nothingPlayingMessage": "ไม่มีวิดีโอในหน้าจอนี้ เลือกแท็บอื่น หรือวางลิงก์วิดีโอ",
   "pickVideosWithPro": "เลือกวิดีโอจากมือถือได้ด้วย Pro",
   "pickATab": "เลือกแท็บ",
   "pasteALink": "วางลิงก์",

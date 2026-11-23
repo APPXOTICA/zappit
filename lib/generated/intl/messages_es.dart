@@ -416,7 +416,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "No se ha encontrado ningún vídeo",
     ),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "Esta pestaña no tiene vídeo. Elige otra pestaña o pega un enlace de vídeo.",
+      "No hay vídeo en esta pantalla. Elige otra pestaña o pega un enlace de vídeo.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "Nada que restaurar",
