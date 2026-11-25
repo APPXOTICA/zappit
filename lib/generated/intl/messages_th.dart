@@ -27,11 +27,11 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m2(browser) =>
       "${browser} ไม่ตอบสนอง ตรวจสอบว่าเบราว์เซอร์เปิดอยู่";
 
-  static String m3(browsers) => "ยกเลิกการเชื่อมต่อจาก ${browsers} แล้ว";
+  static String m3(browsers) => "ไม่ได้เชื่อมต่อกับ ${browsers} แล้ว";
 
   static String m4(name) => "ช่อง: ${name}";
 
-  static String m5(current, total) => "ตอนย่อย ${current}/${total}";
+  static String m5(current, total) => "บทที่ ${current}/${total}";
 
   static String m6(browser) => "เชื่อมต่อกับ ${browser} แล้ว";
 
@@ -51,7 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m14(count) => "${count} นาที";
 
-  static String m15(time) => "โค้ดใหม่ใน ${time}";
+  static String m15(time) => "โค้ดใหม่ในอีก ${time}";
 
   static String m16(url) =>
       "เปิด ${url} ในเบราว์เซอร์บนคอมพิวเตอร์เพื่อติดตั้งส่วนขยาย Zappit";
@@ -71,15 +71,15 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m23(price) => "${price} / ปี";
 
   static String m24(date) =>
-      "การทดลองใช้ Pro ฟรีของคุณใช้ได้ถึง ${date} สมัครสมาชิกก่อนหมดเวลาเพื่อใช้ฟีเจอร์ Pro ทั้งหมดต่อได้อย่างราบรื่น";
+      "ทดลองใช้ Pro ฟรีได้ถึง ${date} สมัครสมาชิกก่อนวันดังกล่าวเพื่อใช้ฟีเจอร์ Pro ทั้งหมดต่อได้โดยไม่สะดุด";
 
   static String m25(proName) =>
-      "การทดลองใช้ Pro ของคุณสิ้นสุดแล้ว ใช้ฟีเจอร์ Pro ทั้งหมดต่อได้ด้วย ${proName}";
+      "ช่วงทดลองใช้ Pro ฟรีสิ้นสุดแล้ว ใช้ฟีเจอร์ Pro ทั้งหมดต่อได้ด้วย ${proName}";
 
   static String m26(days) =>
-      "ใช้ฟีเจอร์ทั้งหมดของ Zappit Pro ได้ฟรี ${days} วัน ไม่ต้องใช้บัตรเครดิต ไม่มีการเรียกเก็บเงินอัตโนมัติ";
+      "ใช้ฟีเจอร์ทั้งหมดของ Zappit Pro ได้ฟรี ${days} วัน ไม่มีการเรียกเก็บเงินใดๆ ทั้งสิ้น";
 
-  static String m27(date) => "ทดลองใช้ Pro ถึง ${date}";
+  static String m27(date) => "ทดลองใช้ Pro ฟรีถึง ${date}";
 
   static String m28(proName) => "กู้คืน ${proName} แล้ว";
 
@@ -103,16 +103,16 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m37(price, date) =>
       "การทดลองใช้ฟรีของคุณจะสิ้นสุดพรุ่งนี้ ระบบจะเรียกเก็บเงิน ${price} ในวันที่ ${date} หากไม่ต้องการใช้ต่อ โปรดยกเลิกการสมัครสมาชิกก่อนวันดังกล่าว";
 
-  static String m38(price) => "เริ่มด้วยการทดลองใช้ฟรี จากนั้น ${price}/ปี";
+  static String m38(price) => "เริ่มด้วยการทดลองใช้ฟรี จากนั้นชำระ ${price}/ปี";
 
   static String m39(count, price) =>
-      "เริ่มด้วยการทดลองใช้ฟรี ${count} วัน จากนั้น ${price}/ปี";
+      "เริ่มด้วยการทดลองใช้ฟรี ${count} วัน จากนั้นชำระ ${price}/ปี";
 
   static String m40(count, price) =>
-      "เริ่มด้วยการทดลองใช้ฟรี ${count} เดือน จากนั้น ${price}/ปี";
+      "เริ่มด้วยการทดลองใช้ฟรี ${count} เดือน จากนั้นชำระ ${price}/ปี";
 
   static String m41(count, price) =>
-      "เริ่มด้วยการทดลองใช้ฟรี ${count} ปี จากนั้น ${price}/ปี";
+      "เริ่มด้วยการทดลองใช้ฟรี ${count} ปี จากนั้นชำระ ${price}/ปี";
 
   static String m42(count) => "ถัดไป · เล่นใน ${count} วิ";
 
@@ -121,7 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m44(count) =>
       "ปิด Voice Boost แล้ว หากไม่มี Pro จะใช้ Voice Boost ได้ ${count} วินาที";
 
-  static String m45(proName) => "ยินดีต้อนรับสู่ ${proName}";
+  static String m45(proName) => "อัปเกรดเป็น ${proName} เรียบร้อยแล้ว";
 
   static String m46(number) => "หน้าต่าง ${number}";
 
@@ -137,11 +137,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "allCategories": MessageLookupByLibrary.simpleMessage("หมวดหมู่ทั้งหมด"),
     "allSites": MessageLookupByLibrary.simpleMessage("เว็บไซต์ทั้งหมด"),
     "alreadySubscribed": MessageLookupByLibrary.simpleMessage(
-      "คุณมีการสมัครสมาชิกนี้อยู่แล้ว ลองกด กู้คืนการซื้อ",
+      "คุณมีการสมัครสมาชิกนี้อยู่แล้ว ลองกด “กู้คืนการซื้อ”",
     ),
     "back": MessageLookupByLibrary.simpleMessage("กลับ"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage("ขออภัย การใช้งานถูกระงับ"),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage(
       "เบราว์เซอร์ไม่ตอบสนอง",
@@ -149,7 +148,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "browsers": MessageLookupByLibrary.simpleMessage("เบราว์เซอร์"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "มีมือถือเครื่องอื่นเชื่อมต่อแทน หากต้องการใช้อีกครั้ง ให้สแกน QR โค้ดบนคอมพิวเตอร์เครื่องนั้น",
+      "มีมือถือเครื่องอื่นเชื่อมต่อแทน หากต้องการเชื่อมต่ออีกครั้ง ให้สแกน QR โค้ดบนคอมพิวเตอร์เครื่องนั้น",
     ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "อนุญาตให้เข้าถึงกล้องในการตั้งค่าเพื่อสแกนโค้ด",
@@ -159,7 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("ยกเลิก"),
     "cancelAnytime": MessageLookupByLibrary.simpleMessage(
-      "ยกเลิกได้ทุกเมื่อในบัญชีสโตร์ของคุณ",
+      "ยกเลิกได้ทุกเมื่อในหน้าจัดการการสมัครสมาชิก",
     ),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage("โหลดหน้านี้ไม่ได้"),
     "cantOpenOnPhone": MessageLookupByLibrary.simpleMessage(
@@ -181,9 +180,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "channelLabel": m4,
     "chapterPosition": m5,
-    "chapters": MessageLookupByLibrary.simpleMessage("ตอนย่อย"),
+    "chapters": MessageLookupByLibrary.simpleMessage("บท"),
     "chaptersDuringAd": MessageLookupByLibrary.simpleMessage(
-      "ข้ามตอนย่อยไม่ได้ขณะมีโฆษณา",
+      "ข้ามบทไม่ได้ขณะมีโฆษณา",
     ),
     "checkConnection": MessageLookupByLibrary.simpleMessage(
       "ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตแล้วลองอีกครั้ง",
@@ -226,7 +225,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "ยกเลิกการเชื่อมต่อมือถือเครื่องนี้",
     ),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "มือถือเครื่องนี้จะไม่ควบคุมคอมพิวเตอร์ของคุณอีก หากต้องการใช้อีกครั้ง ให้สแกน QR โค้ดบนคอมพิวเตอร์",
+      "มือถือเครื่องนี้จะไม่ควบคุมคอมพิวเตอร์ของคุณอีก หากต้องการเชื่อมต่ออีกครั้ง ให้สแกน QR โค้ดบนคอมพิวเตอร์",
     ),
     "down": MessageLookupByLibrary.simpleMessage("ลง"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("เมื่อวิดีโอจบ"),
@@ -255,7 +254,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "ไม่มีวิดีโอที่กำลังเล่น",
     ),
     "errorNotChanged": MessageLookupByLibrary.simpleMessage(
-      "เว็บไซต์ไม่ได้เปลี่ยนแปลง",
+      "เว็บไซต์ไม่ได้เปลี่ยนค่าตามคำสั่ง",
     ),
     "errorNotSupported": MessageLookupByLibrary.simpleMessage(
       "เว็บไซต์นี้ไม่รองรับ",
@@ -270,7 +269,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "ออกจากโหมดเต็มหน้าจอ",
     ),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "ส่วนขยาย Zappit อัปเดตแล้ว โหลดหน้านี้ซ้ำเพื่อใช้การควบคุมทั้งหมดต่อ",
+      "ส่วนขยาย Zappit อัปเดตแล้ว โหลดหน้าเว็บในเบราว์เซอร์ซ้ำเพื่อใช้การควบคุมทั้งหมดต่อ",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("คำถามที่พบบ่อย"),
     "favorites": MessageLookupByLibrary.simpleMessage("รายการโปรด"),
@@ -300,7 +299,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "learnMore": MessageLookupByLibrary.simpleMessage("ดูข้อมูลเพิ่มเติม"),
     "left": MessageLookupByLibrary.simpleMessage("ซ้าย"),
     "linkPanelHint": MessageLookupByLibrary.simpleMessage(
-      "วางลิงก์วิดีโอแล้วแตะ ส่ง วิดีโอจะเปิดในแท็บใหม่ของเบราว์เซอร์",
+      "วางลิงก์วิดีโอแล้วแตะ “ส่ง” วิดีโอจะเปิดในแท็บใหม่ของเบราว์เซอร์",
     ),
     "liveBadge": MessageLookupByLibrary.simpleMessage("สด"),
     "liveCantRewind": MessageLookupByLibrary.simpleMessage(
@@ -329,7 +328,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "มีเบราว์เซอร์ออนไลน์อยู่หลายตัว เลือกตัวที่ต้องการให้รีโมตนี้ควบคุม",
     ),
     "mute": MessageLookupByLibrary.simpleMessage("ปิดเสียง"),
-    "nextChapter": MessageLookupByLibrary.simpleMessage("ตอนย่อยถัดไป"),
+    "nextChapter": MessageLookupByLibrary.simpleMessage("บทถัดไป"),
     "nextEpisode": MessageLookupByLibrary.simpleMessage("ตอนถัดไป"),
     "nextTab": MessageLookupByLibrary.simpleMessage("แท็บถัดไป"),
     "nextVideo": MessageLookupByLibrary.simpleMessage("วิดีโอถัดไป"),
@@ -365,7 +364,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noSubtitles": MessageLookupByLibrary.simpleMessage(
       "วิดีโอนี้ไม่มีคำบรรยาย",
     ),
-    "noThanks": MessageLookupByLibrary.simpleMessage("ไม่ ขอบคุณ"),
+    "noThanks": MessageLookupByLibrary.simpleMessage("ไม่เป็นไร"),
     "noVideosOnPage": MessageLookupByLibrary.simpleMessage(
       "หน้านี้ไม่มีวิดีโอ",
     ),
@@ -390,7 +389,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "ไม่มีรายการให้กู้คืน",
     ),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "ไม่พบการสมัครสมาชิก Zappit Pro ที่ใช้งานอยู่ในบัญชีสโตร์นี้",
+      "ไม่พบการสมัครสมาชิก Zappit Pro ที่ใช้งานอยู่ในบัญชีนี้",
     ),
     "obAnimAddExtension": MessageLookupByLibrary.simpleMessage("เพิ่มส่วนขยาย"),
     "obAnimAdded": MessageLookupByLibrary.simpleMessage("เพิ่มแล้ว"),
@@ -398,7 +397,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "เชื่อมต่อกับคอมพิวเตอร์",
     ),
     "obAnimConnectPhone": MessageLookupByLibrary.simpleMessage(
-      "เชื่อมต่อมือถือ",
+      "เชื่อมต่อมือถือของคุณ",
     ),
     "obAnimNewCode": m15,
     "obAnimRemoteConnected": MessageLookupByLibrary.simpleMessage(
@@ -479,7 +478,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "วิธีติดตั้งส่วนขยาย",
     ),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "คอมพิวเตอร์เครื่องนี้เชื่อมต่อมือถือครบ 3 เครื่องแล้ว ให้เปิด Zappit บนมือถือเครื่องอื่นที่เชื่อมต่ออยู่ แล้วแตะ ‘ยกเลิกการเชื่อมต่อมือถือเครื่องนี้’ ในเมนู ‘เพิ่มเติม’ หากไม่มีมือถือเครื่องนั้นแล้ว ให้ใช้ ‘Reset’ ในส่วนขยาย Zappit บนคอมพิวเตอร์ของคุณ",
+      "คอมพิวเตอร์เครื่องนี้เชื่อมต่อมือถือครบ 3 เครื่องแล้ว ให้เปิด Zappit บนมือถือเครื่องอื่นที่เชื่อมต่ออยู่ แล้วแตะ “ยกเลิกการเชื่อมต่อมือถือเครื่องนี้” ในเมนู “เพิ่มเติม” หากเข้าถึงมือถือเครื่องอื่นไม่ได้ ให้คลิก “รีเซ็ต” ใน “การตั้งค่า” ของส่วนขยาย Zappit บนคอมพิวเตอร์ของคุณ",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage(
       "เชื่อมต่อกับส่วนขยายเบราว์เซอร์",
@@ -490,7 +489,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pause": MessageLookupByLibrary.simpleMessage("หยุดชั่วคราว"),
     "paymentPending": MessageLookupByLibrary.simpleMessage("รอการชำระเงิน"),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "Pro จะเปิดใช้งานทันทีที่สโตร์ยืนยันการชำระเงิน",
+      "Pro จะเปิดใช้งานทันทีที่การชำระเงินได้รับการยืนยัน",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("ชื่อมือถือ"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("ใส่ชื่อ"),
@@ -518,7 +517,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "playlistCantShuffle": MessageLookupByLibrary.simpleMessage(
       "เพลย์ลิสต์นี้สุ่มเล่นไม่ได้",
     ),
-    "previousChapter": MessageLookupByLibrary.simpleMessage("ตอนย่อยก่อนหน้า"),
+    "previousChapter": MessageLookupByLibrary.simpleMessage("บทก่อนหน้า"),
     "previousTab": MessageLookupByLibrary.simpleMessage("แท็บก่อนหน้า"),
     "previousVideo": MessageLookupByLibrary.simpleMessage("วิดีโอก่อนหน้า"),
     "pricePerMonth": m22,
@@ -527,33 +526,33 @@ class MessageLookup extends MessageLookupByLibrary {
       "นโยบายความเป็นส่วนตัว",
     ),
     "proBannerSubtitle": MessageLookupByLibrary.simpleMessage(
-      "ปลดปล่อยพลังทั้งหมดของรีโมต",
+      "ใช้รีโมตได้เต็มประสิทธิภาพ",
     ),
     "proFeatureAbLoop": MessageLookupByLibrary.simpleMessage(
-      "A-B Loop ไม่จำกัด",
+      "ใช้ A-B Loop ได้ไม่จำกัด",
     ),
     "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage(
-      "ความเร็วในการเล่นทุกระดับ",
+      "เลือกความเร็วในการเล่นได้ทุกระดับ",
     ),
     "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "ปลดล็อกรีโมตเฉพาะสำหรับแต่ละเว็บไซต์",
+      "ปลดล็อกรีโมตเฉพาะสำหรับเว็บไซต์ที่รองรับ",
     ),
     "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage(
-      "เล่นซ้ำทั้งวิดีโอไม่จำกัด",
+      "เล่นวนทั้งวิดีโอได้ไม่จำกัด",
     ),
     "proFeatureVoiceBoost": MessageLookupByLibrary.simpleMessage(
-      "Voice Boost ไม่จำกัด",
+      "ใช้ Voice Boost ได้ไม่จำกัด",
     ),
     "proPreviewActiveBanner": m24,
     "proPreviewEndedMessage": MessageLookupByLibrary.simpleMessage(
-      "ขอบคุณที่ลองใช้ Zappit Pro! สมัครสมาชิกเพื่อใช้ฟีเจอร์ Pro ทั้งหมดต่อได้อย่างราบรื่น",
+      "Zappit Pro เป็นอย่างไรบ้าง สมัครสมาชิกเพื่อใช้ฟีเจอร์ Pro ทั้งหมดต่อได้โดยไม่สะดุด",
     ),
     "proPreviewEndedSubtitle": m25,
     "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
-      "การทดลองใช้ Pro ของคุณสิ้นสุดแล้ว",
+      "ช่วงทดลองใช้ Pro ฟรีสิ้นสุดแล้ว",
     ),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
-      "การทดลองใช้ Pro จะสิ้นสุดพรุ่งนี้",
+      "ช่วงทดลองใช้ Pro ฟรีจะสิ้นสุดพรุ่งนี้",
     ),
     "proPreviewStarted": m26,
     "proPreviewUntil": m27,
@@ -562,7 +561,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "การสมัครสมาชิก Pro ของคุณสิ้นสุดแล้ว",
     ),
     "proSubtitle": MessageLookupByLibrary.simpleMessage(
-      "ปลดปล่อยพลังทั้งหมดของรีโมต",
+      "ใช้รีโมตได้เต็มประสิทธิภาพ",
     ),
     "purchaseCancelled": MessageLookupByLibrary.simpleMessage(
       "ยกเลิกการซื้อแล้ว",
@@ -575,7 +574,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "การซื้อยังไม่เปิดใช้งาน",
     ),
     "purchaseNotActivatedMessage": MessageLookupByLibrary.simpleMessage(
-      "ชำระเงินเรียบร้อยแล้ว แต่ Pro ยังไม่เปิดใช้งาน ลองกด กู้คืนการซื้อ",
+      "ชำระเงินเรียบร้อยแล้ว แต่ Pro ยังไม่เปิดใช้งาน ลองกด “กู้คืนการซื้อ”",
     ),
     "purchasesNotAllowed": MessageLookupByLibrary.simpleMessage(
       "อุปกรณ์หรือบัญชีนี้ไม่อนุญาตให้ซื้อ",
@@ -613,7 +612,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "seekInterval": MessageLookupByLibrary.simpleMessage("ระยะการข้าม"),
     "select": MessageLookupByLibrary.simpleMessage("เลือก"),
     "selectVideoInBrowser": MessageLookupByLibrary.simpleMessage(
-      "ไม่มีอะไรกำลังเล่น",
+      "ยังไม่มีวิดีโอที่กำลังเล่น",
     ),
     "selectVideoInBrowserMessage": MessageLookupByLibrary.simpleMessage(
       "คลิกวิดีโอใดก็ได้บนคอมพิวเตอร์เพื่อเริ่มดู รีโมตจะปรากฏที่นี่",
@@ -636,12 +635,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "sleepTimer": MessageLookupByLibrary.simpleMessage("ตั้งเวลาปิด"),
     "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("ตั้งเวลาปิด"),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage("คำบรรยายเล็กลง"),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage(
-      "ขออภัย เกิดข้อผิดพลาดบางอย่าง",
-    ),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "ขออภัย เกิดข้อผิดพลาดบางอย่าง โปรดลองอีกครั้ง",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage(
       "แตะเพื่อดูวิธีเปิดเสียง",
     ),
@@ -650,10 +643,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "speedTrialOver": m36,
     "startFreeTrial": MessageLookupByLibrary.simpleMessage("เริ่มทดลองใช้ฟรี"),
     "storeProblem": MessageLookupByLibrary.simpleMessage(
-      "สโตร์เกิดปัญหา โปรดลองอีกครั้งในอีกสักครู่",
+      "เกิดปัญหาระหว่างการซื้อ โปรดลองอีกครั้งในอีกสักครู่",
     ),
     "storeUnavailable": MessageLookupByLibrary.simpleMessage(
-      "ขณะนี้ใช้งานสโตร์ไม่ได้ โปรดลองอีกครั้งภายหลัง",
+      "ขณะนี้ยังซื้อไม่ได้ โปรดลองอีกครั้งภายหลัง",
     ),
     "subscribe": MessageLookupByLibrary.simpleMessage("สมัครสมาชิก"),
     "success": MessageLookupByLibrary.simpleMessage("สำเร็จ"),
@@ -684,7 +677,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "ให้เราแจ้งเตือนคุณหนึ่งวันก่อนการทดลองใช้ฟรีสิ้นสุดไหม จะได้ไม่ถูกเรียกเก็บเงินโดยไม่ทันตั้งตัว",
     ),
     "trialReminderNotificationTitle": MessageLookupByLibrary.simpleMessage(
-      "การทดลองใช้ Zappit Pro ฟรีใกล้สิ้นสุดแล้ว",
+      "การทดลองใช้ฟรีของคุณใกล้สิ้นสุดแล้ว",
     ),
     "trialReminderTitle": MessageLookupByLibrary.simpleMessage(
       "การแจ้งเตือนช่วงทดลองใช้",
@@ -695,7 +688,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "trialTermsYears": m41,
     "tryAgain": MessageLookupByLibrary.simpleMessage("ลองอีกครั้ง"),
     "turnOffAbFirst": MessageLookupByLibrary.simpleMessage("ปิด A-B Loop ก่อน"),
-    "tutorial": MessageLookupByLibrary.simpleMessage("วิธีใช้งาน"),
+    "tutorial": MessageLookupByLibrary.simpleMessage("คู่มือ"),
     "unavailable": MessageLookupByLibrary.simpleMessage("ไม่พร้อมใช้งาน"),
     "undo": MessageLookupByLibrary.simpleMessage("เลิกทำ"),
     "unmute": MessageLookupByLibrary.simpleMessage("เปิดเสียง"),

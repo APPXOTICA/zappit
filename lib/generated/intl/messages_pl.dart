@@ -72,15 +72,15 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m23(price) => "${price} / rok";
 
   static String m24(date) =>
-      "Twój darmowy podgląd Pro jest aktywny do ${date}. Zasubskrybuj przed jego końcem, aby bez przerwy korzystać ze wszystkich funkcji Pro.";
+      "Darmowy dostęp Pro jest aktywny do ${date}. Zasubskrybuj przed jego końcem, aby bez przerwy korzystać ze wszystkich funkcji Pro.";
 
   static String m25(proName) =>
-      "Twój podgląd Pro się skończył. Zachowaj wszystkie funkcje Pro z ${proName}.";
+      "Darmowy dostęp Pro dobiegł końca. Z ${proName} zachowasz wszystkie funkcje Pro.";
 
   static String m26(days) =>
-      "Korzystaj za darmo ze wszystkich funkcji Zappit Pro przez ${days} dni. Bez karty i bez automatycznych opłat.";
+      "Korzystaj ze wszystkich funkcji Zappit Pro przez ${days} dni. Całkowicie za darmo, bez żadnych automatycznych opłat.";
 
-  static String m27(date) => "Podgląd Pro do ${date}";
+  static String m27(date) => "Darmowy dostęp Pro do ${date}";
 
   static String m28(proName) => "Przywrócono ${proName}";
 
@@ -99,10 +99,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m35(site) => "Ustawienia: ${site}";
 
   static String m36(count) =>
-      "Z powrotem 1x. Bez Pro możesz używać tej prędkości przez ${count} s.";
+      "Prędkość wróciła do 1x. Bez Pro możesz używać tej prędkości przez ${count} s.";
 
   static String m37(price, date) =>
-      "Twój darmowy okres próbny kończy się jutro. ${date} zostanie pobrane ${price}. Jeśli nie chcesz kontynuować, anuluj subskrypcję wcześniej.";
+      "Twój darmowy okres próbny kończy się jutro. ${date} zostanie pobrana opłata ${price}. Jeśli nie chcesz kontynuować, anuluj subskrypcję wcześniej.";
 
   static String m38(price) =>
       "Najpierw darmowy okres próbny, potem ${price}/rok.";
@@ -123,17 +123,17 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m44(count) =>
       "Voice Boost wyłączony. Bez Pro możesz używać Voice Boost przez ${count} s.";
 
-  static String m45(proName) => "Witaj w ${proName}";
+  static String m45(proName) => "Aktywowano ${proName}";
 
   static String m46(number) => "Okno ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "abLoopCount": MessageLookupByLibrary.simpleMessage(
-      "Liczba powtórzeń A-B Loop",
+      "Liczba powtórzeń pętli A-B",
     ),
     "abOffForLive": MessageLookupByLibrary.simpleMessage(
-      "A-B Loop jest wyłączony w transmisjach na żywo",
+      "Pętla A-B jest wyłączona w transmisjach na żywo",
     ),
     "account": MessageLookupByLibrary.simpleMessage("Połączenie"),
     "adBadge": MessageLookupByLibrary.simpleMessage("REKLAMA"),
@@ -143,13 +143,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "allSites": MessageLookupByLibrary.simpleMessage("Wszystkie strony"),
     "alreadySubscribed": MessageLookupByLibrary.simpleMessage(
-      "Masz już tę subskrypcję. Spróbuj Przywróć zakupy.",
+      "Masz już tę subskrypcję. Dotknij „Przywróć zakupy”.",
     ),
     "back": MessageLookupByLibrary.simpleMessage("Wstecz"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage(
-      "Niestety dostęp został zablokowany.",
-    ),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage(
       "Przeglądarka nie odpowiada",
@@ -157,7 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "browsers": MessageLookupByLibrary.simpleMessage("Przeglądarki"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "Połączył się z nim inny telefon. Aby znów go używać, zeskanuj kod QR na tamtym komputerze.",
+      "Połączył się z nim inny telefon. Aby połączyć się ponownie, zeskanuj kod QR na tamtym komputerze.",
     ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "Zezwól na dostęp do aparatu w Ustawieniach, aby zeskanować kod.",
@@ -167,7 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Anuluj"),
     "cancelAnytime": MessageLookupByLibrary.simpleMessage(
-      "Anulujesz w dowolnej chwili na koncie sklepu.",
+      "Możesz zrezygnować w dowolnej chwili w ustawieniach subskrypcji.",
     ),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage(
       "Nie można wczytać tej strony",
@@ -242,7 +239,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Odłącz ten telefon",
     ),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "Ten telefon przestanie sterować komputerem. Aby znów go używać, zeskanuj kod QR na komputerze.",
+      "Ten telefon przestanie sterować komputerem. Aby połączyć go ponownie, zeskanuj kod QR na komputerze.",
     ),
     "down": MessageLookupByLibrary.simpleMessage("W dół"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("Koniec wideo"),
@@ -286,7 +283,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Zamknij pełny ekran",
     ),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "Rozszerzenie Zappit zostało zaktualizowane. Odśwież tę stronę, aby dalej korzystać ze wszystkich przycisków.",
+      "Rozszerzenie Zappit zostało zaktualizowane. Odśwież stronę w przeglądarce, aby dalej korzystać ze wszystkich przycisków.",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("Częste pytania"),
     "favorites": MessageLookupByLibrary.simpleMessage("Ulubione"),
@@ -315,7 +312,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "lastVideoInPlaylist": MessageLookupByLibrary.simpleMessage(
       "To ostatnie wideo na playliście",
     ),
-    "learnMore": MessageLookupByLibrary.simpleMessage("Więcej"),
+    "learnMore": MessageLookupByLibrary.simpleMessage("Dowiedz się więcej"),
     "left": MessageLookupByLibrary.simpleMessage("W lewo"),
     "linkPanelHint": MessageLookupByLibrary.simpleMessage(
       "Wklej link do wideo i dotknij Wyślij. Otworzy się w nowej karcie przeglądarki.",
@@ -414,7 +411,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Nie ma czego przywracać",
     ),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "Na tym koncie sklepu nie znaleziono aktywnej subskrypcji Zappit Pro.",
+      "Na tym koncie nie znaleziono aktywnej subskrypcji Zappit Pro.",
     ),
     "obAnimAddExtension": MessageLookupByLibrary.simpleMessage(
       "Dodaj rozszerzenie",
@@ -438,7 +435,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "off": MessageLookupByLibrary.simpleMessage("Wył."),
     "offline": MessageLookupByLibrary.simpleMessage("Offline"),
     "offlineMessage": MessageLookupByLibrary.simpleMessage(
-      "Sprawdź połączenie z internetem. Zappit połączy się ponownie sam.",
+      "Sprawdź połączenie z internetem. Zappit połączy się ponownie automatycznie.",
     ),
     "onboarding0AnimLabel": MessageLookupByLibrary.simpleMessage(
       "Dotknięcie odtwarzania/pauzy w aplikacji Zappit wstrzymuje i wznawia wideo na laptopie",
@@ -505,7 +502,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Jak zainstalować rozszerzenie",
     ),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "Z tym komputerem połączone są już 3 telefony. Otwórz Zappit na jednym z pozostałych połączonych telefonów i dotknij „Odłącz ten telefon” w sekcji „Więcej”. Jeśli nie masz już tego telefonu, użyj opcji „Reset” w rozszerzeniu Zappit na komputerze.",
+      "Z tym komputerem połączone są już 3 telefony. Otwórz Zappit na jednym z pozostałych połączonych telefonów i dotknij „Odłącz ten telefon” w sekcji „Więcej”. Jeśli nie masz dostępu do żadnego z tych telefonów, otwórz rozszerzenie Zappit na komputerze i kliknij „Ustawienia” > „Resetuj”.",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage(
       "Połącz się z rozszerzeniem przeglądarki",
@@ -518,7 +515,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pause": MessageLookupByLibrary.simpleMessage("Pauza"),
     "paymentPending": MessageLookupByLibrary.simpleMessage("Płatność w toku"),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "Pro włączy się, gdy tylko sklep potwierdzi płatność.",
+      "Pro włączy się, gdy tylko płatność zostanie potwierdzona.",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("Nazwa telefonu"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("Wpisz nazwę."),
@@ -530,7 +527,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Wybierz przeglądarkę, którą ma sterować ten pilot, aby zobaczyć jej karty.",
     ),
     "pickVideosWithPro": MessageLookupByLibrary.simpleMessage(
-      "Wybieraj filmy z telefonu z Pro",
+      "Wybieraj filmy z telefonu dzięki Pro",
     ),
     "play": MessageLookupByLibrary.simpleMessage("Odtwórz"),
     "playInApp": MessageLookupByLibrary.simpleMessage(
@@ -562,30 +559,30 @@ class MessageLookup extends MessageLookupByLibrary {
       "Wykorzystaj pełnię możliwości pilota",
     ),
     "proFeatureAbLoop": MessageLookupByLibrary.simpleMessage(
-      "A-B Loop bez limitu",
+      "Nielimitowana pętla A-B",
     ),
     "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage(
-      "Wszystkie prędkości odtwarzania",
+      "Wybór dowolnej prędkości odtwarzania",
     ),
     "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "Odblokuj piloty dopasowane do stron",
+      "Odblokuj specjalne piloty dla obsługiwanych stron",
     ),
     "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage(
-      "Zapętlanie całego wideo bez limitu",
+      "Nielimitowane zapętlanie całego wideo",
     ),
     "proFeatureVoiceBoost": MessageLookupByLibrary.simpleMessage(
-      "Voice Boost bez limitu",
+      "Nielimitowany Voice Boost",
     ),
     "proPreviewActiveBanner": m24,
     "proPreviewEndedMessage": MessageLookupByLibrary.simpleMessage(
-      "Dzięki za wypróbowanie Zappit Pro! Zasubskrybuj, aby dalej bez przerwy korzystać ze wszystkich funkcji Pro.",
+      "Jak wrażenia z Zappit Pro? Zasubskrybuj, aby dalej bez przerwy korzystać ze wszystkich funkcji Pro.",
     ),
     "proPreviewEndedSubtitle": m25,
     "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
-      "Twój podgląd Pro się skończył",
+      "Darmowy dostęp Pro dobiegł końca",
     ),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
-      "Podgląd Pro kończy się jutro",
+      "Darmowy dostęp Pro kończy się jutro",
     ),
     "proPreviewStarted": m26,
     "proPreviewUntil": m27,
@@ -600,7 +597,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Zakup anulowany",
     ),
     "purchaseCancelledMessage": MessageLookupByLibrary.simpleMessage(
-      "Nic nie zostało pobrane. Możesz spróbować ponownie w każdej chwili.",
+      "Nie pobrano żadnej opłaty. Możesz spróbować ponownie w dowolnej chwili.",
     ),
     "purchaseFailed": MessageLookupByLibrary.simpleMessage(
       "Zakup się nie udał",
@@ -609,7 +606,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Zakup nieaktywny",
     ),
     "purchaseNotActivatedMessage": MessageLookupByLibrary.simpleMessage(
-      "Płatność przeszła, ale Pro nie jest jeszcze aktywne. Spróbuj Przywróć zakupy.",
+      "Płatność się powiodła, ale Pro nie jest jeszcze aktywne. Dotknij „Przywróć zakupy”.",
     ),
     "purchasesNotAllowed": MessageLookupByLibrary.simpleMessage(
       "Zakupy są niedozwolone na tym urządzeniu lub koncie.",
@@ -680,12 +677,6 @@ class MessageLookup extends MessageLookupByLibrary {
       "Wyłącznik czasowy",
     ),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage("Mniejsze napisy"),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage(
-      "Niestety coś poszło nie tak.",
-    ),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "Niestety coś poszło nie tak. Spróbuj ponownie.",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage(
       "Dotknij, aby zobaczyć, jak włączyć dźwięk.",
     ),
@@ -694,12 +685,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "soundHelpTitle": MessageLookupByLibrary.simpleMessage("Dźwięk"),
     "speedTrialOver": m36,
-    "startFreeTrial": MessageLookupByLibrary.simpleMessage("Zacznij za darmo"),
+    "startFreeTrial": MessageLookupByLibrary.simpleMessage(
+      "Rozpocznij okres próbny",
+    ),
     "storeProblem": MessageLookupByLibrary.simpleMessage(
-      "W sklepie wystąpił problem. Spróbuj ponownie za chwilę.",
+      "Podczas zakupu wystąpił problem. Spróbuj ponownie za chwilę.",
     ),
     "storeUnavailable": MessageLookupByLibrary.simpleMessage(
-      "Sklep jest teraz niedostępny. Spróbuj ponownie później.",
+      "Nie można teraz dokonać zakupu. Spróbuj ponownie później.",
     ),
     "subscribe": MessageLookupByLibrary.simpleMessage("Subskrybuj"),
     "success": MessageLookupByLibrary.simpleMessage("Gotowe"),
@@ -743,9 +736,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "trialTermsYears": m41,
     "tryAgain": MessageLookupByLibrary.simpleMessage("Spróbuj ponownie"),
     "turnOffAbFirst": MessageLookupByLibrary.simpleMessage(
-      "Najpierw wyłącz A-B Loop",
+      "Najpierw wyłącz pętlę A-B",
     ),
-    "tutorial": MessageLookupByLibrary.simpleMessage("Poradnik"),
+    "tutorial": MessageLookupByLibrary.simpleMessage("Przewodnik"),
     "unavailable": MessageLookupByLibrary.simpleMessage("Niedostępne"),
     "undo": MessageLookupByLibrary.simpleMessage("Cofnij"),
     "unmute": MessageLookupByLibrary.simpleMessage("Włącz dźwięk"),

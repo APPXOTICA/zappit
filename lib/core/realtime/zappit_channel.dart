@@ -332,11 +332,23 @@ class BrowserPresence extends _$BrowserPresence {
       final key = node.push();
       _onlineKey = key;
       final phone = await PhoneIdentity.load();
-      try {
-        await key.onDisconnect().remove();
-        await key.set({'at': ServerValue.timestamp, 'phoneId': ?phone?.phoneId});
-      } catch (e) {
-        debugPrint('appOnline write failed: $e');
+      // Background (or another write) came while loading: that call already
+      // removed this key, and writing it now would leave a child that
+      // nothing removes.
+      if (_onlineKey == key) {
+        try {
+          // Both go out now, in this order. Awaiting the onDisconnect before
+          // the set let a removal (app to the background) reach the server in
+          // between: the set then made a child with no onDisconnect, which kept
+          // the extension's Ably open for days.
+          await Future.wait([
+            key.onDisconnect().remove(),
+            key.set({'at': ServerValue.timestamp, 'phoneId': ?phone?.phoneId}),
+          ]);
+          if (phone != null) unawaited(_removeOwnLeftovers(node, keep: key, phoneId: phone.phoneId));
+        } catch (e) {
+          debugPrint('appOnline write failed: $e');
+        }
       }
     }
     // Another account's child (switch): sign-out already removed it.
@@ -361,6 +373,29 @@ class BrowserPresence extends _$BrowserPresence {
       await Future.wait([node.onDisconnect().cancel(), for (final ref in mine) ref.remove()]).timeout(const Duration(seconds: 3));
     } catch (e) {
       debugPrint('appOnline clear failed: $e');
+    }
+  }
+
+  /// This phone's other children (left by an older app version or a lost
+  /// removal): one phone has one live child, and a leftover keeps every
+  /// browser on Ably.
+  ///
+  /// Only while [keep] is still this app's child, and never the current one:
+  /// two writes can run back to back (start and the first `.info/connected`),
+  /// and the older write's cleanup then read the newer child and removed it,
+  /// which left `appOnline` empty while the app was open.
+  Future<void> _removeOwnLeftovers(DatabaseReference node, {required DatabaseReference keep, required String phoneId}) async {
+    try {
+      final snapshot = await node.get().timeout(const Duration(seconds: 3));
+      final current = _onlineKey?.key;
+      if (current != keep.key) return;
+      final leftovers = [
+        for (final child in snapshot.children)
+          if (child.key != current && child.child('phoneId').value == phoneId) child,
+      ];
+      await Future.wait([for (final child in leftovers) child.ref.remove()]).timeout(const Duration(seconds: 3));
+    } catch (e) {
+      debugPrint('appOnline cleanup failed: $e');
     }
   }
 

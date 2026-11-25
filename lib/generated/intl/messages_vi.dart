@@ -71,15 +71,15 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m23(price) => "${price} / năm";
 
   static String m24(date) =>
-      "Bản trải nghiệm Pro miễn phí của bạn có hiệu lực đến ${date}. Đăng ký trước khi hết hạn để tiếp tục dùng mọi tính năng Pro liền mạch.";
+      "Bạn đang trải nghiệm Pro miễn phí đến ${date}. Hãy đăng ký trước khi kết thúc để tiếp tục dùng mọi tính năng Pro không gián đoạn.";
 
   static String m25(proName) =>
-      "Bản trải nghiệm Pro của bạn đã kết thúc. Giữ mọi tính năng Pro với ${proName}.";
+      "Thời gian trải nghiệm Pro miễn phí đã kết thúc. Tiếp tục dùng mọi tính năng Pro với ${proName}.";
 
   static String m26(days) =>
-      "Dùng miễn phí mọi tính năng Zappit Pro trong ${days} ngày. Không cần thẻ tín dụng, không tự động trừ tiền.";
+      "Trải nghiệm mọi tính năng Zappit Pro trong ${days} ngày. Hoàn toàn miễn phí, không tự động trừ tiền.";
 
-  static String m27(date) => "Trải nghiệm Pro đến ${date}";
+  static String m27(date) => "Trải nghiệm Pro miễn phí đến ${date}";
 
   static String m28(proName) => "Đã khôi phục ${proName}";
 
@@ -122,7 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m44(count) =>
       "Voice Boost đã tắt. Nếu không có Pro, bạn dùng được Voice Boost trong ${count} giây.";
 
-  static String m45(proName) => "Chào mừng bạn đến với ${proName}";
+  static String m45(proName) => "Đã nâng cấp lên ${proName}!";
 
   static String m46(number) => "Cửa sổ ${number}";
 
@@ -138,13 +138,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "allCategories": MessageLookupByLibrary.simpleMessage("Tất cả thể loại"),
     "allSites": MessageLookupByLibrary.simpleMessage("Tất cả trang web"),
     "alreadySubscribed": MessageLookupByLibrary.simpleMessage(
-      "Bạn đã có gói đăng ký này. Hãy thử Khôi phục giao dịch mua.",
+      "Bạn đã có gói đăng ký này. Hãy thử “Khôi phục giao dịch mua”.",
     ),
     "back": MessageLookupByLibrary.simpleMessage("Quay lại"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage(
-      "Rất tiếc, quyền truy cập đã bị chặn.",
-    ),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage(
       "Trình duyệt không phản hồi",
@@ -152,7 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "browsers": MessageLookupByLibrary.simpleMessage("Trình duyệt"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "Một điện thoại khác đã kết nối với trình duyệt đó. Để dùng lại, hãy quét mã QR trên máy tính đó.",
+      "Một điện thoại khác đã kết nối với trình duyệt đó. Để kết nối lại, hãy quét mã QR trên máy tính đó.",
     ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "Hãy cho phép truy cập camera trong Cài đặt để quét mã.",
@@ -162,7 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),
     "cancelAnytime": MessageLookupByLibrary.simpleMessage(
-      "Hủy bất cứ lúc nào trong tài khoản cửa hàng.",
+      "Hủy bất cứ lúc nào trong phần quản lý gói đăng ký.",
     ),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage(
       "Không tải được trang này",
@@ -235,7 +232,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Ngắt kết nối điện thoại này",
     ),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "Điện thoại này sẽ không còn điều khiển máy tính của bạn. Để dùng lại, hãy quét mã QR trên máy tính.",
+      "Điện thoại này sẽ không còn điều khiển máy tính của bạn. Để kết nối lại, hãy quét mã QR trên máy tính.",
     ),
     "down": MessageLookupByLibrary.simpleMessage("Xuống"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("Khi hết video"),
@@ -264,7 +261,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Không có video nào đang phát",
     ),
     "errorNotChanged": MessageLookupByLibrary.simpleMessage(
-      "Trang web không thay đổi",
+      "Trang web chưa áp dụng thay đổi",
     ),
     "errorNotSupported": MessageLookupByLibrary.simpleMessage(
       "Trang web này không hỗ trợ thao tác đó",
@@ -277,7 +274,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Thoát toàn màn hình",
     ),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "Tiện ích Zappit đã được cập nhật. Hãy tải lại trang này để tiếp tục dùng mọi nút điều khiển.",
+      "Tiện ích Zappit đã được cập nhật. Hãy tải lại trang trong trình duyệt trên máy tính để tiếp tục dùng mọi nút điều khiển.",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("Câu hỏi thường gặp"),
     "favorites": MessageLookupByLibrary.simpleMessage("Yêu thích"),
@@ -307,7 +304,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "learnMore": MessageLookupByLibrary.simpleMessage("Tìm hiểu thêm"),
     "left": MessageLookupByLibrary.simpleMessage("Trái"),
     "linkPanelHint": MessageLookupByLibrary.simpleMessage(
-      "Dán liên kết video rồi chạm Gửi. Video sẽ mở trong thẻ mới trên trình duyệt của bạn.",
+      "Dán liên kết video rồi chạm “Gửi”. Video sẽ mở trong thẻ mới trên trình duyệt của bạn.",
     ),
     "liveBadge": MessageLookupByLibrary.simpleMessage("TRỰC TIẾP"),
     "liveCantRewind": MessageLookupByLibrary.simpleMessage(
@@ -333,7 +330,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "monthly": MessageLookupByLibrary.simpleMessage("Hằng tháng"),
     "multipleBrowsersMessage": MessageLookupByLibrary.simpleMessage(
-      "Có nhiều trình duyệt đang trực tuyến. Hãy chọn trình duyệt mà điều khiển này sẽ điều khiển.",
+      "Có nhiều trình duyệt đang trực tuyến. Hãy chọn trình duyệt bạn muốn điều khiển.",
     ),
     "mute": MessageLookupByLibrary.simpleMessage("Tắt tiếng"),
     "nextChapter": MessageLookupByLibrary.simpleMessage("Chương tiếp theo"),
@@ -373,20 +370,20 @@ class MessageLookup extends MessageLookupByLibrary {
       "Không có trang trước để quay lại",
     ),
     "noSiteSettings": MessageLookupByLibrary.simpleMessage(
-      "Chưa có cài đặt nào cho trang này.",
+      "Chưa có cài đặt nào cho trang web này.",
     ),
     "noSubtitles": MessageLookupByLibrary.simpleMessage(
       "Video này không có phụ đề",
     ),
     "noThanks": MessageLookupByLibrary.simpleMessage("Không, cảm ơn"),
     "noVideosOnPage": MessageLookupByLibrary.simpleMessage(
-      "Trang này không có video.",
+      "Trang đang mở trên trình duyệt không có video.",
     ),
     "notAvailableDuringAd": MessageLookupByLibrary.simpleMessage(
       "Không khả dụng khi đang có quảng cáo",
     ),
     "notAvailableForLive": MessageLookupByLibrary.simpleMessage(
-      "Không dùng được khi phát trực tiếp",
+      "Không dùng được với video trực tiếp",
     ),
     "notAvailableForLiveStreams": MessageLookupByLibrary.simpleMessage(
       "Không khả dụng cho video phát trực tiếp",
@@ -399,13 +396,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "Không tìm thấy video",
     ),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "Không có video trên màn hình này. Hãy chọn thẻ khác hoặc dán liên kết video.",
+      "Thẻ đang mở trên trình duyệt không có video. Hãy chọn thẻ khác hoặc dán liên kết video.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage(
       "Không có gì để khôi phục",
     ),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "Không tìm thấy gói Zappit Pro nào đang hoạt động cho tài khoản cửa hàng này.",
+      "Không tìm thấy gói Zappit Pro nào đang hoạt động cho tài khoản này.",
     ),
     "obAnimAddExtension": MessageLookupByLibrary.simpleMessage("Thêm tiện ích"),
     "obAnimAdded": MessageLookupByLibrary.simpleMessage("Đã thêm"),
@@ -465,14 +462,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "Điều khiển mọi video trên máy tính. Thiết lập chỉ cần hai bước nhanh.",
+      "Điều khiển mọi video trên máy tính. Chỉ cần hai bước nhanh chóng để thiết lập.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "Điện thoại giờ là điều khiển của bạn",
     ),
     "openALink": MessageLookupByLibrary.simpleMessage("Mở liên kết"),
     "openBrowserForTabs": MessageLookupByLibrary.simpleMessage(
-      "Mở trình duyệt có tiện ích Zappit để xem các thẻ của nó.",
+      "Hãy mở trình duyệt có tiện ích Zappit để xem các thẻ đang mở.",
     ),
     "openLinkInBrowser": MessageLookupByLibrary.simpleMessage(
       "Mở liên kết trong trình duyệt",
@@ -496,7 +493,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Cách cài đặt tiện ích",
     ),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "Máy tính này đã kết nối với 3 điện thoại. Hãy mở Zappit trên một trong các điện thoại khác đang kết nối và chạm ‘Ngắt kết nối điện thoại này’ trong ‘Thêm’. Nếu bạn không còn điện thoại đó, hãy dùng ‘Reset’ trong tiện ích Zappit trên máy tính của bạn.",
+      "Máy tính này đã kết nối với 3 điện thoại. Hãy mở Zappit trên một trong các điện thoại khác đang kết nối và chạm “Ngắt kết nối điện thoại này” trong “Thêm”. Nếu không thể dùng các điện thoại khác, hãy nhấp “Đặt lại” trong “Cài đặt” của tiện ích Zappit trên máy tính.",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage(
       "Kết nối với tiện ích trình duyệt",
@@ -511,7 +508,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Đang chờ thanh toán",
     ),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "Pro sẽ bật ngay khi cửa hàng xác nhận thanh toán của bạn.",
+      "Pro sẽ được bật ngay khi thanh toán của bạn được xác nhận.",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("Tên điện thoại"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("Nhập tên."),
@@ -520,7 +517,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "pickATab": MessageLookupByLibrary.simpleMessage("Chọn thẻ"),
     "pickBrowserForTabs": MessageLookupByLibrary.simpleMessage(
-      "Chọn trình duyệt mà điều khiển này sẽ điều khiển để xem các thẻ của nó.",
+      "Hãy chọn trình duyệt bạn muốn điều khiển để xem các thẻ đang mở.",
     ),
     "pickVideosWithPro": MessageLookupByLibrary.simpleMessage(
       "Chọn video từ điện thoại với Pro",
@@ -553,30 +550,30 @@ class MessageLookup extends MessageLookupByLibrary {
       "Khai thác toàn bộ sức mạnh của điều khiển",
     ),
     "proFeatureAbLoop": MessageLookupByLibrary.simpleMessage(
-      "A-B Loop không giới hạn",
+      "Dùng A-B Loop không giới hạn",
     ),
     "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage(
-      "Mọi tốc độ phát",
+      "Chọn mọi tốc độ phát",
     ),
     "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "Mở khóa điều khiển riêng cho từng trang",
+      "Mở khóa điều khiển riêng cho từng trang web",
     ),
     "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage(
       "Lặp lại cả video không giới hạn",
     ),
     "proFeatureVoiceBoost": MessageLookupByLibrary.simpleMessage(
-      "Voice Boost không giới hạn",
+      "Dùng Voice Boost không giới hạn",
     ),
     "proPreviewActiveBanner": m24,
     "proPreviewEndedMessage": MessageLookupByLibrary.simpleMessage(
-      "Cảm ơn bạn đã dùng thử Zappit Pro! Hãy đăng ký để tiếp tục dùng mọi tính năng Pro liền mạch.",
+      "Bạn thấy Zappit Pro thế nào? Hãy đăng ký để tiếp tục dùng mọi tính năng Pro không gián đoạn.",
     ),
     "proPreviewEndedSubtitle": m25,
     "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
-      "Bản trải nghiệm Pro của bạn đã kết thúc",
+      "Trải nghiệm Pro miễn phí đã kết thúc",
     ),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
-      "Bản trải nghiệm Pro kết thúc vào ngày mai",
+      "Trải nghiệm Pro miễn phí sẽ kết thúc vào ngày mai",
     ),
     "proPreviewStarted": m26,
     "proPreviewUntil": m27,
@@ -600,7 +597,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Giao dịch mua chưa được kích hoạt",
     ),
     "purchaseNotActivatedMessage": MessageLookupByLibrary.simpleMessage(
-      "Thanh toán đã thành công nhưng Pro chưa được kích hoạt. Hãy thử Khôi phục giao dịch mua.",
+      "Thanh toán đã thành công nhưng Pro chưa được kích hoạt. Hãy thử “Khôi phục giao dịch mua”.",
     ),
     "purchasesNotAllowed": MessageLookupByLibrary.simpleMessage(
       "Thiết bị hoặc tài khoản này không được phép mua hàng.",
@@ -665,12 +662,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "sleepTimer": MessageLookupByLibrary.simpleMessage("Hẹn giờ tắt"),
     "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("Hẹn giờ tắt"),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage("Phụ đề nhỏ hơn"),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage(
-      "Rất tiếc, đã xảy ra sự cố.",
-    ),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "Rất tiếc, đã xảy ra sự cố. Vui lòng thử lại.",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage(
       "Chạm để xem cách bật âm thanh.",
     ),
@@ -683,10 +674,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Bắt đầu dùng thử miễn phí",
     ),
     "storeProblem": MessageLookupByLibrary.simpleMessage(
-      "Cửa hàng gặp sự cố. Vui lòng thử lại sau giây lát.",
+      "Đã xảy ra sự cố khi mua. Vui lòng thử lại sau giây lát.",
     ),
     "storeUnavailable": MessageLookupByLibrary.simpleMessage(
-      "Cửa hàng hiện không khả dụng. Vui lòng thử lại sau.",
+      "Hiện chưa thể mua gói đăng ký. Vui lòng thử lại sau.",
     ),
     "subscribe": MessageLookupByLibrary.simpleMessage("Đăng ký"),
     "success": MessageLookupByLibrary.simpleMessage("Thành công"),
@@ -695,13 +686,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "Trang web được hỗ trợ",
     ),
     "supportedSitesIntro": MessageLookupByLibrary.simpleMessage(
-      "Những trang này có điều khiển riêng được thiết kế cho chúng. Trên các trang khác, Zappit hoạt động như một điều khiển tiêu chuẩn.",
+      "Các trang web này có điều khiển được thiết kế riêng. Trên các trang web khác, Zappit hoạt động như một điều khiển thông thường.",
     ),
     "tabMore": MessageLookupByLibrary.simpleMessage("Thêm"),
     "tabRemote": MessageLookupByLibrary.simpleMessage("Điều khiển"),
     "tabTabs": MessageLookupByLibrary.simpleMessage("Thẻ"),
     "tapToKeepPro": MessageLookupByLibrary.simpleMessage(
-      "Chạm để giữ mọi tính năng Pro.",
+      "Chạm để tiếp tục dùng mọi tính năng Pro.",
     ),
     "tellAFriend": MessageLookupByLibrary.simpleMessage(
       "Giới thiệu cho bạn bè",
@@ -709,10 +700,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "termsOfService": MessageLookupByLibrary.simpleMessage(
       "Điều khoản dịch vụ",
     ),
-    "theaterMode": MessageLookupByLibrary.simpleMessage("Chế độ rạp hát"),
+    "theaterMode": MessageLookupByLibrary.simpleMessage(
+      "Chế độ rạp chiếu phim",
+    ),
     "trialReminderBody": m37,
     "trialReminderChannel": MessageLookupByLibrary.simpleMessage(
-      "Nhắc nhở dùng thử miễn phí",
+      "Nhắc trước khi hết dùng thử miễn phí",
     ),
     "trialReminderChannelDescription": MessageLookupByLibrary.simpleMessage(
       "Lời nhắc trước khi thời gian dùng thử miễn phí kết thúc",
@@ -724,7 +717,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Thời gian dùng thử Zappit Pro sắp kết thúc",
     ),
     "trialReminderTitle": MessageLookupByLibrary.simpleMessage(
-      "Nhắc nhở dùng thử",
+      "Nhắc trước khi hết dùng thử",
     ),
     "trialTerms": m38,
     "trialTermsDays": m39,

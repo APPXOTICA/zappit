@@ -52,14 +52,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m14(count) => "${count} perc";
 
-  static String m15(time) => "Új kód: ${time}";
+  static String m15(time) => "Új kód ${time} múlva";
 
   static String m16(url) =>
       "Nyisd meg ezt a számítógép böngészőjében: ${url}, és telepítsd a Zappit bővítményt.";
 
   static String m17(current, total) => "${current} / ${total}";
 
-  static String m18(current, total) => "${current}. lépés / ${total}";
+  static String m18(current, total) => "${current}/${total}. lépés";
 
   static String m19(site) => "${site} megnyitása";
 
@@ -72,15 +72,15 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m23(price) => "${price} / év";
 
   static String m24(date) =>
-      "Az ingyenes Pro előzetesed eddig él: ${date}. Fizess elő, mielőtt lejár, és minden Pro funkció megszakítás nélkül megmarad.";
+      "Az ingyenes Pro-próbaidőszakod lejárata: ${date}. Fizess elő, mielőtt lejár, és minden Pro funkció megszakítás nélkül megmarad.";
 
   static String m25(proName) =>
-      "A Pro előzetesed lejárt. Tartsd meg az összes Pro funkciót a ${proName} előfizetéssel.";
+      "Az ingyenes Pro-próbaidőszakod véget ért. A ${proName} előfizetéssel minden Pro funkció megmarad.";
 
   static String m26(days) =>
-      "Használd ingyen a Zappit Pro összes funkcióját ${days} napig. Nem kell bankkártya, és nincs automatikus terhelés.";
+      "Használd ingyen a Zappit Pro összes funkcióját ${days} napig. Teljesen ingyenes, a végén sincs automatikus fizetés.";
 
-  static String m27(date) => "Pro előzetes eddig: ${date}";
+  static String m27(date) => "Pro-próbaidőszak vége: ${date}";
 
   static String m28(proName) => "${proName} visszaállítva";
 
@@ -99,21 +99,22 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m35(site) => "${site} beállításai";
 
   static String m36(count) =>
-      "Vissza 1x-re. Pro nélkül ezt a sebességet ${count} másodpercig használhatod.";
+      "Visszaállt 1x-es sebességre. Pro nélkül ezt a sebességet ${count} másodpercig használhatod.";
 
   static String m37(price, date) =>
       "Az ingyenes próbád holnap lejár. ${date} napon ${price} terhelés történik. Ha nem szeretnéd folytatni, mondd le előtte az előfizetést.";
 
-  static String m38(price) => "Ingyenes próbával indul, utána ${price}/év.";
+  static String m38(price) =>
+      "Ingyenes próbaidőszakkal indul, utána ${price}/év.";
 
   static String m39(count, price) =>
-      "${count} nap ingyenes próbával indul, utána ${price}/év.";
+      "${count} napos ingyenes próbaidőszakkal indul, utána ${price}/év.";
 
   static String m40(count, price) =>
-      "${count} hónap ingyenes próbával indul, utána ${price}/év.";
+      "${count} hónapos ingyenes próbaidőszakkal indul, utána ${price}/év.";
 
   static String m41(count, price) =>
-      "${count} év ingyenes próbával indul, utána ${price}/év.";
+      "${count} éves ingyenes próbaidőszakkal indul, utána ${price}/év.";
 
   static String m42(count) => "Következik · ${count} mp múlva";
 
@@ -122,7 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m44(count) =>
       "A Voice Boost kikapcsolt. Pro nélkül a Voice Boostot ${count} másodpercig használhatod.";
 
-  static String m45(proName) => "Üdv a ${proName} világában";
+  static String m45(proName) => "${proName} aktiválva!";
 
   static String m46(number) => "${number}. ablak";
 
@@ -138,13 +139,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "allCategories": MessageLookupByLibrary.simpleMessage("Összes kategória"),
     "allSites": MessageLookupByLibrary.simpleMessage("Összes oldal"),
     "alreadySubscribed": MessageLookupByLibrary.simpleMessage(
-      "Már van ilyen előfizetésed. Próbáld a Vásárlások visszaállítását.",
+      "Már van ilyen előfizetésed. Koppints a „Vásárlások visszaállítása” lehetőségre.",
     ),
     "back": MessageLookupByLibrary.simpleMessage("Vissza"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage(
-      "Sajnáljuk, a hozzáférést letiltották.",
-    ),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage(
       "A böngésző nem válaszol",
@@ -152,7 +150,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "browsers": MessageLookupByLibrary.simpleMessage("Böngészők"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "Egy másik telefon csatlakozott hozzá. Ha újra használni szeretnéd, olvasd be a QR-kódot azon a számítógépen.",
+      "Egy másik telefon csatlakozott hozzá. Ha újra csatlakozni szeretnél, olvasd be a QR-kódot azon a számítógépen.",
     ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "A kód beolvasásához engedélyezd a kamerát a Beállításokban.",
@@ -162,7 +160,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Mégse"),
     "cancelAnytime": MessageLookupByLibrary.simpleMessage(
-      "Bármikor lemondhatod az áruházi fiókodban.",
+      "Az előfizetést bármikor lemondhatod.",
     ),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage(
       "Az oldal nem tölthető be",
@@ -227,7 +225,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Nem sikerült megnyitni a linket",
     ),
     "couldNotReadQuality": MessageLookupByLibrary.simpleMessage(
-      "Nem sikerült beolvasni a minőségi lehetőségeket az oldalról.",
+      "Nem sikerült beolvasni az elérhető minőségeket az oldalról.",
     ),
     "delete": MessageLookupByLibrary.simpleMessage("Törlés"),
     "disconnect": MessageLookupByLibrary.simpleMessage("Leválasztás"),
@@ -235,7 +233,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Telefon leválasztása",
     ),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "Ez a telefon többé nem irányítja a számítógépedet. Ha újra használni szeretnéd, olvasd be a QR-kódot a számítógépen.",
+      "Ez a telefon többé nem irányítja a számítógépedet. Ha újra csatlakoztatni szeretnéd, olvasd be a QR-kódot a számítógépen.",
     ),
     "down": MessageLookupByLibrary.simpleMessage("Le"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("A videó végén"),
@@ -260,9 +258,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorNoBrowser": MessageLookupByLibrary.simpleMessage(
       "Nincs kiválasztott böngésző",
     ),
-    "errorNoMedia": MessageLookupByLibrary.simpleMessage("Nem megy videó"),
+    "errorNoMedia": MessageLookupByLibrary.simpleMessage(
+      "Nincs lejátszás alatt álló videó",
+    ),
     "errorNotChanged": MessageLookupByLibrary.simpleMessage(
-      "Az oldal nem változtatta meg",
+      "Az oldal nem alkalmazta a módosítást",
     ),
     "errorNotSupported": MessageLookupByLibrary.simpleMessage(
       "Ez az oldal ezt nem támogatja",
@@ -277,7 +277,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Kilépés a teljes képernyőből",
     ),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "A Zappit bővítmény frissült. Töltsd újra ezt az oldalt, hogy továbbra is minden vezérlőt használhass.",
+      "A Zappit bővítmény frissült. Töltsd újra a lapot a böngészőben, hogy továbbra is minden vezérlőt használhass.",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("GYIK"),
     "favorites": MessageLookupByLibrary.simpleMessage("Kedvencek"),
@@ -306,7 +306,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "lastVideoInPlaylist": MessageLookupByLibrary.simpleMessage(
       "Ez a lejátszási lista utolsó videója",
     ),
-    "learnMore": MessageLookupByLibrary.simpleMessage("További infó"),
+    "learnMore": MessageLookupByLibrary.simpleMessage("Tudj meg többet"),
     "left": MessageLookupByLibrary.simpleMessage("Balra"),
     "linkPanelHint": MessageLookupByLibrary.simpleMessage(
       "Illeszd be a videó linkjét, és koppints a Küldés gombra. A böngésződ új lapján nyílik meg.",
@@ -403,7 +403,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Nincs mit visszaállítani",
     ),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "Ehhez az áruházi fiókhoz nem található aktív Zappit Pro előfizetés.",
+      "Ehhez a fiókhoz nem található aktív Zappit Pro előfizetés.",
     ),
     "obAnimAddExtension": MessageLookupByLibrary.simpleMessage(
       "Bővítmény hozzáadása",
@@ -420,7 +420,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Távirányító csatlakoztatva",
     ),
     "obAnimScanCode": MessageLookupByLibrary.simpleMessage(
-      "Olvasd be ezt a kódot a telefonodon a Zappit alkalmazással.",
+      "Olvasd be ezt a kódot a telefonodon lévő Zappit alkalmazással.",
     ),
     "obAnimTagline": MessageLookupByLibrary.simpleMessage("Búcsú az egértől."),
     "obAnimYourPhones": MessageLookupByLibrary.simpleMessage("Telefonjaid"),
@@ -496,7 +496,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Így telepítsd a bővítményt",
     ),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "Ehhez a számítógéphez már 3 telefon csatlakozik. Nyisd meg a Zappitot egy másik csatlakoztatott telefonodon, és a „Továbbiak” menüben koppints a „Telefon leválasztása” lehetőségre. Ha az a telefon már nincs meg, használd a „Reset” gombot a számítógéped Zappit bővítményében.",
+      "Ehhez a számítógéphez már 3 telefon csatlakozik. Nyisd meg a Zappitot egy másik csatlakoztatott telefonodon, és a „Továbbiak” menüben koppints a „Telefon leválasztása” lehetőségre. Ha egyik ilyen telefonhoz sem férsz hozzá, a számítógépen nyisd meg a Zappit bővítmény „Beállítások” menüjét, és kattints a „Visszaállítás” gombra.",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage(
       "Csatlakozz a böngészőbővítményhez",
@@ -511,7 +511,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Függőben lévő fizetés",
     ),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "A Pro bekapcsol, amint az áruház megerősíti a fizetést.",
+      "A Pro azonnal bekapcsol, amint a fizetésedet megerősítik.",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("Telefon neve"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage(
@@ -556,13 +556,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "Korlátlan A-B Loop",
     ),
     "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage(
-      "Minden lejátszási sebesség",
+      "Az összes lejátszási sebesség elérhető",
     ),
     "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "Oldalakra szabott távirányítók",
+      "Támogatott oldalakra szabott távirányítók",
     ),
     "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage(
-      "Korlátlan teljes videó ismétlés",
+      "Korlátlan videóismétlés",
     ),
     "proFeatureVoiceBoost": MessageLookupByLibrary.simpleMessage(
       "Korlátlan Voice Boost",
@@ -573,10 +573,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "proPreviewEndedSubtitle": m25,
     "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
-      "A Pro előzetesed lejárt",
+      "Véget ért az ingyenes Pro-próbaidőszakod",
     ),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
-      "A Pro előzetes holnap lejár",
+      "Holnap lejár az ingyenes Pro-próbaidőszakod",
     ),
     "proPreviewStarted": m26,
     "proPreviewUntil": m27,
@@ -600,7 +600,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "A vásárlás nincs aktiválva",
     ),
     "purchaseNotActivatedMessage": MessageLookupByLibrary.simpleMessage(
-      "A fizetés sikerült, de a Pro még nem aktív. Próbáld a Vásárlások visszaállítását.",
+      "A fizetés sikerült, de a Pro még nem aktív. Koppints a „Vásárlások visszaállítása” lehetőségre.",
     ),
     "purchasesNotAllowed": MessageLookupByLibrary.simpleMessage(
       "Ezen az eszközön vagy fiókon nem engedélyezett a vásárlás.",
@@ -646,7 +646,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "seekInterval": MessageLookupByLibrary.simpleMessage("Ugrás hossza"),
     "select": MessageLookupByLibrary.simpleMessage("Kiválasztás"),
     "selectVideoInBrowser": MessageLookupByLibrary.simpleMessage(
-      "Nem megy semmi",
+      "Nincs lejátszás",
     ),
     "selectVideoInBrowserMessage": MessageLookupByLibrary.simpleMessage(
       "Kattints bármelyik videóra a számítógépen, és kezdődhet a nézés. A távirányító itt jelenik meg.",
@@ -669,12 +669,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "sleepTimer": MessageLookupByLibrary.simpleMessage("Elalvásidőzítő"),
     "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("Elalvásidőzítő"),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage("Kisebb felirat"),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage(
-      "Sajnáljuk, valami hiba történt.",
-    ),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "Sajnáljuk, valami hiba történt. Próbáld újra.",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage(
       "Koppints, és megnézheted, hogyan kapcsold be a hangot.",
     ),
@@ -687,10 +681,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Ingyenes próba indítása",
     ),
     "storeProblem": MessageLookupByLibrary.simpleMessage(
-      "Hiba történt az áruházban. Próbáld újra egy kicsit később.",
+      "Hiba történt a vásárlás során. Próbáld újra egy kicsit később.",
     ),
     "storeUnavailable": MessageLookupByLibrary.simpleMessage(
-      "Az áruház most nem érhető el. Próbáld újra később.",
+      "A vásárlás most nem lehetséges. Próbáld újra később.",
     ),
     "subscribe": MessageLookupByLibrary.simpleMessage("Előfizetés"),
     "success": MessageLookupByLibrary.simpleMessage("Kész"),
@@ -713,7 +707,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "termsOfService": MessageLookupByLibrary.simpleMessage(
       "Felhasználási feltételek",
     ),
-    "theaterMode": MessageLookupByLibrary.simpleMessage("Mozi mód"),
+    "theaterMode": MessageLookupByLibrary.simpleMessage("Moziüzemmód"),
     "trialReminderBody": m37,
     "trialReminderChannel": MessageLookupByLibrary.simpleMessage(
       "Ingyenes próba emlékeztető",
@@ -725,7 +719,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Szóljunk az ingyenes próba vége előtti napon, hogy ne érjen meglepetésként a terhelés?",
     ),
     "trialReminderNotificationTitle": MessageLookupByLibrary.simpleMessage(
-      "Hamarosan lejár a Zappit Pro ingyenes próbája",
+      "Hamarosan lejár az ingyenes próbaidőszakod",
     ),
     "trialReminderTitle": MessageLookupByLibrary.simpleMessage(
       "Próbaidőszak-emlékeztető",
@@ -760,7 +754,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "voiceBoostTrialLeft": m43,
     "voiceBoostTrialOver": m44,
     "voiceBoostTurnedOn": MessageLookupByLibrary.simpleMessage(
-      "Voice Boost be: jobban hallani a hangokat",
+      "Voice Boost be: a beszéd jobban érthető",
     ),
     "voiceBoostUnsupported": MessageLookupByLibrary.simpleMessage(
       "Ez a videó nem támogatja a Voice Boostot",

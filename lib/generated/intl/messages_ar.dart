@@ -22,7 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(site) => "إضافة ${site} إلى المفضّلة";
 
-  static String m1(count) => "رجوع ${count} ثانية";
+  static String m1(count) =>
+      "${Intl.plural(count, zero: 'رجوع ${count} ثانية', one: 'رجوع ثانية واحدة', two: 'رجوع ثانيتين', few: 'رجوع ${count} ثوانٍ', many: 'رجوع ${count} ثانية', other: 'رجوع ${count} ثانية')}";
 
   static String m2(browser) => "لم يستجب ${browser}. تأكد من أن المتصفح مفتوح.";
 
@@ -34,15 +35,20 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m6(browser) => "تم الاتصال بـ ${browser}";
 
-  static String m7(count) => "تقديم ${count} ثانية";
+  static String m7(count) =>
+      "${Intl.plural(count, zero: 'تقديم ${count} ثانية', one: 'تقديم ثانية واحدة', two: 'تقديم ثانيتين', few: 'تقديم ${count} ثوانٍ', many: 'تقديم ${count} ثانية', other: 'تقديم ${count} ثانية')}";
 
-  static String m8(count) => "تجربة مجانية: ${count} يوم";
+  static String m8(count) =>
+      "${Intl.plural(count, zero: 'تجربة مجانية لمدة ${count} يوم', one: 'تجربة مجانية لمدة يوم واحد', two: 'تجربة مجانية لمدة يومين', few: 'تجربة مجانية لمدة ${count} أيام', many: 'تجربة مجانية لمدة ${count} يومًا', other: 'تجربة مجانية لمدة ${count} يوم')}";
 
-  static String m9(count) => "تجربة مجانية: ${count} شهر";
+  static String m9(count) =>
+      "${Intl.plural(count, zero: 'تجربة مجانية لمدة ${count} شهر', one: 'تجربة مجانية لمدة شهر واحد', two: 'تجربة مجانية لمدة شهرين', few: 'تجربة مجانية لمدة ${count} أشهر', many: 'تجربة مجانية لمدة ${count} شهرًا', other: 'تجربة مجانية لمدة ${count} شهر')}";
 
-  static String m10(count) => "تجربة مجانية: ${count} أسبوع";
+  static String m10(count) =>
+      "${Intl.plural(count, zero: 'تجربة مجانية لمدة ${count} أسبوع', one: 'تجربة مجانية لمدة أسبوع واحد', two: 'تجربة مجانية لمدة أسبوعين', few: 'تجربة مجانية لمدة ${count} أسابيع', many: 'تجربة مجانية لمدة ${count} أسبوعًا', other: 'تجربة مجانية لمدة ${count} أسبوع')}";
 
-  static String m11(count) => "تجربة مجانية: ${count} سنة";
+  static String m11(count) =>
+      "${Intl.plural(count, zero: 'تجربة مجانية لمدة ${count} سنة', one: 'تجربة مجانية لمدة سنة واحدة', two: 'تجربة مجانية لمدة سنتين', few: 'تجربة مجانية لمدة ${count} سنوات', many: 'تجربة مجانية لمدة ${count} سنة', other: 'تجربة مجانية لمدة ${count} سنة')}";
 
   static String m12(price) => "فقط ${price} شهريًا";
 
@@ -73,12 +79,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "تجربة Pro المجانية سارية حتى ${date}. اشترك قبل انتهائها لتواصل استخدام كل ميزات Pro دون انقطاع.";
 
   static String m25(proName) =>
-      "انتهت تجربة Pro. احتفظ بكل ميزات Pro مع ${proName}.";
+      "انتهت تجربة Pro المجانية. يمكنك مواصلة استخدام كل ميزات Pro مع ${proName}.";
 
   static String m26(days) =>
-      "استمتع بكل ميزات Zappit Pro مجانًا لمدة ${days} يوم. لا حاجة إلى بطاقة ائتمان ولا خصم تلقائي.";
+      "${Intl.plural(days, zero: 'استمتع بكل ميزات Zappit Pro مجانًا لمدة ${days} يوم. إنها مجانية بالكامل، دون أي خصم تلقائي.', one: 'استمتع بكل ميزات Zappit Pro مجانًا لمدة يوم واحد. إنها مجانية بالكامل، دون أي خصم تلقائي.', two: 'استمتع بكل ميزات Zappit Pro مجانًا لمدة يومين. إنها مجانية بالكامل، دون أي خصم تلقائي.', few: 'استمتع بكل ميزات Zappit Pro مجانًا لمدة ${days} أيام. إنها مجانية بالكامل، دون أي خصم تلقائي.', many: 'استمتع بكل ميزات Zappit Pro مجانًا لمدة ${days} يومًا. إنها مجانية بالكامل، دون أي خصم تلقائي.', other: 'استمتع بكل ميزات Zappit Pro مجانًا لمدة ${days} يوم. إنها مجانية بالكامل، دون أي خصم تلقائي.')}";
 
-  static String m27(date) => "تجربة Pro حتى ${date}";
+  static String m27(date) => "تجربة Pro المجانية حتى ${date}";
 
   static String m28(proName) => "تمت استعادة ${proName}";
 
@@ -97,30 +103,32 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m35(site) => "إعدادات ${site}";
 
   static String m36(count) =>
-      "عادت السرعة إلى 1x. من دون Pro يمكنك استخدام هذه السرعة لمدة ${count} ثانية.";
+      "${Intl.plural(count, zero: 'عادت السرعة إلى 1x. من دون Pro يمكنك استخدام هذه السرعة لمدة ${count} ثانية.', one: 'عادت السرعة إلى 1x. من دون Pro يمكنك استخدام هذه السرعة لمدة ثانية واحدة.', two: 'عادت السرعة إلى 1x. من دون Pro يمكنك استخدام هذه السرعة لمدة ثانيتين.', few: 'عادت السرعة إلى 1x. من دون Pro يمكنك استخدام هذه السرعة لمدة ${count} ثوانٍ.', many: 'عادت السرعة إلى 1x. من دون Pro يمكنك استخدام هذه السرعة لمدة ${count} ثانية.', other: 'عادت السرعة إلى 1x. من دون Pro يمكنك استخدام هذه السرعة لمدة ${count} ثانية.')}";
 
   static String m37(price, date) =>
       "تنتهي تجربتك المجانية غدًا. سيتم خصم ${price} في ${date}. إذا كنت لا تريد المتابعة، فألغِ اشتراكك قبل ذلك.";
 
-  static String m38(price) => "تبدأ بتجربة مجانية، ثم ${price} سنويًا.";
+  static String m38(price) =>
+      "يبدأ الاشتراك بتجربة مجانية، ثم ${price} سنويًا.";
 
   static String m39(count, price) =>
-      "تبدأ بتجربة مجانية لمدة ${count} يوم، ثم ${price} سنويًا.";
+      "${Intl.plural(count, zero: 'يبدأ الاشتراك بتجربة مجانية لمدة ${count} يوم، ثم ${price} سنويًا.', one: 'يبدأ الاشتراك بتجربة مجانية لمدة يوم واحد، ثم ${price} سنويًا.', two: 'يبدأ الاشتراك بتجربة مجانية لمدة يومين، ثم ${price} سنويًا.', few: 'يبدأ الاشتراك بتجربة مجانية لمدة ${count} أيام، ثم ${price} سنويًا.', many: 'يبدأ الاشتراك بتجربة مجانية لمدة ${count} يومًا، ثم ${price} سنويًا.', other: 'يبدأ الاشتراك بتجربة مجانية لمدة ${count} يوم، ثم ${price} سنويًا.')}";
 
   static String m40(count, price) =>
-      "تبدأ بتجربة مجانية لمدة ${count} شهر، ثم ${price} سنويًا.";
+      "${Intl.plural(count, zero: 'يبدأ الاشتراك بتجربة مجانية لمدة ${count} شهر، ثم ${price} سنويًا.', one: 'يبدأ الاشتراك بتجربة مجانية لمدة شهر واحد، ثم ${price} سنويًا.', two: 'يبدأ الاشتراك بتجربة مجانية لمدة شهرين، ثم ${price} سنويًا.', few: 'يبدأ الاشتراك بتجربة مجانية لمدة ${count} أشهر، ثم ${price} سنويًا.', many: 'يبدأ الاشتراك بتجربة مجانية لمدة ${count} شهرًا، ثم ${price} سنويًا.', other: 'يبدأ الاشتراك بتجربة مجانية لمدة ${count} شهر، ثم ${price} سنويًا.')}";
 
   static String m41(count, price) =>
-      "تبدأ بتجربة مجانية لمدة ${count} سنة، ثم ${price} سنويًا.";
+      "${Intl.plural(count, zero: 'يبدأ الاشتراك بتجربة مجانية لمدة ${count} سنة، ثم ${price} سنويًا.', one: 'يبدأ الاشتراك بتجربة مجانية لمدة سنة واحدة، ثم ${price} سنويًا.', two: 'يبدأ الاشتراك بتجربة مجانية لمدة سنتين، ثم ${price} سنويًا.', few: 'يبدأ الاشتراك بتجربة مجانية لمدة ${count} سنوات، ثم ${price} سنويًا.', many: 'يبدأ الاشتراك بتجربة مجانية لمدة ${count} سنة، ثم ${price} سنويًا.', other: 'يبدأ الاشتراك بتجربة مجانية لمدة ${count} سنة، ثم ${price} سنويًا.')}";
 
   static String m42(count) => "التالي · يبدأ بعد ${count} ث";
 
-  static String m43(count) => "تجربة Voice Boost، متبقٍ ${count} ثانية";
+  static String m43(count) =>
+      "${Intl.plural(count, zero: 'تجربة Voice Boost، المتبقي ${count} ثانية', one: 'تجربة Voice Boost، المتبقي ثانية واحدة', two: 'تجربة Voice Boost، المتبقي ثانيتان', few: 'تجربة Voice Boost، المتبقي ${count} ثوانٍ', many: 'تجربة Voice Boost، المتبقي ${count} ثانية', other: 'تجربة Voice Boost، المتبقي ${count} ثانية')}";
 
   static String m44(count) =>
-      "تم إيقاف Voice Boost. من دون Pro يمكنك استخدام Voice Boost لمدة ${count} ثانية.";
+      "${Intl.plural(count, zero: 'تم إيقاف Voice Boost. من دون Pro يمكنك استخدام Voice Boost لمدة ${count} ثانية.', one: 'تم إيقاف Voice Boost. من دون Pro يمكنك استخدام Voice Boost لمدة ثانية واحدة.', two: 'تم إيقاف Voice Boost. من دون Pro يمكنك استخدام Voice Boost لمدة ثانيتين.', few: 'تم إيقاف Voice Boost. من دون Pro يمكنك استخدام Voice Boost لمدة ${count} ثوانٍ.', many: 'تم إيقاف Voice Boost. من دون Pro يمكنك استخدام Voice Boost لمدة ${count} ثانية.', other: 'تم إيقاف Voice Boost. من دون Pro يمكنك استخدام Voice Boost لمدة ${count} ثانية.')}";
 
-  static String m45(proName) => "مرحبًا بك في ${proName}";
+  static String m45(proName) => "تمت الترقية إلى ${proName} بنجاح";
 
   static String m46(number) => "النافذة ${number}";
 
@@ -128,7 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "abLoopCount": MessageLookupByLibrary.simpleMessage("عدد مرات A-B Loop"),
     "abOffForLive": MessageLookupByLibrary.simpleMessage(
-      "A-B Loop متوقف في البث المباشر",
+      "A-B Loop غير متاح في البث المباشر",
     ),
     "account": MessageLookupByLibrary.simpleMessage("الاتصال"),
     "adBadge": MessageLookupByLibrary.simpleMessage("إعلان"),
@@ -140,7 +148,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "back": MessageLookupByLibrary.simpleMessage("رجوع"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage("عذرًا، تم حظر الوصول."),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage(
       "المتصفح لا يستجيب",
@@ -148,7 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "browsers": MessageLookupByLibrary.simpleMessage("المتصفحات"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "اتصل به هاتف آخر. لاستخدامه مجددًا، امسح رمز QR على ذلك الحاسوب.",
+      "اتصل به هاتف آخر. لإعادة الاتصال، امسح رمز QR الظاهر في المتصفح على حاسوبك.",
     ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "اسمح بالوصول إلى الكاميرا من الإعدادات لمسح الرمز.",
@@ -158,7 +165,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
     "cancelAnytime": MessageLookupByLibrary.simpleMessage(
-      "يمكنك الإلغاء في أي وقت من حسابك في المتجر.",
+      "يمكنك إلغاء الاشتراك في أي وقت من إعدادات الاشتراكات.",
     ),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage(
       "تعذّر تحميل هذه الصفحة",
@@ -227,7 +234,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "disconnect": MessageLookupByLibrary.simpleMessage("فصل"),
     "disconnectPhone": MessageLookupByLibrary.simpleMessage("فصل هذا الهاتف"),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "لن يتحكم هذا الهاتف في حاسوبك بعد الآن. لاستخدامه مجددًا، امسح رمز QR على حاسوبك.",
+      "لن يتحكم هذا الهاتف في حاسوبك بعد الآن. لإعادة الاتصال، امسح رمز QR على حاسوبك.",
     ),
     "down": MessageLookupByLibrary.simpleMessage("أسفل"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("نهاية الفيديو"),
@@ -271,7 +278,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "الخروج من ملء الشاشة",
     ),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "تم تحديث إضافة Zappit. أعد تحميل هذه الصفحة لمواصلة استخدام كل عناصر التحكم.",
+      "تم تحديث إضافة Zappit. أعد تحميل الصفحة في متصفحك لمواصلة استخدام كل عناصر التحكم.",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("الأسئلة الشائعة"),
     "favorites": MessageLookupByLibrary.simpleMessage("المفضّلة"),
@@ -399,9 +406,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "لا يوجد ما يمكن استعادته",
     ),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "لم يتم العثور على اشتراك Zappit Pro نشط في حساب المتجر هذا.",
+      "لم يتم العثور على اشتراك Zappit Pro نشط في هذا الحساب.",
     ),
-    "obAnimAddExtension": MessageLookupByLibrary.simpleMessage("إضافة الإضافة"),
+    "obAnimAddExtension": MessageLookupByLibrary.simpleMessage("تثبيت الإضافة"),
     "obAnimAdded": MessageLookupByLibrary.simpleMessage("تمت الإضافة"),
     "obAnimConnectComputer": MessageLookupByLibrary.simpleMessage(
       "اتصل بحاسوبك",
@@ -417,7 +424,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "obAnimTagline": MessageLookupByLibrary.simpleMessage("وداعًا للماوس."),
     "obAnimYourPhones": MessageLookupByLibrary.simpleMessage("هواتفك"),
     "off": MessageLookupByLibrary.simpleMessage("إيقاف"),
-    "offline": MessageLookupByLibrary.simpleMessage("غير متصل"),
+    "offline": MessageLookupByLibrary.simpleMessage("غير متصل بالإنترنت"),
     "offlineMessage": MessageLookupByLibrary.simpleMessage(
       "تحقق من اتصالك بالإنترنت. سيعيد Zappit الاتصال تلقائيًا.",
     ),
@@ -425,11 +432,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "النقر على زر التشغيل/الإيقاف المؤقت في تطبيق Zappit يوقف الفيديو على الحاسوب المحمول ثم يستأنفه",
     ),
     "onboarding1AnimLabel": MessageLookupByLibrary.simpleMessage(
-      "كتابة zappit.tv/get في المتصفح وإضافة إضافة Zappit",
+      "كتابة zappit.tv/get في المتصفح وتثبيت إضافة Zappit",
     ),
     "onboarding1Body": m16,
     "onboarding1Title": MessageLookupByLibrary.simpleMessage(
-      "أولًا، أضف إضافة Zappit إلى متصفحك",
+      "أولًا، ثبّت إضافة Zappit على متصفحك",
     ),
     "onboarding2AnimLabel": MessageLookupByLibrary.simpleMessage(
       "النقر على أيقونة Zappit في المتصفح، ثم مسح رمز QR بالهاتف",
@@ -486,7 +493,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "كيفية تثبيت الإضافة",
     ),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "هذا الحاسوب متصل بالفعل بـ 3 هواتف. افتح Zappit على أحد هواتفك الأخرى المتصلة وانقر على «فصل هذا الهاتف» في «المزيد». إذا لم يعد ذلك الهاتف معك، فاستخدم «Reset» في إضافة Zappit على حاسوبك.",
+      "هذا الحاسوب متصل بالفعل بـ 3 هواتف. افتح Zappit على أحد هواتفك الأخرى المتصلة وانقر على «فصل هذا الهاتف» في «المزيد». إذا تعذّر عليك الوصول إلى هواتفك الأخرى، فافتح إضافة Zappit على حاسوبك وانقر على «الإعدادات» ثم «إعادة الضبط».",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage("اتصل بإضافة المتصفح"),
     "paste": MessageLookupByLibrary.simpleMessage("لصق"),
@@ -497,7 +504,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "الدفع قيد الانتظار",
     ),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "يتم تفعيل Pro بمجرد أن يؤكد المتجر الدفع.",
+      "سيتم تفعيل Pro فور تأكيد الدفع.",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("اسم الهاتف"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("أدخل اسمًا."),
@@ -534,33 +541,33 @@ class MessageLookup extends MessageLookupByLibrary {
     "pricePerYear": m23,
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("سياسة الخصوصية"),
     "proBannerSubtitle": MessageLookupByLibrary.simpleMessage(
-      "أطلق كامل قدرات جهاز التحكم",
+      "أطلق العنان لكل قدرات جهاز التحكم",
     ),
     "proFeatureAbLoop": MessageLookupByLibrary.simpleMessage(
-      "A-B Loop بلا حدود",
+      "استخدام غير محدود لـ A-B Loop",
     ),
     "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage(
-      "كل سرعات التشغيل",
+      "إمكانية اختيار أي سرعة تشغيل",
     ),
     "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "افتح أجهزة تحكم مخصصة لكل موقع",
+      "أجهزة تحكم مخصصة لمواقع محددة",
     ),
     "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage(
-      "تكرار الفيديو كاملًا بلا حدود",
+      "تكرار غير محدود للفيديو كاملًا",
     ),
     "proFeatureVoiceBoost": MessageLookupByLibrary.simpleMessage(
-      "Voice Boost بلا حدود",
+      "استخدام غير محدود لـ Voice Boost",
     ),
     "proPreviewActiveBanner": m24,
     "proPreviewEndedMessage": MessageLookupByLibrary.simpleMessage(
-      "شكرًا لتجربتك Zappit Pro! اشترك لتواصل الاستمتاع بكل ميزات Pro دون انقطاع.",
+      "هل أعجبك Zappit Pro؟ اشترك لتواصل الاستمتاع بكل ميزات Pro دون انقطاع.",
     ),
     "proPreviewEndedSubtitle": m25,
     "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
-      "انتهت تجربة Pro",
+      "انتهت تجربة Pro المجانية",
     ),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
-      "تنتهي تجربة Pro غدًا",
+      "تنتهي تجربة Pro المجانية غدًا",
     ),
     "proPreviewStarted": m26,
     "proPreviewUntil": m27,
@@ -569,7 +576,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "انتهى اشتراك Pro",
     ),
     "proSubtitle": MessageLookupByLibrary.simpleMessage(
-      "أطلق كامل قدرات جهاز التحكم.",
+      "أطلق العنان لكل قدرات جهاز التحكم.",
     ),
     "purchaseCancelled": MessageLookupByLibrary.simpleMessage(
       "تم إلغاء الشراء",
@@ -647,12 +654,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "sleepTimer": MessageLookupByLibrary.simpleMessage("مؤقت النوم"),
     "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("مؤقت النوم"),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage("ترجمة أصغر"),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage(
-      "عذرًا، حدث خطأ ما.",
-    ),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "عذرًا، حدث خطأ ما. يُرجى المحاولة مرة أخرى.",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage(
       "انقر لمعرفة كيفية تشغيل الصوت.",
     ),
@@ -665,10 +666,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "ابدأ التجربة المجانية",
     ),
     "storeProblem": MessageLookupByLibrary.simpleMessage(
-      "حدثت مشكلة في المتجر. يُرجى المحاولة بعد قليل.",
+      "حدثت مشكلة أثناء الشراء. يُرجى المحاولة بعد قليل.",
     ),
     "storeUnavailable": MessageLookupByLibrary.simpleMessage(
-      "المتجر غير متاح حاليًا. يُرجى المحاولة لاحقًا.",
+      "لا يمكن إتمام الشراء حاليًا. يُرجى المحاولة لاحقًا.",
     ),
     "subscribe": MessageLookupByLibrary.simpleMessage("اشترك"),
     "success": MessageLookupByLibrary.simpleMessage("تم"),
@@ -697,7 +698,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "هل تريد أن نذكّرك قبل يوم من انتهاء التجربة المجانية حتى لا تتفاجأ بأي خصم؟",
     ),
     "trialReminderNotificationTitle": MessageLookupByLibrary.simpleMessage(
-      "التجربة المجانية لـ Zappit Pro تنتهي قريبًا",
+      "تنتهي التجربة المجانية لاشتراك Zappit Pro قريبًا",
     ),
     "trialReminderTitle": MessageLookupByLibrary.simpleMessage(
       "تذكير بانتهاء التجربة",
@@ -710,7 +711,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "turnOffAbFirst": MessageLookupByLibrary.simpleMessage(
       "أوقف A-B Loop أولًا",
     ),
-    "tutorial": MessageLookupByLibrary.simpleMessage("دليل الاستخدام"),
+    "tutorial": MessageLookupByLibrary.simpleMessage("الدليل"),
     "unavailable": MessageLookupByLibrary.simpleMessage("غير متاح"),
     "undo": MessageLookupByLibrary.simpleMessage("تراجع"),
     "unmute": MessageLookupByLibrary.simpleMessage("إلغاء كتم الصوت"),

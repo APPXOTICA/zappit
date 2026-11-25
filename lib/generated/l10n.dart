@@ -105,36 +105,6 @@ class S {
     );
   }
 
-  /// `Sorry, this account has been banned.`
-  String get banned {
-    return Intl.message(
-      'Sorry, this account has been banned.',
-      name: 'banned',
-      desc: 'Shown when banned account tries to log in.',
-      args: [],
-    );
-  }
-
-  /// `Sorry, something went wrong.`
-  String get somethingWrong {
-    return Intl.message(
-      'Sorry, something went wrong.',
-      name: 'somethingWrong',
-      desc: 'Displayed when something goes wrong.',
-      args: [],
-    );
-  }
-
-  /// `Sorry, something went wrong. Please try again.`
-  String get somethingWrongTryAgain {
-    return Intl.message(
-      'Sorry, something went wrong. Please try again.',
-      name: 'somethingWrongTryAgain',
-      desc: 'Shown when error occurred.',
-      args: [],
-    );
-  }
-
   /// `Browser not responding`
   String get browserNotResponding {
     return Intl.message(
@@ -2562,12 +2532,12 @@ class S {
     );
   }
 
-  /// `Tutorial`
+  /// `Guide`
   String get tutorial {
     return Intl.message(
-      'Tutorial',
+      'Guide',
       name: 'tutorial',
-      desc: 'More tab row and page title.',
+      desc: 'More tab row and page title. Use the same word as the website guide title (zappit_web guide.title).',
       args: [],
     );
   }
@@ -3150,10 +3120,10 @@ class S {
     );
   }
 
-  /// `This computer already has 3 phones connected. Open Zappit on one of your other connected phones and tap 'Disconnect this phone' in 'More'. If you no longer have that phone, use 'Reset' in the Zappit extension on your computer.`
+  /// `This computer already has 3 phones connected. Open Zappit on one of your other connected phones and tap 'Disconnect this phone' in 'More'. If you no longer have that phone, open the Zappit extension on your computer and click 'Settings' > 'Reset'.`
   String get pairPhoneLimit {
     return Intl.message(
-      'This computer already has 3 phones connected. Open Zappit on one of your other connected phones and tap \'Disconnect this phone\' in \'More\'. If you no longer have that phone, use \'Reset\' in the Zappit extension on your computer.',
+      'This computer already has 3 phones connected. Open Zappit on one of your other connected phones and tap \'Disconnect this phone\' in \'More\'. If you no longer have that phone, open the Zappit extension on your computer and click \'Settings\' > \'Reset\'.',
       name: 'pairPhoneLimit',
       desc: 'Top notice: the account already has the maximum number of phones.',
       args: [],

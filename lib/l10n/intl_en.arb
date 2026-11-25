@@ -19,18 +19,6 @@
   "@delete": {
     "description": "Button title for confirming delete actions"
   },
-  "banned": "Sorry, this account has been banned.",
-  "@banned": {
-    "description": "Shown when banned account tries to log in."
-  },
-  "somethingWrong": "Sorry, something went wrong.",
-  "@somethingWrong": {
-    "description": "Displayed when something goes wrong."
-  },
-  "somethingWrongTryAgain": "Sorry, something went wrong. Please try again.",
-  "@somethingWrongTryAgain": {
-    "description": "Shown when error occurred."
-  },
   "browserNotResponding": "Browser not responding",
   "@browserNotResponding": {
     "description": "Top notice title: a command got no answer from the browser."
@@ -1187,9 +1175,9 @@
   "@support": {
     "description": "More tab section title."
   },
-  "tutorial": "Tutorial",
+  "tutorial": "Guide",
   "@tutorial": {
-    "description": "More tab row and page title."
+    "description": "More tab row and page title. Use the same word as the website guide title (zappit_web guide.title)."
   },
   "contactUs": "Contact us",
   "@contactUs": {
@@ -1463,7 +1451,7 @@
   "@pairCodeInvalid": {
     "description": "Top notice: the scanned QR code is unknown (e.g. replaced by a newer one)."
   },
-  "pairPhoneLimit": "This computer already has 3 phones connected. Open Zappit on one of your other connected phones and tap 'Disconnect this phone' in 'More'. If you no longer have that phone, use 'Reset' in the Zappit extension on your computer.",
+  "pairPhoneLimit": "This computer already has 3 phones connected. Open Zappit on one of your other connected phones and tap 'Disconnect this phone' in 'More'. If you no longer have that phone, open the Zappit extension on your computer and click 'Settings' > 'Reset'.",
   "@pairPhoneLimit": {
     "description": "Top notice: the account already has the maximum number of phones."
   },

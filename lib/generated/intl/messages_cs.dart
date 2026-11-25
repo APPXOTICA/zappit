@@ -22,7 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(site) => "Přidat ${site} do Oblíbených";
 
-  static String m1(count) => "O ${count} s zpět";
+  static String m1(count) => "Zpět o ${count} s";
 
   static String m2(browser) =>
       "${browser} neodpověděl. Zkontrolujte, že je prohlížeč otevřený.";
@@ -35,7 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m6(browser) => "Připojeno k ${browser}";
 
-  static String m7(count) => "O ${count} s vpřed";
+  static String m7(count) => "Vpřed o ${count} s";
 
   static String m8(count) => "Zdarma: ${count} dní";
 
@@ -72,15 +72,15 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m23(price) => "${price} / rok";
 
   static String m24(date) =>
-      "Vaše bezplatná ukázka Pro platí do ${date}. Předplaťte si Pro před jejím koncem a všechny funkce Pro vám zůstanou bez přerušení.";
+      "Období Pro zdarma trvá do ${date}. Když si Pro předplatíte ještě před jeho koncem, všechny funkce Pro vám zůstanou bez přerušení.";
 
   static String m25(proName) =>
-      "Vaše ukázka Pro skončila. Ponechte si všechny funkce Pro s ${proName}.";
+      "Období Pro zdarma skončilo. Předplaťte si ${proName} a všechny funkce Pro vám zůstanou.";
 
   static String m26(days) =>
-      "Užívejte si všechny funkce Zappit Pro ${days} dní zdarma. Bez karty a bez automatických plateb.";
+      "Všechny funkce Zappit Pro teď máte ${days} dní zdarma. Po skončení se nic automaticky neplatí.";
 
-  static String m27(date) => "Ukázka Pro do ${date}";
+  static String m27(date) => "Pro zdarma do ${date}";
 
   static String m28(proName) => "${proName} obnoveno";
 
@@ -102,7 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Zpět na 1x. Bez Pro můžete tuto rychlost používat ${count} s.";
 
   static String m37(price, date) =>
-      "Vaše zkušební verze zdarma zítra končí. ${date} vám bude účtováno ${price}. Pokud nechcete pokračovat, zrušte předplatné předtím.";
+      "Vaše zkušební verze zdarma zítra končí. Dne ${date} vám bude účtováno ${price}. Pokud nechcete pokračovat, zrušte předplatné do té doby.";
 
   static String m38(price) =>
       "Nejdřív zkušební verze zdarma, pak ${price}/rok.";
@@ -123,17 +123,17 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m44(count) =>
       "Voice Boost je vypnutý. Bez Pro můžete Voice Boost používat ${count} s.";
 
-  static String m45(proName) => "Vítejte v ${proName}";
+  static String m45(proName) => "${proName} je aktivní!";
 
   static String m46(number) => "Okno ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "abLoopCount": MessageLookupByLibrary.simpleMessage(
-      "Počet opakování A-B Loop",
+      "Počet opakování smyčky A-B",
     ),
     "abOffForLive": MessageLookupByLibrary.simpleMessage(
-      "A-B Loop je u živého vysílání vypnutý",
+      "Smyčka A-B je u živého vysílání vypnutá",
     ),
     "account": MessageLookupByLibrary.simpleMessage("Připojení"),
     "adBadge": MessageLookupByLibrary.simpleMessage("REKLAMA"),
@@ -141,13 +141,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "allCategories": MessageLookupByLibrary.simpleMessage("Všechny kategorie"),
     "allSites": MessageLookupByLibrary.simpleMessage("Všechny weby"),
     "alreadySubscribed": MessageLookupByLibrary.simpleMessage(
-      "Toto předplatné už máte. Zkuste Obnovit nákupy.",
+      "Toto předplatné už máte. Zkuste „Obnovit nákupy“.",
     ),
     "back": MessageLookupByLibrary.simpleMessage("Zpět"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage(
-      "Bohužel byl přístup zablokován.",
-    ),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage(
       "Prohlížeč neodpovídá",
@@ -155,7 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "browsers": MessageLookupByLibrary.simpleMessage("Prohlížeče"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "Připojil se k němu jiný telefon. Chcete-li ho znovu používat, naskenujte QR kód na tom počítači.",
+      "Připojil se k němu jiný telefon. Chcete-li ho znovu připojit, naskenujte QR kód v tomto prohlížeči.",
     ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "Pro naskenování kódu povolte v Nastavení přístup k fotoaparátu.",
@@ -165,7 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Zrušit"),
     "cancelAnytime": MessageLookupByLibrary.simpleMessage(
-      "Kdykoli zrušíte v účtu obchodu.",
+      "Předplatné můžete kdykoli zrušit v nastavení předplatných.",
     ),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage(
       "Stránku nejde načíst",
@@ -238,7 +235,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Odpojit tento telefon",
     ),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "Tento telefon přestane ovládat váš počítač. Chcete-li ho znovu používat, naskenujte QR kód v počítači.",
+      "Tento telefon přestane ovládat váš počítač. Chcete-li ho znovu připojit, naskenujte QR kód v počítači.",
     ),
     "down": MessageLookupByLibrary.simpleMessage("Dolů"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("Konec videa"),
@@ -282,7 +279,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Ukončit celou obrazovku",
     ),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "Rozšíření Zappit bylo aktualizováno. Načtěte tuto stránku znovu, abyste mohli dál používat všechna ovládání.",
+      "Rozšíření Zappit bylo aktualizováno. Načtěte znovu stránku v prohlížeči, abyste mohli dál používat všechny funkce ovladače.",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("Časté dotazy"),
     "favorites": MessageLookupByLibrary.simpleMessage("Oblíbené"),
@@ -336,7 +333,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "mixCantShuffle": MessageLookupByLibrary.simpleMessage(
       "Tento playlist donekonečna přidává nová videa, takže ho nejde přehrávat náhodně",
     ),
-    "monthly": MessageLookupByLibrary.simpleMessage("Měsíčně"),
+    "monthly": MessageLookupByLibrary.simpleMessage("Měsíční"),
     "multipleBrowsersMessage": MessageLookupByLibrary.simpleMessage(
       "Online je několik prohlížečů. Vyberte ten, který má tento ovladač ovládat.",
     ),
@@ -381,7 +378,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noThanks": MessageLookupByLibrary.simpleMessage("Ne, díky"),
     "noVideosOnPage": MessageLookupByLibrary.simpleMessage(
-      "Na této stránce nejsou žádná videa.",
+      "Na stránce v prohlížeči nejsou žádná videa.",
     ),
     "notAvailableDuringAd": MessageLookupByLibrary.simpleMessage(
       "Během reklamy nedostupné",
@@ -400,11 +397,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "Žádné video nenalezeno",
     ),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "Na této obrazovce není žádné video. Vyberte jinou kartu nebo vložte odkaz na video.",
+      "Na této kartě prohlížeče není žádné video. Vyberte jinou kartu nebo vložte odkaz na video.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage("Není co obnovit"),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "Pro tento účet obchodu nebylo nalezeno žádné aktivní předplatné Zappit Pro.",
+      "Pro tento účet nebylo nalezeno žádné aktivní předplatné Zappit Pro.",
     ),
     "obAnimAddExtension": MessageLookupByLibrary.simpleMessage(
       "Přidat rozšíření",
@@ -497,7 +494,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Jak nainstalovat rozšíření",
     ),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "K tomuto počítači jsou už připojené 3 telefony. Otevřete Zappit na jednom z dalších připojených telefonů a v sekci „Více“ klepněte na „Odpojit tento telefon“. Pokud ten telefon už nemáte, použijte „Reset“ v rozšíření Zappit v počítači.",
+      "K tomuto počítači jsou už připojené 3 telefony. Otevřete Zappit na jednom z dalších připojených telefonů a v sekci „Více“ klepněte na „Odpojit tento telefon“. Pokud k ostatním telefonům nemáte přístup, otevřete v počítači rozšíření Zappit a v „Nastavení“ klikněte na „Resetovat“.",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage(
       "Připojte se k rozšíření prohlížeče",
@@ -512,7 +509,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Platba čeká na potvrzení",
     ),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "Pro se zapne, jakmile obchod potvrdí platbu.",
+      "Pro se zapne, jakmile bude platba potvrzena.",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("Název telefonu"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("Zadejte název."),
@@ -554,13 +551,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "Využijte svůj ovladač naplno",
     ),
     "proFeatureAbLoop": MessageLookupByLibrary.simpleMessage(
-      "Neomezený A-B Loop",
+      "Neomezená smyčka A-B",
     ),
     "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage(
-      "Všechny rychlosti přehrávání",
+      "Přehrávání jakoukoli rychlostí",
     ),
     "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "Odemkněte ovladače na míru webům",
+      "Odemkněte ovladače na míru jednotlivým webům",
     ),
     "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage(
       "Neomezené opakování celého videa",
@@ -574,10 +571,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "proPreviewEndedSubtitle": m25,
     "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
-      "Vaše ukázka Pro skončila",
+      "Období Pro zdarma skončilo",
     ),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
-      "Ukázka Pro zítra končí",
+      "Období Pro zdarma zítra končí",
     ),
     "proPreviewStarted": m26,
     "proPreviewUntil": m27,
@@ -594,10 +591,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "purchaseFailed": MessageLookupByLibrary.simpleMessage("Nákup se nezdařil"),
     "purchaseNotActivated": MessageLookupByLibrary.simpleMessage(
-      "Nákup není aktivní",
+      "Nákup nebyl aktivován",
     ),
     "purchaseNotActivatedMessage": MessageLookupByLibrary.simpleMessage(
-      "Platba proběhla, ale Pro ještě není aktivní. Zkuste Obnovit nákupy.",
+      "Platba proběhla, ale Pro ještě není aktivní. Zkuste „Obnovit nákupy“.",
     ),
     "purchasesNotAllowed": MessageLookupByLibrary.simpleMessage(
       "Na tomto zařízení nebo účtu nejsou nákupy povolené.",
@@ -668,12 +665,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "sleepTimer": MessageLookupByLibrary.simpleMessage("Časovač vypnutí"),
     "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("Časovač vypnutí"),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage("Menší titulky"),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage(
-      "Bohužel se něco pokazilo.",
-    ),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "Bohužel se něco pokazilo. Zkuste to znovu.",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage(
       "Klepněte a zjistěte, jak zapnout zvuk.",
     ),
@@ -684,10 +675,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "speedTrialOver": m36,
     "startFreeTrial": MessageLookupByLibrary.simpleMessage("Vyzkoušet zdarma"),
     "storeProblem": MessageLookupByLibrary.simpleMessage(
-      "V obchodě nastal problém. Zkuste to za chvíli znovu.",
+      "Při nákupu nastal problém. Zkuste to za chvíli znovu.",
     ),
     "storeUnavailable": MessageLookupByLibrary.simpleMessage(
-      "Obchod teď není dostupný. Zkuste to později.",
+      "Nákup teď není možný. Zkuste to později.",
     ),
     "subscribe": MessageLookupByLibrary.simpleMessage("Předplatit"),
     "success": MessageLookupByLibrary.simpleMessage("Hotovo"),
@@ -713,7 +704,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Připomenutí před koncem zkušební verze zdarma",
     ),
     "trialReminderMessage": MessageLookupByLibrary.simpleMessage(
-      "Máme vám den před koncem zkušební verze připomenout, abyste nebyli nečekaně zpoplatněni?",
+      "Máme vám den před koncem zkušební verze zdarma připomenout, aby vás platba nepřekvapila?",
     ),
     "trialReminderNotificationTitle": MessageLookupByLibrary.simpleMessage(
       "Zkušební verze Zappit Pro brzy skončí",
@@ -727,9 +718,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "trialTermsYears": m41,
     "tryAgain": MessageLookupByLibrary.simpleMessage("Zkusit znovu"),
     "turnOffAbFirst": MessageLookupByLibrary.simpleMessage(
-      "Nejdřív vypněte A-B Loop",
+      "Nejdřív vypněte smyčku A-B",
     ),
-    "tutorial": MessageLookupByLibrary.simpleMessage("Návod"),
+    "tutorial": MessageLookupByLibrary.simpleMessage("Průvodce"),
     "unavailable": MessageLookupByLibrary.simpleMessage("Nedostupné"),
     "undo": MessageLookupByLibrary.simpleMessage("Zpět"),
     "unmute": MessageLookupByLibrary.simpleMessage("Zapnout zvuk"),
@@ -765,7 +756,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "watching": MessageLookupByLibrary.simpleMessage("Sledujete"),
     "welcomeToPro": m45,
     "windowNumber": m46,
-    "yearly": MessageLookupByLibrary.simpleMessage("Ročně"),
+    "yearly": MessageLookupByLibrary.simpleMessage("Roční"),
     "yourBrowser": MessageLookupByLibrary.simpleMessage("prohlížeči"),
     "youreConnected": MessageLookupByLibrary.simpleMessage("Připojeno!"),
     "youreOffline": MessageLookupByLibrary.simpleMessage("Jste offline"),
@@ -787,7 +778,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "ytShorts": MessageLookupByLibrary.simpleMessage("Shorts"),
     "ytSubscriptions": MessageLookupByLibrary.simpleMessage("Odběry"),
     "ytVideos": MessageLookupByLibrary.simpleMessage("Videa"),
-    "ytWatchLater": MessageLookupByLibrary.simpleMessage("Přehrát později"),
+    "ytWatchLater": MessageLookupByLibrary.simpleMessage("Na později"),
     "ytYou": MessageLookupByLibrary.simpleMessage("Vy"),
   };
 }

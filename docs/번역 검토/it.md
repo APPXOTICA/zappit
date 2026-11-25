@@ -1,0 +1,45 @@
+# 이탈리아어(it) 번역 검토 보고서
+
+가장 큰 문제는 Pro preview를 직역한 ‘anteprima Pro’였습니다. 이탈리아어에서 ‘anteprima’는 시사회·미리보기를 뜻해 앱에서 무료 체험으로 쓰지 않으므로 ‘prova gratuita di Pro’로 통일했고, 그 결과 스토어 체험 알림 제목과 겹치지 않도록 그쪽에 ‘abbonamento(구독)’를 넣어 구분했습니다. 그 밖에 ‘store / account dello store’ 같은 내부 용어, 남성형으로 고정된 인사(‘Benvenuto’, ‘Connesso!’), 모호한 대상(‘questa pagina’, ‘quel telefono’, ‘usarlo’), 그리고 count=1일 때 ‘1 mesi’·‘1 anni’가 되는 복수형 오류를 고쳤습니다.
+
+총 28개 키 수정. 말투는 기존대로 tu(친근한 2인칭)로 유지했습니다. 메뉴·버튼 이름은 바꾸지 않았습니다(menu-name 모두 no).
+
+| 키 | 수정 전 | 수정 후 | 문제 | menu-name |
+|---|---|---|---|---|
+| errorDuringAd | Non è possibile durante una pubblicità | Non puoi farlo durante una pubblicità | ‘Non è possibile durante…’는 목적어가 빠진 비문. ‘광고 중에는 할 수 없어요’로 (공통 규칙: 문법) | no |
+| proFeatureDedicatedControllers | Sblocca i telecomandi dedicati | Sblocca i telecomandi dedicati ai singoli siti | ‘telecomandi dedicati’만으로는 무엇에 전용인지 범위가 불분명. ‘각 사이트 전용’으로 명시 (원칙 6) | no |
+| proFeatureAllSpeeds | Tutte le velocità di riproduzione | Scegli qualsiasi velocità di riproduzione | 명사 나열이라 혜택이 안 보임. ‘원하는 재생 속도를 고를 수 있음’으로 (원칙 6) | no |
+| storeUnavailable | Lo store non è disponibile al momento. Riprova più tardi. | Al momento non è possibile effettuare acquisti. Riprova più tardi. | ‘store’는 사용자가 모르는 내부 용어. 결과(지금은 구매할 수 없음)로 표현 (원칙 2) | no |
+| welcomeToPro | Benvenuto in {proName} | {proName} attivato! | ‘Benvenuto’는 직역 인사이고 남성형이라 성별이 고정됨. 결과를 알리는 ‘{proName} 활성화 완료!’로 (원칙 3) | no |
+| freeTrialMonths | Prova gratuita: {count} mesi | {count, plural, one{{count} mese di prova gratuita} other{{count} mesi di prova gratuita}} | count=1이면 ‘1 mesi’로 문법 오류. ICU plural로 단·복수 처리 (공통 규칙: 복수형) | no |
+| freeTrialYears | Prova gratuita: {count} anni | {count, plural, one{{count} anno di prova gratuita} other{{count} anni di prova gratuita}} | count=1이면 ‘1 anni’로 문법 오류. ICU plural로 처리 (공통 규칙: 복수형) | no |
+| proPreviewEndedSubtitle | La tua anteprima Pro è terminata. Mantieni tutte le funzioni Pro con {proName}. | La tua prova gratuita di Pro è terminata. Continua a usare tutte le funzioni Pro con {proName}. | ‘anteprima Pro’는 이탈리아 앱에서 쓰지 않는 직역어(영화 시사회·미리보기 뜻). ‘prova gratuita di Pro’로 통일, ‘Mantieni’→‘계속 이용’ (원칙 1) | no |
+| proPreviewActiveBanner | La tua anteprima Pro gratuita è attiva fino al {date}. Abbonati prima della scadenza per mantenere tutte le funzioni Pro senza interruzioni. | La tua prova gratuita di Pro è attiva fino al {date}. Abbonati prima della scadenza per continuare a usare tutte le funzioni Pro senza interruzioni. | ‘anteprima Pro gratuita’ 직역 → ‘prova gratuita di Pro’, ‘mantenere’→‘continuare a usare’ (원칙 1) | no |
+| trialTermsMonths | Inizia con una prova gratuita di {count} mesi, poi {price}/anno. | {count, plural, one{{count} mese di prova gratuita, poi {price}/anno.} other{{count} mesi di prova gratuita, poi {price}/anno.}} | count=1이면 ‘1 mesi’ 오류. ICU plural 적용, ‘N개월 무료 체험 후 연 {price}’로 간결화 (공통 규칙: 복수형) | no |
+| trialTermsYears | Inizia con una prova gratuita di {count} anni, poi {price}/anno. | {count, plural, one{{count} anno di prova gratuita, poi {price}/anno.} other{{count} anni di prova gratuita, poi {price}/anno.}} | count=1이면 ‘1 anni’ 오류. ICU plural 적용 (공통 규칙: 복수형) | no |
+| cancelAnytime | Puoi annullare quando vuoi dal tuo account dello store. | Puoi annullare l’abbonamento quando vuoi dalla pagina degli abbonamenti. | ‘account dello store’는 사용자가 이해 못 하는 말. ‘구독 페이지에서 언제든 구독 취소 가능’으로 (원칙 2) | no |
+| youreConnected | Connesso! | Collegamento riuscito! | ‘Connesso!’는 남성형이고 앱 전체 용어(collegare/collegato)와 불일치. ‘연결 완료!’로 (원칙 3, 체크리스트 9) | no |
+| proPreviewStarted | Usa gratis tutte le funzioni di Zappit Pro per {days} giorni. Nessuna carta di credito, nessun addebito automatico. | Usa tutte le funzioni di Zappit Pro per {days} giorni, completamente gratis e senza addebiti automatici. | ‘Nessuna carta di credito’는 불완전한 직역 관용구. 완전 무료·자동 결제 없음만 간결하게 (원칙 4) | no |
+| proPreviewEndsTomorrow | L’anteprima Pro termina domani | La prova gratuita di Pro termina domani | ‘anteprima Pro’ → ‘prova gratuita di Pro’ 용어 통일 (원칙 1, 4) | no |
+| proPreviewEndedTitle | La tua anteprima Pro è terminata | La tua prova gratuita di Pro è terminata | ‘anteprima Pro’ → ‘prova gratuita di Pro’ 용어 통일 (원칙 1, 4) | no |
+| purchaseNotActivatedMessage | Il pagamento è andato a buon fine, ma Pro non è ancora attivo. Prova Ripristina acquisti. | Il pagamento è andato a buon fine, ma Pro non è ancora attivo. Tocca «Ripristina acquisti». | ‘Prova Ripristina acquisti’는 버튼 이름이 문장에 묻히고 ‘prova(체험)’와 헷갈림. 실제 동작 ‘«Ripristina acquisti»를 탭하세요’로 (원칙 6) | no |
+| paymentPendingMessage | Pro si attiva non appena lo store conferma il pagamento. | Pro si attiva non appena il pagamento viene confermato. | ‘lo store’ 주어 제거, ‘결제가 확인되면’ (원칙 2) | no |
+| nothingToRestoreMessage | Non è stato trovato nessun abbonamento Zappit Pro attivo per questo account dello store. | Non è stato trovato nessun abbonamento Zappit Pro attivo per questo account. | ‘account dello store’ → ‘이 계정’ (원칙 2) | no |
+| alreadySubscribed | Hai già questo abbonamento. Prova Ripristina acquisti. | Hai già questo abbonamento. Tocca «Ripristina acquisti». | purchaseNotActivatedMessage와 같은 이유. 버튼 이름을 따옴표로 묶고 동작 동사 사용 (원칙 6) | no |
+| storeProblem | Lo store ha avuto un problema. Riprova tra poco. | Si è verificato un problema durante l’acquisto. Riprova tra poco. | ‘Lo store ha avuto un problema’ → ‘구매 중 문제가 발생했어요’ (원칙 2) | no |
+| trialReminderNotificationTitle | La prova gratuita di Zappit Pro sta per terminare | La prova gratuita dell’abbonamento Zappit Pro sta per terminare | Pro 무료 체험(‘prova gratuita di Pro’)과 거의 같은 문구가 되어 자동 결제되는 스토어 체험과 구분이 안 됨. ‘구독(abbonamento)’ 무료 체험임을 명시 (원칙 4) | no |
+| extensionUpdatedReload | L’estensione Zappit è stata aggiornata. Ricarica questa pagina per continuare a usare tutti i comandi. | L’estensione Zappit è stata aggiornata. Ricarica la pagina nel browser per continuare a usare tutti i comandi. | 폰에 보이는 문구라 ‘questa pagina’가 어느 페이지인지 모호. ‘브라우저의 페이지를 새로고침’으로 (원칙 6) | no |
+| speedTrialOver | Tornato a 1x. Senza Pro puoi usare questa velocità per {count} secondi. | Velocità riportata a 1x. Senza Pro puoi usare questa velocità per {count} secondi. | ‘Tornato a 1x’는 주어가 불분명하고 남성형. ‘속도가 1x로 돌아갔어요’로 (원칙 6) | no |
+| proPreviewUntil | Anteprima Pro fino al {date} | Prova gratuita di Pro fino al {date} | ‘Anteprima Pro’ → ‘Prova gratuita di Pro’ 용어 통일 (원칙 1, 4) | no |
+| pairPhoneLimit | Questo computer ha già 3 telefoni collegati. Apri Zappit su uno degli altri telefoni collegati e tocca «Scollega questo telefono» in «Altro». Se non hai più quel telefono, usa «Reset» nell’estensione Zappit sul tuo computer. | Questo computer ha già 3 telefoni collegati. Apri Zappit su uno degli altri telefoni collegati e tocca «Scollega questo telefono» in «Altro». Se non hai accesso agli altri telefoni, fai clic su «Reset» nell’estensione Zappit sul computer. | ‘Se non hai più quel telefono’는 어떤 폰인지 모호. ‘다른 폰에 접근할 수 없다면’, 컴퓨터 확장에서는 ‘usa’ 대신 ‘fai clic su’ (원칙 6) | no |
+| disconnectPhoneMessage | Questo telefono non controllerà più il computer. Per usarlo di nuovo, scansiona il codice QR sul computer. | Questo telefono non controllerà più il computer. Per ricollegarlo, scansiona il codice QR sul computer. | ‘Per usarlo di nuovo’(다시 쓰려면) → ‘Per ricollegarlo’(다시 연결하려면) (원칙 6) | no |
+| browsersDisconnectedBody | Un altro telefono si è collegato. Per usarlo di nuovo, scansiona il codice QR su quel computer. | Un altro telefono si è collegato al posto di questo. Per ricollegarti, scansiona il codice QR su quel computer. | ‘si è collegato’가 무엇에 연결됐는지, ‘usarlo’가 무엇을 가리키는지 모호. ‘이 폰 대신 다른 폰이 연결됨, 다시 연결하려면’으로 (원칙 6) | no |
+
+## 확인이 필요한 점
+
+- **Pro preview 용어:** ‘prova gratuita di Pro’(Pro 무료 체험)로 정했습니다. 스토어 체험은 ‘prova gratuita’이고, Pro 쪽에는 항상 ‘di Pro’가 붙습니다. 웹(`zappit_web/src/lib/i18n/messages/`)의 이탈리아어에 ‘anteprima Pro’가 있으면 같이 바꿔야 합니다.
+- **trialReminderNotificationTitle:** 원문 ‘Zappit Pro free trial ends soon’보다 길어졌습니다(‘구독’을 넣어 Pro 무료 체험과 구분하려고). 알림 제목이 잘리면 ‘Zappit Pro: la prova dell’abbonamento sta per finire’ 같은 더 짧은 형태를 고려해 주세요.
+- **복수형(ICU plural):** freeTrialMonths/Years, trialTermsMonths/Years는 영어 원문에 plural이 없지만, 이탈리아어는 1일 때 단수(mese, anno)가 필요해 plural로 바꿨습니다. `dart run intl_utils:generate` 후 생성 코드가 정상인지 확인해 주세요. 영어에 없는 plural이 문제가 되면 되돌리고 다른 방법을 정해야 합니다. 검증 스크립트를 통과하도록 각 분기를 `{count}`로 시작하게 썼습니다(‘1 mese di prova gratuita’). 그래서 trialTermsDays(‘Inizia con una prova gratuita di …’)와 문장 형태가 조금 다릅니다.
+- **freeTrialWeeks(‘Prova gratuita: {count} sett.’)는 그대로 두었습니다.** 약어 ‘sett.’는 1·복수 모두에 맞고, 칩 공간도 짧습니다. 칩 문구 형태를 통일하고 싶으면 ‘{count} settimana/e di prova gratuita’(더 김)로 바꿀 수 있습니다.
+- **바꾸지 않은 키:** proPreviewEndedMessage(‘Grazie per aver provato Zappit Pro!’)는 이탈리아 앱에서 자연스럽고 ‘provato’가 체험이라는 뜻을 분명히 전해서 결제 오해가 없습니다. 한국어처럼 질문형을 원하시면 ‘Ti è piaciuto Zappit Pro?’로 바꿀 수 있습니다. proFeatureVoiceBoost/FullLoop/AbLoop은 이탈리아어 형용사가 명사 뒤에 오는 게 정상 어순이라(‘Voice Boost illimitato’) 그대로 두었습니다. learnMore(‘Scopri di più’)는 이탈리아 표준 버튼 문구입니다.
+- **‘A-B Loop’:** 이탈리아어 파일 전체가 영어 ‘A-B Loop’를 기능 이름처럼 씁니다(설정 메뉴 abLoopCount 포함). 브랜드 목록에는 없는 이름입니다. ‘Ripetizione A-B’로 바꾸려면 메뉴 이름이 바뀌므로 웹과 같이 결정해야 합니다.

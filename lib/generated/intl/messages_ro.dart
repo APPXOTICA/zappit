@@ -72,15 +72,15 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m23(price) => "${price} / an";
 
   static String m24(date) =>
-      "Previzualizarea Pro gratuită este activă până pe ${date}. Abonează-te înainte să se termine ca să păstrezi toate funcțiile Pro fără întrerupere.";
+      "Accesul gratuit la Pro este activ până la ${date}. Abonează-te înainte să se termine ca să păstrezi toate funcțiile Pro fără întrerupere.";
 
   static String m25(proName) =>
-      "Previzualizarea Pro s-a încheiat. Păstrează toate funcțiile Pro cu ${proName}.";
+      "Accesul gratuit la Pro s-a încheiat. Păstrează toate funcțiile Pro cu ${proName}.";
 
   static String m26(days) =>
-      "Folosește gratuit toate funcțiile Zappit Pro timp de ${days} zile. Fără card, fără plăți automate.";
+      "Folosește toate funcțiile Zappit Pro timp de ${days} zile. Complet gratuit, fără nicio plată automată.";
 
-  static String m27(date) => "Previzualizare Pro până pe ${date}";
+  static String m27(date) => "Acces gratuit la Pro până la ${date}";
 
   static String m28(proName) => "${proName} a fost restabilit";
 
@@ -102,7 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Înapoi la 1x. Fără Pro poți folosi această viteză ${count} secunde.";
 
   static String m37(price, date) =>
-      "Perioada gratuită se termină mâine. Pe ${date} vei plăti ${price}. Dacă nu vrei să continui, anulează abonamentul înainte de această dată.";
+      "Perioada de probă gratuită se termină mâine. Pe ${date} vei plăti automat ${price}. Dacă nu vrei să continui, anulează abonamentul înainte de această dată.";
 
   static String m38(price) =>
       "Începe cu o perioadă de probă gratuită, apoi ${price}/an.";
@@ -123,7 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m44(count) =>
       "Voice Boost s-a oprit. Fără Pro poți folosi Voice Boost ${count} secunde.";
 
-  static String m45(proName) => "Bun venit în ${proName}";
+  static String m45(proName) => "${proName} este acum activ!";
 
   static String m46(number) => "Fereastra ${number}";
 
@@ -139,13 +139,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "allCategories": MessageLookupByLibrary.simpleMessage("Toate categoriile"),
     "allSites": MessageLookupByLibrary.simpleMessage("Toate site-urile"),
     "alreadySubscribed": MessageLookupByLibrary.simpleMessage(
-      "Ai deja acest abonament. Încearcă Restabilește achizițiile.",
+      "Ai deja acest abonament. Încearcă „Restabilește achizițiile”.",
     ),
     "back": MessageLookupByLibrary.simpleMessage("Înapoi"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage(
-      "Ne pare rău, accesul a fost blocat.",
-    ),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage(
       "Browserul nu răspunde",
@@ -153,7 +150,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "browsers": MessageLookupByLibrary.simpleMessage("Browsere"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "Alt telefon s-a conectat la el. Ca să-l folosești din nou, scanează codul QR de pe acel computer.",
+      "Un alt telefon a preluat conexiunea. Ca să te reconectezi, scanează codul QR din extensia Zappit de pe computer.",
     ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "Permite accesul la cameră în Setări ca să scanezi codul.",
@@ -163,7 +160,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Anulează"),
     "cancelAnytime": MessageLookupByLibrary.simpleMessage(
-      "Anulezi oricând din contul magazinului.",
+      "Poți anula oricând din pagina de abonamente.",
     ),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage(
       "Pagina nu poate fi încărcată",
@@ -240,7 +237,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Deconectează acest telefon",
     ),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "Acest telefon nu va mai controla computerul. Ca să-l folosești din nou, scanează codul QR de pe computer.",
+      "Acest telefon nu va mai controla computerul. Ca să-l conectezi din nou, scanează codul QR de pe computer.",
     ),
     "down": MessageLookupByLibrary.simpleMessage("Jos"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage(
@@ -286,7 +283,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Ieși din ecran complet",
     ),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "Extensia Zappit a fost actualizată. Reîncarcă pagina ca să poți folosi în continuare toate comenzile.",
+      "Extensia Zappit a fost actualizată. Reîncarcă pagina în browser ca să poți folosi în continuare toate comenzile.",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("Întrebări frecvente"),
     "favorites": MessageLookupByLibrary.simpleMessage("Favorite"),
@@ -416,7 +413,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Nimic de restabilit",
     ),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "Nu s-a găsit niciun abonament Zappit Pro activ pentru acest cont de magazin.",
+      "Nu s-a găsit niciun abonament Zappit Pro activ pentru acest cont.",
     ),
     "obAnimAddExtension": MessageLookupByLibrary.simpleMessage(
       "Adaugă extensia",
@@ -511,7 +508,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Cum instalezi extensia",
     ),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "La acest computer sunt deja conectate 3 telefoane. Deschide Zappit pe unul dintre celelalte telefoane conectate și atinge „Deconectează acest telefon” din „Mai multe”. Dacă nu mai ai acel telefon, folosește „Reset” din extensia Zappit de pe computerul tău.",
+      "La acest computer sunt deja conectate 3 telefoane. Deschide Zappit pe unul dintre celelalte telefoane conectate și atinge „Deconectează acest telefon” din „Mai multe”. Dacă nu ai acces la niciunul dintre ele, deschide extensia Zappit de pe computer și dă clic pe „Setări” > „Resetează”.",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage(
       "Conectează-te la extensia browserului",
@@ -526,7 +523,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Plată în așteptare",
     ),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "Pro se activează imediat ce magazinul confirmă plata.",
+      "Pro se activează imediat ce plata este confirmată.",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("Numele telefonului"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("Introdu un nume."),
@@ -573,27 +570,27 @@ class MessageLookup extends MessageLookupByLibrary {
       "A-B Loop nelimitat",
     ),
     "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage(
-      "Toate vitezele de redare",
+      "Acces la toate vitezele de redare",
     ),
     "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "Deblochează telecomenzi dedicate site-urilor",
+      "Deblochează telecomenzile create special pentru anumite site-uri",
     ),
     "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage(
-      "Repetarea întregului videoclip, nelimitat",
+      "Repetare nelimitată a întregului videoclip",
     ),
     "proFeatureVoiceBoost": MessageLookupByLibrary.simpleMessage(
       "Voice Boost nelimitat",
     ),
     "proPreviewActiveBanner": m24,
     "proPreviewEndedMessage": MessageLookupByLibrary.simpleMessage(
-      "Mulțumim că ai încercat Zappit Pro! Abonează-te ca să folosești în continuare toate funcțiile Pro fără întrerupere.",
+      "Sperăm că ți-a plăcut accesul gratuit la Zappit Pro! Abonează-te ca să folosești în continuare toate funcțiile Pro fără întrerupere.",
     ),
     "proPreviewEndedSubtitle": m25,
     "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
-      "Previzualizarea Pro s-a încheiat",
+      "Accesul gratuit la Pro s-a încheiat",
     ),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
-      "Previzualizarea Pro se termină mâine",
+      "Accesul gratuit la Pro se încheie mâine",
     ),
     "proPreviewStarted": m26,
     "proPreviewUntil": m27,
@@ -617,7 +614,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Achiziția nu este activată",
     ),
     "purchaseNotActivatedMessage": MessageLookupByLibrary.simpleMessage(
-      "Plata a fost făcută, dar Pro nu este încă activ. Încearcă Restabilește achizițiile.",
+      "Plata a fost făcută, dar Pro nu este încă activ. Încearcă „Restabilește achizițiile”.",
     ),
     "purchasesNotAllowed": MessageLookupByLibrary.simpleMessage(
       "Achizițiile nu sunt permise pe acest dispozitiv sau cont.",
@@ -690,12 +687,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "smallerCaptions": MessageLookupByLibrary.simpleMessage(
       "Subtitrări mai mici",
     ),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage(
-      "Ne pare rău, ceva nu a mers bine.",
-    ),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "Ne pare rău, ceva nu a mers bine. Încearcă din nou.",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage(
       "Atinge ca să vezi cum pornești sunetul.",
     ),
@@ -705,13 +696,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "soundHelpTitle": MessageLookupByLibrary.simpleMessage("Sunet"),
     "speedTrialOver": m36,
     "startFreeTrial": MessageLookupByLibrary.simpleMessage(
-      "Începe perioada gratuită",
+      "Începe perioada de probă gratuită",
     ),
     "storeProblem": MessageLookupByLibrary.simpleMessage(
-      "Magazinul a întâmpinat o problemă. Încearcă din nou peste puțin timp.",
+      "A apărut o problemă la achiziție. Încearcă din nou peste puțin timp.",
     ),
     "storeUnavailable": MessageLookupByLibrary.simpleMessage(
-      "Magazinul nu este disponibil acum. Încearcă mai târziu.",
+      "Achizițiile nu sunt disponibile momentan. Încearcă din nou mai târziu.",
     ),
     "subscribe": MessageLookupByLibrary.simpleMessage("Abonează-te"),
     "success": MessageLookupByLibrary.simpleMessage("Gata"),
@@ -737,16 +728,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "theaterMode": MessageLookupByLibrary.simpleMessage("Mod cinema"),
     "trialReminderBody": m37,
     "trialReminderChannel": MessageLookupByLibrary.simpleMessage(
-      "Memento perioadă gratuită",
+      "Memento perioadă de probă gratuită",
     ),
     "trialReminderChannelDescription": MessageLookupByLibrary.simpleMessage(
-      "Un memento înainte de sfârșitul perioadei gratuite",
+      "Un memento înainte de sfârșitul perioadei de probă gratuite",
     ),
     "trialReminderMessage": MessageLookupByLibrary.simpleMessage(
-      "Vrei să-ți amintim cu o zi înainte de sfârșitul perioadei gratuite, ca să nu ai surprize la plată?",
+      "Vrei să-ți amintim cu o zi înainte de sfârșitul perioadei de probă gratuite, ca să nu ai surprize la plată?",
     ),
     "trialReminderNotificationTitle": MessageLookupByLibrary.simpleMessage(
-      "Perioada gratuită Zappit Pro se termină curând",
+      "Perioada de probă gratuită Zappit Pro se termină curând",
     ),
     "trialReminderTitle": MessageLookupByLibrary.simpleMessage(
       "Memento perioadă de probă",

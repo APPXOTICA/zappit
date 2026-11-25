@@ -72,15 +72,15 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m23(price) => "${price} / год";
 
   static String m24(date) =>
-      "Бесплатный пробный доступ к Pro действует до ${date}. Оформите подписку до его окончания, чтобы без перерыва пользоваться всеми функциями Pro.";
+      "Бесплатный доступ к Pro действует до ${date}. Оформите подписку до его окончания, чтобы без перерыва пользоваться всеми функциями Pro.";
 
   static String m25(proName) =>
-      "Пробный доступ к Pro закончился. Сохраните все функции Pro с ${proName}.";
+      "Бесплатный доступ к Pro закончился. Оформите ${proName}, чтобы и дальше пользоваться всеми функциями Pro.";
 
   static String m26(days) =>
-      "Пользуйтесь всеми функциями Zappit Pro бесплатно ${days} дн. Без карты и без автосписаний.";
+      "Пользуйтесь всеми функциями Zappit Pro бесплатно ${days} дн. Без привязки карты и автосписаний.";
 
-  static String m27(date) => "Пробный Pro до ${date}";
+  static String m27(date) => "Pro бесплатно до ${date}";
 
   static String m28(proName) => "${proName} восстановлен";
 
@@ -102,9 +102,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Снова 1x. Без Pro эта скорость доступна ${count} с.";
 
   static String m37(price, date) =>
-      "Бесплатный период заканчивается завтра. ${date} будет списано ${price}. Если не хотите продолжать, отмените подписку до этого дня.";
+      "Бесплатный пробный период заканчивается завтра. ${date} будет списано ${price}. Если не хотите продолжать, отмените подписку до этого дня.";
 
-  static String m38(price) => "Сначала бесплатный период, затем ${price}/год.";
+  static String m38(price) =>
+      "Сначала бесплатный пробный период, затем ${price}/год.";
 
   static String m39(count, price) =>
       "Сначала бесплатно ${count} дн., затем ${price}/год.";
@@ -122,7 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m44(count) =>
       "Voice Boost выключен. Без Pro Voice Boost доступен ${count} с.";
 
-  static String m45(proName) => "Добро пожаловать в ${proName}";
+  static String m45(proName) => "${proName} активирован!";
 
   static String m46(number) => "Окно ${number}";
 
@@ -144,9 +145,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "back": MessageLookupByLibrary.simpleMessage("Назад"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage(
-      "К сожалению, доступ заблокирован.",
-    ),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage(
       "Браузер не отвечает",
@@ -154,7 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "browsers": MessageLookupByLibrary.simpleMessage("Браузеры"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "К нему подключился другой телефон. Чтобы снова им пользоваться, отсканируйте QR-код на том компьютере.",
+      "К нему подключился другой телефон. Чтобы подключиться снова, отсканируйте QR-код в расширении Zappit на этом компьютере.",
     ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "Разрешите доступ к камере в настройках, чтобы отсканировать код.",
@@ -164,7 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
     "cancelAnytime": MessageLookupByLibrary.simpleMessage(
-      "Отменить можно в любой момент в аккаунте магазина.",
+      "Подписку можно отменить в любой момент.",
     ),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage(
       "Не удалось загрузить страницу",
@@ -237,7 +235,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Отключить этот телефон",
     ),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "Этот телефон больше не будет управлять компьютером. Чтобы снова им пользоваться, отсканируйте QR-код на компьютере.",
+      "Этот телефон больше не будет управлять компьютером. Чтобы подключить его снова, отсканируйте QR-код на компьютере.",
     ),
     "down": MessageLookupByLibrary.simpleMessage("Вниз"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("Конец видео"),
@@ -267,7 +265,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Сайт не применил изменение",
     ),
     "errorNotSupported": MessageLookupByLibrary.simpleMessage(
-      "Этот сайт так не умеет",
+      "Этот сайт не поддерживает эту функцию",
     ),
     "errorStartAfterEnd": MessageLookupByLibrary.simpleMessage(
       "Начальная точка должна быть раньше конечной",
@@ -279,7 +277,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Выйти из полноэкранного режима",
     ),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "Расширение Zappit обновилось. Перезагрузите эту страницу, чтобы пользоваться всеми кнопками.",
+      "Расширение Zappit обновилось. Перезагрузите вкладку в браузере, чтобы снова пользоваться всеми функциями пульта.",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("Вопросы и ответы"),
     "favorites": MessageLookupByLibrary.simpleMessage("Избранное"),
@@ -288,7 +286,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "forwardSeconds": m7,
     "frameByFrame": MessageLookupByLibrary.simpleMessage("Покадрово"),
-    "freeTrial": MessageLookupByLibrary.simpleMessage("Бесплатный период"),
+    "freeTrial": MessageLookupByLibrary.simpleMessage("Пробный период"),
     "freeTrialDays": m8,
     "freeTrialMonths": m9,
     "freeTrialWeeks": m10,
@@ -362,7 +360,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Категории не найдены",
     ),
     "noLinkInShare": MessageLookupByLibrary.simpleMessage(
-      "В отправленном нет ссылки",
+      "В отправленном тексте нет ссылки",
     ),
     "noMoreTabs": MessageLookupByLibrary.simpleMessage("Больше вкладок нет"),
     "noNextEpisode": MessageLookupByLibrary.simpleMessage(
@@ -378,7 +376,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noSubtitles": MessageLookupByLibrary.simpleMessage(
       "У этого видео нет субтитров",
     ),
-    "noThanks": MessageLookupByLibrary.simpleMessage("Не нужно"),
+    "noThanks": MessageLookupByLibrary.simpleMessage("Нет, спасибо"),
     "noVideosOnPage": MessageLookupByLibrary.simpleMessage(
       "На этой странице нет видео.",
     ),
@@ -403,7 +401,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Нечего восстанавливать",
     ),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "Для этого аккаунта магазина не найдено активной подписки Zappit Pro.",
+      "В этом аккаунте не найдено активной подписки Zappit Pro.",
     ),
     "obAnimAddExtension": MessageLookupByLibrary.simpleMessage(
       "Добавить расширение",
@@ -496,7 +494,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Как установить расширение",
     ),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "К этому компьютеру уже подключено 3 телефона. Откройте Zappit на одном из других подключённых телефонов и нажмите «Отключить этот телефон» в разделе «Ещё». Если того телефона больше нет, нажмите «Reset» в расширении Zappit на компьютере.",
+      "К этому компьютеру уже подключено 3 телефона. Откройте Zappit на одном из других подключённых телефонов и нажмите «Отключить этот телефон» в разделе «Ещё». Если у вас нет доступа к другим телефонам, нажмите «Сбросить» в разделе «Настройки» расширения Zappit на компьютере.",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage(
       "Подключитесь к расширению браузера",
@@ -507,9 +505,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "Вставьте ссылку на видео",
     ),
     "pause": MessageLookupByLibrary.simpleMessage("Пауза"),
-    "paymentPending": MessageLookupByLibrary.simpleMessage("Оплата ожидается"),
+    "paymentPending": MessageLookupByLibrary.simpleMessage(
+      "Платёж обрабатывается",
+    ),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "Pro включится, как только магазин подтвердит оплату.",
+      "Pro включится, как только оплата будет подтверждена.",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("Имя телефона"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("Введите имя."),
@@ -521,7 +521,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Выберите браузер, которым будет управлять этот пульт, чтобы увидеть его вкладки.",
     ),
     "pickVideosWithPro": MessageLookupByLibrary.simpleMessage(
-      "Выбирайте видео с телефона с Pro",
+      "С Pro выбирайте видео прямо с телефона",
     ),
     "play": MessageLookupByLibrary.simpleMessage("Воспроизвести"),
     "playInApp": MessageLookupByLibrary.simpleMessage("Продолжить на телефоне"),
@@ -549,30 +549,30 @@ class MessageLookup extends MessageLookupByLibrary {
       "Раскройте все возможности пульта",
     ),
     "proFeatureAbLoop": MessageLookupByLibrary.simpleMessage(
-      "A-B Loop без ограничений",
+      "Безлимитный A-B Loop",
     ),
     "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage(
-      "Все скорости воспроизведения",
+      "Выбор любой скорости воспроизведения",
     ),
     "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "Отдельные пульты для сайтов",
+      "Специальные пульты для поддерживаемых сайтов",
     ),
     "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage(
-      "Повтор видео без ограничений",
+      "Безлимитный повтор видео",
     ),
     "proFeatureVoiceBoost": MessageLookupByLibrary.simpleMessage(
-      "Voice Boost без ограничений",
+      "Безлимитный Voice Boost",
     ),
     "proPreviewActiveBanner": m24,
     "proPreviewEndedMessage": MessageLookupByLibrary.simpleMessage(
-      "Спасибо, что попробовали Zappit Pro! Оформите подписку, чтобы и дальше без перерыва пользоваться всеми функциями Pro.",
+      "Понравился Zappit Pro? Оформите подписку, чтобы и дальше без перерыва пользоваться всеми функциями Pro.",
     ),
     "proPreviewEndedSubtitle": m25,
     "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
-      "Пробный доступ к Pro закончился",
+      "Бесплатный доступ к Pro закончился",
     ),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
-      "Пробный доступ к Pro закончится завтра",
+      "Бесплатный доступ к Pro закончится завтра",
     ),
     "proPreviewStarted": m26,
     "proPreviewUntil": m27,
@@ -661,12 +661,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "sleepTimer": MessageLookupByLibrary.simpleMessage("Таймер сна"),
     "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("Таймер сна"),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage("Субтитры мельче"),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage(
-      "К сожалению, что-то пошло не так.",
-    ),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "К сожалению, что-то пошло не так. Попробуйте ещё раз.",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage(
       "Нажмите, чтобы узнать, как включить звук.",
     ),
@@ -675,12 +669,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "soundHelpTitle": MessageLookupByLibrary.simpleMessage("Звук"),
     "speedTrialOver": m36,
-    "startFreeTrial": MessageLookupByLibrary.simpleMessage("Начать бесплатно"),
+    "startFreeTrial": MessageLookupByLibrary.simpleMessage(
+      "Начать пробный период",
+    ),
     "storeProblem": MessageLookupByLibrary.simpleMessage(
-      "В магазине произошла ошибка. Попробуйте ещё раз чуть позже.",
+      "Во время покупки произошла ошибка. Попробуйте ещё раз чуть позже.",
     ),
     "storeUnavailable": MessageLookupByLibrary.simpleMessage(
-      "Магазин сейчас недоступен. Попробуйте позже.",
+      "Покупка сейчас недоступна. Попробуйте позже.",
     ),
     "subscribe": MessageLookupByLibrary.simpleMessage("Оформить подписку"),
     "success": MessageLookupByLibrary.simpleMessage("Готово"),
@@ -695,7 +691,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "tabRemote": MessageLookupByLibrary.simpleMessage("Пульт"),
     "tabTabs": MessageLookupByLibrary.simpleMessage("Вкладки"),
     "tapToKeepPro": MessageLookupByLibrary.simpleMessage(
-      "Нажмите, чтобы сохранить все функции Pro.",
+      "Нажмите, чтобы сохранить доступ ко всем функциям Pro.",
     ),
     "tellAFriend": MessageLookupByLibrary.simpleMessage("Рассказать другу"),
     "termsOfService": MessageLookupByLibrary.simpleMessage(
@@ -704,16 +700,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "theaterMode": MessageLookupByLibrary.simpleMessage("Широкоэкранный режим"),
     "trialReminderBody": m37,
     "trialReminderChannel": MessageLookupByLibrary.simpleMessage(
-      "Напоминание о бесплатном периоде",
+      "Напоминание о пробном периоде",
     ),
     "trialReminderChannelDescription": MessageLookupByLibrary.simpleMessage(
-      "Напоминание перед концом бесплатного периода",
+      "Напоминание перед концом пробного периода",
     ),
     "trialReminderMessage": MessageLookupByLibrary.simpleMessage(
-      "Напомнить за день до конца бесплатного периода, чтобы оплата не стала неожиданностью?",
+      "Напомнить за день до конца пробного периода, чтобы оплата не стала неожиданностью?",
     ),
     "trialReminderNotificationTitle": MessageLookupByLibrary.simpleMessage(
-      "Бесплатный период Zappit Pro скоро закончится",
+      "Пробный период Zappit Pro скоро закончится",
     ),
     "trialReminderTitle": MessageLookupByLibrary.simpleMessage(
       "Напоминание о пробном периоде",
@@ -726,7 +722,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "turnOffAbFirst": MessageLookupByLibrary.simpleMessage(
       "Сначала выключите A-B Loop",
     ),
-    "tutorial": MessageLookupByLibrary.simpleMessage("Инструкция"),
+    "tutorial": MessageLookupByLibrary.simpleMessage("Руководство"),
     "unavailable": MessageLookupByLibrary.simpleMessage("Недоступно"),
     "undo": MessageLookupByLibrary.simpleMessage("Отменить"),
     "unmute": MessageLookupByLibrary.simpleMessage("Включить звук"),
@@ -759,7 +755,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "volumeUp": MessageLookupByLibrary.simpleMessage("Громче"),
     "waitingForBrowser": MessageLookupByLibrary.simpleMessage("Ждём браузер…"),
     "watchAgain": MessageLookupByLibrary.simpleMessage("Посмотреть ещё раз"),
-    "watching": MessageLookupByLibrary.simpleMessage("Смотрите сейчас"),
+    "watching": MessageLookupByLibrary.simpleMessage("Вы смотрите"),
     "welcomeToPro": m45,
     "windowNumber": m46,
     "yearly": MessageLookupByLibrary.simpleMessage("На год"),

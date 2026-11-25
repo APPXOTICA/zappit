@@ -20,7 +20,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'tr';
 
-  static String m0(site) => "${site} Favorilere ekle";
+  static String m0(site) => "${site} sitesini Favorilere ekle";
 
   static String m1(count) => "${count} saniye geri";
 
@@ -33,17 +33,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m5(current, total) => "Bölüm ${current}/${total}";
 
-  static String m6(browser) => "${browser} ile bağlandı";
+  static String m6(browser) => "${browser} ile bağlantı kuruldu";
 
   static String m7(count) => "${count} saniye ileri";
 
-  static String m8(count) => "${count} gün ücretsiz deneme";
+  static String m8(count) => "${count} günlük ücretsiz deneme";
 
-  static String m9(count) => "${count} ay ücretsiz deneme";
+  static String m9(count) => "${count} aylık ücretsiz deneme";
 
-  static String m10(count) => "${count} hafta ücretsiz deneme";
+  static String m10(count) => "${count} haftalık ücretsiz deneme";
 
-  static String m11(count) => "${count} yıl ücretsiz deneme";
+  static String m11(count) => "${count} yıllık ücretsiz deneme";
 
   static String m12(price) => "Ayda yalnızca ${price}";
 
@@ -61,7 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m18(current, total) => "Adım ${current}/${total}";
 
-  static String m19(site) => "${site} aç";
+  static String m19(site) => "${site} sitesini aç";
 
   static String m20(browser) => "Açıldı: ${browser}";
 
@@ -72,19 +72,19 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m23(price) => "${price} / yıl";
 
   static String m24(date) =>
-      "Ücretsiz Pro önizlemeniz ${date} tarihine kadar geçerli. Bitmeden abone olursanız tüm Pro özelliklerini kesintisiz kullanmaya devam edersiniz.";
+      "Ücretsiz Pro süreniz ${date} tarihine kadar geçerli. Süre bitmeden abone olursanız tüm Pro özelliklerini kesintisiz kullanmaya devam edebilirsiniz.";
 
   static String m25(proName) =>
-      "Pro önizlemeniz sona erdi. ${proName} ile tüm Pro özelliklerini kullanmaya devam edin.";
+      "Ücretsiz Pro süreniz sona erdi. ${proName} ile tüm Pro özelliklerini kullanmaya devam edin.";
 
   static String m26(days) =>
-      "Zappit Pro’nun tüm özelliklerini ${days} gün boyunca ücretsiz kullanın. Kredi kartı gerekmez, otomatik ücret alınmaz.";
+      "Zappit Pro’nun tüm özelliklerini ${days} gün boyunca ücretsiz kullanın. Tamamen ücretsiz; süre bitince hiçbir ücret alınmaz.";
 
-  static String m27(date) => "${date} tarihine kadar Pro önizleme";
+  static String m27(date) => "${date} tarihine kadar ücretsiz Pro";
 
   static String m28(proName) => "${proName} geri yüklendi";
 
-  static String m29(site) => "${site} Favorilerden kaldır";
+  static String m29(site) => "${site} sitesini Favorilerden kaldır";
 
   static String m30(site) => "${site} Favorilerden kaldırıldı";
 
@@ -105,16 +105,16 @@ class MessageLookup extends MessageLookupByLibrary {
       "Ücretsiz denemeniz yarın bitiyor. ${date} tarihinde ${price} ücret alınacak. Devam etmek istemiyorsanız aboneliğinizi o tarihten önce iptal edin.";
 
   static String m38(price) =>
-      "Ücretsiz denemeyle başlar, ardından yıllık ${price}.";
+      "Ücretsiz denemeyle başlar, ardından yıllık ${price} ücret alınır.";
 
   static String m39(count, price) =>
-      "${count} gün ücretsiz denemeyle başlar, ardından yıllık ${price}.";
+      "${count} günlük ücretsiz denemeyle başlar, ardından yıllık ${price} ücret alınır.";
 
   static String m40(count, price) =>
-      "${count} ay ücretsiz denemeyle başlar, ardından yıllık ${price}.";
+      "${count} aylık ücretsiz denemeyle başlar, ardından yıllık ${price} ücret alınır.";
 
   static String m41(count, price) =>
-      "${count} yıl ücretsiz denemeyle başlar, ardından yıllık ${price}.";
+      "${count} yıllık ücretsiz denemeyle başlar, ardından yıllık ${price} ücret alınır.";
 
   static String m42(count) => "Sıradaki · ${count} sn sonra başlıyor";
 
@@ -123,17 +123,17 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m44(count) =>
       "Voice Boost kapandı. Pro olmadan Voice Boost’u ${count} saniye kullanabilirsiniz.";
 
-  static String m45(proName) => "${proName}’ya hoş geldiniz";
+  static String m45(proName) => "${proName} etkinleştirildi";
 
   static String m46(number) => "Pencere ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "abLoopCount": MessageLookupByLibrary.simpleMessage(
-      "A-B Loop tekrar sayısı",
+      "A-B döngüsü tekrar sayısı",
     ),
     "abOffForLive": MessageLookupByLibrary.simpleMessage(
-      "A-B Loop canlı yayınlarda kapalıdır",
+      "A-B döngüsü canlı yayınlarda kapalıdır",
     ),
     "account": MessageLookupByLibrary.simpleMessage("Bağlantı"),
     "adBadge": MessageLookupByLibrary.simpleMessage("REKLAM"),
@@ -141,13 +141,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "allCategories": MessageLookupByLibrary.simpleMessage("Tüm kategoriler"),
     "allSites": MessageLookupByLibrary.simpleMessage("Tüm siteler"),
     "alreadySubscribed": MessageLookupByLibrary.simpleMessage(
-      "Bu aboneliğe zaten sahipsiniz. Satın alımları geri yükle’yi deneyin.",
+      "Bu aboneliğe zaten sahipsiniz. ‘Satın alımları geri yükle’ seçeneğine dokunun.",
     ),
     "back": MessageLookupByLibrary.simpleMessage("Geri"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage(
-      "Üzgünüz, erişim engellendi.",
-    ),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage(
       "Tarayıcı yanıt vermiyor",
@@ -155,7 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "browsers": MessageLookupByLibrary.simpleMessage("Tarayıcılar"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "Başka bir telefon ona bağlandı. Tekrar kullanmak için o bilgisayardaki QR kodunu tarayın.",
+      "Bu tarayıcıyı artık başka bir telefon kontrol ediyor. Yeniden bağlanmak için tarayıcının bulunduğu bilgisayardaki QR kodunu tarayın.",
     ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "Kodu taramak için Ayarlar’dan kamera erişimine izin verin.",
@@ -165,7 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("İptal"),
     "cancelAnytime": MessageLookupByLibrary.simpleMessage(
-      "Mağaza hesabınızdan istediğiniz zaman iptal edebilirsiniz.",
+      "İstediğiniz zaman abonelik ayarlarınızdan iptal edebilirsiniz.",
     ),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage(
       "Bu sayfa yüklenemiyor",
@@ -236,7 +233,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Bu telefonun bağlantısını kes",
     ),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "Bu telefon artık bilgisayarınızı kontrol etmeyecek. Tekrar kullanmak için bilgisayarınızdaki QR kodunu tarayın.",
+      "Bu telefon artık bilgisayarınızı kontrol etmeyecek. Yeniden bağlanmak için bilgisayarınızdaki QR kodunu tarayın.",
     ),
     "down": MessageLookupByLibrary.simpleMessage("Aşağı"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("Video bitince"),
@@ -278,7 +275,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "exitFullScreen": MessageLookupByLibrary.simpleMessage("Tam ekrandan çık"),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "Zappit uzantısı güncellendi. Tüm kontrolleri kullanmaya devam etmek için bu sayfayı yenileyin.",
+      "Zappit uzantısı güncellendi. Tüm kontrolleri kullanmaya devam etmek için tarayıcıdaki sayfayı yenileyin.",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("SSS"),
     "favorites": MessageLookupByLibrary.simpleMessage("Favoriler"),
@@ -334,7 +331,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "monthly": MessageLookupByLibrary.simpleMessage("Aylık"),
     "multipleBrowsersMessage": MessageLookupByLibrary.simpleMessage(
-      "Birden fazla tarayıcı çevrimiçi. Bu kumandanın kontrol edeceğini seçin.",
+      "Birden fazla tarayıcı çevrimiçi. Bu kumandanın kontrol edeceği tarayıcıyı seçin.",
     ),
     "mute": MessageLookupByLibrary.simpleMessage("Sessize al"),
     "nextChapter": MessageLookupByLibrary.simpleMessage("Sonraki bölüm"),
@@ -343,7 +340,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "nextVideo": MessageLookupByLibrary.simpleMessage("Sonraki video"),
     "noBrowser": MessageLookupByLibrary.simpleMessage("Tarayıcı yok"),
     "noBrowserConnectedShare": MessageLookupByLibrary.simpleMessage(
-      "Bağlı tarayıcı yok. Zappit uzantısının olduğu tarayıcıyı açıp tekrar deneyin.",
+      "Bağlı tarayıcı yok. Zappit uzantısının yüklü olduğu tarayıcıyı açıp tekrar deneyin.",
     ),
     "noBrowserMessage": MessageLookupByLibrary.simpleMessage(
       "1. Bilgisayarınızda bağlı tarayıcıyı açın.\n2. Bağlanmazsa tarayıcınızın üst araç çubuğundaki Zappit simgesine tıklayın.",
@@ -400,7 +397,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Geri yüklenecek bir şey yok",
     ),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "Bu mağaza hesabında etkin bir Zappit Pro aboneliği bulunamadı.",
+      "Bu hesapta etkin bir Zappit Pro aboneliği bulunamadı.",
     ),
     "obAnimAddExtension": MessageLookupByLibrary.simpleMessage("Uzantıyı ekle"),
     "obAnimAdded": MessageLookupByLibrary.simpleMessage("Eklendi"),
@@ -460,14 +457,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "Bilgisayarınızdaki her videoyu kontrol edin. Kurulum yalnızca iki kısa adım.",
+      "Bilgisayarınızdaki her videoyu kontrol edin. Kurulum yalnızca iki kısa adımda tamamlanır.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "Telefonunuz artık bir kumanda",
     ),
     "openALink": MessageLookupByLibrary.simpleMessage("Bağlantı aç"),
     "openBrowserForTabs": MessageLookupByLibrary.simpleMessage(
-      "Sekmelerini görmek için Zappit uzantısının olduğu tarayıcıyı açın.",
+      "Sekmelerini görmek için Zappit uzantısının yüklü olduğu tarayıcıyı açın.",
     ),
     "openLinkInBrowser": MessageLookupByLibrary.simpleMessage(
       "Tarayıcıda bağlantı aç",
@@ -491,7 +488,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Uzantı nasıl yüklenir",
     ),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "Bu bilgisayara zaten 3 telefon bağlı. Bağlı diğer telefonlarınızdan birinde Zappit’i açın ve ‘Diğer’ bölümünde ‘Bu telefonun bağlantısını kes’e dokunun. O telefon artık sizde değilse bilgisayardaki Zappit uzantısında ‘Reset’i kullanın.",
+      "Bu bilgisayara zaten 3 telefon bağlı. Bağlı diğer telefonlarınızdan birinde Zappit’i açın ve ‘Diğer’ bölümünde ‘Bu telefonun bağlantısını kes’e dokunun. Diğer telefonlarınıza erişiminiz yoksa bilgisayarınızdaki Zappit uzantısında ‘Ayarlar’ → ‘Sıfırla’ya tıklayın.",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage(
       "Tarayıcı uzantısına bağlanın",
@@ -504,7 +501,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pause": MessageLookupByLibrary.simpleMessage("Duraklat"),
     "paymentPending": MessageLookupByLibrary.simpleMessage("Ödeme bekleniyor"),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "Mağaza ödemenizi onaylar onaylamaz Pro açılır.",
+      "Ödemeniz onaylanır onaylanmaz Pro açılır.",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("Telefon adı"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("Bir ad girin."),
@@ -544,30 +541,30 @@ class MessageLookup extends MessageLookupByLibrary {
       "Kumandanızın tüm gücünü açığa çıkarın",
     ),
     "proFeatureAbLoop": MessageLookupByLibrary.simpleMessage(
-      "Sınırsız A-B Loop",
+      "Sınırsız A-B döngüsü",
     ),
     "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage(
-      "Tüm oynatma hızları",
+      "Tüm oynatma hızlarına erişim",
     ),
     "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "Siteye özel kumandaların kilidini açın",
+      "Belirli sitelere özel kumandaların kilidini açın",
     ),
     "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage(
-      "Sınırsız tam video tekrarı",
+      "Sınırsız tam video döngüsü",
     ),
     "proFeatureVoiceBoost": MessageLookupByLibrary.simpleMessage(
       "Sınırsız Voice Boost",
     ),
     "proPreviewActiveBanner": m24,
     "proPreviewEndedMessage": MessageLookupByLibrary.simpleMessage(
-      "Zappit Pro’yu denediğiniz için teşekkürler! Tüm Pro özelliklerini kesintisiz kullanmaya devam etmek için abone olun.",
+      "Zappit Pro’yu beğendiniz mi? Tüm Pro özelliklerini kesintisiz kullanmaya devam etmek için abone olun.",
     ),
     "proPreviewEndedSubtitle": m25,
     "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
-      "Pro önizlemeniz sona erdi",
+      "Ücretsiz Pro süreniz sona erdi",
     ),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
-      "Pro önizleme yarın sona eriyor",
+      "Ücretsiz Pro süreniz yarın bitiyor",
     ),
     "proPreviewStarted": m26,
     "proPreviewUntil": m27,
@@ -591,7 +588,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Satın alma etkinleşmedi",
     ),
     "purchaseNotActivatedMessage": MessageLookupByLibrary.simpleMessage(
-      "Ödemeniz alındı ama Pro henüz etkin değil. Satın alımları geri yükle’yi deneyin.",
+      "Ödemeniz alındı ama Pro henüz etkin değil. ‘Satın alımları geri yükle’ seçeneğine dokunun.",
     ),
     "purchasesNotAllowed": MessageLookupByLibrary.simpleMessage(
       "Bu cihazda veya hesapta satın almaya izin verilmiyor.",
@@ -606,7 +603,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "removeFromFavorites": m29,
     "removedFromFavorites": m30,
     "reorderHint": MessageLookupByLibrary.simpleMessage(
-      "Sırasını değiştirmek için bir öğeye basılı tutup sürükleyin",
+      "Sırasını değiştirmek için bir öğeyi basılı tutup sürükleyin",
     ),
     "reorderSite": m31,
     "repeatOff": MessageLookupByLibrary.simpleMessage("Tekrar kapalı"),
@@ -651,16 +648,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "siteWeb": MessageLookupByLibrary.simpleMessage("Web"),
     "skipAd": MessageLookupByLibrary.simpleMessage("Reklamı atla"),
     "skipIntro": MessageLookupByLibrary.simpleMessage("Girişi atla"),
-    "sleepTimer": MessageLookupByLibrary.simpleMessage("Uyku zamanlayıcı"),
-    "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("Uyku zamanlayıcı"),
+    "sleepTimer": MessageLookupByLibrary.simpleMessage("Uyku zamanlayıcısı"),
+    "sleepTimerLabel": MessageLookupByLibrary.simpleMessage(
+      "Uyku zamanlayıcısı",
+    ),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage(
       "Daha küçük altyazı",
-    ),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage(
-      "Üzgünüz, bir sorun oluştu.",
-    ),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "Üzgünüz, bir sorun oluştu. Lütfen tekrar deneyin.",
     ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage(
       "Sesi nasıl açacağınızı görmek için dokunun.",
@@ -674,10 +667,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Ücretsiz denemeyi başlat",
     ),
     "storeProblem": MessageLookupByLibrary.simpleMessage(
-      "Mağazada bir sorun oluştu. Lütfen birazdan tekrar deneyin.",
+      "Satın alma sırasında bir sorun oluştu. Lütfen birazdan tekrar deneyin.",
     ),
     "storeUnavailable": MessageLookupByLibrary.simpleMessage(
-      "Mağaza şu anda kullanılamıyor. Lütfen daha sonra tekrar deneyin.",
+      "Şu anda satın alma yapılamıyor. Lütfen daha sonra tekrar deneyin.",
     ),
     "subscribe": MessageLookupByLibrary.simpleMessage("Abone ol"),
     "success": MessageLookupByLibrary.simpleMessage("Tamamlandı"),
@@ -692,9 +685,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "tabRemote": MessageLookupByLibrary.simpleMessage("Kumanda"),
     "tabTabs": MessageLookupByLibrary.simpleMessage("Sekmeler"),
     "tapToKeepPro": MessageLookupByLibrary.simpleMessage(
-      "Tüm Pro özelliklerini korumak için dokunun.",
+      "Tüm Pro özelliklerini kullanmaya devam etmek için dokunun.",
     ),
-    "tellAFriend": MessageLookupByLibrary.simpleMessage("Bir arkadaşına öner"),
+    "tellAFriend": MessageLookupByLibrary.simpleMessage("Bir arkadaşa öner"),
     "termsOfService": MessageLookupByLibrary.simpleMessage("Hizmet Şartları"),
     "theaterMode": MessageLookupByLibrary.simpleMessage("Sinema modu"),
     "trialReminderBody": m37,
@@ -719,9 +712,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "trialTermsYears": m41,
     "tryAgain": MessageLookupByLibrary.simpleMessage("Tekrar dene"),
     "turnOffAbFirst": MessageLookupByLibrary.simpleMessage(
-      "Önce A-B Loop’u kapatın",
+      "Önce A-B döngüsünü kapatın",
     ),
-    "tutorial": MessageLookupByLibrary.simpleMessage("Kullanım rehberi"),
+    "tutorial": MessageLookupByLibrary.simpleMessage("Kılavuz"),
     "unavailable": MessageLookupByLibrary.simpleMessage("Kullanılamıyor"),
     "undo": MessageLookupByLibrary.simpleMessage("Geri al"),
     "unmute": MessageLookupByLibrary.simpleMessage("Sesi aç"),

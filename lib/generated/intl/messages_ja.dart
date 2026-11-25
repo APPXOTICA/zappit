@@ -38,7 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m8(count) => "${count}日間の無料トライアル";
 
-  static String m9(count) => "${count}か月の無料トライアル";
+  static String m9(count) => "${count}か月間の無料トライアル";
 
   static String m10(count) => "${count}週間の無料トライアル";
 
@@ -50,7 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m14(count) => "${count}分";
 
-  static String m15(time) => "${time} 後に新しいコード";
+  static String m15(time) => "${time} 後にコードを更新";
 
   static String m16(url) => "パソコンのブラウザで ${url} を開いて、Zappit 拡張機能をインストールしてください。";
 
@@ -69,13 +69,13 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m23(price) => "${price} / 年";
 
   static String m24(date) =>
-      "無料の Pro お試しは ${date} まで有効です。終了前に登録すると、すべての Pro 機能をそのまま使い続けられます。";
+      "Pro の無料お試しは ${date} までです。終了前に登録すると、すべての Pro 機能をそのまま使い続けられます。";
 
   static String m25(proName) =>
       "Pro のお試し期間が終了しました。${proName} ですべての Pro 機能を使い続けましょう。";
 
   static String m26(days) =>
-      "Zappit Pro のすべての機能を ${days} 日間無料でお試しいただけます。クレジットカード不要、自動課金もありません。";
+      "Zappit Pro のすべての機能を ${days} 日間無料でお試しいただけます。自動で課金されることはなく、完全無料です。";
 
   static String m27(date) => "${date} まで Pro お試し中";
 
@@ -104,7 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m39(count, price) => "${count}日間の無料トライアル後、年額 ${price} です。";
 
-  static String m40(count, price) => "${count}か月の無料トライアル後、年額 ${price} です。";
+  static String m40(count, price) => "${count}か月間の無料トライアル後、年額 ${price} です。";
 
   static String m41(count, price) => "${count}年間の無料トライアル後、年額 ${price} です。";
 
@@ -115,9 +115,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m44(count) =>
       "Voice Boost がオフになりました。無料ユーザーは Voice Boost を ${count} 秒間使えます。";
 
-  static String m45(proName) => "${proName} へようこそ";
+  static String m45(proName) => "${proName} にアップグレードしました";
 
-  static String m46(number) => "ウインドウ ${number}";
+  static String m46(number) => "ウィンドウ ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -135,13 +135,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "back": MessageLookupByLibrary.simpleMessage("戻る"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage("申し訳ありません。ご利用が制限されています。"),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage("ブラウザが応答しません"),
     "browsers": MessageLookupByLibrary.simpleMessage("ブラウザ"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "別のスマホが接続しました。再び使うには、そのパソコンの QR コードを読み取ってください。",
+      "別のスマホがそのブラウザに接続しました。再接続するには、そのパソコンの QR コードを読み取ってください。",
     ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "コードを読み取るには、設定でカメラへのアクセスを許可してください。",
@@ -149,12 +148,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "cameraUnavailable": MessageLookupByLibrary.simpleMessage("現在カメラを使用できません。"),
     "cancel": MessageLookupByLibrary.simpleMessage("キャンセル"),
     "cancelAnytime": MessageLookupByLibrary.simpleMessage(
-      "ストアのアカウントからいつでも解約できます。",
+      "App Store または Google Play の設定からいつでも解約できます。",
     ),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage("ページを読み込めません"),
     "cantOpenOnPhone": MessageLookupByLibrary.simpleMessage("この動画はスマホで開けません"),
     "cantReachBrowser": MessageLookupByLibrary.simpleMessage("ブラウザに接続できません"),
-    "cantSeekVideo": MessageLookupByLibrary.simpleMessage("この動画はシークできません"),
+    "cantSeekVideo": MessageLookupByLibrary.simpleMessage("この動画は再生位置を移動できません"),
     "captionLanguage": MessageLookupByLibrary.simpleMessage("字幕の言語"),
     "captions": MessageLookupByLibrary.simpleMessage("字幕"),
     "captionsOff": MessageLookupByLibrary.simpleMessage("字幕 オフ"),
@@ -206,7 +205,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "disconnect": MessageLookupByLibrary.simpleMessage("接続を解除"),
     "disconnectPhone": MessageLookupByLibrary.simpleMessage("このスマホの接続を解除"),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "このスマホではパソコンを操作できなくなります。再び使うには、パソコンの QR コードを読み取ってください。",
+      "このスマホではパソコンを操作できなくなります。再接続するには、パソコンの QR コードを読み取ってください。",
     ),
     "down": MessageLookupByLibrary.simpleMessage("下"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("動画の終わり"),
@@ -236,7 +235,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorTabClosed": MessageLookupByLibrary.simpleMessage("そのタブはすでに閉じられています"),
     "exitFullScreen": MessageLookupByLibrary.simpleMessage("全画面表示を終了"),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "Zappit 拡張機能が更新されました。すべての操作を使い続けるには、このページを再読み込みしてください。",
+      "Zappit 拡張機能が更新されました。すべての操作を引き続き使うには、パソコンのブラウザでページを再読み込みしてください。",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("よくある質問"),
     "favorites": MessageLookupByLibrary.simpleMessage("お気に入り"),
@@ -279,10 +278,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "minutesCount": m13,
     "minutesShort": m14,
     "mixCantRepeat": MessageLookupByLibrary.simpleMessage(
-      "この再生リストは新しい動画が延々と続くため、リピートできません",
+      "この再生リストは新しい動画が次々と再生されるため、リピートできません",
     ),
     "mixCantShuffle": MessageLookupByLibrary.simpleMessage(
-      "この再生リストは新しい動画が延々と続くため、シャッフルできません",
+      "この再生リストは新しい動画が次々と再生されるため、シャッフルできません",
     ),
     "monthly": MessageLookupByLibrary.simpleMessage("月額"),
     "multipleBrowsersMessage": MessageLookupByLibrary.simpleMessage(
@@ -317,7 +316,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noPreviousPage": MessageLookupByLibrary.simpleMessage("戻れる前のページがありません"),
     "noSiteSettings": MessageLookupByLibrary.simpleMessage("このサイトの設定はまだありません。"),
     "noSubtitles": MessageLookupByLibrary.simpleMessage("この動画には字幕がありません"),
-    "noThanks": MessageLookupByLibrary.simpleMessage("結構です"),
+    "noThanks": MessageLookupByLibrary.simpleMessage("通知しない"),
     "noVideosOnPage": MessageLookupByLibrary.simpleMessage("このページには動画がありません。"),
     "notAvailableDuringAd": MessageLookupByLibrary.simpleMessage("広告中は使用できません"),
     "notAvailableForLive": MessageLookupByLibrary.simpleMessage("ライブでは使用不可"),
@@ -334,7 +333,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage("復元する購入がありません"),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "このストアアカウントで有効な Zappit Pro のサブスクリプションは見つかりませんでした。",
+      "このアカウントで有効な Zappit Pro のサブスクリプションが見つかりませんでした。",
     ),
     "obAnimAddExtension": MessageLookupByLibrary.simpleMessage("拡張機能を追加"),
     "obAnimAdded": MessageLookupByLibrary.simpleMessage("追加済み"),
@@ -346,7 +345,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "スマホの Zappit アプリでこのコードを読み取ってください。",
     ),
     "obAnimTagline": MessageLookupByLibrary.simpleMessage("マウスはもういらない。"),
-    "obAnimYourPhones": MessageLookupByLibrary.simpleMessage("あなたのスマホ"),
+    "obAnimYourPhones": MessageLookupByLibrary.simpleMessage("接続済みのスマホ"),
     "off": MessageLookupByLibrary.simpleMessage("オフ"),
     "offline": MessageLookupByLibrary.simpleMessage("オフライン"),
     "offlineMessage": MessageLookupByLibrary.simpleMessage(
@@ -374,7 +373,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Zappit アイコンが見当たらない場合",
     ),
     "onboardingIconHelpLabel": MessageLookupByLibrary.simpleMessage(
-      "Zappit アイコンが見当たらない場合。よくある質問で答えを開きます",
+      "Zappit アイコンが見当たらない場合。よくある質問の回答を開きます",
     ),
     "onboardingNext": MessageLookupByLibrary.simpleMessage("次へ"),
     "onboardingOpenQrScanner": MessageLookupByLibrary.simpleMessage(
@@ -413,7 +412,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "pairHowToInstall": MessageLookupByLibrary.simpleMessage("拡張機能のインストール方法"),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "このパソコンにはすでに 3 台のスマホが接続されています。接続済みの別のスマホで Zappit を開き、「その他」の「このスマホの接続を解除」をタップしてください。そのスマホが手元にない場合は、パソコンの Zappit 拡張機能で「Reset」を使ってください。",
+      "このパソコンにはすでに 3 台のスマホが接続されています。接続済みの別のスマホで Zappit を開き、「その他」の「このスマホの接続を解除」をタップしてください。ほかのスマホが手元にない場合は、パソコンの Zappit 拡張機能の「設定」で「リセット」を実行してください。",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage("ブラウザ拡張機能に接続"),
     "paste": MessageLookupByLibrary.simpleMessage("貼り付け"),
@@ -422,7 +421,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pause": MessageLookupByLibrary.simpleMessage("一時停止"),
     "paymentPending": MessageLookupByLibrary.simpleMessage("支払い保留中"),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "ストアで支払いが確認されるとすぐに Pro が有効になります。",
+      "お支払いが確認され次第、Pro が有効になります。",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("スマホの名前"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("名前を入力してください。"),
@@ -460,9 +459,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "リモコンの力を最大限に引き出しましょう",
     ),
     "proFeatureAbLoop": MessageLookupByLibrary.simpleMessage("区間リピート使い放題"),
-    "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage("すべての再生速度"),
+    "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage("すべての再生速度を選べる"),
     "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "サイト専用リモコンを解放",
+      "サイトごとの専用リモコンが使える",
     ),
     "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage("全体リピート使い放題"),
     "proFeatureVoiceBoost": MessageLookupByLibrary.simpleMessage(
@@ -503,7 +502,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "qualityNotChanged": MessageLookupByLibrary.simpleMessage("画質は変わりませんでした"),
     "rateZappit": MessageLookupByLibrary.simpleMessage("Zappit を評価"),
     "reload": MessageLookupByLibrary.simpleMessage("再読み込み"),
-    "remindMe": MessageLookupByLibrary.simpleMessage("知らせる"),
+    "remindMe": MessageLookupByLibrary.simpleMessage("通知を受け取る"),
     "remoteSettings": MessageLookupByLibrary.simpleMessage("リモコン設定"),
     "removeFromFavorites": m29,
     "removedFromFavorites": m30,
@@ -512,7 +511,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "reorderSite": m31,
     "repeatOff": MessageLookupByLibrary.simpleMessage("リピート オフ"),
-    "repeatOffNotice": MessageLookupByLibrary.simpleMessage("リピート オフ"),
+    "repeatOffNotice": MessageLookupByLibrary.simpleMessage("リピートをオフにしました"),
     "repeatOn": MessageLookupByLibrary.simpleMessage("リピート オン"),
     "repeatingPlaylist": MessageLookupByLibrary.simpleMessage(
       "この再生リストをリピート再生します",
@@ -538,7 +537,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "settings": MessageLookupByLibrary.simpleMessage("設定"),
     "showChat": MessageLookupByLibrary.simpleMessage("チャットを表示"),
     "shuffleOff": MessageLookupByLibrary.simpleMessage("シャッフル オフ"),
-    "shuffleOffNotice": MessageLookupByLibrary.simpleMessage("シャッフル オフ"),
+    "shuffleOffNotice": MessageLookupByLibrary.simpleMessage("シャッフルをオフにしました"),
     "shuffleOn": MessageLookupByLibrary.simpleMessage("シャッフル オン"),
     "shufflingPlaylist": MessageLookupByLibrary.simpleMessage(
       "この再生リストをシャッフル再生します",
@@ -550,24 +549,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "sleepTimer": MessageLookupByLibrary.simpleMessage("スリープタイマー"),
     "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("スリープタイマー"),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage("字幕を小さく"),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage(
-      "申し訳ありません。問題が発生しました。",
-    ),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "申し訳ありません。問題が発生しました。もう一度お試しください。",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage(
-      "タップして音を出す方法を確認できます。",
+      "タップすると、音を出す方法を確認できます。",
     ),
     "soundBlockedTitle": MessageLookupByLibrary.simpleMessage("音が出ないのはなぜ？"),
     "soundHelpTitle": MessageLookupByLibrary.simpleMessage("サウンド"),
     "speedTrialOver": m36,
     "startFreeTrial": MessageLookupByLibrary.simpleMessage("無料トライアルを開始"),
     "storeProblem": MessageLookupByLibrary.simpleMessage(
-      "ストアで問題が発生しました。しばらくしてからもう一度お試しください。",
+      "購入処理中に問題が発生しました。しばらくしてからもう一度お試しください。",
     ),
     "storeUnavailable": MessageLookupByLibrary.simpleMessage(
-      "現在ストアを利用できません。しばらくしてからもう一度お試しください。",
+      "現在購入できません。しばらくしてからもう一度お試しください。",
     ),
     "subscribe": MessageLookupByLibrary.simpleMessage("登録する"),
     "success": MessageLookupByLibrary.simpleMessage("完了"),
@@ -598,7 +591,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "trialReminderNotificationTitle": MessageLookupByLibrary.simpleMessage(
       "Zappit Pro の無料トライアルがまもなく終了します",
     ),
-    "trialReminderTitle": MessageLookupByLibrary.simpleMessage("トライアル終了のお知らせ"),
+    "trialReminderTitle": MessageLookupByLibrary.simpleMessage(
+      "無料トライアルのリマインダー",
+    ),
     "trialTerms": m38,
     "trialTermsDays": m39,
     "trialTermsMonths": m40,
@@ -607,7 +602,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "turnOffAbFirst": MessageLookupByLibrary.simpleMessage(
       "先に区間リピートをオフにしてください",
     ),
-    "tutorial": MessageLookupByLibrary.simpleMessage("使い方ガイド"),
+    "tutorial": MessageLookupByLibrary.simpleMessage("ガイド"),
     "unavailable": MessageLookupByLibrary.simpleMessage("利用できません"),
     "undo": MessageLookupByLibrary.simpleMessage("元に戻す"),
     "unmute": MessageLookupByLibrary.simpleMessage("ミュート解除"),
@@ -636,7 +631,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "volumeDown": MessageLookupByLibrary.simpleMessage("音量を下げる"),
     "volumeUp": MessageLookupByLibrary.simpleMessage("音量を上げる"),
-    "waitingForBrowser": MessageLookupByLibrary.simpleMessage("ブラウザを待っています…"),
+    "waitingForBrowser": MessageLookupByLibrary.simpleMessage(
+      "ブラウザの接続を待っています…",
+    ),
     "watchAgain": MessageLookupByLibrary.simpleMessage("もう一度見る"),
     "watching": MessageLookupByLibrary.simpleMessage("視聴中"),
     "welcomeToPro": m45,

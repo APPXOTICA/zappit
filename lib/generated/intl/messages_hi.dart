@@ -48,7 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m12(price) => "सिर्फ़ ${price}/महीना";
 
   static String m13(count) =>
-      "${Intl.plural(count, one: '${count} मिनट', other: '${count} मिनट')}";
+      "${Intl.plural(count, one: '1 मिनट', other: '${count} मिनट')}";
 
   static String m14(count) => "${count} मिनट";
 
@@ -72,15 +72,15 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m23(price) => "${price} / साल";
 
   static String m24(date) =>
-      "आपका मुफ़्त Pro प्रीव्यू ${date} तक चालू है। ख़त्म होने से पहले सब्सक्राइब करें ताकि सभी Pro फ़ीचर बिना रुकावट चलते रहें।";
+      "आपका Pro मुफ़्त ट्रायल ${date} तक चालू है। सभी Pro फ़ीचर बिना रुकावट इस्तेमाल करते रहने के लिए, ट्रायल ख़त्म होने से पहले सब्सक्राइब करें।";
 
   static String m25(proName) =>
-      "आपका Pro प्रीव्यू ख़त्म हो गया है। ${proName} के साथ सभी Pro फ़ीचर इस्तेमाल करते रहें।";
+      "आपका Pro मुफ़्त ट्रायल ख़त्म हो गया है। ${proName} के साथ सभी Pro फ़ीचर इस्तेमाल करते रहें।";
 
   static String m26(days) =>
-      "${days} दिन तक Zappit Pro के सभी फ़ीचर मुफ़्त इस्तेमाल करें। न क्रेडिट कार्ड चाहिए, न अपने-आप पैसे कटेंगे।";
+      "${days} दिन तक Zappit Pro के सभी फ़ीचर इस्तेमाल करें। यह पूरी तरह मुफ़्त है, अपने-आप कोई पैसा नहीं कटेगा।";
 
-  static String m27(date) => "${date} तक Pro प्रीव्यू";
+  static String m27(date) => "${date} तक Pro मुफ़्त ट्रायल";
 
   static String m28(proName) => "${proName} वापस आ गया";
 
@@ -102,7 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "वापस 1x पर। Pro के बिना यह स्पीड ${count} सेकंड तक इस्तेमाल हो सकती है।";
 
   static String m37(price, date) =>
-      "आपका मुफ़्त ट्रायल कल ख़त्म हो रहा है। ${date} को ${price} चार्ज होंगे। अगर आगे नहीं चलाना है, तो उससे पहले सदस्यता रद्द करें।";
+      "आपका मुफ़्त ट्रायल कल ख़त्म हो रहा है। ${date} को ${price} चार्ज होंगे। अगर सदस्यता जारी नहीं रखनी है, तो उससे पहले उसे रद्द करें।";
 
   static String m38(price) => "मुफ़्त ट्रायल से शुरू, फिर ${price}/साल।";
 
@@ -115,14 +115,14 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m41(count, price) =>
       "${count} साल के मुफ़्त ट्रायल से शुरू, फिर ${price}/साल।";
 
-  static String m42(count) => "आगे · ${count} से॰ में चलेगा";
+  static String m42(count) => "अगला वीडियो · ${count} से॰ में चलेगा";
 
   static String m43(count) => "Voice Boost ट्रायल, ${count} सेकंड बाकी";
 
   static String m44(count) =>
       "Voice Boost बंद हो गया। Pro के बिना Voice Boost ${count} सेकंड तक इस्तेमाल हो सकता है।";
 
-  static String m45(proName) => "${proName} में आपका स्वागत है";
+  static String m45(proName) => "${proName} में अपग्रेड हो गया!";
 
   static String m46(number) => "विंडो ${number}";
 
@@ -138,13 +138,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "allCategories": MessageLookupByLibrary.simpleMessage("सभी कैटगरी"),
     "allSites": MessageLookupByLibrary.simpleMessage("सभी साइटें"),
     "alreadySubscribed": MessageLookupByLibrary.simpleMessage(
-      "यह सदस्यता आपके पास पहले से है। ख़रीदारी वापस लाएँ आज़माएँ।",
+      "यह सदस्यता आपके पास पहले से है। ‘ख़रीदारी वापस लाएँ’ पर टैप करके देखें।",
     ),
     "back": MessageLookupByLibrary.simpleMessage("वापस"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage(
-      "माफ़ करें, ऐक्सेस रोक दिया गया है।",
-    ),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage(
       "ब्राउज़र जवाब नहीं दे रहा",
@@ -152,7 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "browsers": MessageLookupByLibrary.simpleMessage("ब्राउज़र"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "किसी दूसरे फ़ोन ने उससे कनेक्ट कर लिया। फिर से इस्तेमाल करने के लिए, उस कंप्यूटर पर QR कोड स्कैन करें।",
+      "किसी दूसरे फ़ोन ने उससे कनेक्ट कर लिया। फिर से कनेक्ट करने के लिए, उस कंप्यूटर पर दिख रहा QR कोड स्कैन करें।",
     ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "कोड स्कैन करने के लिए सेटिंग में कैमरा ऐक्सेस की अनुमति दें।",
@@ -162,7 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("रद्द करें"),
     "cancelAnytime": MessageLookupByLibrary.simpleMessage(
-      "अपने स्टोर खाते में कभी भी रद्द करें।",
+      "आप कभी भी सदस्यता रद्द कर सकते हैं।",
     ),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage(
       "यह पेज लोड नहीं हो सकता",
@@ -235,7 +232,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "इस फ़ोन को डिसकनेक्ट करें",
     ),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "यह फ़ोन अब आपके कंप्यूटर को कंट्रोल नहीं करेगा। फिर से इस्तेमाल करने के लिए, कंप्यूटर पर QR कोड स्कैन करें।",
+      "यह फ़ोन अब आपके कंप्यूटर को कंट्रोल नहीं करेगा। फिर से कनेक्ट करने के लिए, कंप्यूटर पर दिख रहा QR कोड स्कैन करें।",
     ),
     "down": MessageLookupByLibrary.simpleMessage("नीचे"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("वीडियो ख़त्म होने पर"),
@@ -279,7 +276,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "फ़ुल स्क्रीन से बाहर निकलें",
     ),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "Zappit एक्सटेंशन अपडेट हो गया है। सभी कंट्रोल इस्तेमाल करते रहने के लिए यह पेज रीलोड करें।",
+      "Zappit एक्सटेंशन अपडेट हो गया है। सभी कंट्रोल इस्तेमाल करते रहने के लिए, कंप्यूटर के ब्राउज़र में पेज रीलोड करें।",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("अक्सर पूछे जाने वाले सवाल"),
     "favorites": MessageLookupByLibrary.simpleMessage("पसंदीदा"),
@@ -309,7 +306,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "learnMore": MessageLookupByLibrary.simpleMessage("ज़्यादा जानें"),
     "left": MessageLookupByLibrary.simpleMessage("बाएँ"),
     "linkPanelHint": MessageLookupByLibrary.simpleMessage(
-      "वीडियो लिंक पेस्ट करें और भेजें पर टैप करें। यह आपके ब्राउज़र के नए टैब में खुलेगा।",
+      "वीडियो लिंक पेस्ट करें और ‘भेजें’ पर टैप करें। यह आपके ब्राउज़र के नए टैब में खुलेगा।",
     ),
     "liveBadge": MessageLookupByLibrary.simpleMessage("लाइव"),
     "liveCantRewind": MessageLookupByLibrary.simpleMessage(
@@ -337,7 +334,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "multipleBrowsersMessage": MessageLookupByLibrary.simpleMessage(
       "कई ब्राउज़र ऑनलाइन हैं। वह ब्राउज़र चुनें जिसे यह रिमोट कंट्रोल करेगा।",
     ),
-    "mute": MessageLookupByLibrary.simpleMessage("म्यूट करें"),
+    "mute": MessageLookupByLibrary.simpleMessage("आवाज़ बंद करें"),
     "nextChapter": MessageLookupByLibrary.simpleMessage("अगला चैप्टर"),
     "nextEpisode": MessageLookupByLibrary.simpleMessage("अगला एपिसोड"),
     "nextTab": MessageLookupByLibrary.simpleMessage("अगला टैब"),
@@ -405,7 +402,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "वापस लाने के लिए कुछ नहीं है",
     ),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "इस स्टोर खाते में कोई चालू Zappit Pro सदस्यता नहीं मिली।",
+      "इस खाते में कोई चालू Zappit Pro सदस्यता नहीं मिली।",
     ),
     "obAnimAddExtension": MessageLookupByLibrary.simpleMessage(
       "एक्सटेंशन जोड़ें",
@@ -498,7 +495,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "एक्सटेंशन कैसे इंस्टॉल करें",
     ),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "इस कंप्यूटर से पहले ही 3 फ़ोन कनेक्ट हैं। कनेक्ट किए हुए अपने किसी दूसरे फ़ोन पर Zappit खोलें और ‘और’ में ‘इस फ़ोन को डिसकनेक्ट करें’ पर टैप करें। अगर वह फ़ोन अब आपके पास नहीं है, तो अपने कंप्यूटर पर Zappit एक्सटेंशन में ‘Reset’ इस्तेमाल करें।",
+      "इस कंप्यूटर से पहले ही 3 फ़ोन कनेक्ट हैं। कनेक्ट किए हुए अपने किसी दूसरे फ़ोन पर Zappit खोलें और ‘और’ में ‘इस फ़ोन को डिसकनेक्ट करें’ पर टैप करें। अगर कनेक्ट किया हुआ कोई दूसरा फ़ोन आपके पास नहीं है, तो अपने कंप्यूटर पर Zappit एक्सटेंशन की ‘सेटिंग’ में ‘रीसेट’ पर क्लिक करें।",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage(
       "ब्राउज़र एक्सटेंशन से कनेक्ट करें",
@@ -509,9 +506,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "वीडियो लिंक पेस्ट करें",
     ),
     "pause": MessageLookupByLibrary.simpleMessage("रोकें"),
-    "paymentPending": MessageLookupByLibrary.simpleMessage("पेमेंट बाकी है"),
+    "paymentPending": MessageLookupByLibrary.simpleMessage(
+      "पेमेंट की पुष्टि बाकी है",
+    ),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "स्टोर से पेमेंट की पुष्टि होते ही Pro चालू हो जाएगा।",
+      "पेमेंट की पुष्टि होते ही Pro चालू हो जाएगा।",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("फ़ोन का नाम"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("कोई नाम डालें।"),
@@ -550,27 +549,27 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "proFeatureAbLoop": MessageLookupByLibrary.simpleMessage("असीमित A-B Loop"),
     "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage(
-      "सभी प्लेबैक स्पीड",
+      "सभी प्लेबैक स्पीड चुनने की सुविधा",
     ),
     "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "हर साइट के लिए खास रिमोट अनलॉक करें",
+      "चुनिंदा साइटों के लिए खास रिमोट अनलॉक करें",
     ),
     "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage(
-      "पूरे वीडियो का असीमित लूप",
+      "असीमित फ़ुल वीडियो लूप",
     ),
     "proFeatureVoiceBoost": MessageLookupByLibrary.simpleMessage(
       "असीमित Voice Boost",
     ),
     "proPreviewActiveBanner": m24,
     "proPreviewEndedMessage": MessageLookupByLibrary.simpleMessage(
-      "Zappit Pro आज़माने के लिए धन्यवाद! सभी Pro फ़ीचर बिना रुकावट इस्तेमाल करते रहने के लिए सब्सक्राइब करें।",
+      "Zappit Pro कैसा लगा? सभी Pro फ़ीचर बिना रुकावट इस्तेमाल करते रहने के लिए सब्सक्राइब करें।",
     ),
     "proPreviewEndedSubtitle": m25,
     "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
-      "आपका Pro प्रीव्यू ख़त्म हो गया",
+      "आपका Pro मुफ़्त ट्रायल ख़त्म हो गया",
     ),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
-      "Pro प्रीव्यू कल ख़त्म होगा",
+      "Pro मुफ़्त ट्रायल कल ख़त्म होगा",
     ),
     "proPreviewStarted": m26,
     "proPreviewUntil": m27,
@@ -594,7 +593,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "ख़रीदारी चालू नहीं हुई",
     ),
     "purchaseNotActivatedMessage": MessageLookupByLibrary.simpleMessage(
-      "पेमेंट हो गया, लेकिन Pro अभी चालू नहीं हुआ। ख़रीदारी वापस लाएँ आज़माएँ।",
+      "पेमेंट हो गया, लेकिन Pro अभी चालू नहीं हुआ। ‘ख़रीदारी वापस लाएँ’ पर टैप करके देखें।",
     ),
     "purchasesNotAllowed": MessageLookupByLibrary.simpleMessage(
       "इस डिवाइस या खाते पर ख़रीदारी की अनुमति नहीं है।",
@@ -639,7 +638,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "कुछ नहीं चल रहा",
     ),
     "selectVideoInBrowserMessage": MessageLookupByLibrary.simpleMessage(
-      "देखना शुरू करने के लिए अपने कंप्यूटर पर कोई भी वीडियो क्लिक करें। रिमोट यहाँ दिखेगा।",
+      "देखना शुरू करने के लिए अपने कंप्यूटर पर किसी भी वीडियो पर क्लिक करें। रिमोट यहाँ दिखेगा।",
     ),
     "send": MessageLookupByLibrary.simpleMessage("भेजें"),
     "settings": MessageLookupByLibrary.simpleMessage("सेटिंग"),
@@ -657,12 +656,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "sleepTimer": MessageLookupByLibrary.simpleMessage("स्लीप टाइमर"),
     "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("स्लीप टाइमर"),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage("छोटे कैप्शन"),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage(
-      "माफ़ करें, कुछ गड़बड़ हो गई।",
-    ),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "माफ़ करें, कुछ गड़बड़ हो गई। कृपया फिर से कोशिश करें।",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage(
       "आवाज़ चालू करने का तरीका देखने के लिए टैप करें।",
     ),
@@ -675,10 +668,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "मुफ़्त ट्रायल शुरू करें",
     ),
     "storeProblem": MessageLookupByLibrary.simpleMessage(
-      "स्टोर में कोई दिक्कत आई। थोड़ी देर बाद फिर से कोशिश करें।",
+      "ख़रीदारी के दौरान कोई दिक्कत आई। थोड़ी देर बाद फिर से कोशिश करें।",
     ),
     "storeUnavailable": MessageLookupByLibrary.simpleMessage(
-      "स्टोर अभी उपलब्ध नहीं है। कृपया बाद में कोशिश करें।",
+      "अभी ख़रीदारी नहीं की जा सकती। कृपया थोड़ी देर बाद फिर से कोशिश करें।",
     ),
     "subscribe": MessageLookupByLibrary.simpleMessage("सब्सक्राइब करें"),
     "success": MessageLookupByLibrary.simpleMessage("हो गया"),
@@ -709,7 +702,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "क्या हम आपका मुफ़्त ट्रायल ख़त्म होने से एक दिन पहले याद दिलाएँ, ताकि अचानक पैसे न कटें?",
     ),
     "trialReminderNotificationTitle": MessageLookupByLibrary.simpleMessage(
-      "Zappit Pro का मुफ़्त ट्रायल जल्द ख़त्म होगा",
+      "सालाना प्लान का मुफ़्त ट्रायल जल्द ख़त्म होगा",
     ),
     "trialReminderTitle": MessageLookupByLibrary.simpleMessage(
       "ट्रायल रिमाइंडर",
@@ -728,7 +721,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "unmute": MessageLookupByLibrary.simpleMessage("आवाज़ चालू करें"),
     "untitled": MessageLookupByLibrary.simpleMessage("बिना शीर्षक"),
     "up": MessageLookupByLibrary.simpleMessage("ऊपर"),
-    "upNext": MessageLookupByLibrary.simpleMessage("आगे"),
+    "upNext": MessageLookupByLibrary.simpleMessage("अगला वीडियो"),
     "upNextCountdown": m42,
     "upgrade": MessageLookupByLibrary.simpleMessage("अपग्रेड करें"),
     "videoLengthUnknown": MessageLookupByLibrary.simpleMessage(

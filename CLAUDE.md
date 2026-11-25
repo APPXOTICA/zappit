@@ -121,6 +121,7 @@ Cloud Functions (`../zappit_firebase/functions/`): `npm run serve`(에뮬레이�
 - `lib/lrud.ts`: BBC lrud-spatial의 이동 판정 이식(Apache-2.0). 다른 점은 파일 머리 주석 참고. `lib/content/focus-navigator.ts`가 가상 포커스로 홈 화면·종료 화면 카드를 이동한다.
 - `lib/selectors.ts`: 사이트별 기본 셀렉터와 원격 JSON(`https://zappit-23ad8.web.app/selectors/v1.json`) 병합. 사이트 UI가 바뀌면 원격 JSON만 고쳐 배포한다(1시간마다 갱신). 명령이 필요한 요소를 못 찾으면 어댑터가 `missing('<셀렉터 이름>')`을 돌려주고, background가 PostHog `extension_selector_missing`(site·셀렉터 이름·명령만, 브라우저별 조합당 하루 1회)으로 보고한다(`lib/background/selector-telemetry.ts`).
 - `lib/protocol.ts`: 앱과 같은 메시지 규격(TypeScript). `lib/sites.ts`: URL로 사이트·페이지 판별과 capability 목록.
+- 다국어: `chrome.i18n` + `public/_locales/<locale>/messages.json`(앱과 같은 22개 언어. 폴더 이름은 Chrome 로케일: `pt_BR`·`pt_PT`(둘 다 브라질 포르투갈어), `zh_CN`, `zh_TW`). manifest 이름·설명은 `__MSG_extName__`·`__MSG_extDescription__`(132자 이내), 기본 `en`. 팝업은 `t('key')`(`lib/i18n.ts`), 숫자·시간은 `$TIME$` 같은 placeholder. 아랍어는 `dir=rtl`이라 CSS는 `inline-start`·`text-align: start`. 문구를 추가·수정하면 모든 언어 파일에 같이 넣고(`src/lib/i18n.test.ts`가 키·placeholder를 검사), 용어는 앱·웹과 맞춘다(웹 FAQ가 팝업의 Settings·Reset을 인용).
 
 
 ## 지원 브라우저 (확장)
@@ -187,7 +188,7 @@ https://app.notion.com/p/Dev-Strategies-3eb30e346279803992f7fe674ffc93d3?source=
 
 ## More tab
 
-- Support의 Tutorial(`tutorialUrl`, `/guide?embed=1`)·FAQ(`faqUrl`, `/faq?embed=1`)는 오른쪽에서 밀려 들어오는 웹뷰(`AppRoutes.webPage`, 뒤로 버튼). 앱 알림이 FAQ 항목을 열 때는 `faqEntryUrl('<id>')`(앵커 id는 웹 FAQ에 고정: toolbar-icon(온보딩 2단계 도움말 줄), site-access, safari-access, chrome-access, camera, sound-blocked 등)
+- Support의 Guide(`tutorialUrl`, `/guide?embed=1`, 메뉴 이름은 웹 가이드 제목과 같게)·FAQ(`faqUrl`, `/faq?embed=1`)는 오른쪽에서 밀려 들어오는 웹뷰(`AppRoutes.webPage`, 뒤로 버튼). 앱 알림이 FAQ 항목을 열 때는 `faqEntryUrl('<id>')`(앵커 id는 웹 FAQ에 고정: toolbar-icon(온보딩 2단계 도움말 줄), site-access, safari-access, chrome-access, camera, sound-blocked 등)
 
 - Contact us : 이메일 클라이언트를 띄운다. sssurf와 동일. 이메일 주소는 Remote Config에서 받아온다. Key = support_email_address
 

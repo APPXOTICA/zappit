@@ -71,15 +71,15 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m23(price) => "${price} / tahun";
 
   static String m24(date) =>
-      "Pratinjau Pro gratis Anda aktif hingga ${date}. Berlangganan sebelum berakhir agar semua fitur Pro tetap bisa digunakan tanpa jeda.";
+      "Akses Pro gratis Anda aktif hingga ${date}. Berlangganan sebelum berakhir agar semua fitur Pro tetap bisa digunakan tanpa terputus.";
 
   static String m25(proName) =>
-      "Pratinjau Pro Anda telah berakhir. Tetap gunakan semua fitur Pro dengan ${proName}.";
+      "Akses Pro gratis Anda telah berakhir. Dengan ${proName}, Anda bisa terus menggunakan semua fitur Pro.";
 
   static String m26(days) =>
-      "Nikmati semua fitur Zappit Pro gratis selama ${days} hari. Tanpa kartu kredit, tanpa tagihan otomatis.";
+      "Nikmati semua fitur Zappit Pro selama ${days} hari. Sepenuhnya gratis, tanpa tagihan otomatis.";
 
-  static String m27(date) => "Pratinjau Pro hingga ${date}";
+  static String m27(date) => "Akses Pro gratis hingga ${date}";
 
   static String m28(proName) => "${proName} dipulihkan";
 
@@ -121,7 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m44(count) =>
       "Voice Boost nonaktif. Tanpa Pro, Voice Boost bisa dipakai selama ${count} detik.";
 
-  static String m45(proName) => "Selamat datang di ${proName}";
+  static String m45(proName) => "${proName} sudah aktif!";
 
   static String m46(number) => "Jendela ${number}";
 
@@ -139,13 +139,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "allCategories": MessageLookupByLibrary.simpleMessage("Semua kategori"),
     "allSites": MessageLookupByLibrary.simpleMessage("Semua situs"),
     "alreadySubscribed": MessageLookupByLibrary.simpleMessage(
-      "Anda sudah memiliki langganan ini. Coba Pulihkan pembelian.",
+      "Anda sudah memiliki langganan ini. Coba ketuk ‘Pulihkan pembelian’.",
     ),
     "back": MessageLookupByLibrary.simpleMessage("Kembali"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage(
-      "Maaf, akses telah diblokir.",
-    ),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage(
       "Browser tidak merespons",
@@ -153,7 +150,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "browsers": MessageLookupByLibrary.simpleMessage("Browser"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "Ponsel lain telah terhubung ke sana. Untuk memakainya lagi, pindai kode QR di komputer tersebut.",
+      "Ponsel lain telah terhubung ke browser tersebut. Untuk menghubungkannya lagi, pindai kode QR di komputer itu.",
     ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "Izinkan akses kamera di Pengaturan untuk memindai kode.",
@@ -163,7 +160,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Batal"),
     "cancelAnytime": MessageLookupByLibrary.simpleMessage(
-      "Batalkan kapan saja di akun toko Anda.",
+      "Batalkan kapan saja di pengaturan langganan.",
     ),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage(
       "Halaman ini tidak dapat dimuat",
@@ -172,7 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Video ini tidak bisa dibuka di ponsel",
     ),
     "cantReachBrowser": MessageLookupByLibrary.simpleMessage(
-      "Browser tidak terjangkau",
+      "Tidak dapat terhubung ke browser",
     ),
     "cantSeekVideo": MessageLookupByLibrary.simpleMessage(
       "Tidak bisa memajukan atau memundurkan video ini",
@@ -234,7 +231,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Putuskan ponsel ini",
     ),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "Ponsel ini tidak akan lagi mengontrol komputer Anda. Untuk memakainya lagi, pindai kode QR di komputer.",
+      "Ponsel ini tidak akan lagi mengontrol komputer Anda. Untuk menghubungkannya lagi, pindai kode QR di komputer.",
     ),
     "down": MessageLookupByLibrary.simpleMessage("Bawah"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("Akhir video"),
@@ -263,10 +260,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Tidak ada video yang diputar",
     ),
     "errorNotChanged": MessageLookupByLibrary.simpleMessage(
-      "Situs tidak mengubahnya",
+      "Situs tidak menerapkan perubahan",
     ),
     "errorNotSupported": MessageLookupByLibrary.simpleMessage(
-      "Situs ini tidak mendukungnya",
+      "Situs ini tidak mendukung fitur tersebut",
     ),
     "errorStartAfterEnd": MessageLookupByLibrary.simpleMessage(
       "Titik awal harus sebelum titik akhir",
@@ -278,7 +275,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Keluar dari layar penuh",
     ),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "Ekstensi Zappit telah diperbarui. Muat ulang halaman ini agar semua kontrol tetap bisa digunakan.",
+      "Ekstensi Zappit telah diperbarui. Muat ulang halaman di browser Anda agar semua kontrol tetap bisa digunakan.",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("FAQ"),
     "favorites": MessageLookupByLibrary.simpleMessage("Favorit"),
@@ -293,7 +290,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "freeTrialWeeks": m10,
     "freeTrialYears": m11,
     "fullPowerUnlocked": MessageLookupByLibrary.simpleMessage(
-      "Semua fitur terbuka",
+      "Semua fitur Pro aktif",
     ),
     "fullScreen": MessageLookupByLibrary.simpleMessage("Layar penuh"),
     "generalSettings": MessageLookupByLibrary.simpleMessage("Pengaturan Umum"),
@@ -404,7 +401,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Tidak ada yang bisa dipulihkan",
     ),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "Tidak ada langganan Zappit Pro aktif yang ditemukan di akun toko ini.",
+      "Tidak ditemukan langganan Zappit Pro yang aktif di akun ini.",
     ),
     "obAnimAddExtension": MessageLookupByLibrary.simpleMessage(
       "Tambahkan ekstensi",
@@ -495,7 +492,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Cara memasang ekstensi",
     ),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "Komputer ini sudah terhubung dengan 3 ponsel. Buka Zappit di salah satu ponsel Anda yang lain yang terhubung, lalu ketuk ‘Putuskan ponsel ini’ di ‘Lainnya’. Jika ponsel itu sudah tidak ada, gunakan ‘Reset’ di ekstensi Zappit pada komputer Anda.",
+      "Komputer ini sudah terhubung dengan 3 ponsel. Buka Zappit di salah satu ponsel lain yang terhubung, lalu ketuk ‘Putuskan ponsel ini’ di ‘Lainnya’. Jika Anda tidak bisa mengakses ponsel lain tersebut, buka ekstensi Zappit di komputer Anda, lalu klik ‘Pengaturan’ > ‘Reset’.",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage(
       "Hubungkan ke ekstensi browser",
@@ -508,7 +505,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Pembayaran tertunda",
     ),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "Pro aktif segera setelah toko mengonfirmasi pembayaran Anda.",
+      "Pro akan aktif segera setelah pembayaran Anda dikonfirmasi.",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("Nama ponsel"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("Masukkan nama."),
@@ -549,10 +546,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "A-B Loop tanpa batas",
     ),
     "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage(
-      "Semua kecepatan putar",
+      "Bebas pilih semua kecepatan putar",
     ),
     "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "Buka remote khusus untuk tiap situs",
+      "Remote khusus untuk situs tertentu",
     ),
     "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage(
       "Ulangi seluruh video tanpa batas",
@@ -562,14 +559,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "proPreviewActiveBanner": m24,
     "proPreviewEndedMessage": MessageLookupByLibrary.simpleMessage(
-      "Terima kasih telah mencoba Zappit Pro! Berlangganan agar bisa terus menikmati semua fitur Pro tanpa jeda.",
+      "Suka dengan Zappit Pro? Berlangganan agar bisa terus menikmati semua fitur Pro tanpa terputus.",
     ),
     "proPreviewEndedSubtitle": m25,
     "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
-      "Pratinjau Pro Anda telah berakhir",
+      "Akses Pro gratis Anda telah berakhir",
     ),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
-      "Pratinjau Pro berakhir besok",
+      "Akses Pro gratis berakhir besok",
     ),
     "proPreviewStarted": m26,
     "proPreviewUntil": m27,
@@ -591,7 +588,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Pembelian belum aktif",
     ),
     "purchaseNotActivatedMessage": MessageLookupByLibrary.simpleMessage(
-      "Pembayaran berhasil, tetapi Pro belum aktif. Coba Pulihkan pembelian.",
+      "Pembayaran berhasil, tetapi Pro belum aktif. Coba ketuk ‘Pulihkan pembelian’.",
     ),
     "purchasesNotAllowed": MessageLookupByLibrary.simpleMessage(
       "Pembelian tidak diizinkan di perangkat atau akun ini.",
@@ -650,12 +647,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "sleepTimer": MessageLookupByLibrary.simpleMessage("Timer tidur"),
     "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("Timer tidur"),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage("Teks lebih kecil"),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage(
-      "Maaf, terjadi masalah.",
-    ),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "Maaf, terjadi masalah. Silakan coba lagi.",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage(
       "Ketuk untuk melihat cara menyalakan suara.",
     ),
@@ -668,10 +659,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Mulai uji coba gratis",
     ),
     "storeProblem": MessageLookupByLibrary.simpleMessage(
-      "Terjadi masalah pada toko. Silakan coba lagi sebentar lagi.",
+      "Terjadi masalah saat pembelian. Silakan coba lagi dalam beberapa saat.",
     ),
     "storeUnavailable": MessageLookupByLibrary.simpleMessage(
-      "Toko sedang tidak tersedia. Silakan coba lagi nanti.",
+      "Saat ini pembelian belum bisa dilakukan. Silakan coba lagi nanti.",
     ),
     "subscribe": MessageLookupByLibrary.simpleMessage("Berlangganan"),
     "success": MessageLookupByLibrary.simpleMessage("Berhasil"),
@@ -680,7 +671,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Situs yang didukung",
     ),
     "supportedSitesIntro": MessageLookupByLibrary.simpleMessage(
-      "Situs-situs ini punya remote khusus yang dibuat untuknya. Di situs lain, Zappit berfungsi sebagai remote standar.",
+      "Situs-situs ini punya remote khusus. Di situs lain, Zappit berfungsi sebagai remote standar.",
     ),
     "tabMore": MessageLookupByLibrary.simpleMessage("Lainnya"),
     "tabRemote": MessageLookupByLibrary.simpleMessage("Remote"),
@@ -715,10 +706,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "turnOffAbFirst": MessageLookupByLibrary.simpleMessage(
       "Matikan A-B Loop terlebih dahulu",
     ),
-    "tutorial": MessageLookupByLibrary.simpleMessage("Tutorial"),
+    "tutorial": MessageLookupByLibrary.simpleMessage("Panduan"),
     "unavailable": MessageLookupByLibrary.simpleMessage("Tidak tersedia"),
     "undo": MessageLookupByLibrary.simpleMessage("Urungkan"),
-    "unmute": MessageLookupByLibrary.simpleMessage("Bunyikan"),
+    "unmute": MessageLookupByLibrary.simpleMessage("Aktifkan suara"),
     "untitled": MessageLookupByLibrary.simpleMessage("Tanpa judul"),
     "up": MessageLookupByLibrary.simpleMessage("Atas"),
     "upNext": MessageLookupByLibrary.simpleMessage("Berikutnya"),

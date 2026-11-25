@@ -142,9 +142,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage(
-      "Sorry, this account has been banned.",
-    ),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage(
       "Browser not responding",
@@ -486,7 +483,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "How to install the extension",
     ),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "This computer already has 3 phones connected. Open Zappit on one of your other connected phones and tap \'Disconnect this phone\' in \'More\'. If you no longer have that phone, use \'Reset\' in the Zappit extension on your computer.",
+      "This computer already has 3 phones connected. Open Zappit on one of your other connected phones and tap \'Disconnect this phone\' in \'More\'. If you no longer have that phone, open the Zappit extension on your computer and click \'Settings\' > \'Reset\'.",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage(
       "Connect to the browser extension",
@@ -643,12 +640,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "sleepTimer": MessageLookupByLibrary.simpleMessage("Sleep Timer"),
     "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("Sleep timer"),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage("Smaller captions"),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage(
-      "Sorry, something went wrong.",
-    ),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "Sorry, something went wrong. Please try again.",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage(
       "Tap to see how to turn the sound on.",
     ),
@@ -704,7 +695,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "turnOffAbFirst": MessageLookupByLibrary.simpleMessage(
       "Turn off the A-B loop first",
     ),
-    "tutorial": MessageLookupByLibrary.simpleMessage("Tutorial"),
+    "tutorial": MessageLookupByLibrary.simpleMessage("Guide"),
     "unavailable": MessageLookupByLibrary.simpleMessage("Unavailable"),
     "undo": MessageLookupByLibrary.simpleMessage("Undo"),
     "unmute": MessageLookupByLibrary.simpleMessage("Unmute"),

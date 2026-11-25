@@ -1,0 +1,40 @@
+# 스페인어(es) 번역 검토 보고서
+
+가장 큰 문제는 결제 관련 용어였다. Pro preview를 "prueba (gratis) de Pro"로 옮겨 자동 결제되는 스토어 무료 체험("prueba gratis")과 거의 같은 말이 되었고, "tienda", "cuenta de la tienda" 같은 내부 용어가 구매 문구 곳곳에 있었다. 그 밖에 숫자가 1일 때 "1 días", "1 meses"가 되는 복수형 오류, 폰 앱에서 "esta página"·"ese móvil"·"a él"처럼 대상이 모호한 표현, "volver a usarlo"처럼 뭉뚱그린 동사를 고쳤다. 나머지 문구는 자연스럽고 정확해서 그대로 두었다(총 25개 수정).
+
+| 키 | 수정 전 | 수정 후 | 문제 | menu-name |
+|---|---|---|---|---|
+| proFeatureDedicatedControllers | Desbloquea mandos específicos para cada sitio | Mandos específicos para los sitios compatibles | "para cada sitio"는 모든 사이트에 전용 리모컨이 있는 것처럼 읽힘. 지원 사이트에만 있다는 범위를 분명히 함 (원칙 6) | no |
+| proFeatureAllSpeeds | Todas las velocidades de reproducción | Elige cualquier velocidad de reproducción | 명사 나열이라 혜택이 안 보임. "원하는 재생 속도를 고를 수 있음"으로 할 수 있는 일을 씀 (원칙 6) | no |
+| proFeatureVoiceBoost | Voice Boost ilimitado | Voice Boost sin límite | 같은 목록의 다른 항목("sin límite")과 표현 통일. 스페인어는 수식어가 뒤에 오는 게 자연스러워 위치는 유지 (원칙 5, 9) | no |
+| proFeatureFullLoop | Repetir vídeo completo sin límite | Repetición del vídeo completo sin límite | 부정사 "Repetir"만 있어 기능 이름으로 어색함. 명사형으로 바꿔 다른 기능 항목과 맞춤 (원칙 1, 9) | no |
+| storeUnavailable | La tienda no está disponible ahora. Inténtalo más tarde. | Ahora mismo no se pueden hacer compras. Inténtalo más tarde. | "la tienda"는 사용자가 알기 어려운 내부 용어. 사용자가 겪는 결과(지금은 구매할 수 없음)로 씀 (원칙 2) | no |
+| freeTrialDays | Prueba gratis: {count} días | Prueba gratis: {count, plural, one{{count} día} other{{count} días}} | 숫자가 1이면 "1 días"로 문법 오류. ICU plural(one/other)로 단수·복수 처리 (공통 규칙: 복수형) | no |
+| freeTrialMonths | Prueba gratis: {count} meses | Prueba gratis: {count, plural, one{{count} mes} other{{count} meses}} | "1 meses" 문법 오류 방지 (월 단위 오퍼 free-trial-1m 존재). ICU plural 적용 (공통 규칙: 복수형) | no |
+| freeTrialYears | Prueba gratis: {count} años | Prueba gratis: {count, plural, one{{count} año} other{{count} años}} | "1 años" 문법 오류 방지. ICU plural 적용 (공통 규칙: 복수형) | no |
+| proPreviewEndedSubtitle | Tu prueba de Pro ha terminado. Conserva todas las funciones Pro con {proName}. | Tu acceso gratis a Pro ha terminado. Sigue disfrutando de todas las funciones Pro con {proName}. | "prueba de Pro"는 스토어 체험("prueba gratis")과 거의 같은 말이라 자동 결제 체험과 헷갈림. Pro preview를 "acceso gratis a Pro"(Pro 무료 이용)로 통일. "Conserva"(보관하다)도 "Sigue disfrutando"(계속 누리다)로 자연스럽게 (원칙 1, 4) | no |
+| proPreviewActiveBanner | Tu prueba gratis de Pro está activa hasta el {date}. Suscríbete antes de que acabe para seguir con todas las funciones Pro sin interrupciones. | Tu acceso gratis a Pro dura hasta el {date}. Suscríbete antes de que termine para seguir con todas las funciones Pro sin interrupciones. | "prueba gratis de Pro"가 스토어 체험 용어와 같음. "acceso gratis a Pro"로 통일하고 "está activa hasta"를 "dura hasta"로 간결하게 (원칙 1, 4, 9) | no |
+| trialTermsDays | Empieza con una prueba gratis de {count} días y después {price}/año. | Empieza con una prueba gratis de {count, plural, one{{count} día} other{{count} días}} y después {price}/año. | "1 días" 문법 오류 방지. 명사 부분만 ICU plural로 처리 (공통 규칙: 복수형) | no |
+| trialTermsMonths | Empieza con una prueba gratis de {count} meses y después {price}/año. | Empieza con una prueba gratis de {count, plural, one{{count} mes} other{{count} meses}} y después {price}/año. | "1 meses" 문법 오류 방지. ICU plural 적용 (공통 규칙: 복수형) | no |
+| trialTermsYears | Empieza con una prueba gratis de {count} años y después {price}/año. | Empieza con una prueba gratis de {count, plural, one{{count} año} other{{count} años}} y después {price}/año. | "1 años" 문법 오류 방지. ICU plural 적용 (공통 규칙: 복수형) | no |
+| cancelAnytime | Cancela cuando quieras desde tu cuenta de la tienda. | Puedes cancelar cuando quieras desde tus suscripciones. | "cuenta de la tienda"(스토어 계정)는 사용자가 이해하기 어려운 말. 사용자가 해지하는 곳(구독 관리)으로 씀 (원칙 2) | no |
+| proPreviewStarted | Disfruta gratis de todas las funciones de Zappit Pro durante {days} días. Sin tarjeta y sin cobros automáticos. | Disfruta de todas las funciones de Zappit Pro durante {days} días. Es totalmente gratis: no se te cobrará nada al terminar. | "Sin tarjeta"는 영어 관용구 직역이고, 카드 등록을 요구한 적이 없는데 카드를 언급해 오히려 결제를 연상시킴. 완전 무료이고 끝나도 결제되지 않는다는 사실만 씀 (원칙 4) | no |
+| proPreviewEndsTomorrow | Tu prueba de Pro acaba mañana | Tu acceso gratis a Pro termina mañana | Pro preview 용어 통일("acceso gratis a Pro"), 스토어 체험과 구분 (원칙 4, 9) | no |
+| proPreviewEndedTitle | Tu prueba de Pro ha terminado | Tu acceso gratis a Pro ha terminado | Pro preview 용어 통일("acceso gratis a Pro"), 스토어 체험과 구분 (원칙 4, 9) | no |
+| paymentPendingMessage | Pro se activará en cuanto la tienda confirme el pago. | Pro se activará en cuanto se confirme el pago. | "la tienda" 삭제. 주어 없이 "결제가 확인되면"으로 (원칙 2) | no |
+| nothingToRestoreMessage | No se ha encontrado ninguna suscripción activa a Zappit Pro en esta cuenta de la tienda. | No se ha encontrado ninguna suscripción activa a Zappit Pro en esta cuenta. | "de la tienda" 삭제, "이 계정"으로 (원칙 2) | no |
+| storeProblem | La tienda ha tenido un problema. Inténtalo de nuevo en un momento. | Ha habido un problema con la compra. Inténtalo de nuevo en un momento. | "La tienda ha tenido un problema" 대신 사용자가 겪은 일(구매 중 문제 발생)로 씀 (원칙 2) | no |
+| extensionUpdatedReload | La extensión de Zappit se ha actualizado. Recarga esta página para seguir usando todos los controles. | La extensión de Zappit se ha actualizado. Recarga la pestaña en el navegador para seguir usando todos los controles. | 폰 앱에 보이는 문구라 "esta página"(이 페이지)가 어디인지 알 수 없음. "브라우저의 탭을 새로고침"으로 명확히 (원칙 6) | no |
+| proPreviewUntil | Prueba de Pro hasta el {date} | Acceso gratis a Pro hasta el {date} | Pro preview 용어 통일("acceso gratis a Pro"), 스토어 체험과 구분 (원칙 4, 9) | no |
+| pairPhoneLimit | Este ordenador ya tiene 3 móviles conectados. Abre Zappit en uno de tus otros móviles conectados y toca «Desconectar este móvil» en «Más». Si ya no tienes ese móvil, usa «Reset» en la extensión de Zappit de tu ordenador. | Este ordenador ya tiene 3 móviles conectados. Abre Zappit en uno de tus otros móviles conectados y toca «Desconectar este móvil» en «Más». Si no tienes acceso a ninguno de esos móviles, haz clic en «Reset» en la extensión de Zappit de tu ordenador. | "ese móvil"(그 폰)이 모호함 → "그 폰들 중 어느 것에도 접근할 수 없다면". 컴퓨터 확장의 버튼이므로 "usa" 대신 "haz clic en". 'Reset'은 확장 UI 영어 그대로 유지 (원칙 6) | no |
+| disconnectPhoneMessage | Este móvil dejará de controlar tu ordenador. Para volver a usarlo, escanea el código QR de tu ordenador. | Este móvil dejará de controlar tu ordenador. Para volver a conectarlo, escanea el código QR de tu ordenador. | "volver a usarlo"(다시 쓰려면) → "volver a conectarlo"(다시 연결하려면). QR 스캔이 하는 실제 동작 (원칙 6) | no |
+| browsersDisconnectedBody | Otro móvil se ha conectado a él. Para volver a usarlo, escanea el código QR de ese ordenador. | Otro móvil se ha conectado en su lugar. Para volver a conectar este móvil, escanea el código QR en ese ordenador. | "a él"이 무엇을 가리키는지 모호하고 브라우저가 여러 개일 때 수가 맞지 않음. "volver a usarlo"도 실제 동작("이 폰을 다시 연결")으로 바꿈 (원칙 6) | no |
+
+## 확인이 필요한 사항
+
+- **Pro preview 용어:** "acceso gratis a Pro"(Pro 무료 이용)로 정했다. 스토어 체험은 "prueba gratis"로 그대로 두어 두 개념이 다른 단어가 되게 했다. 웹 가이드·FAQ의 스페인어 번역에서 Pro preview를 "prueba de Pro"로 쓰고 있다면 같은 말로 맞춰야 한다.
+- **"prueba gratis"와 "prueba gratuita":** App Store·Google Play의 스페인어 공식 표현은 "prueba gratuita"다. "gratis"도 흔히 쓰는 말이라 바꾸지 않았다. 스토어 표기와 맞추려면 `freeTrial*`, `trialTerms*`, `trialReminder*`, `startFreeTrial` 전체를 함께 바꾸면 된다.
+- **지역 어휘:** 이 파일은 스페인식 어휘("ordenador", "móvil", "vídeo", "haz clic")를 일관되게 쓴다. 중남미 사용자도 이해할 수 있지만 중남미에서는 "computadora", "celular", "video"가 일반적이다. 메뉴 이름("Desconectar este móvil", "Nombre del móvil")과 웹 번역에도 영향이 있어 이번에는 바꾸지 않았다. 중남미 시장이 더 중요하다면 결정이 필요하다.
+- **"A-B Loop":** 스페인어 앱에서는 보통 "bucle A-B"라고 부른다. 다른 언어 파일들도 "A-B Loop"를 영어로 두고 있어 프로젝트 전체의 규칙으로 보고 그대로 두었다. 스페인어로 바꾸려면 `proFeatureAbLoop`, `turnOffAbFirst`, `abOffForLive`, `abLoopCount`(메뉴 이름)를 함께 바꾸면 된다.
+- **`cancelAnytime`:** iOS는 설정 앱, Android는 Play 스토어에서 해지한다. 두 플랫폼에 같은 문구가 보이므로 "desde tus suscripciones"(구독 관리에서)로 정확한 위치 대신 메뉴 이름만 썼다.
+- **ICU plural:** `freeTrialDays/Months/Years`, `trialTerms*`는 영어 원문에는 plural이 없지만, 스페인어 문법 때문에 이 파일에만 plural을 넣었다(`count`는 int라 intl_utils에서 동작한다). `dart run intl_utils:generate` 뒤 빌드에서 확인해야 한다.

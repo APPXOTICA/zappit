@@ -46,11 +46,12 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m12(price) => "每月仅 ${price}";
 
-  static String m13(count) => "${Intl.plural(count, other: '${count} 分钟')}";
+  static String m13(count) =>
+      "${Intl.plural(count, one: '1 分钟', other: '${count} 分钟')}";
 
   static String m14(count) => "${count} 分钟";
 
-  static String m15(time) => "${time} 后更新代码";
+  static String m15(time) => "${time} 后刷新二维码";
 
   static String m16(url) => "在电脑浏览器中打开 ${url}，安装 Zappit 扩展程序。";
 
@@ -68,14 +69,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m23(price) => "${price} / 年";
 
-  static String m24(date) =>
-      "你的免费 Pro 体验有效期至 ${date}。在结束前订阅，即可无缝继续使用所有 Pro 功能。";
+  static String m24(date) => "Pro 免费体验有效期至 ${date}。到期前订阅，即可继续使用所有 Pro 功能，不会中断。";
 
-  static String m25(proName) => "你的 Pro 体验已结束。订阅 ${proName}，继续使用所有 Pro 功能。";
+  static String m25(proName) => "Pro 免费体验已结束。订阅 ${proName}，即可继续使用所有 Pro 功能。";
 
-  static String m26(days) => "免费畅享 Zappit Pro 全部功能 ${days} 天。无需信用卡，不会自动扣费。";
+  static String m26(days) => "${days} 天内免费畅享 Zappit Pro 全部功能。完全免费，到期不会自动扣费。";
 
-  static String m27(date) => "Pro 体验至 ${date}";
+  static String m27(date) => "Pro 免费体验至 ${date}";
 
   static String m28(proName) => "已恢复 ${proName}";
 
@@ -112,7 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m44(count) => "Voice Boost 已关闭。免费用户可使用 Voice Boost ${count} 秒。";
 
-  static String m45(proName) => "欢迎使用 ${proName}";
+  static String m45(proName) => "已成功开通 ${proName}";
 
   static String m46(number) => "窗口 ${number}";
 
@@ -130,18 +130,19 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "back": MessageLookupByLibrary.simpleMessage("返回"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage("抱歉，你的使用权限已被停用。"),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage("浏览器没有响应"),
     "browsers": MessageLookupByLibrary.simpleMessage("浏览器"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "另一部手机已连接到它。如需再次使用，请扫描那台电脑上的 QR 码。",
+      "另一部手机已连接到该浏览器。如需重新连接，请扫描那台电脑上的二维码。",
     ),
-    "cameraDenied": MessageLookupByLibrary.simpleMessage("请在“设置”中允许访问相机以扫描代码。"),
+    "cameraDenied": MessageLookupByLibrary.simpleMessage(
+      "请在“设置”中允许访问相机，以扫描二维码。",
+    ),
     "cameraUnavailable": MessageLookupByLibrary.simpleMessage("相机暂时无法使用。"),
     "cancel": MessageLookupByLibrary.simpleMessage("取消"),
-    "cancelAnytime": MessageLookupByLibrary.simpleMessage("可随时在商店账户中取消。"),
+    "cancelAnytime": MessageLookupByLibrary.simpleMessage("可随时在订阅管理中取消。"),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage("无法加载此页面"),
     "cantOpenOnPhone": MessageLookupByLibrary.simpleMessage("此视频无法在手机上打开"),
     "cantReachBrowser": MessageLookupByLibrary.simpleMessage("无法连接到浏览器"),
@@ -179,7 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "disconnect": MessageLookupByLibrary.simpleMessage("断开"),
     "disconnectPhone": MessageLookupByLibrary.simpleMessage("断开此手机"),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "这部手机将不再控制你的电脑。如需再次使用，请扫描电脑上的 QR 码。",
+      "这部手机将不再控制你的电脑。如需重新连接，请扫描电脑上的二维码。",
     ),
     "down": MessageLookupByLibrary.simpleMessage("下"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("视频结束时"),
@@ -201,7 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorTabClosed": MessageLookupByLibrary.simpleMessage("该标签页已关闭"),
     "exitFullScreen": MessageLookupByLibrary.simpleMessage("退出全屏"),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "Zappit 扩展程序已更新。请重新加载此页面，以继续使用所有控制功能。",
+      "Zappit 扩展程序已更新。请在电脑上重新加载浏览器页面，以继续使用所有控制功能。",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("常见问题"),
     "favorites": MessageLookupByLibrary.simpleMessage("收藏"),
@@ -232,8 +233,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "粘贴视频链接并点按“发送”，它会在浏览器的新标签页中打开。",
     ),
     "liveBadge": MessageLookupByLibrary.simpleMessage("直播"),
-    "liveCantRewind": MessageLookupByLibrary.simpleMessage("此直播无法回放"),
-    "longPressSpeed": MessageLookupByLibrary.simpleMessage("长按速度"),
+    "liveCantRewind": MessageLookupByLibrary.simpleMessage("此直播无法后退"),
+    "longPressSpeed": MessageLookupByLibrary.simpleMessage("长按倍速"),
     "loopEnd": MessageLookupByLibrary.simpleMessage("循环终点"),
     "loopOff": MessageLookupByLibrary.simpleMessage("循环已关闭"),
     "loopOn": MessageLookupByLibrary.simpleMessage("循环已开启"),
@@ -247,7 +248,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "mixCantShuffle": MessageLookupByLibrary.simpleMessage(
       "此播放列表会不断播放新视频，因此无法随机播放",
     ),
-    "monthly": MessageLookupByLibrary.simpleMessage("按月"),
+    "monthly": MessageLookupByLibrary.simpleMessage("月度订阅"),
     "multipleBrowsersMessage": MessageLookupByLibrary.simpleMessage(
       "有多个浏览器在线。请选择要用此遥控器控制的浏览器。",
     ),
@@ -277,11 +278,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "noThanks": MessageLookupByLibrary.simpleMessage("不用了"),
     "noVideosOnPage": MessageLookupByLibrary.simpleMessage("此页面上没有视频。"),
     "notAvailableDuringAd": MessageLookupByLibrary.simpleMessage("广告期间不可用"),
-    "notAvailableForLive": MessageLookupByLibrary.simpleMessage("直播不可用"),
+    "notAvailableForLive": MessageLookupByLibrary.simpleMessage("直播时不可用"),
     "notAvailableForLiveStreams": MessageLookupByLibrary.simpleMessage(
       "直播不可使用此功能",
     ),
-    "notAvailableForPhotos": MessageLookupByLibrary.simpleMessage("图片帖子不可用"),
+    "notAvailableForPhotos": MessageLookupByLibrary.simpleMessage("图片帖子不支持此功能"),
     "notConnected": MessageLookupByLibrary.simpleMessage("未连接"),
     "nothingPlaying": MessageLookupByLibrary.simpleMessage("未找到视频"),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
@@ -289,16 +290,16 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage("没有可恢复的购买"),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "此商店账户中没有找到有效的 Zappit Pro 订阅。",
+      "此账户下未找到有效的 Zappit Pro 订阅。",
     ),
     "obAnimAddExtension": MessageLookupByLibrary.simpleMessage("添加扩展程序"),
     "obAnimAdded": MessageLookupByLibrary.simpleMessage("已添加"),
     "obAnimConnectComputer": MessageLookupByLibrary.simpleMessage("连接到你的电脑"),
-    "obAnimConnectPhone": MessageLookupByLibrary.simpleMessage("连接你的手机"),
+    "obAnimConnectPhone": MessageLookupByLibrary.simpleMessage("连接手机"),
     "obAnimNewCode": m15,
     "obAnimRemoteConnected": MessageLookupByLibrary.simpleMessage("遥控器已连接"),
     "obAnimScanCode": MessageLookupByLibrary.simpleMessage(
-      "用手机上的 Zappit 应用扫描此代码。",
+      "用手机上的 Zappit 应用扫描此二维码。",
     ),
     "obAnimTagline": MessageLookupByLibrary.simpleMessage("告别鼠标。"),
     "obAnimYourPhones": MessageLookupByLibrary.simpleMessage("你的手机"),
@@ -318,12 +319,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "首先，将 Zappit 扩展程序添加到浏览器",
     ),
     "onboarding2AnimLabel": MessageLookupByLibrary.simpleMessage(
-      "在浏览器中点击 Zappit 图标，然后用手机扫描 QR 码",
+      "在浏览器中点击 Zappit 图标，然后用手机扫描二维码",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "点击浏览器工具栏中的 Zappit 图标，然后将相机对准 QR 码。",
+      "点击浏览器工具栏中的 Zappit 图标，然后将相机对准二维码。",
     ),
-    "onboarding2Title": MessageLookupByLibrary.simpleMessage("扫描 QR 码"),
+    "onboarding2Title": MessageLookupByLibrary.simpleMessage("扫描二维码"),
     "onboardingGetStarted": MessageLookupByLibrary.simpleMessage("开始"),
     "onboardingIconHelp": MessageLookupByLibrary.simpleMessage(
       "看不到 Zappit 图标？",
@@ -332,9 +333,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "看不到 Zappit 图标？在常见问题中打开答案",
     ),
     "onboardingNext": MessageLookupByLibrary.simpleMessage("下一步"),
-    "onboardingOpenQrScanner": MessageLookupByLibrary.simpleMessage(
-      "打开 QR 码扫描器",
-    ),
+    "onboardingOpenQrScanner": MessageLookupByLibrary.simpleMessage("开始扫码"),
     "onboardingShareLink": MessageLookupByLibrary.simpleMessage("发送安装链接"),
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
@@ -351,16 +350,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "openedIn": m20,
     "openingIn": m21,
     "pairCodeExpired": MessageLookupByLibrary.simpleMessage(
-      "此代码已过期。请扫描电脑上的新代码。",
+      "此二维码已过期。请扫描电脑上的新二维码。",
     ),
     "pairCodeInvalid": MessageLookupByLibrary.simpleMessage(
-      "此代码已失效。请扫描电脑上的新代码。",
+      "此二维码已失效。请扫描电脑上的新二维码。",
     ),
-    "pairCodeUsed": MessageLookupByLibrary.simpleMessage("此代码已被使用。请扫描电脑上的新代码。"),
+    "pairCodeUsed": MessageLookupByLibrary.simpleMessage(
+      "此二维码已被使用。请扫描电脑上的新二维码。",
+    ),
     "pairFailed": MessageLookupByLibrary.simpleMessage("无法连接。请检查网络连接后重试。"),
     "pairHowToInstall": MessageLookupByLibrary.simpleMessage("如何安装扩展程序"),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "这台电脑已经连接了 3 部手机。请在已连接的其他手机上打开 Zappit，在“更多”中点按“断开此手机”。如果那部手机已不在身边，请在电脑上的 Zappit 扩展程序中使用“Reset”。",
+      "这台电脑已经连接了 3 部手机。请在已连接的其他手机上打开 Zappit，在“更多”中点按“断开此手机”。如果无法使用其他已连接的手机，请在电脑上打开 Zappit 扩展程序，点击“设置”>“重置”。",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage("连接到浏览器扩展程序"),
     "paste": MessageLookupByLibrary.simpleMessage("粘贴"),
@@ -369,7 +370,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pause": MessageLookupByLibrary.simpleMessage("暂停"),
     "paymentPending": MessageLookupByLibrary.simpleMessage("付款待确认"),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "商店确认付款后，Pro 将立即开启。",
+      "付款确认后，Pro 将立即开启。",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("手机名称"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("请输入名称。"),
@@ -399,9 +400,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("隐私政策"),
     "proBannerSubtitle": MessageLookupByLibrary.simpleMessage("释放遥控器的全部能力"),
     "proFeatureAbLoop": MessageLookupByLibrary.simpleMessage("无限使用区间循环"),
-    "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage("所有播放速度"),
+    "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage("全部播放速度任选"),
     "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "解锁网站专属遥控器",
+      "解锁特定网站专属遥控器",
     ),
     "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage("无限使用整片循环"),
     "proFeatureVoiceBoost": MessageLookupByLibrary.simpleMessage(
@@ -409,14 +410,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "proPreviewActiveBanner": m24,
     "proPreviewEndedMessage": MessageLookupByLibrary.simpleMessage(
-      "感谢试用 Zappit Pro！订阅后即可无缝继续使用所有 Pro 功能。",
+      "觉得 Zappit Pro 怎么样？订阅后即可继续使用所有 Pro 功能，不会中断。",
     ),
     "proPreviewEndedSubtitle": m25,
-    "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
-      "你的 Pro 体验已结束",
-    ),
+    "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage("Pro 免费体验已结束"),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
-      "Pro 体验明天结束",
+      "Pro 免费体验明天结束",
     ),
     "proPreviewStarted": m26,
     "proPreviewUntil": m27,
@@ -474,20 +473,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "siteWeb": MessageLookupByLibrary.simpleMessage("网页"),
     "skipAd": MessageLookupByLibrary.simpleMessage("跳过广告"),
     "skipIntro": MessageLookupByLibrary.simpleMessage("跳过片头"),
-    "sleepTimer": MessageLookupByLibrary.simpleMessage("睡眠定时"),
-    "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("睡眠定时"),
+    "sleepTimer": MessageLookupByLibrary.simpleMessage("定时关闭"),
+    "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("定时关闭"),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage("缩小字幕"),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage("抱歉，出了点问题。"),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "抱歉，出了点问题。请重试。",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage("点按查看如何打开声音。"),
     "soundBlockedTitle": MessageLookupByLibrary.simpleMessage("为什么听不到声音？"),
     "soundHelpTitle": MessageLookupByLibrary.simpleMessage("声音"),
     "speedTrialOver": m36,
     "startFreeTrial": MessageLookupByLibrary.simpleMessage("开始免费试用"),
-    "storeProblem": MessageLookupByLibrary.simpleMessage("商店出现问题。请稍后再试。"),
-    "storeUnavailable": MessageLookupByLibrary.simpleMessage("商店暂时无法使用。请稍后再试。"),
+    "storeProblem": MessageLookupByLibrary.simpleMessage("购买时出现问题。请稍后再试。"),
+    "storeUnavailable": MessageLookupByLibrary.simpleMessage("暂时无法购买。请稍后再试。"),
     "subscribe": MessageLookupByLibrary.simpleMessage("订阅"),
     "success": MessageLookupByLibrary.simpleMessage("成功"),
     "support": MessageLookupByLibrary.simpleMessage("支持"),
@@ -520,7 +515,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "trialTermsYears": m41,
     "tryAgain": MessageLookupByLibrary.simpleMessage("重试"),
     "turnOffAbFirst": MessageLookupByLibrary.simpleMessage("请先关闭区间循环"),
-    "tutorial": MessageLookupByLibrary.simpleMessage("使用教程"),
+    "tutorial": MessageLookupByLibrary.simpleMessage("使用指南"),
     "unavailable": MessageLookupByLibrary.simpleMessage("不可用"),
     "undo": MessageLookupByLibrary.simpleMessage("撤销"),
     "unmute": MessageLookupByLibrary.simpleMessage("取消静音"),
@@ -552,7 +547,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "watching": MessageLookupByLibrary.simpleMessage("正在观看"),
     "welcomeToPro": m45,
     "windowNumber": m46,
-    "yearly": MessageLookupByLibrary.simpleMessage("按年"),
+    "yearly": MessageLookupByLibrary.simpleMessage("年度订阅"),
     "yourBrowser": MessageLookupByLibrary.simpleMessage("你的浏览器"),
     "youreConnected": MessageLookupByLibrary.simpleMessage("已连接！"),
     "youreOffline": MessageLookupByLibrary.simpleMessage("你已离线"),

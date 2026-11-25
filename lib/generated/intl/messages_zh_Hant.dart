@@ -50,7 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m14(count) => "${count} 分鐘";
 
-  static String m15(time) => "${time} 後更新代碼";
+  static String m15(time) => "${time} 後更新 QR 碼";
 
   static String m16(url) => "在電腦的瀏覽器中開啟 ${url}，安裝 Zappit 擴充功能。";
 
@@ -69,15 +69,15 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m23(price) => "${price} / 年";
 
   static String m24(date) =>
-      "你的免費 Pro 體驗有效至 ${date}。在結束前訂閱，即可順暢地繼續使用所有 Pro 功能。";
+      "你的 Pro 免費體驗有效至 ${date}。在結束前訂閱，即可不間斷地繼續使用所有 Pro 功能。";
 
-  static String m25(proName) => "你的 Pro 體驗已結束。訂閱 ${proName}，繼續使用所有 Pro 功能。";
+  static String m25(proName) => "你的 Pro 免費體驗已結束。訂閱 ${proName}，即可繼續使用所有 Pro 功能。";
 
-  static String m26(days) => "免費暢享 Zappit Pro 全部功能 ${days} 天。不需要信用卡，也不會自動扣款。";
+  static String m26(days) => "${days} 天內免費暢享 Zappit Pro 全部功能。完全免費，不會自動扣款。";
 
-  static String m27(date) => "Pro 體驗至 ${date}";
+  static String m27(date) => "Pro 免費體驗至 ${date}";
 
-  static String m28(proName) => "已復原 ${proName}";
+  static String m28(proName) => "已回復 ${proName}";
 
   static String m29(site) => "將 ${site} 從我的最愛中移除";
 
@@ -113,7 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m44(count) =>
       "Voice Boost 已關閉。免費使用者可使用 Voice Boost ${count} 秒。";
 
-  static String m45(proName) => "歡迎使用 ${proName}";
+  static String m45(proName) => "已成功升級為 ${proName}！";
 
   static String m46(number) => "視窗 ${number}";
 
@@ -131,20 +131,19 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "back": MessageLookupByLibrary.simpleMessage("返回"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage("很抱歉，你的使用權限已被停用。"),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage("瀏覽器沒有回應"),
     "browsers": MessageLookupByLibrary.simpleMessage("瀏覽器"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "另一支手機已連接到它。如需再次使用，請掃描那台電腦上的 QR 碼。",
+      "已有另一支手機連接到該瀏覽器。如需重新連線，請掃描那台電腦上的 QR 碼。",
     ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "請在「設定」中允許存取相機，才能掃描代碼。",
     ),
     "cameraUnavailable": MessageLookupByLibrary.simpleMessage("目前無法使用相機。"),
     "cancel": MessageLookupByLibrary.simpleMessage("取消"),
-    "cancelAnytime": MessageLookupByLibrary.simpleMessage("可隨時在商店帳戶中取消。"),
+    "cancelAnytime": MessageLookupByLibrary.simpleMessage("可隨時在訂閱管理中取消。"),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage("無法載入此頁面"),
     "cantOpenOnPhone": MessageLookupByLibrary.simpleMessage("此影片無法在手機上開啟"),
     "cantReachBrowser": MessageLookupByLibrary.simpleMessage("無法連線到瀏覽器"),
@@ -182,7 +181,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "disconnect": MessageLookupByLibrary.simpleMessage("中斷連線"),
     "disconnectPhone": MessageLookupByLibrary.simpleMessage("中斷這支手機的連線"),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "這支手機將不再控制你的電腦。如需再次使用，請掃描電腦上的 QR 碼。",
+      "這支手機將不再控制你的電腦。如需重新連線，請掃描電腦上的 QR 碼。",
     ),
     "down": MessageLookupByLibrary.simpleMessage("下"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("影片結束時"),
@@ -204,7 +203,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorTabClosed": MessageLookupByLibrary.simpleMessage("該分頁已關閉"),
     "exitFullScreen": MessageLookupByLibrary.simpleMessage("結束全螢幕"),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "Zappit 擴充功能已更新。請重新載入此頁面，以繼續使用所有控制功能。",
+      "Zappit 擴充功能已更新。請在瀏覽器中重新載入頁面，以繼續使用所有控制功能。",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("常見問題"),
     "favorites": MessageLookupByLibrary.simpleMessage("我的最愛"),
@@ -278,7 +277,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noSiteSettings": MessageLookupByLibrary.simpleMessage("此網站目前沒有設定。"),
     "noSubtitles": MessageLookupByLibrary.simpleMessage("此影片沒有字幕"),
     "noThanks": MessageLookupByLibrary.simpleMessage("不用了"),
-    "noVideosOnPage": MessageLookupByLibrary.simpleMessage("此頁面上沒有影片。"),
+    "noVideosOnPage": MessageLookupByLibrary.simpleMessage("瀏覽器目前的頁面上沒有影片。"),
     "notAvailableDuringAd": MessageLookupByLibrary.simpleMessage("廣告播放時無法使用"),
     "notAvailableForLive": MessageLookupByLibrary.simpleMessage("直播無法使用"),
     "notAvailableForLiveStreams": MessageLookupByLibrary.simpleMessage(
@@ -288,20 +287,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "notConnected": MessageLookupByLibrary.simpleMessage("未連線"),
     "nothingPlaying": MessageLookupByLibrary.simpleMessage("找不到影片"),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "此畫面中沒有影片。請選擇其他分頁，或貼上影片連結。",
+      "此分頁中沒有影片。請選擇其他分頁，或貼上影片連結。",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage("沒有可回復的購買項目"),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "此商店帳戶中找不到有效的 Zappit Pro 訂閱。",
+      "此帳號中找不到有效的 Zappit Pro 訂閱。",
     ),
     "obAnimAddExtension": MessageLookupByLibrary.simpleMessage("加入擴充功能"),
     "obAnimAdded": MessageLookupByLibrary.simpleMessage("已加入"),
     "obAnimConnectComputer": MessageLookupByLibrary.simpleMessage("連接到你的電腦"),
-    "obAnimConnectPhone": MessageLookupByLibrary.simpleMessage("連接你的手機"),
+    "obAnimConnectPhone": MessageLookupByLibrary.simpleMessage("連接手機"),
     "obAnimNewCode": m15,
     "obAnimRemoteConnected": MessageLookupByLibrary.simpleMessage("遙控器已連線"),
     "obAnimScanCode": MessageLookupByLibrary.simpleMessage(
-      "用手機上的 Zappit App 掃描此代碼。",
+      "請用手機上的 Zappit App 掃描這個 QR 碼。",
     ),
     "obAnimTagline": MessageLookupByLibrary.simpleMessage("告別滑鼠。"),
     "obAnimYourPhones": MessageLookupByLibrary.simpleMessage("你的手機"),
@@ -363,7 +362,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pairFailed": MessageLookupByLibrary.simpleMessage("無法連線。請檢查網路連線後再試一次。"),
     "pairHowToInstall": MessageLookupByLibrary.simpleMessage("如何安裝擴充功能"),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "這台電腦已經連接 3 支手機。請在已連接的其他手機上開啟 Zappit，並在「更多」中點一下「中斷這支手機的連線」。如果那支手機已不在身邊，請在電腦上的 Zappit 擴充功能中使用「Reset」。",
+      "這台電腦已經連接 3 支手機。請在已連接的其他手機上開啟 Zappit，並在「更多」中點一下「中斷這支手機的連線」。如果無法使用其他已連接的手機，請在電腦上的 Zappit 擴充功能中開啟「設定」，點選「重設」。",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage("連接到瀏覽器擴充功能"),
     "paste": MessageLookupByLibrary.simpleMessage("貼上"),
@@ -372,7 +371,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pause": MessageLookupByLibrary.simpleMessage("暫停"),
     "paymentPending": MessageLookupByLibrary.simpleMessage("付款待確認"),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "商店確認付款後，Pro 會立即開啟。",
+      "付款確認後，Pro 會立即開啟。",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("手機名稱"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("請輸入名稱。"),
@@ -402,24 +401,24 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("隱私權政策"),
     "proBannerSubtitle": MessageLookupByLibrary.simpleMessage("發揮遙控器的完整實力"),
     "proFeatureAbLoop": MessageLookupByLibrary.simpleMessage("無限使用區段循環"),
-    "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage("所有播放速度"),
+    "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage("可選擇所有播放速度"),
     "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "解鎖網站專屬遙控器",
+      "解鎖特定網站專屬遙控器",
     ),
-    "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage("無限使用整部循環"),
+    "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage("無限使用整部影片循環"),
     "proFeatureVoiceBoost": MessageLookupByLibrary.simpleMessage(
       "無限使用 Voice Boost",
     ),
     "proPreviewActiveBanner": m24,
     "proPreviewEndedMessage": MessageLookupByLibrary.simpleMessage(
-      "感謝試用 Zappit Pro！訂閱後即可順暢地繼續使用所有 Pro 功能。",
+      "覺得 Zappit Pro 如何？訂閱後即可不間斷地繼續使用所有 Pro 功能。",
     ),
     "proPreviewEndedSubtitle": m25,
     "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
-      "你的 Pro 體驗已結束",
+      "你的 Pro 免費體驗已結束",
     ),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
-      "Pro 體驗明天結束",
+      "Pro 免費體驗明天結束",
     ),
     "proPreviewStarted": m26,
     "proPreviewUntil": m27,
@@ -437,7 +436,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "purchaseNotActivatedMessage": MessageLookupByLibrary.simpleMessage(
       "付款已完成，但 Pro 尚未啟用。請試試「回復購買」。",
     ),
-    "purchasesNotAllowed": MessageLookupByLibrary.simpleMessage("此裝置或帳戶不允許購買。"),
+    "purchasesNotAllowed": MessageLookupByLibrary.simpleMessage(
+      "此裝置或帳號無法進行購買。",
+    ),
     "qualityNotChanged": MessageLookupByLibrary.simpleMessage("畫質沒有改變"),
     "rateZappit": MessageLookupByLibrary.simpleMessage("為 Zappit 評分"),
     "reload": MessageLookupByLibrary.simpleMessage("重新載入"),
@@ -480,17 +481,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "sleepTimer": MessageLookupByLibrary.simpleMessage("睡眠定時"),
     "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("睡眠定時"),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage("縮小字幕"),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage("很抱歉，發生問題。"),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "很抱歉，發生問題。請再試一次。",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage("點一下查看如何開啟聲音。"),
     "soundBlockedTitle": MessageLookupByLibrary.simpleMessage("為什麼聽不到聲音？"),
     "soundHelpTitle": MessageLookupByLibrary.simpleMessage("聲音"),
     "speedTrialOver": m36,
     "startFreeTrial": MessageLookupByLibrary.simpleMessage("開始免費試用"),
-    "storeProblem": MessageLookupByLibrary.simpleMessage("商店發生問題。請稍後再試。"),
-    "storeUnavailable": MessageLookupByLibrary.simpleMessage("目前無法使用商店。請稍後再試。"),
+    "storeProblem": MessageLookupByLibrary.simpleMessage("購買時發生問題。請稍後再試。"),
+    "storeUnavailable": MessageLookupByLibrary.simpleMessage("目前無法購買。請稍後再試。"),
     "subscribe": MessageLookupByLibrary.simpleMessage("訂閱"),
     "success": MessageLookupByLibrary.simpleMessage("成功"),
     "support": MessageLookupByLibrary.simpleMessage("支援"),
@@ -523,7 +520,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "trialTermsYears": m41,
     "tryAgain": MessageLookupByLibrary.simpleMessage("再試一次"),
     "turnOffAbFirst": MessageLookupByLibrary.simpleMessage("請先關閉區段循環"),
-    "tutorial": MessageLookupByLibrary.simpleMessage("使用教學"),
+    "tutorial": MessageLookupByLibrary.simpleMessage("使用指南"),
     "unavailable": MessageLookupByLibrary.simpleMessage("無法使用"),
     "undo": MessageLookupByLibrary.simpleMessage("復原"),
     "unmute": MessageLookupByLibrary.simpleMessage("取消靜音"),

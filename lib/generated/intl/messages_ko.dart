@@ -69,17 +69,17 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m23(price) => "${price} / 년";
 
   static String m24(date) =>
-      "무료 Pro 미리 체험은 ${date}까지예요. 끝나기 전에 구독하면 모든 Pro 기능을 끊김 없이 계속 쓸 수 있어요.";
+      "Pro 무료 체험기간은 ${date}까지예요. 끝나기 전에 구독하면 모든 Pro 기능을 끊김 없이 계속 쓸 수 있어요.";
 
   static String m25(proName) =>
-      "Pro 미리 체험이 끝났어요. ${proName}로 모든 Pro 기능을 계속 이용하세요.";
+      "Pro 무료 체험기간이 종료되었어요. ${proName}로 모든 Pro 기능을 계속 이용하실 수 있어요.";
 
   static String m26(days) =>
-      "${days}일 동안 Zappit Pro의 모든 기능을 무료로 써 보세요. 카드 등록도, 자동 결제도 없어요.";
+      "${days}일 동안 Zappit Pro의 모든 기능을 무료로 써 보세요. 자동 결제되지 않는 완전 무료예요.";
 
-  static String m27(date) => "${date}까지 Pro 미리 체험";
+  static String m27(date) => "${date}까지 Pro 무료 체험";
 
-  static String m28(proName) => "${proName}이 복원되었어요";
+  static String m28(proName) => "${proName} 구매를 복원했어요";
 
   static String m29(site) => "즐겨찾기에서 ${site} 빼기";
 
@@ -96,27 +96,30 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m35(site) => "${site} 설정";
 
   static String m36(count) =>
-      "1배속으로 돌아왔어요. 무료 사용자는 이 속도를 ${count}초 동안 쓸 수 있어요.";
+      "1배속으로 돌아왔어요. 무료 사용자는 이 속도를 ${count}초 동안만 쓸 수 있어요.";
 
   static String m37(price, date) =>
-      "무료 체험이 내일 끝나요. ${date}에 ${price}가 결제돼요. 계속 쓰지 않으려면 그 전에 구독을 해지하세요.";
+      "무료 체험이 내일 끝나요. ${date}에 ${price} 요금이 결제돼요. 계속 이용하지 않으시려면 그 전에 구독을 해지해 주세요.";
 
-  static String m38(price) => "무료 체험 후 연 ${price}가 청구돼요.";
+  static String m38(price) => "무료 체험이 끝나면 연 ${price} 요금이 자동 결제돼요.";
 
-  static String m39(count, price) => "${count}일 무료 체험 후 연 ${price}가 청구돼요.";
+  static String m39(count, price) =>
+      "${count}일 무료 체험이 끝나면 연 ${price} 요금이 자동 결제돼요.";
 
-  static String m40(count, price) => "${count}개월 무료 체험 후 연 ${price}가 청구돼요.";
+  static String m40(count, price) =>
+      "${count}개월 무료 체험이 끝나면 연 ${price} 요금이 자동 결제돼요.";
 
-  static String m41(count, price) => "${count}년 무료 체험 후 연 ${price}가 청구돼요.";
+  static String m41(count, price) =>
+      "${count}년 무료 체험이 끝나면 연 ${price} 요금이 자동 결제돼요.";
 
   static String m42(count) => "다음 영상 · ${count}초 후 재생";
 
   static String m43(count) => "Voice Boost 체험, ${count}초 남음";
 
   static String m44(count) =>
-      "Voice Boost가 꺼졌어요. 무료 사용자는 Voice Boost를 ${count}초 동안 쓸 수 있어요.";
+      "Voice Boost가 꺼졌어요. 무료 사용자는 Voice Boost를 ${count}초 동안만 쓸 수 있어요.";
 
-  static String m45(proName) => "${proName}에 오신 것을 환영해요";
+  static String m45(proName) => "${proName} 업그레이드 완료!";
 
   static String m46(number) => "창 ${number}";
 
@@ -136,7 +139,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "back": MessageLookupByLibrary.simpleMessage("뒤로"),
     "backSeconds": m1,
-    "banned": MessageLookupByLibrary.simpleMessage("죄송합니다. 이용이 제한되었습니다."),
     "browserDidNotAnswer": m2,
     "browserNotResponding": MessageLookupByLibrary.simpleMessage(
       "브라우저가 응답하지 않아요",
@@ -144,7 +146,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "browsers": MessageLookupByLibrary.simpleMessage("브라우저"),
     "browsersDisconnected": m3,
     "browsersDisconnectedBody": MessageLookupByLibrary.simpleMessage(
-      "다른 폰이 연결했어요. 다시 쓰려면 그 컴퓨터의 QR 코드를 스캔하세요.",
+      "다른 폰이 대신 연결되었어요. 다시 연결하려면 해당 컴퓨터의 QR 코드를 스캔하세요.",
     ),
     "cameraDenied": MessageLookupByLibrary.simpleMessage(
       "코드를 스캔하려면 설정에서 카메라 접근을 허용하세요.",
@@ -154,7 +156,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("취소"),
     "cancelAnytime": MessageLookupByLibrary.simpleMessage(
-      "스토어 계정에서 언제든지 해지할 수 있어요.",
+      "구매 페이지에서 언제든지 해지할 수 있어요.",
     ),
     "cantLoadPage": MessageLookupByLibrary.simpleMessage("페이지를 불러올 수 없어요"),
     "cantOpenOnPhone": MessageLookupByLibrary.simpleMessage(
@@ -207,13 +209,13 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "couldNotOpenLink": MessageLookupByLibrary.simpleMessage("링크를 열지 못했어요"),
     "couldNotReadQuality": MessageLookupByLibrary.simpleMessage(
-      "페이지에서 화질 옵션을 읽지 못했어요.",
+      "화질 옵션을 불러오지 못했어요.",
     ),
     "delete": MessageLookupByLibrary.simpleMessage("삭제"),
     "disconnect": MessageLookupByLibrary.simpleMessage("연결 해제"),
     "disconnectPhone": MessageLookupByLibrary.simpleMessage("이 폰 연결 해제"),
     "disconnectPhoneMessage": MessageLookupByLibrary.simpleMessage(
-      "이 폰으로 더 이상 컴퓨터를 제어하지 않아요. 다시 쓰려면 컴퓨터의 QR 코드를 스캔하세요.",
+      "이 폰으로 더 이상 컴퓨터를 제어하지 않아요. 다시 연결하려면 컴퓨터의 QR 코드를 스캔하세요.",
     ),
     "down": MessageLookupByLibrary.simpleMessage("아래"),
     "endOfVideo": MessageLookupByLibrary.simpleMessage("영상이 끝날 때"),
@@ -233,7 +235,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorInvalidUrl": MessageLookupByLibrary.simpleMessage("이 링크는 열 수 없어요"),
     "errorNoBrowser": MessageLookupByLibrary.simpleMessage("선택된 브라우저가 없어요"),
     "errorNoMedia": MessageLookupByLibrary.simpleMessage("재생 중인 영상이 없어요"),
-    "errorNotChanged": MessageLookupByLibrary.simpleMessage("사이트에서 변경되지 않았어요"),
+    "errorNotChanged": MessageLookupByLibrary.simpleMessage("사이트에 반영되지 않았어요"),
     "errorNotSupported": MessageLookupByLibrary.simpleMessage(
       "이 사이트에서는 지원하지 않는 기능이에요",
     ),
@@ -243,7 +245,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorTabClosed": MessageLookupByLibrary.simpleMessage("이미 닫힌 탭이에요"),
     "exitFullScreen": MessageLookupByLibrary.simpleMessage("전체 화면 종료"),
     "extensionUpdatedReload": MessageLookupByLibrary.simpleMessage(
-      "Zappit 확장 프로그램이 업데이트되었어요. 모든 기능을 계속 쓰려면 이 페이지를 새로고침하세요.",
+      "Zappit 확장 프로그램이 업데이트되었어요. 모든 기능을 계속 쓰려면 브라우저를 새로고침하세요.",
     ),
     "faq": MessageLookupByLibrary.simpleMessage("자주 묻는 질문"),
     "favorites": MessageLookupByLibrary.simpleMessage("즐겨찾기"),
@@ -268,7 +270,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "lastVideoInPlaylist": MessageLookupByLibrary.simpleMessage(
       "재생목록의 마지막 영상이에요",
     ),
-    "learnMore": MessageLookupByLibrary.simpleMessage("자세히 보기"),
+    "learnMore": MessageLookupByLibrary.simpleMessage("더 알아보기"),
     "left": MessageLookupByLibrary.simpleMessage("왼쪽"),
     "linkPanelHint": MessageLookupByLibrary.simpleMessage(
       "영상 링크를 붙여넣고 보내기를 누르세요. 브라우저의 새 탭에서 열려요.",
@@ -325,7 +327,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noSubtitles": MessageLookupByLibrary.simpleMessage("이 영상에는 자막이 없어요"),
     "noThanks": MessageLookupByLibrary.simpleMessage("괜찮아요"),
-    "noVideosOnPage": MessageLookupByLibrary.simpleMessage("이 페이지에는 영상이 없어요."),
+    "noVideosOnPage": MessageLookupByLibrary.simpleMessage(
+      "브라우저의 현재 페이지에 영상이 없어요.",
+    ),
     "notAvailableDuringAd": MessageLookupByLibrary.simpleMessage(
       "광고 중에는 사용할 수 없어요",
     ),
@@ -341,16 +345,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "notConnected": MessageLookupByLibrary.simpleMessage("연결 안 됨"),
     "nothingPlaying": MessageLookupByLibrary.simpleMessage("영상을 찾지 못했어요"),
     "nothingPlayingMessage": MessageLookupByLibrary.simpleMessage(
-      "이 화면에는 영상이 없어요. 다른 탭을 고르거나 영상 링크를 붙여넣으세요.",
+      "브라우저의 현재 탭에 영상이 없어요. 다른 탭을 고르거나 영상 링크를 붙여넣으세요.",
     ),
     "nothingToRestore": MessageLookupByLibrary.simpleMessage("복원할 구매가 없어요"),
     "nothingToRestoreMessage": MessageLookupByLibrary.simpleMessage(
-      "이 스토어 계정에서 활성화된 Zappit Pro 구독을 찾지 못했어요.",
+      "이 계정에서 활성화된 Zappit Pro 구독을 찾지 못했어요.",
     ),
     "obAnimAddExtension": MessageLookupByLibrary.simpleMessage("확장 프로그램 추가"),
     "obAnimAdded": MessageLookupByLibrary.simpleMessage("추가됨"),
     "obAnimConnectComputer": MessageLookupByLibrary.simpleMessage("컴퓨터에 연결하세요"),
-    "obAnimConnectPhone": MessageLookupByLibrary.simpleMessage("폰을 연결하세요"),
+    "obAnimConnectPhone": MessageLookupByLibrary.simpleMessage("폰 연결하기"),
     "obAnimNewCode": m15,
     "obAnimRemoteConnected": MessageLookupByLibrary.simpleMessage("리모컨 연결됨"),
     "obAnimScanCode": MessageLookupByLibrary.simpleMessage(
@@ -385,7 +389,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Zappit 아이콘이 안 보이나요?",
     ),
     "onboardingIconHelpLabel": MessageLookupByLibrary.simpleMessage(
-      "Zappit 아이콘이 안 보이나요? 자주 묻는 질문에서 답을 열어요",
+      "Zappit 아이콘이 안 보이나요? 자주 묻는 질문에서 답변을 확인할 수 있어요",
     ),
     "onboardingNext": MessageLookupByLibrary.simpleMessage("다음"),
     "onboardingOpenQrScanner": MessageLookupByLibrary.simpleMessage(
@@ -398,7 +402,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "컴퓨터의 모든 영상을 조작하세요. 설정은 간단한 두 단계면 끝나요.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
-      "이제 폰이 리모컨이 됩니다",
+      "이제 폰이 리모컨이 돼요",
     ),
     "openALink": MessageLookupByLibrary.simpleMessage("링크 열기"),
     "openBrowserForTabs": MessageLookupByLibrary.simpleMessage(
@@ -422,7 +426,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "pairHowToInstall": MessageLookupByLibrary.simpleMessage("확장 프로그램 설치 방법"),
     "pairPhoneLimit": MessageLookupByLibrary.simpleMessage(
-      "이 컴퓨터에는 이미 폰 3대가 연결되어 있어요. 연결된 다른 폰에서 Zappit을 열고 ‘더보기’의 ‘이 폰 연결 해제’를 누르세요. 그 폰이 없다면 컴퓨터의 Zappit 확장 프로그램에서 ‘Reset’을 쓰세요.",
+      "이 컴퓨터에는 이미 폰 3대가 연결되어 있어요. 연결된 다른 폰에서 Zappit을 열고 ‘더보기’의 ‘이 폰 연결 해제’를 누르세요. 다른 폰에 접근할 수 없다면 컴퓨터의 Zappit 확장 프로그램에서 ‘설정’의 ‘초기화’를 하세요.",
     ),
     "pairTitle": MessageLookupByLibrary.simpleMessage("브라우저 확장 프로그램에 연결하세요"),
     "paste": MessageLookupByLibrary.simpleMessage("붙여넣기"),
@@ -431,7 +435,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pause": MessageLookupByLibrary.simpleMessage("일시정지"),
     "paymentPending": MessageLookupByLibrary.simpleMessage("결제 대기 중"),
     "paymentPendingMessage": MessageLookupByLibrary.simpleMessage(
-      "스토어에서 결제가 확인되면 바로 Pro가 켜져요.",
+      "결제가 확인되면 바로 Pro가 켜져요.",
     ),
     "phoneName": MessageLookupByLibrary.simpleMessage("폰 이름"),
     "phoneNameEmpty": MessageLookupByLibrary.simpleMessage("이름을 입력하세요."),
@@ -468,25 +472,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "proBannerSubtitle": MessageLookupByLibrary.simpleMessage(
       "리모컨의 모든 기능을 마음껏 쓰세요",
     ),
-    "proFeatureAbLoop": MessageLookupByLibrary.simpleMessage("구간 반복 무제한"),
-    "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage("모든 재생 속도"),
-    "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
-      "사이트 전용 리모컨 잠금 해제",
+    "proFeatureAbLoop": MessageLookupByLibrary.simpleMessage("무제한 구간 반복"),
+    "proFeatureAllSpeeds": MessageLookupByLibrary.simpleMessage(
+      "모든 재생 속도 선택 가능",
     ),
-    "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage("전체 반복 무제한"),
+    "proFeatureDedicatedControllers": MessageLookupByLibrary.simpleMessage(
+      "특정 사이트 전용 리모컨 잠금 해제",
+    ),
+    "proFeatureFullLoop": MessageLookupByLibrary.simpleMessage("무제한 전체 반복"),
     "proFeatureVoiceBoost": MessageLookupByLibrary.simpleMessage(
-      "Voice Boost 무제한",
+      "무제한 Voice Boost",
     ),
     "proPreviewActiveBanner": m24,
     "proPreviewEndedMessage": MessageLookupByLibrary.simpleMessage(
-      "Zappit Pro를 써 주셔서 고마워요! 구독하면 모든 Pro 기능을 끊김 없이 계속 쓸 수 있어요.",
+      "Zappit Pro 어떠셨나요? 구독하면 모든 Pro 기능을 끊김 없이 계속 쓸 수 있어요.",
     ),
     "proPreviewEndedSubtitle": m25,
     "proPreviewEndedTitle": MessageLookupByLibrary.simpleMessage(
-      "Pro 미리 체험이 끝났어요",
+      "Pro 무료 체험이 끝났어요",
     ),
     "proPreviewEndsTomorrow": MessageLookupByLibrary.simpleMessage(
-      "Pro 미리 체험이 내일 끝나요",
+      "Pro 무료 체험이 내일 끝나요",
     ),
     "proPreviewStarted": m26,
     "proPreviewUntil": m27,
@@ -501,7 +507,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "purchaseFailed": MessageLookupByLibrary.simpleMessage("구매에 실패했어요"),
     "purchaseNotActivated": MessageLookupByLibrary.simpleMessage(
-      "구매가 활성화되지 않았어요",
+      "구매가 아직 반영되지 않았어요",
     ),
     "purchaseNotActivatedMessage": MessageLookupByLibrary.simpleMessage(
       "결제는 완료되었지만 아직 Pro가 켜지지 않았어요. 구매 복원을 눌러 보세요.",
@@ -557,12 +563,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "sleepTimer": MessageLookupByLibrary.simpleMessage("취침 타이머"),
     "sleepTimerLabel": MessageLookupByLibrary.simpleMessage("취침 타이머"),
     "smallerCaptions": MessageLookupByLibrary.simpleMessage("자막 작게"),
-    "somethingWrong": MessageLookupByLibrary.simpleMessage(
-      "죄송합니다. 문제가 발생했습니다.",
-    ),
-    "somethingWrongTryAgain": MessageLookupByLibrary.simpleMessage(
-      "죄송합니다. 문제가 발생했습니다. 다시 시도해 주세요.",
-    ),
     "soundBlockedMessage": MessageLookupByLibrary.simpleMessage(
       "탭해서 소리를 켜는 방법을 확인하세요.",
     ),
@@ -571,14 +571,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "speedTrialOver": m36,
     "startFreeTrial": MessageLookupByLibrary.simpleMessage("무료 체험 시작"),
     "storeProblem": MessageLookupByLibrary.simpleMessage(
-      "스토어에 문제가 생겼어요. 잠시 후 다시 시도해 주세요.",
+      "구매 중 문제가 발생했어요. 잠시 후 다시 시도해 주세요.",
     ),
     "storeUnavailable": MessageLookupByLibrary.simpleMessage(
-      "지금은 스토어를 이용할 수 없어요. 잠시 후 다시 시도해 주세요.",
+      "지금은 구매하실 수 없어요. 잠시 후 다시 시도해 주세요.",
     ),
     "subscribe": MessageLookupByLibrary.simpleMessage("구독하기"),
     "success": MessageLookupByLibrary.simpleMessage("완료"),
-    "support": MessageLookupByLibrary.simpleMessage("지원"),
+    "support": MessageLookupByLibrary.simpleMessage("고객 지원"),
     "supportedSites": MessageLookupByLibrary.simpleMessage("지원 사이트"),
     "supportedSitesIntro": MessageLookupByLibrary.simpleMessage(
       "이 사이트들에서는 사이트에 맞춘 전용 리모컨을 쓸 수 있어요. 다른 사이트에서는 Zappit이 기본 리모컨으로 동작해요.",
@@ -587,7 +587,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "tabRemote": MessageLookupByLibrary.simpleMessage("리모컨"),
     "tabTabs": MessageLookupByLibrary.simpleMessage("탭"),
     "tapToKeepPro": MessageLookupByLibrary.simpleMessage(
-      "탭해서 모든 Pro 기능을 계속 쓰세요.",
+      "구독하고 모든 Pro 기능을 계속 쓰려면 탭하세요.",
     ),
     "tellAFriend": MessageLookupByLibrary.simpleMessage("친구에게 알리기"),
     "termsOfService": MessageLookupByLibrary.simpleMessage("이용약관"),
@@ -601,7 +601,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "예상치 못한 결제가 없도록 무료 체험이 끝나기 하루 전에 알려 드릴까요?",
     ),
     "trialReminderNotificationTitle": MessageLookupByLibrary.simpleMessage(
-      "Zappit Pro 무료 체험이 곧 끝나요",
+      "Zappit Pro 구독 무료 체험이 곧 끝나요",
     ),
     "trialReminderTitle": MessageLookupByLibrary.simpleMessage("체험 종료 알림"),
     "trialTerms": m38,
@@ -610,7 +610,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "trialTermsYears": m41,
     "tryAgain": MessageLookupByLibrary.simpleMessage("다시 시도"),
     "turnOffAbFirst": MessageLookupByLibrary.simpleMessage("먼저 구간 반복을 끄세요"),
-    "tutorial": MessageLookupByLibrary.simpleMessage("사용 가이드"),
+    "tutorial": MessageLookupByLibrary.simpleMessage("가이드"),
     "unavailable": MessageLookupByLibrary.simpleMessage("이용할 수 없음"),
     "undo": MessageLookupByLibrary.simpleMessage("실행 취소"),
     "unmute": MessageLookupByLibrary.simpleMessage("음소거 해제"),
