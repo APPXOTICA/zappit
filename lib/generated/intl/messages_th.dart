@@ -427,7 +427,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "คลิกไอคอน Zappit ในเบราว์เซอร์ แล้วสแกน QR โค้ดด้วยมือถือ",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "คลิกไอคอน Zappit ในแถบเครื่องมือของเบราว์เซอร์ แล้วหันกล้องไปที่ QR โค้ด",
+      "คลิกไอคอน Zappit ในแถบเครื่องมือของเบราว์เซอร์ แล้วสแกน QR โค้ด เมื่อเชื่อมต่อแล้ว ลองเล่นวิดีโอ YouTube แล้วชมความมหัศจรรย์ได้เลย!",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage("สแกน QR โค้ด"),
     "onboardingGetStarted": MessageLookupByLibrary.simpleMessage("เริ่มต้น"),
@@ -447,7 +447,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "ควบคุมทุกวิดีโอบนคอมพิวเตอร์ ตั้งค่าเพียงสองขั้นตอนง่ายๆ",
+      "ควบคุมทุกวิดีโอในเบราว์เซอร์ ตั้งค่าเพียงสองขั้นตอนง่ายๆ",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "มือถือของคุณกลายเป็นรีโมตแล้ว",

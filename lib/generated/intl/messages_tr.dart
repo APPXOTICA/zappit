@@ -435,7 +435,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Tarayıcıda Zappit simgesine tıklanıyor, ardından QR kodu telefonla taranıyor",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "Tarayıcınızın araç çubuğundaki Zappit simgesine tıklayın, ardından kamerayı QR koduna doğrultun.",
+      "Tarayıcınızın araç çubuğundaki Zappit simgesine tıklayın, ardından QR kodunu tarayın. Bağlandıktan sonra bir YouTube videosu oynatın ve sihrin gerçekleşmesini izleyin!",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage(
       "QR kodunu tarayın",
@@ -457,7 +457,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "Bilgisayarınızdaki her videoyu kontrol edin. Kurulum yalnızca iki kısa adımda tamamlanır.",
+      "Tarayıcınızdaki her videoyu kontrol edin. Kurulum yalnızca iki kısa adımda tamamlanır.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "Telefonunuz artık bir kumanda",

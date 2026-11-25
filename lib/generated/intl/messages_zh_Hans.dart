@@ -322,7 +322,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "在浏览器中点击 Zappit 图标，然后用手机扫描二维码",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "点击浏览器工具栏中的 Zappit 图标，然后将相机对准二维码。",
+      "点击浏览器工具栏中的 Zappit 图标，然后扫描二维码。连接成功后，播放一个 YouTube 视频，见证神奇的时刻！",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage("扫描二维码"),
     "onboardingGetStarted": MessageLookupByLibrary.simpleMessage("开始"),
@@ -338,7 +338,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "控制电脑上的任何视频。只需两个简单步骤即可完成设置。",
+      "控制浏览器中的任何视频。只需两个简单步骤即可完成设置。",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage("你的手机就是遥控器"),
     "openALink": MessageLookupByLibrary.simpleMessage("打开链接"),

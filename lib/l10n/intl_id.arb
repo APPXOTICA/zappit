@@ -329,7 +329,7 @@
   "onboarding1Body": "Buka {url} di browser komputer Anda untuk memasang ekstensi Zappit.",
   "onboardingShareLink": "Kirim link pemasangan",
   "onboarding2Title": "Pindai kode QR",
-  "onboarding2Body": "Klik ikon Zappit di toolbar browser, lalu arahkan kamera ke kode QR.",
+  "onboarding2Body": "Klik ikon Zappit di toolbar browser, lalu pindai kode QR. Setelah terhubung, putar video YouTube dan saksikan keajaibannya!",
   "onboardingIconHelp": "Tidak melihat ikon Zappit?",
   "onboarding1AnimLabel": "Mengetik zappit.tv/get di browser dan menambahkan ekstensi Zappit",
   "onboarding2AnimLabel": "Klik ikon Zappit di browser, lalu pindai kode QR dengan ponsel",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "Hubungkan ke komputer Anda",
   "onboardingIconHelpLabel": "Tidak melihat ikon Zappit? Membuka jawabannya di FAQ",
   "onboardingWelcomeTitle": "Ponsel Anda kini jadi remote",
-  "onboardingWelcomeBody": "Kontrol video apa pun di komputer Anda. Penyiapannya cukup dua langkah singkat.",
+  "onboardingWelcomeBody": "Kontrol video apa pun di browser Anda. Penyiapannya cukup dua langkah singkat.",
   "onboardingGetStarted": "Mulai",
   "onboarding0AnimLabel": "Mengetuk tombol putar/jeda di aplikasi Zappit menjeda dan melanjutkan video di laptop"
 }

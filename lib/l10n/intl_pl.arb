@@ -329,7 +329,7 @@
   "onboarding1Body": "Otwórz {url} w przeglądarce na komputerze, aby zainstalować rozszerzenie Zappit.",
   "onboardingShareLink": "Wyślij link do instalacji",
   "onboarding2Title": "Zeskanuj kod QR",
-  "onboarding2Body": "Kliknij ikonę Zappit na pasku narzędzi przeglądarki, a potem skieruj aparat na kod QR.",
+  "onboarding2Body": "Kliknij ikonę Zappit na pasku narzędzi przeglądarki, a potem zeskanuj kod QR. Po połączeniu włącz film na YouTube i zobacz, jak to działa!",
   "onboardingIconHelp": "Nie widzisz ikony Zappit?",
   "onboarding1AnimLabel": "Wpisywanie zappit.tv/get w przeglądarce i dodawanie rozszerzenia Zappit",
   "onboarding2AnimLabel": "Kliknięcie ikony Zappit w przeglądarce, a potem skanowanie kodu QR telefonem",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "Połącz się z komputerem",
   "onboardingIconHelpLabel": "Nie widzisz ikony Zappit? Otwiera odpowiedź w częstych pytaniach",
   "onboardingWelcomeTitle": "Twój telefon to teraz pilot",
-  "onboardingWelcomeBody": "Steruj dowolnym wideo na komputerze. Konfiguracja to tylko dwa szybkie kroki.",
+  "onboardingWelcomeBody": "Steruj dowolnym wideo w przeglądarce. Konfiguracja to tylko dwa szybkie kroki.",
   "onboardingGetStarted": "Zaczynamy",
   "onboarding0AnimLabel": "Dotknięcie odtwarzania/pauzy w aplikacji Zappit wstrzymuje i wznawia wideo na laptopie"
 }

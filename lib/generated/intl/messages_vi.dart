@@ -442,7 +442,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Nhấp vào biểu tượng Zappit trong trình duyệt, rồi quét mã QR bằng điện thoại",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "Nhấp vào biểu tượng Zappit trên thanh công cụ của trình duyệt, rồi hướng camera vào mã QR.",
+      "Nhấp vào biểu tượng Zappit trên thanh công cụ của trình duyệt, rồi quét mã QR. Sau khi kết nối, hãy phát một video YouTube và xem điều kỳ diệu xảy ra!",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage("Quét mã QR"),
     "onboardingGetStarted": MessageLookupByLibrary.simpleMessage("Bắt đầu"),
@@ -462,7 +462,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "Điều khiển mọi video trên máy tính. Chỉ cần hai bước nhanh chóng để thiết lập.",
+      "Điều khiển mọi video trong trình duyệt. Chỉ cần hai bước nhanh chóng để thiết lập.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "Điện thoại giờ là điều khiển của bạn",

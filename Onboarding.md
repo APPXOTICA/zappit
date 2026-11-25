@@ -12,8 +12,8 @@
 - **Welcome (Step 1 직전):**
   - 위쪽 진행 막대와 `1 / 2` 표시 없음. 위쪽 44pt는 빈 줄로 두어 제목 높이를 Step 1·2와 맞춘다.
   - 제목: `Your phone is now your remote` (두 줄로 고르게: "Your phone is / now your remote")
-  - 설명: `Control any video on your computer. Setup takes just two quick steps.`
-  - 애니메이션: 폰 리모컨의 재생/일시정지 버튼을 탭하면 노트북 영상이 멈췄다가 다시 재생되는 7초 반복. 무대는 화면 폭 전체(390pt, 비율 1:0.84)를 쓰고 배경 카드가 없다. 위아래 남는 공간의 가운데에 놓는다. 시점별 동작과 값은 `onboarding-animations.md`의 OB-0 절(`gw-*`).
+  - 설명: `Control any video in your browser. Setup takes just two quick steps.`
+  - 애니메이션: 폰 리모컨의 재생/일시정지 버튼을 탭하면 노트북 브라우저 속 웹페이지의 영상 플레이어가 멈췄다가 다시 재생되는 7초 반복. Zappit이 브라우저의 웹 영상을 제어한다는 점이 보이도록, 영상을 전체 화면으로 그리지 말고 웹페이지(주소창, 사이트 헤더, 플레이어, 제목·채널 줄, 추천 영상 목록)의 플레이어 영역에서만 재생한다. 실제 사이트 로고는 넣지 않는다. 무대는 화면 폭 전체(390pt, 비율 1:0.84)를 쓰고 배경 카드가 없다. 위아래 남는 공간의 가운데에 놓는다. 시점별 동작과 값은 `onboarding-animations.md`의 OB-0 절(`gw-*`).
   - 하단 버튼: `Get started` (탭하면 Step 1로 이동)
 - **Step 1 (브라우저 익스텐션 설치 안내):**
   - 제목: `First, add Zappit to your browser`
@@ -25,7 +25,7 @@
 - **Step 2 (QR 코드 스캔 연결 안내):**
   - 왼쪽 위 뒤로 버튼: Step 1로 돌아간다.
   - 제목: `Scan the QR code`
-  - 설명: `Click the Zappit icon in your browser toolbar, then point your camera at the QR code.`
+  - 설명: `Click the Zappit icon in your browser toolbar, then scan the QR code. Once connected, play a YouTube video and watch the magic happen!`
   - 애니메이션: 툴바의 Zappit 아이콘 클릭 → 확장 팝업의 QR → 폰으로 스캔 → 연결. 웹 가이드 시작하기 Step 2와 같은 애니메이션이다.
   - 애니메이션 아래 도움말 줄(퍼즐 아이콘, 문구 `Don't see the Zappit icon?`, 오른쪽 `>` 화살표). 줄 전체가 버튼이고, 탭하면 인앱 웹뷰(상단 네이티브 뒤로가기 앱바 유지)로 `https://zappit.tv/faq?embed=1#toolbar-icon`을 연다. 주소는 `config.dart`에 상수로 추가한다. Chrome·Safari별 해결 방법은 화면에 쓰지 않고 그 FAQ 항목(13번)에서 보여 준다.
   - 하단 버튼: `Done` (탭하면 온보딩 완료 상태를 저장하고 즉시 QR 코드 스캔 화면을 띄움)

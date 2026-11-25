@@ -459,7 +459,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Clic sur l’icône Zappit dans le navigateur, puis scan du code QR avec le téléphone",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "Cliquez sur l’icône Zappit dans la barre d’outils du navigateur, puis pointez l’appareil photo vers le code QR.",
+      "Cliquez sur l’icône Zappit dans la barre d’outils du navigateur, puis scannez le code QR. Une fois connecté, lancez une vidéo YouTube et laissez-vous surprendre !",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage(
       "Scannez le code QR",
@@ -481,7 +481,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "Contrôlez n’importe quelle vidéo sur votre ordinateur. La configuration se fait en deux étapes rapides.",
+      "Contrôlez n’importe quelle vidéo dans votre navigateur. La configuration se fait en deux étapes rapides.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "Votre téléphone devient votre télécommande",

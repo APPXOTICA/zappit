@@ -323,7 +323,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "在瀏覽器中點選 Zappit 圖示，然後用手機掃描 QR 碼",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "點選瀏覽器工具列中的 Zappit 圖示，然後將相機對準 QR 碼。",
+      "點選瀏覽器工具列中的 Zappit 圖示，然後掃描 QR 碼。連線後，播放一支 YouTube 影片，見證神奇的時刻！",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage("掃描 QR 碼"),
     "onboardingGetStarted": MessageLookupByLibrary.simpleMessage("開始使用"),
@@ -341,7 +341,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "控制電腦上的任何影片。只要兩個簡單步驟即可完成設定。",
+      "控制瀏覽器中的任何影片。只要兩個簡單步驟即可完成設定。",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage("你的手機就是遙控器"),
     "openALink": MessageLookupByLibrary.simpleMessage("開啟連結"),

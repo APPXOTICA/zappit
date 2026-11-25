@@ -329,7 +329,7 @@
   "onboarding1Body": "在电脑浏览器中打开 {url}，安装 Zappit 扩展程序。",
   "onboardingShareLink": "发送安装链接",
   "onboarding2Title": "扫描二维码",
-  "onboarding2Body": "点击浏览器工具栏中的 Zappit 图标，然后将相机对准二维码。",
+  "onboarding2Body": "点击浏览器工具栏中的 Zappit 图标，然后扫描二维码。连接成功后，播放一个 YouTube 视频，见证神奇的时刻！",
   "onboardingIconHelp": "看不到 Zappit 图标？",
   "onboarding1AnimLabel": "在浏览器中输入 zappit.tv/get 并添加 Zappit 扩展程序",
   "onboarding2AnimLabel": "在浏览器中点击 Zappit 图标，然后用手机扫描二维码",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "连接到你的电脑",
   "onboardingIconHelpLabel": "看不到 Zappit 图标？在常见问题中打开答案",
   "onboardingWelcomeTitle": "你的手机就是遥控器",
-  "onboardingWelcomeBody": "控制电脑上的任何视频。只需两个简单步骤即可完成设置。",
+  "onboardingWelcomeBody": "控制浏览器中的任何视频。只需两个简单步骤即可完成设置。",
   "onboardingGetStarted": "开始",
   "onboarding0AnimLabel": "在 Zappit 应用中点按播放/暂停按钮，笔记本电脑上的视频随之暂停和继续播放"
 }

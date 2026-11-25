@@ -449,7 +449,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Klick auf das Zappit-Symbol im Browser, dann wird der QR-Code mit dem Handy gescannt",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "Klicke in der Symbolleiste deines Browsers auf das Zappit-Symbol und richte dann die Kamera auf den QR-Code.",
+      "Klicke in der Symbolleiste deines Browsers auf das Zappit-Symbol und scanne dann den QR-Code. Sobald die Verbindung steht, spiel ein YouTube-Video ab und erlebe die Magie!",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage("QR-Code scannen"),
     "onboardingGetStarted": MessageLookupByLibrary.simpleMessage("Los geht’s"),
@@ -469,7 +469,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "Steuere jedes Video auf deinem Computer. Die Einrichtung dauert nur zwei kurze Schritte.",
+      "Steuere jedes Video in deinem Browser. Die Einrichtung dauert nur zwei kurze Schritte.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "Dein Handy ist jetzt deine Fernbedienung",

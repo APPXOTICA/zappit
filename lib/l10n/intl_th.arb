@@ -329,7 +329,7 @@
   "onboarding1Body": "เปิด {url} ในเบราว์เซอร์บนคอมพิวเตอร์เพื่อติดตั้งส่วนขยาย Zappit",
   "onboardingShareLink": "ส่งลิงก์ติดตั้ง",
   "onboarding2Title": "สแกน QR โค้ด",
-  "onboarding2Body": "คลิกไอคอน Zappit ในแถบเครื่องมือของเบราว์เซอร์ แล้วหันกล้องไปที่ QR โค้ด",
+  "onboarding2Body": "คลิกไอคอน Zappit ในแถบเครื่องมือของเบราว์เซอร์ แล้วสแกน QR โค้ด เมื่อเชื่อมต่อแล้ว ลองเล่นวิดีโอ YouTube แล้วชมความมหัศจรรย์ได้เลย!",
   "onboardingIconHelp": "ไม่เห็นไอคอน Zappit ใช่ไหม",
   "onboarding1AnimLabel": "พิมพ์ zappit.tv/get ในเบราว์เซอร์และเพิ่มส่วนขยาย Zappit",
   "onboarding2AnimLabel": "คลิกไอคอน Zappit ในเบราว์เซอร์ แล้วสแกน QR โค้ดด้วยมือถือ",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "เชื่อมต่อกับคอมพิวเตอร์",
   "onboardingIconHelpLabel": "ไม่เห็นไอคอน Zappit ใช่ไหม เปิดคำตอบในคำถามที่พบบ่อย",
   "onboardingWelcomeTitle": "มือถือของคุณกลายเป็นรีโมตแล้ว",
-  "onboardingWelcomeBody": "ควบคุมทุกวิดีโอบนคอมพิวเตอร์ ตั้งค่าเพียงสองขั้นตอนง่ายๆ",
+  "onboardingWelcomeBody": "ควบคุมทุกวิดีโอในเบราว์เซอร์ ตั้งค่าเพียงสองขั้นตอนง่ายๆ",
   "onboardingGetStarted": "เริ่มต้น",
   "onboarding0AnimLabel": "แตะปุ่มเล่น/หยุดชั่วคราวในแอป Zappit แล้ววิดีโอบนแล็ปท็อปจะหยุดและเล่นต่อ"
 }

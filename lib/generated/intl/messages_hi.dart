@@ -442,7 +442,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "ब्राउज़र में Zappit आइकन पर क्लिक, फिर फ़ोन से QR कोड स्कैन करना",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "अपने ब्राउज़र टूलबार में Zappit आइकन पर क्लिक करें, फिर कैमरा QR कोड की ओर करें।",
+      "अपने ब्राउज़र टूलबार में Zappit आइकन पर क्लिक करें, फिर QR कोड स्कैन करें। कनेक्ट होने के बाद YouTube वीडियो चलाएँ और जादू होते देखें!",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage(
       "QR कोड स्कैन करें",
@@ -464,7 +464,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "अपने कंप्यूटर पर कोई भी वीडियो कंट्रोल करें। सेटअप में बस दो छोटे चरण लगते हैं।",
+      "अपने ब्राउज़र में चल रहा कोई भी वीडियो कंट्रोल करें। सेटअप में बस दो छोटे चरण लगते हैं।",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "अब आपका फ़ोन ही रिमोट है",

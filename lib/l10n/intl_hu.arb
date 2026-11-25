@@ -329,7 +329,7 @@
   "onboarding1Body": "Nyisd meg ezt a számítógép böngészőjében: {url}, és telepítsd a Zappit bővítményt.",
   "onboardingShareLink": "Telepítési link küldése",
   "onboarding2Title": "Olvasd be a QR-kódot",
-  "onboarding2Body": "Kattints a Zappit ikonra a böngésző eszköztárán, majd fordítsd a kamerát a QR-kód felé.",
+  "onboarding2Body": "Kattints a Zappit ikonra a böngésző eszköztárán, majd olvasd be a QR-kódot. Csatlakozás után indíts el egy YouTube-videót, és nézd, hogy történik a varázslat!",
   "onboardingIconHelp": "Nem látod a Zappit ikont?",
   "onboarding1AnimLabel": "A zappit.tv/get begépelése a böngészőbe és a Zappit bővítmény hozzáadása",
   "onboarding2AnimLabel": "Kattintás a Zappit ikonra a böngészőben, majd a QR-kód beolvasása telefonnal",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "Csatlakozz a számítógépedhez",
   "onboardingIconHelpLabel": "Nem látod a Zappit ikont? Megnyitja a választ a GYIK-ben",
   "onboardingWelcomeTitle": "A telefonod mostantól távirányító",
-  "onboardingWelcomeBody": "Irányíts bármilyen videót a számítógépeden. A beállítás csak két gyors lépés.",
+  "onboardingWelcomeBody": "Irányíts bármilyen videót a böngésződben. A beállítás csak két gyors lépés.",
   "onboardingGetStarted": "Kezdjük",
   "onboarding0AnimLabel": "A Zappit alkalmazás lejátszás/szünet gombjára koppintva a laptopon szünetel, majd folytatódik a videó"
 }

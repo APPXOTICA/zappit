@@ -441,7 +441,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Klik ikon Zappit di browser, lalu pindai kode QR dengan ponsel",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "Klik ikon Zappit di toolbar browser, lalu arahkan kamera ke kode QR.",
+      "Klik ikon Zappit di toolbar browser, lalu pindai kode QR. Setelah terhubung, putar video YouTube dan saksikan keajaibannya!",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage("Pindai kode QR"),
     "onboardingGetStarted": MessageLookupByLibrary.simpleMessage("Mulai"),
@@ -461,7 +461,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "Kontrol video apa pun di komputer Anda. Penyiapannya cukup dua langkah singkat.",
+      "Kontrol video apa pun di browser Anda. Penyiapannya cukup dua langkah singkat.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "Ponsel Anda kini jadi remote",

@@ -381,7 +381,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "브라우저에서 Zappit 아이콘을 클릭하고 폰으로 QR 코드를 스캔하는 모습",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "브라우저 툴바의 Zappit 아이콘을 클릭한 뒤, 카메라를 QR 코드에 비추세요.",
+      "브라우저 툴바의 Zappit 아이콘을 클릭한 뒤, QR 코드를 스캔하세요. 연결되면 YouTube 영상을 재생하고 마법 같은 순간을 확인해 보세요!",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage("QR 코드를 스캔하세요"),
     "onboardingGetStarted": MessageLookupByLibrary.simpleMessage("시작하기"),
@@ -399,7 +399,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "컴퓨터의 모든 영상을 조작하세요. 설정은 간단한 두 단계면 끝나요.",
+      "브라우저에서 재생 중인 모든 영상을 조작하세요. 설정은 간단한 두 단계면 끝나요.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "이제 폰이 리모컨이 돼요",

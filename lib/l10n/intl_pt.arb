@@ -329,7 +329,7 @@
   "onboarding1Body": "Abra {url} no navegador do computador para instalar a extensão do Zappit.",
   "onboardingShareLink": "Enviar link de instalação",
   "onboarding2Title": "Leia o código QR",
-  "onboarding2Body": "Clique no ícone do Zappit na barra de ferramentas do navegador e aponte a câmera para o código QR.",
+  "onboarding2Body": "Clique no ícone do Zappit na barra de ferramentas do navegador e escaneie o código QR. Depois de conectar, reproduza um vídeo do YouTube e veja a mágica acontecer!",
   "onboardingIconHelp": "Não está vendo o ícone do Zappit?",
   "onboarding1AnimLabel": "Digitando zappit.tv/get no navegador e adicionando a extensão do Zappit",
   "onboarding2AnimLabel": "Clicando no ícone do Zappit no navegador e lendo o código QR com o celular",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "Conecte-se ao computador",
   "onboardingIconHelpLabel": "Não está vendo o ícone do Zappit? Abre a resposta nas perguntas frequentes",
   "onboardingWelcomeTitle": "Seu celular agora é o controle remoto",
-  "onboardingWelcomeBody": "Controle qualquer vídeo no computador. A configuração leva só duas etapas rápidas.",
+  "onboardingWelcomeBody": "Controle qualquer vídeo no navegador. A configuração leva só duas etapas rápidas.",
   "onboardingGetStarted": "Começar",
   "onboarding0AnimLabel": "Tocar em reproduzir/pausar no app Zappit pausa e retoma o vídeo no notebook"
 }

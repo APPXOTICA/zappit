@@ -3330,10 +3330,10 @@ class S {
     );
   }
 
-  /// `Click the Zappit icon in your browser toolbar, then point your camera at the QR code.`
+  /// `Click the Zappit icon in your browser toolbar, then scan the QR code. Once connected, play a YouTube video and watch the magic happen!`
   String get onboarding2Body {
     return Intl.message(
-      'Click the Zappit icon in your browser toolbar, then point your camera at the QR code.',
+      'Click the Zappit icon in your browser toolbar, then scan the QR code. Once connected, play a YouTube video and watch the magic happen!',
       name: 'onboarding2Body',
       desc: 'Onboarding step 2 text; also the text of the QR scan screen (kept the same on purpose).',
       args: [],
@@ -3481,10 +3481,10 @@ class S {
     );
   }
 
-  /// `Control any video on your computer. Setup takes just two quick steps.`
+  /// `Control any video in your browser. Setup takes just two quick steps.`
   String get onboardingWelcomeBody {
     return Intl.message(
-      'Control any video on your computer. Setup takes just two quick steps.',
+      'Control any video in your browser. Setup takes just two quick steps.',
       name: 'onboardingWelcomeBody',
       desc: 'Onboarding welcome screen: text under the title.',
       args: [],

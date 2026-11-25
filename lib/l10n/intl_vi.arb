@@ -329,7 +329,7 @@
   "onboarding1Body": "Mở {url} trong trình duyệt trên máy tính để cài đặt tiện ích Zappit.",
   "onboardingShareLink": "Gửi liên kết cài đặt",
   "onboarding2Title": "Quét mã QR",
-  "onboarding2Body": "Nhấp vào biểu tượng Zappit trên thanh công cụ của trình duyệt, rồi hướng camera vào mã QR.",
+  "onboarding2Body": "Nhấp vào biểu tượng Zappit trên thanh công cụ của trình duyệt, rồi quét mã QR. Sau khi kết nối, hãy phát một video YouTube và xem điều kỳ diệu xảy ra!",
   "onboardingIconHelp": "Không thấy biểu tượng Zappit?",
   "onboarding1AnimLabel": "Nhập zappit.tv/get vào trình duyệt và thêm tiện ích Zappit",
   "onboarding2AnimLabel": "Nhấp vào biểu tượng Zappit trong trình duyệt, rồi quét mã QR bằng điện thoại",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "Kết nối với máy tính",
   "onboardingIconHelpLabel": "Không thấy biểu tượng Zappit? Mở câu trả lời trong Câu hỏi thường gặp",
   "onboardingWelcomeTitle": "Điện thoại giờ là điều khiển của bạn",
-  "onboardingWelcomeBody": "Điều khiển mọi video trên máy tính. Chỉ cần hai bước nhanh chóng để thiết lập.",
+  "onboardingWelcomeBody": "Điều khiển mọi video trong trình duyệt. Chỉ cần hai bước nhanh chóng để thiết lập.",
   "onboardingGetStarted": "Bắt đầu",
   "onboarding0AnimLabel": "Chạm nút phát/tạm dừng trong ứng dụng Zappit sẽ tạm dừng rồi phát tiếp video trên máy tính xách tay"
 }

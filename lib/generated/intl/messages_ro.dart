@@ -455,7 +455,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Clic pe pictograma Zappit din browser, apoi scanarea codului QR cu telefonul",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "Dă clic pe pictograma Zappit din bara de instrumente a browserului, apoi îndreaptă camera spre codul QR.",
+      "Dă clic pe pictograma Zappit din bara de instrumente a browserului, apoi scanează codul QR. După conectare, redă un videoclip de pe YouTube și vezi magia în acțiune!",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage(
       "Scanează codul QR",
@@ -477,7 +477,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "Controlează orice videoclip de pe computer. Configurarea are doar doi pași rapizi.",
+      "Controlează orice videoclip din browser. Configurarea are doar doi pași rapizi.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "Telefonul tău devine telecomandă",

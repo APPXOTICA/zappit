@@ -1573,7 +1573,7 @@
   "@onboarding2Title": {
     "description": "Onboarding step 2 title."
   },
-  "onboarding2Body": "Click the Zappit icon in your browser toolbar, then point your camera at the QR code.",
+  "onboarding2Body": "Click the Zappit icon in your browser toolbar, then scan the QR code. Once connected, play a YouTube video and watch the magic happen!",
   "@onboarding2Body": {
     "description": "Onboarding step 2 text; also the text of the QR scan screen (kept the same on purpose)."
   },
@@ -1639,7 +1639,7 @@
   "@onboardingWelcomeTitle": {
     "description": "Onboarding welcome screen (before step 1): title. Shown on two balanced lines."
   },
-  "onboardingWelcomeBody": "Control any video on your computer. Setup takes just two quick steps.",
+  "onboardingWelcomeBody": "Control any video in your browser. Setup takes just two quick steps.",
   "@onboardingWelcomeBody": {
     "description": "Onboarding welcome screen: text under the title."
   },

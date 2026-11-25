@@ -329,7 +329,7 @@
   "onboarding1Body": "Abre {url} en el navegador de tu ordenador para instalar la extensión de Zappit.",
   "onboardingShareLink": "Enviar enlace de instalación",
   "onboarding2Title": "Escanea el código QR",
-  "onboarding2Body": "Haz clic en el icono de Zappit en la barra de herramientas del navegador y apunta la cámara al código QR.",
+  "onboarding2Body": "Haz clic en el icono de Zappit en la barra de herramientas del navegador y escanea el código QR. Cuando se conecte, reproduce un vídeo de YouTube y mira la magia.",
   "onboardingIconHelp": "¿No ves el icono de Zappit?",
   "onboarding1AnimLabel": "Se escribe zappit.tv/get en el navegador y se añade la extensión de Zappit",
   "onboarding2AnimLabel": "Clic en el icono de Zappit del navegador y escaneo del código QR con el móvil",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "Conecta con tu ordenador",
   "onboardingIconHelpLabel": "¿No ves el icono de Zappit? Abre la respuesta en las preguntas frecuentes",
   "onboardingWelcomeTitle": "Tu móvil ya es tu mando",
-  "onboardingWelcomeBody": "Controla cualquier vídeo de tu ordenador. Se configura en solo dos pasos.",
+  "onboardingWelcomeBody": "Controla cualquier vídeo de tu navegador. Se configura en solo dos pasos.",
   "onboardingGetStarted": "Empezar",
   "onboarding0AnimLabel": "Al tocar reproducir/pausa en la app de Zappit, el vídeo del portátil se pausa y se reanuda"
 }

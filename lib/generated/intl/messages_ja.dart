@@ -365,7 +365,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "ブラウザで Zappit アイコンをクリックし、スマホで QR コードを読み取る様子",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "ブラウザのツールバーにある Zappit アイコンをクリックし、カメラを QR コードに向けてください。",
+      "ブラウザのツールバーにある Zappit アイコンをクリックし、QR コードをスキャンしてください。接続できたら YouTube の動画を再生して、魔法のような体験をご覧ください！",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage("QR コードを読み取る"),
     "onboardingGetStarted": MessageLookupByLibrary.simpleMessage("はじめる"),
@@ -385,7 +385,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "パソコンのどんな動画も操作できます。設定はかんたんな 2 ステップだけ。",
+      "ブラウザで再生中のどんな動画も操作できます。設定はかんたんな 2 ステップだけ。",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "スマホがリモコンになります",

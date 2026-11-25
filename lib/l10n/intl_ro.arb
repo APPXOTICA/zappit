@@ -329,7 +329,7 @@
   "onboarding1Body": "Deschide {url} în browserul computerului ca să instalezi extensia Zappit.",
   "onboardingShareLink": "Trimite linkul de instalare",
   "onboarding2Title": "Scanează codul QR",
-  "onboarding2Body": "Dă clic pe pictograma Zappit din bara de instrumente a browserului, apoi îndreaptă camera spre codul QR.",
+  "onboarding2Body": "Dă clic pe pictograma Zappit din bara de instrumente a browserului, apoi scanează codul QR. După conectare, redă un videoclip de pe YouTube și vezi magia în acțiune!",
   "onboardingIconHelp": "Nu vezi pictograma Zappit?",
   "onboarding1AnimLabel": "Se tastează zappit.tv/get în browser și se adaugă extensia Zappit",
   "onboarding2AnimLabel": "Clic pe pictograma Zappit din browser, apoi scanarea codului QR cu telefonul",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "Conectează-te la computer",
   "onboardingIconHelpLabel": "Nu vezi pictograma Zappit? Deschide răspunsul în Întrebări frecvente",
   "onboardingWelcomeTitle": "Telefonul tău devine telecomandă",
-  "onboardingWelcomeBody": "Controlează orice videoclip de pe computer. Configurarea are doar doi pași rapizi.",
+  "onboardingWelcomeBody": "Controlează orice videoclip din browser. Configurarea are doar doi pași rapizi.",
   "onboardingGetStarted": "Să începem",
   "onboarding0AnimLabel": "Atingerea butonului redare/pauză din aplicația Zappit pune pe pauză și reia videoclipul de pe laptop"
 }

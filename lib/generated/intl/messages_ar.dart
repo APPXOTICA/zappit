@@ -442,7 +442,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "النقر على أيقونة Zappit في المتصفح، ثم مسح رمز QR بالهاتف",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "انقر على أيقونة Zappit في شريط أدوات المتصفح، ثم وجّه الكاميرا نحو رمز QR.",
+      "انقر على أيقونة Zappit في شريط أدوات المتصفح، ثم امسح رمز QR ضوئيًا. بعد الاتصال، شغّل فيديو على YouTube وشاهد السحر يحدث!",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage("امسح رمز QR"),
     "onboardingGetStarted": MessageLookupByLibrary.simpleMessage("ابدأ"),
@@ -462,7 +462,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "تحكّم في أي فيديو على حاسوبك. الإعداد خطوتان سريعتان فقط.",
+      "تحكّم في أي فيديو في متصفحك. الإعداد خطوتان سريعتان فقط.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "أصبح هاتفك جهاز التحكم",

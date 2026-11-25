@@ -443,7 +443,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Kattintás a Zappit ikonra a böngészőben, majd a QR-kód beolvasása telefonnal",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "Kattints a Zappit ikonra a böngésző eszköztárán, majd fordítsd a kamerát a QR-kód felé.",
+      "Kattints a Zappit ikonra a böngésző eszköztárán, majd olvasd be a QR-kódot. Csatlakozás után indíts el egy YouTube-videót, és nézd, hogy történik a varázslat!",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage(
       "Olvasd be a QR-kódot",
@@ -465,7 +465,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "Irányíts bármilyen videót a számítógépeden. A beállítás csak két gyors lépés.",
+      "Irányíts bármilyen videót a böngésződben. A beállítás csak két gyors lépés.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "A telefonod mostantól távirányító",

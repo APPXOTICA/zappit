@@ -329,7 +329,7 @@
   "onboarding1Body": "Zappit एक्सटेंशन इंस्टॉल करने के लिए अपने कंप्यूटर के ब्राउज़र में {url} खोलें।",
   "onboardingShareLink": "इंस्टॉल लिंक भेजें",
   "onboarding2Title": "QR कोड स्कैन करें",
-  "onboarding2Body": "अपने ब्राउज़र टूलबार में Zappit आइकन पर क्लिक करें, फिर कैमरा QR कोड की ओर करें।",
+  "onboarding2Body": "अपने ब्राउज़र टूलबार में Zappit आइकन पर क्लिक करें, फिर QR कोड स्कैन करें। कनेक्ट होने के बाद YouTube वीडियो चलाएँ और जादू होते देखें!",
   "onboardingIconHelp": "Zappit आइकन नहीं दिख रहा?",
   "onboarding1AnimLabel": "ब्राउज़र में zappit.tv/get टाइप करना और Zappit एक्सटेंशन जोड़ना",
   "onboarding2AnimLabel": "ब्राउज़र में Zappit आइकन पर क्लिक, फिर फ़ोन से QR कोड स्कैन करना",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "अपने कंप्यूटर से कनेक्ट करें",
   "onboardingIconHelpLabel": "Zappit आइकन नहीं दिख रहा? अक्सर पूछे जाने वाले सवालों में जवाब खोलता है",
   "onboardingWelcomeTitle": "अब आपका फ़ोन ही रिमोट है",
-  "onboardingWelcomeBody": "अपने कंप्यूटर पर कोई भी वीडियो कंट्रोल करें। सेटअप में बस दो छोटे चरण लगते हैं।",
+  "onboardingWelcomeBody": "अपने ब्राउज़र में चल रहा कोई भी वीडियो कंट्रोल करें। सेटअप में बस दो छोटे चरण लगते हैं।",
   "onboardingGetStarted": "शुरू करें",
   "onboarding0AnimLabel": "Zappit ऐप में चलाएँ/रोकें बटन टैप करने पर लैपटॉप का वीडियो रुकता है और फिर चलता है"
 }

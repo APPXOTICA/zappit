@@ -329,7 +329,7 @@
   "onboarding1Body": "Ouvrez {url} dans le navigateur de votre ordinateur pour installer l’extension Zappit.",
   "onboardingShareLink": "Envoyer le lien d’installation",
   "onboarding2Title": "Scannez le code QR",
-  "onboarding2Body": "Cliquez sur l’icône Zappit dans la barre d’outils du navigateur, puis pointez l’appareil photo vers le code QR.",
+  "onboarding2Body": "Cliquez sur l’icône Zappit dans la barre d’outils du navigateur, puis scannez le code QR. Une fois connecté, lancez une vidéo YouTube et laissez-vous surprendre !",
   "onboardingIconHelp": "Vous ne voyez pas l’icône Zappit ?",
   "onboarding1AnimLabel": "Saisie de zappit.tv/get dans le navigateur et ajout de l’extension Zappit",
   "onboarding2AnimLabel": "Clic sur l’icône Zappit dans le navigateur, puis scan du code QR avec le téléphone",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "Connectez-vous à votre ordinateur",
   "onboardingIconHelpLabel": "Vous ne voyez pas l’icône Zappit ? Ouvre la réponse dans la FAQ",
   "onboardingWelcomeTitle": "Votre téléphone devient votre télécommande",
-  "onboardingWelcomeBody": "Contrôlez n’importe quelle vidéo sur votre ordinateur. La configuration se fait en deux étapes rapides.",
+  "onboardingWelcomeBody": "Contrôlez n’importe quelle vidéo dans votre navigateur. La configuration se fait en deux étapes rapides.",
   "onboardingGetStarted": "Commencer",
   "onboarding0AnimLabel": "Toucher lecture/pause dans l’app Zappit met en pause puis relance la vidéo sur l’ordinateur portable"
 }

@@ -441,7 +441,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Нажатие на значок Zappit в браузере, затем сканирование QR-кода телефоном",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "Нажмите значок Zappit на панели инструментов браузера, затем наведите камеру на QR-код.",
+      "Нажмите значок Zappit на панели инструментов браузера, затем отсканируйте QR-код. Когда подключение установится, запустите видео на YouTube и увидите волшебство!",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage(
       "Отсканируйте QR-код",
@@ -463,7 +463,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "Управляйте любым видео на компьютере. Настройка займёт всего два коротких шага.",
+      "Управляйте любым видео в браузере. Настройка займёт всего два коротких шага.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "Теперь ваш телефон — это пульт",

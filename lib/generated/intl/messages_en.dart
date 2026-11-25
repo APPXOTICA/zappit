@@ -430,7 +430,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Click the Zappit icon in the browser, then scan the QR code with the phone",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "Click the Zappit icon in your browser toolbar, then point your camera at the QR code.",
+      "Click the Zappit icon in your browser toolbar, then scan the QR code. Once connected, play a YouTube video and watch the magic happen!",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage(
       "Scan the QR code",
@@ -452,7 +452,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "Control any video on your computer. Setup takes just two quick steps.",
+      "Control any video in your browser. Setup takes just two quick steps.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "Your phone is now your remote",

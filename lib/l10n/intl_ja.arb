@@ -329,7 +329,7 @@
   "onboarding1Body": "パソコンのブラウザで {url} を開いて、Zappit 拡張機能をインストールしてください。",
   "onboardingShareLink": "インストール用リンクを送る",
   "onboarding2Title": "QR コードを読み取る",
-  "onboarding2Body": "ブラウザのツールバーにある Zappit アイコンをクリックし、カメラを QR コードに向けてください。",
+  "onboarding2Body": "ブラウザのツールバーにある Zappit アイコンをクリックし、QR コードをスキャンしてください。接続できたら YouTube の動画を再生して、魔法のような体験をご覧ください！",
   "onboardingIconHelp": "Zappit アイコンが見当たらない場合",
   "onboarding1AnimLabel": "ブラウザに zappit.tv/get と入力し、Zappit 拡張機能を追加する様子",
   "onboarding2AnimLabel": "ブラウザで Zappit アイコンをクリックし、スマホで QR コードを読み取る様子",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "パソコンに接続",
   "onboardingIconHelpLabel": "Zappit アイコンが見当たらない場合。よくある質問の回答を開きます",
   "onboardingWelcomeTitle": "スマホがリモコンになります",
-  "onboardingWelcomeBody": "パソコンのどんな動画も操作できます。設定はかんたんな 2 ステップだけ。",
+  "onboardingWelcomeBody": "ブラウザで再生中のどんな動画も操作できます。設定はかんたんな 2 ステップだけ。",
   "onboardingGetStarted": "はじめる",
   "onboarding0AnimLabel": "Zappit アプリの再生/一時停止ボタンをタップすると、ノートパソコンの動画が一時停止して再び再生される様子"
 }

@@ -329,7 +329,7 @@
   "onboarding1Body": "Öffne {url} im Browser deines Computers, um die Zappit-Erweiterung zu installieren.",
   "onboardingShareLink": "Installationslink senden",
   "onboarding2Title": "QR-Code scannen",
-  "onboarding2Body": "Klicke in der Symbolleiste deines Browsers auf das Zappit-Symbol und richte dann die Kamera auf den QR-Code.",
+  "onboarding2Body": "Klicke in der Symbolleiste deines Browsers auf das Zappit-Symbol und scanne dann den QR-Code. Sobald die Verbindung steht, spiel ein YouTube-Video ab und erlebe die Magie!",
   "onboardingIconHelp": "Zappit-Symbol nicht zu sehen?",
   "onboarding1AnimLabel": "zappit.tv/get wird im Browser eingegeben und die Zappit-Erweiterung hinzugefügt",
   "onboarding2AnimLabel": "Klick auf das Zappit-Symbol im Browser, dann wird der QR-Code mit dem Handy gescannt",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "Mit deinem Computer verbinden",
   "onboardingIconHelpLabel": "Zappit-Symbol nicht zu sehen? Öffnet die Antwort in den FAQ",
   "onboardingWelcomeTitle": "Dein Handy ist jetzt deine Fernbedienung",
-  "onboardingWelcomeBody": "Steuere jedes Video auf deinem Computer. Die Einrichtung dauert nur zwei kurze Schritte.",
+  "onboardingWelcomeBody": "Steuere jedes Video in deinem Browser. Die Einrichtung dauert nur zwei kurze Schritte.",
   "onboardingGetStarted": "Los geht’s",
   "onboarding0AnimLabel": "Ein Tippen auf Play/Pause in der Zappit-App pausiert das Video auf dem Laptop und setzt es fort"
 }

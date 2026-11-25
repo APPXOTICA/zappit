@@ -329,7 +329,7 @@
   "onboarding1Body": "Zappit uzantısını yüklemek için bilgisayarınızın tarayıcısında {url} adresini açın.",
   "onboardingShareLink": "Yükleme bağlantısını gönder",
   "onboarding2Title": "QR kodunu tarayın",
-  "onboarding2Body": "Tarayıcınızın araç çubuğundaki Zappit simgesine tıklayın, ardından kamerayı QR koduna doğrultun.",
+  "onboarding2Body": "Tarayıcınızın araç çubuğundaki Zappit simgesine tıklayın, ardından QR kodunu tarayın. Bağlandıktan sonra bir YouTube videosu oynatın ve sihrin gerçekleşmesini izleyin!",
   "onboardingIconHelp": "Zappit simgesini göremiyor musunuz?",
   "onboarding1AnimLabel": "Tarayıcıya zappit.tv/get yazılıyor ve Zappit uzantısı ekleniyor",
   "onboarding2AnimLabel": "Tarayıcıda Zappit simgesine tıklanıyor, ardından QR kodu telefonla taranıyor",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "Bilgisayarınıza bağlanın",
   "onboardingIconHelpLabel": "Zappit simgesini göremiyor musunuz? Yanıtı SSS’de açar",
   "onboardingWelcomeTitle": "Telefonunuz artık bir kumanda",
-  "onboardingWelcomeBody": "Bilgisayarınızdaki her videoyu kontrol edin. Kurulum yalnızca iki kısa adımda tamamlanır.",
+  "onboardingWelcomeBody": "Tarayıcınızdaki her videoyu kontrol edin. Kurulum yalnızca iki kısa adımda tamamlanır.",
   "onboardingGetStarted": "Başlayalım",
   "onboarding0AnimLabel": "Zappit uygulamasında oynat/duraklat düğmesine dokunmak, dizüstü bilgisayardaki videoyu duraklatıp yeniden başlatır"
 }

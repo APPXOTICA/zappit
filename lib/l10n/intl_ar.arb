@@ -329,7 +329,7 @@
   "onboarding1Body": "افتح {url} في متصفح حاسوبك لتثبيت إضافة Zappit.",
   "onboardingShareLink": "إرسال رابط التثبيت",
   "onboarding2Title": "امسح رمز QR",
-  "onboarding2Body": "انقر على أيقونة Zappit في شريط أدوات المتصفح، ثم وجّه الكاميرا نحو رمز QR.",
+  "onboarding2Body": "انقر على أيقونة Zappit في شريط أدوات المتصفح، ثم امسح رمز QR ضوئيًا. بعد الاتصال، شغّل فيديو على YouTube وشاهد السحر يحدث!",
   "onboardingIconHelp": "لا ترى أيقونة Zappit؟",
   "onboarding1AnimLabel": "كتابة zappit.tv/get في المتصفح وتثبيت إضافة Zappit",
   "onboarding2AnimLabel": "النقر على أيقونة Zappit في المتصفح، ثم مسح رمز QR بالهاتف",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "اتصل بحاسوبك",
   "onboardingIconHelpLabel": "لا ترى أيقونة Zappit؟ يفتح الإجابة في الأسئلة الشائعة",
   "onboardingWelcomeTitle": "أصبح هاتفك جهاز التحكم",
-  "onboardingWelcomeBody": "تحكّم في أي فيديو على حاسوبك. الإعداد خطوتان سريعتان فقط.",
+  "onboardingWelcomeBody": "تحكّم في أي فيديو في متصفحك. الإعداد خطوتان سريعتان فقط.",
   "onboardingGetStarted": "ابدأ",
   "onboarding0AnimLabel": "النقر على زر التشغيل/الإيقاف المؤقت في تطبيق Zappit يوقف الفيديو على الحاسوب المحمول ثم يستأنفه"
 }

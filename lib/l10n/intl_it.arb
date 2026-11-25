@@ -329,7 +329,7 @@
   "onboarding1Body": "Apri {url} nel browser del computer per installare l’estensione Zappit.",
   "onboardingShareLink": "Invia il link di installazione",
   "onboarding2Title": "Scansiona il codice QR",
-  "onboarding2Body": "Fai clic sull’icona di Zappit nella barra degli strumenti del browser, poi inquadra il codice QR con la fotocamera.",
+  "onboarding2Body": "Fai clic sull’icona di Zappit nella barra degli strumenti del browser, poi scansiona il codice QR. Una volta connesso, riproduci un video di YouTube e goditi la magia!",
   "onboardingIconHelp": "Non vedi l’icona di Zappit?",
   "onboarding1AnimLabel": "Si digita zappit.tv/get nel browser e si aggiunge l’estensione Zappit",
   "onboarding2AnimLabel": "Clic sull’icona di Zappit nel browser, poi scansione del codice QR con il telefono",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "Collegati al computer",
   "onboardingIconHelpLabel": "Non vedi l’icona di Zappit? Apre la risposta nelle domande frequenti",
   "onboardingWelcomeTitle": "Il tuo telefono ora è un telecomando",
-  "onboardingWelcomeBody": "Controlla qualsiasi video sul computer. La configurazione richiede solo due rapidi passaggi.",
+  "onboardingWelcomeBody": "Controlla qualsiasi video nel browser. La configurazione richiede solo due rapidi passaggi.",
   "onboardingGetStarted": "Inizia",
   "onboarding0AnimLabel": "Toccando play/pausa nell’app Zappit, il video sul portatile si mette in pausa e riprende"
 }

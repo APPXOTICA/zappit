@@ -329,7 +329,7 @@
   "onboarding1Body": "Otevřete {url} v prohlížeči v počítači a nainstalujte rozšíření Zappit.",
   "onboardingShareLink": "Poslat odkaz na instalaci",
   "onboarding2Title": "Naskenujte QR kód",
-  "onboarding2Body": "Klikněte na ikonu Zappit na panelu nástrojů prohlížeče a namiřte fotoaparát na QR kód.",
+  "onboarding2Body": "Klikněte na ikonu Zappit na panelu nástrojů prohlížeče a naskenujte QR kód. Po připojení spusťte video na YouTube a uvidíte, jak to funguje!",
   "onboardingIconHelp": "Nevidíte ikonu Zappit?",
   "onboarding1AnimLabel": "Zadání zappit.tv/get do prohlížeče a přidání rozšíření Zappit",
   "onboarding2AnimLabel": "Kliknutí na ikonu Zappit v prohlížeči a naskenování QR kódu telefonem",
@@ -344,7 +344,7 @@
   "obAnimConnectComputer": "Připojte se k počítači",
   "onboardingIconHelpLabel": "Nevidíte ikonu Zappit? Otevře odpověď v častých dotazech",
   "onboardingWelcomeTitle": "Z telefonu je teď ovladač",
-  "onboardingWelcomeBody": "Ovládejte jakékoli video v počítači. Nastavení zabere jen dva rychlé kroky.",
+  "onboardingWelcomeBody": "Ovládejte jakékoli video v prohlížeči. Nastavení zabere jen dva rychlé kroky.",
   "onboardingGetStarted": "Začít",
   "onboarding0AnimLabel": "Klepnutí na přehrát/pozastavit v aplikaci Zappit pozastaví a znovu spustí video v notebooku"
 }

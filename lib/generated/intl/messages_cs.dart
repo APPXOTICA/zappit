@@ -441,7 +441,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Kliknutí na ikonu Zappit v prohlížeči a naskenování QR kódu telefonem",
     ),
     "onboarding2Body": MessageLookupByLibrary.simpleMessage(
-      "Klikněte na ikonu Zappit na panelu nástrojů prohlížeče a namiřte fotoaparát na QR kód.",
+      "Klikněte na ikonu Zappit na panelu nástrojů prohlížeče a naskenujte QR kód. Po připojení spusťte video na YouTube a uvidíte, jak to funguje!",
     ),
     "onboarding2Title": MessageLookupByLibrary.simpleMessage(
       "Naskenujte QR kód",
@@ -463,7 +463,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "onboardingStepCount": m17,
     "onboardingStepLabel": m18,
     "onboardingWelcomeBody": MessageLookupByLibrary.simpleMessage(
-      "Ovládejte jakékoli video v počítači. Nastavení zabere jen dva rychlé kroky.",
+      "Ovládejte jakékoli video v prohlížeči. Nastavení zabere jen dva rychlé kroky.",
     ),
     "onboardingWelcomeTitle": MessageLookupByLibrary.simpleMessage(
       "Z telefonu je teď ovladač",
